@@ -1,0 +1,66 @@
+.figure-index {
+  display: flex;
+  flex-direction: column;
+}
+
+.figure-index-group {
+  padding: 0 28px;
+}
+
+.figure-index-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 20px 0 8px;
+}
+
+.figure-index-letter {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-chapitre);
+  color: var(--color-oxblood);
+}
+
+.figure-index-count {
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  color: var(--encre-45);
+}
+
+.figure-index-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--filet-sections);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.figure-index-row:active {
+  transform: scale(0.98);
+}
+
+.figure-index-row:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: -2px;
+}
+
+.figure-index-name {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+}
+
+.figure-index-role {
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  color: var(--color-oxblood);
+  white-space: nowrap;
+}

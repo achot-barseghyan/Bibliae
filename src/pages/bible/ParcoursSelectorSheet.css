@@ -1,0 +1,98 @@
+.parcours-selector-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: var(--taille-valeur);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0;
+}
+
+.parcours-selector-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.parcours-selector-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 4px;
+  background: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.parcours-selector-row.is-active {
+  background: var(--color-cartouche-genealogie);
+}
+
+.parcours-selector-dot {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--annot-solid-oxblood);
+}
+
+.parcours-selector-dot--or {
+  background: var(--annot-solid-or);
+}
+
+.parcours-selector-dot--olive {
+  background: var(--annot-solid-olive);
+}
+
+.parcours-selector-dot--bleu-encre {
+  background: var(--annot-solid-bleu-encre);
+}
+
+.parcours-selector-dot--sanguine {
+  background: var(--annot-solid-sanguine);
+}
+
+.parcours-selector-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+}
+
+.parcours-selector-percent {
+  flex: 0 0 auto;
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  color: var(--color-oxblood);
+}
+
+.parcours-selector-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--filet-barres);
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+  cursor: pointer;
+}

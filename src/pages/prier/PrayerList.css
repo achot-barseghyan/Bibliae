@@ -1,0 +1,88 @@
+.prayer-list-content {
+  --background: var(--color-papier);
+}
+
+.prayer-list-hero {
+  padding: 24px 24px 4px;
+}
+
+.prayer-list-title {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-chapitre);
+  color: var(--color-encre);
+  margin: 0 0 10px;
+}
+
+.prayer-list-subtitle {
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-valeur);
+  line-height: calc(1.45 * var(--a11y-leading));
+  color: var(--encre-60);
+  margin: 0;
+}
+
+.prayer-list-kicker {
+  margin: 24px 24px 4px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-max);
+  color: var(--color-oxblood);
+}
+
+.prayer-list-rows {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+}
+
+.prayer-list-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 24px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--filet-sections);
+  text-align: left;
+  cursor: pointer;
+}
+
+.prayer-list-row:active {
+  background: var(--color-papier-enfonce);
+}
+
+.prayer-list-row:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: -2px;
+}
+
+.prayer-list-row-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.prayer-list-row-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+}
+
+.prayer-list-row-reference {
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-50);
+}
+
+.prayer-list-row-chevron {
+  flex: 0 0 auto;
+  color: var(--color-oxblood);
+}

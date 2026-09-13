@@ -1,0 +1,295 @@
+.mes-lectures-content {
+  --background: var(--color-papier);
+}
+
+.mes-lectures-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 12px;
+  border-bottom: 1px solid var(--filet-barres);
+}
+
+.mes-lectures-back,
+.mes-lectures-add {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-encre);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.mes-lectures-title {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+  margin: 0;
+}
+
+.mes-lectures-body {
+  padding: 20px 20px 40px;
+}
+
+.mes-lectures-resume {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 28px;
+  background: rgba(107, 30, 35, 0.05);
+  border: 1px solid var(--color-oxblood);
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mes-lectures-resume-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.mes-lectures-resume-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+}
+
+.mes-lectures-resume-date {
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: var(--taille-cartouche);
+  color: var(--encre-45);
+}
+
+.mes-lectures-resume-ref {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-chapitre);
+  color: var(--color-encre);
+  margin: 6px 0 2px;
+}
+
+.mes-lectures-resume-sub {
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-cartouche);
+  color: var(--encre-60);
+  margin: 0;
+}
+
+.mes-lectures-section-label {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-45);
+  border-top: 1px solid var(--filet-barres);
+  padding-top: 16px;
+  margin: 0 0 10px;
+}
+
+.mes-lectures-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.mes-lectures-card {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: none;
+  border: 1px solid var(--filet-barres);
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mes-lectures-card.is-active {
+  background: var(--color-cartouche-genealogie);
+  border-color: var(--color-oxblood);
+}
+
+.mes-lectures-card--completed {
+  opacity: 0.6;
+}
+
+.mes-lectures-card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mes-lectures-card-dot {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--annot-solid-oxblood);
+}
+
+.mes-lectures-card-dot--or {
+  background: var(--annot-solid-or);
+}
+
+.mes-lectures-card-dot--olive {
+  background: var(--annot-solid-olive);
+}
+
+.mes-lectures-card-dot--bleu-encre {
+  background: var(--annot-solid-bleu-encre);
+}
+
+.mes-lectures-card-dot--sanguine {
+  background: var(--annot-solid-sanguine);
+}
+
+.mes-lectures-card-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+}
+
+.mes-lectures-card-percent {
+  flex: 0 0 auto;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-cartouche);
+  color: var(--color-oxblood);
+}
+
+.mes-lectures-card-check {
+  flex: 0 0 auto;
+  color: var(--color-or);
+}
+
+.mes-lectures-card-track {
+  height: 2px;
+  background: var(--filet-tableaux);
+  margin: 10px 0 8px;
+}
+
+.mes-lectures-card-fill {
+  display: block;
+  height: 100%;
+  background: var(--annot-solid-oxblood);
+}
+
+.mes-lectures-card-fill--or {
+  background: var(--annot-solid-or);
+}
+
+.mes-lectures-card-fill--olive {
+  background: var(--annot-solid-olive);
+}
+
+.mes-lectures-card-fill--bleu-encre {
+  background: var(--annot-solid-bleu-encre);
+}
+
+.mes-lectures-card-fill--sanguine {
+  background: var(--annot-solid-sanguine);
+}
+
+.mes-lectures-card-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-cartouche);
+  color: var(--encre-60);
+}
+
+.mes-lectures-card-badge {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+}
+
+.mes-lectures-stats {
+  padding-top: 4px;
+}
+
+.mes-lectures-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 96px;
+}
+
+.mes-lectures-chart-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+}
+
+.mes-lectures-chart-bar-track {
+  flex: 1 1 auto;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.mes-lectures-chart-bar {
+  display: block;
+  width: 100%;
+  min-height: 4px;
+  border-radius: 3px 3px 0 0;
+  background: var(--annot-solid-oxblood);
+  opacity: 0.35;
+}
+
+.mes-lectures-chart-bar--or {
+  background: var(--annot-solid-or);
+}
+
+.mes-lectures-chart-bar--olive {
+  background: var(--annot-solid-olive);
+}
+
+.mes-lectures-chart-bar--bleu-encre {
+  background: var(--annot-solid-bleu-encre);
+}
+
+.mes-lectures-chart-bar--sanguine {
+  background: var(--annot-solid-sanguine);
+}
+
+.mes-lectures-chart-bar.is-today {
+  opacity: 1;
+}
+
+.mes-lectures-chart-label {
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  color: var(--encre-45);
+}
+
+.mes-lectures-stats-line {
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: var(--taille-cartouche);
+  color: var(--encre-60);
+  margin: 12px 0 0;
+}

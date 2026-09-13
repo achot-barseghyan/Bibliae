@@ -1,0 +1,25 @@
+.scripture-ref-chip {
+  display: inline-flex;
+  align-items: baseline;
+  vertical-align: baseline;
+  margin: 0 2px;
+  padding: 2px 10px;
+  background: none;
+  border: 1px solid var(--color-oxblood);
+  border-radius: 6px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-cartouche);
+  color: var(--color-oxblood);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.scripture-ref-chip:active {
+  transform: scale(0.94);
+}
+
+.scripture-ref-chip:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}

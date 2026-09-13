@@ -1,0 +1,1496 @@
+[
+  {
+    "id": "adam",
+    "name": "Adam",
+    "originalName": "אָדָם",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Autre",
+    "epoque": "Origines",
+    "date": "4000 av. J.-C.",
+    "books": [
+      "Gn",
+      "Rm"
+    ],
+    "mentions": 29
+  },
+  {
+    "id": "eve",
+    "name": "Ève",
+    "originalName": "חַוָּה",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Origines",
+    "date": "4000 av. J.-C.",
+    "books": [
+      "Gn",
+      "2Co"
+    ],
+    "mentions": 18
+  },
+  {
+    "id": "noe",
+    "name": "Noé",
+    "originalName": "נֹחַ",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Patriarche",
+    "epoque": "Origines",
+    "date": "2400 av. J.-C.",
+    "books": [
+      "Gn",
+      "He"
+    ],
+    "mentions": 45
+  },
+  {
+    "id": "abraham",
+    "name": "Abraham",
+    "originalName": "אַבְרָהָם",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Patriarche",
+    "epoque": "Patriarches",
+    "date": "1900 av. J.-C.",
+    "books": [
+      "Gn",
+      "Rm",
+      "Ga"
+    ],
+    "mentions": 230
+  },
+  {
+    "id": "sarah",
+    "name": "Sara",
+    "originalName": "שָׂרָה",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Matriarche",
+    "epoque": "Patriarches",
+    "date": "1900 av. J.-C.",
+    "books": [
+      "Gn",
+      "He"
+    ],
+    "mentions": 56
+  },
+  {
+    "id": "hagar",
+    "name": "Agar",
+    "originalName": "הָגָר",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Patriarches",
+    "date": "1890 av. J.-C.",
+    "books": [
+      "Gn",
+      "Ga"
+    ],
+    "mentions": 15
+  },
+  {
+    "id": "lot",
+    "name": "Lot",
+    "originalName": "לוֹט",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Autre",
+    "epoque": "Patriarches",
+    "date": "1900 av. J.-C.",
+    "books": [
+      "Gn",
+      "2P"
+    ],
+    "mentions": 33
+  },
+  {
+    "id": "isaac",
+    "name": "Isaac",
+    "originalName": "יִצְחָק",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Patriarche",
+    "epoque": "Patriarches",
+    "date": "1850 av. J.-C.",
+    "books": [
+      "Gn",
+      "He"
+    ],
+    "mentions": 80
+  },
+  {
+    "id": "rebekah",
+    "name": "Rébecca",
+    "originalName": "רִבְקָה",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Matriarche",
+    "epoque": "Patriarches",
+    "date": "1850 av. J.-C.",
+    "books": [
+      "Gn",
+      "Rm"
+    ],
+    "mentions": 30
+  },
+  {
+    "id": "jacob",
+    "name": "Jacob",
+    "originalName": "יַעֲקֹב",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Patriarche",
+    "epoque": "Patriarches",
+    "date": "1800 av. J.-C.",
+    "books": [
+      "Gn",
+      "Rm"
+    ],
+    "mentions": 170
+  },
+  {
+    "id": "leah",
+    "name": "Léa",
+    "originalName": "לֵאָה",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Matriarche",
+    "epoque": "Patriarches",
+    "date": "1800 av. J.-C.",
+    "books": [
+      "Gn",
+      "Rt"
+    ],
+    "mentions": 22
+  },
+  {
+    "id": "rachel",
+    "name": "Rachel",
+    "originalName": "רָחֵל",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Matriarche",
+    "epoque": "Patriarches",
+    "date": "1790 av. J.-C.",
+    "books": [
+      "Gn",
+      "Mt"
+    ],
+    "mentions": 28
+  },
+  {
+    "id": "joseph-fils-jacob",
+    "name": "Joseph",
+    "originalName": "יוֹסֵף",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Chef",
+    "epoque": "Patriarches",
+    "date": "1750 av. J.-C.",
+    "books": [
+      "Gn",
+      "He"
+    ],
+    "mentions": 210
+  },
+  {
+    "id": "job",
+    "name": "Job",
+    "originalName": "אִיּוֹב",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Autre",
+    "epoque": "Patriarches",
+    "date": "1800 av. J.-C.",
+    "books": [
+      "Jb",
+      "Jc"
+    ],
+    "mentions": 58
+  },
+  {
+    "id": "tamar",
+    "name": "Tamar",
+    "originalName": "תָּמָר",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Patriarches",
+    "date": "1700 av. J.-C.",
+    "books": [
+      "Gn",
+      "Mt"
+    ],
+    "mentions": 9
+  },
+  {
+    "id": "moise",
+    "name": "Moïse",
+    "originalName": "מֹשֶׁה",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Exode",
+    "date": "1250 av. J.-C.",
+    "books": [
+      "Ex",
+      "Dt"
+    ],
+    "mentions": 340
+  },
+  {
+    "id": "aaron",
+    "name": "Aaron",
+    "originalName": "אַהֲרֹן",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prêtre",
+    "epoque": "Exode",
+    "date": "1250 av. J.-C.",
+    "books": [
+      "Ex",
+      "Lv",
+      "Nb"
+    ],
+    "mentions": 340
+  },
+  {
+    "id": "miriam",
+    "name": "Miriam",
+    "originalName": "מִרְיָם",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Prophétesse",
+    "epoque": "Exode",
+    "date": "1250 av. J.-C.",
+    "books": [
+      "Ex",
+      "Nb"
+    ],
+    "mentions": 14
+  },
+  {
+    "id": "zipporah",
+    "name": "Séphora",
+    "originalName": "צִפֹּרָה",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Exode",
+    "date": "1300 av. J.-C.",
+    "books": [
+      "Ex"
+    ],
+    "mentions": 6
+  },
+  {
+    "id": "joshua",
+    "name": "Josué",
+    "originalName": "יְהוֹשֻׁעַ",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Chef",
+    "epoque": "Exode",
+    "date": "1250 av. J.-C.",
+    "books": [
+      "Nb",
+      "Jos"
+    ],
+    "mentions": 218
+  },
+  {
+    "id": "caleb",
+    "name": "Caleb",
+    "originalName": "כָּלֵב",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Chef",
+    "epoque": "Exode",
+    "date": "1250 av. J.-C.",
+    "books": [
+      "Nb",
+      "Jos"
+    ],
+    "mentions": 32
+  },
+  {
+    "id": "eli",
+    "name": "Éli",
+    "originalName": "עֵלִי",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prêtre",
+    "epoque": "Juges",
+    "date": "1100 av. J.-C.",
+    "books": [
+      "1S"
+    ],
+    "mentions": 34
+  },
+  {
+    "id": "hannah",
+    "name": "Anne",
+    "originalName": "חַנָּה",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Juges",
+    "date": "1080 av. J.-C.",
+    "books": [
+      "1S"
+    ],
+    "mentions": 13
+  },
+  {
+    "id": "gideon",
+    "name": "Gédéon",
+    "originalName": "גִּדְעוֹן",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Juge",
+    "epoque": "Juges",
+    "date": "1150 av. J.-C.",
+    "books": [
+      "Jg"
+    ],
+    "mentions": 39
+  },
+  {
+    "id": "deborah",
+    "name": "Débora",
+    "originalName": "דְּבוֹרָה",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Juge",
+    "epoque": "Juges",
+    "date": "1150 av. J.-C.",
+    "books": [
+      "Jg"
+    ],
+    "mentions": 20
+  },
+  {
+    "id": "samson",
+    "name": "Samson",
+    "originalName": "שִׁמְשׁוֹן",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Juge",
+    "epoque": "Juges",
+    "date": "1100 av. J.-C.",
+    "books": [
+      "Jg",
+      "He"
+    ],
+    "mentions": 38
+  },
+  {
+    "id": "delilah",
+    "name": "Dalila",
+    "originalName": "דְּלִילָה",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Juges",
+    "date": "1100 av. J.-C.",
+    "books": [
+      "Jg"
+    ],
+    "mentions": 10
+  },
+  {
+    "id": "achsah",
+    "name": "Aksa",
+    "originalName": "עַכְסָה",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Juges",
+    "date": "1200 av. J.-C.",
+    "books": [
+      "Jos",
+      "Jg"
+    ],
+    "mentions": 4
+  },
+  {
+    "id": "ruth",
+    "name": "Ruth",
+    "originalName": "רוּת",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Matriarche",
+    "epoque": "Juges",
+    "date": "1100 av. J.-C.",
+    "books": [
+      "Rt",
+      "Mt"
+    ],
+    "mentions": 12
+  },
+  {
+    "id": "naomi",
+    "name": "Noémi",
+    "originalName": "נָעֳמִי",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Juges",
+    "date": "1100 av. J.-C.",
+    "books": [
+      "Rt"
+    ],
+    "mentions": 21
+  },
+  {
+    "id": "boaz",
+    "name": "Booz",
+    "originalName": "בֹּעַז",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Autre",
+    "epoque": "Juges",
+    "date": "1100 av. J.-C.",
+    "books": [
+      "Rt",
+      "Mt"
+    ],
+    "mentions": 24
+  },
+  {
+    "id": "rahab",
+    "name": "Rahab",
+    "originalName": "רָחָב",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Juges",
+    "date": "1250 av. J.-C.",
+    "books": [
+      "Jos",
+      "He"
+    ],
+    "mentions": 11
+  },
+  {
+    "id": "samuel",
+    "name": "Samuel",
+    "originalName": "שְׁמוּאֵל",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Royaume",
+    "date": "1050 av. J.-C.",
+    "books": [
+      "1S"
+    ],
+    "mentions": 140
+  },
+  {
+    "id": "saul",
+    "name": "Saül",
+    "originalName": "שָׁאוּל",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Roi",
+    "epoque": "Royaume",
+    "date": "1050 av. J.-C.",
+    "books": [
+      "1S"
+    ],
+    "mentions": 400
+  },
+  {
+    "id": "jonathan",
+    "name": "Jonathan",
+    "originalName": "יְהוֹנָתָן",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Chef",
+    "epoque": "Royaume",
+    "date": "1010 av. J.-C.",
+    "books": [
+      "1S",
+      "2S"
+    ],
+    "mentions": 41
+  },
+  {
+    "id": "abigail",
+    "name": "Abigaïl",
+    "originalName": "אֲבִיגַיִל",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Royaume",
+    "date": "1000 av. J.-C.",
+    "books": [
+      "1S",
+      "2S"
+    ],
+    "mentions": 17
+  },
+  {
+    "id": "david",
+    "name": "David",
+    "originalName": "דָּוִד",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Roi",
+    "epoque": "Royaume",
+    "date": "1000 av. J.-C.",
+    "books": [
+      "1S",
+      "2S",
+      "Ps"
+    ],
+    "mentions": 1000
+  },
+  {
+    "id": "bathsheba",
+    "name": "Bethsabée",
+    "originalName": "בַּת־שֶׁבַע",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Reine",
+    "epoque": "Royaume",
+    "date": "1000 av. J.-C.",
+    "books": [
+      "2S",
+      "1R"
+    ],
+    "mentions": 17
+  },
+  {
+    "id": "solomon",
+    "name": "Salomon",
+    "originalName": "שְׁלֹמֹה",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Roi",
+    "epoque": "Royaume",
+    "date": "970 av. J.-C.",
+    "books": [
+      "1R",
+      "Pr",
+      "Ct"
+    ],
+    "mentions": 293
+  },
+  {
+    "id": "jehoshaphat",
+    "name": "Josaphat",
+    "originalName": "יְהוֹשָׁפָט",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Roi",
+    "epoque": "Royaume",
+    "date": "870 av. J.-C.",
+    "books": [
+      "1R",
+      "2Ch"
+    ],
+    "mentions": 84
+  },
+  {
+    "id": "hezekiah",
+    "name": "Ézéchias",
+    "originalName": "חִזְקִיָּהוּ",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Roi",
+    "epoque": "Royaume",
+    "date": "715 av. J.-C.",
+    "books": [
+      "2R",
+      "Es"
+    ],
+    "mentions": 130
+  },
+  {
+    "id": "josiah",
+    "name": "Josias",
+    "originalName": "יֹאשִׁיָּהוּ",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Roi",
+    "epoque": "Royaume",
+    "date": "640 av. J.-C.",
+    "books": [
+      "2R",
+      "2Ch"
+    ],
+    "mentions": 52
+  },
+  {
+    "id": "elijah",
+    "name": "Élie",
+    "originalName": "אֵלִיָּהוּ",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Prophètes",
+    "date": "870 av. J.-C.",
+    "books": [
+      "1R",
+      "2R"
+    ],
+    "mentions": 105
+  },
+  {
+    "id": "elisha",
+    "name": "Élisée",
+    "originalName": "אֱלִישָׁע",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Prophètes",
+    "date": "850 av. J.-C.",
+    "books": [
+      "2R"
+    ],
+    "mentions": 58
+  },
+  {
+    "id": "shunammite",
+    "name": "La Sunamite",
+    "originalName": "הַשּׁוּנַמִּית",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Prophètes",
+    "date": "850 av. J.-C.",
+    "books": [
+      "2R"
+    ],
+    "mentions": 8
+  },
+  {
+    "id": "jonah",
+    "name": "Jonas",
+    "originalName": "יוֹנָה",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Prophètes",
+    "date": "780 av. J.-C.",
+    "books": [
+      "Jon"
+    ],
+    "mentions": 19
+  },
+  {
+    "id": "amos",
+    "name": "Amos",
+    "originalName": "עָמוֹס",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Prophètes",
+    "date": "760 av. J.-C.",
+    "books": [
+      "Am"
+    ],
+    "mentions": 8
+  },
+  {
+    "id": "hosea",
+    "name": "Osée",
+    "originalName": "הוֹשֵׁעַ",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Prophètes",
+    "date": "750 av. J.-C.",
+    "books": [
+      "Os"
+    ],
+    "mentions": 6
+  },
+  {
+    "id": "isaiah",
+    "name": "Ésaïe",
+    "originalName": "יְשַׁעְיָהוּ",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Prophètes",
+    "date": "740 av. J.-C.",
+    "books": [
+      "Es",
+      "2R"
+    ],
+    "mentions": 60
+  },
+  {
+    "id": "huldah",
+    "name": "Houlda",
+    "originalName": "חֻלְדָּה",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Prophétesse",
+    "epoque": "Prophètes",
+    "date": "640 av. J.-C.",
+    "books": [
+      "2R",
+      "2Ch"
+    ],
+    "mentions": 5
+  },
+  {
+    "id": "jeremiah",
+    "name": "Jérémie",
+    "originalName": "יִרְמְיָהוּ",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Prophètes",
+    "date": "627 av. J.-C.",
+    "books": [
+      "Jr",
+      "Lm"
+    ],
+    "mentions": 147
+  },
+  {
+    "id": "nebuchadnezzar",
+    "name": "Nabuchodonosor",
+    "originalName": "נְבוּכַדְנֶאצַּר",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Roi",
+    "epoque": "Exil et retour",
+    "date": "605 av. J.-C.",
+    "books": [
+      "2R",
+      "Dn"
+    ],
+    "mentions": 91
+  },
+  {
+    "id": "daniel",
+    "name": "Daniel",
+    "originalName": "דָּנִיֵּאל",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Exil et retour",
+    "date": "605 av. J.-C.",
+    "books": [
+      "Dn"
+    ],
+    "mentions": 74
+  },
+  {
+    "id": "ezekiel",
+    "name": "Ézéchiel",
+    "originalName": "יְחֶזְקֵאל",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Exil et retour",
+    "date": "593 av. J.-C.",
+    "books": [
+      "Ez"
+    ],
+    "mentions": 30
+  },
+  {
+    "id": "cyrus",
+    "name": "Cyrus le Grand",
+    "originalName": "כּוֹרֶשׁ",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Roi",
+    "epoque": "Exil et retour",
+    "date": "539 av. J.-C.",
+    "books": [
+      "Esd",
+      "Es"
+    ],
+    "mentions": 23
+  },
+  {
+    "id": "zechariah",
+    "name": "Zacharie",
+    "originalName": "זְכַרְיָה",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Exil et retour",
+    "date": "520 av. J.-C.",
+    "books": [
+      "Za"
+    ],
+    "mentions": 13
+  },
+  {
+    "id": "vashti",
+    "name": "Vasthi",
+    "originalName": "וַשְׁתִּי",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Reine",
+    "epoque": "Exil et retour",
+    "date": "483 av. J.-C.",
+    "books": [
+      "Est"
+    ],
+    "mentions": 9
+  },
+  {
+    "id": "esther",
+    "name": "Esther",
+    "originalName": "אֶסְתֵּר",
+    "testament": "ancien",
+    "genre": "femme",
+    "role": "Reine",
+    "epoque": "Exil et retour",
+    "date": "479 av. J.-C.",
+    "books": [
+      "Est"
+    ],
+    "mentions": 55
+  },
+  {
+    "id": "nehemiah",
+    "name": "Néhémie",
+    "originalName": "נְחֶמְיָה",
+    "testament": "ancien",
+    "genre": "homme",
+    "role": "Gouverneur",
+    "epoque": "Exil et retour",
+    "date": "445 av. J.-C.",
+    "books": [
+      "Ne"
+    ],
+    "mentions": 46
+  },
+  {
+    "id": "jesus",
+    "name": "Jésus-Christ",
+    "originalName": "Ἰησοῦς",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Autre",
+    "epoque": "Évangiles",
+    "date": "Ier siècle apr. J.-C.",
+    "books": [
+      "Mt",
+      "Mc",
+      "Lc",
+      "Jn"
+    ],
+    "mentions": 1200
+  },
+  {
+    "id": "mary",
+    "name": "Marie",
+    "originalName": "Μαρία",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Évangiles",
+    "date": "Ier siècle av. J.-C.",
+    "books": [
+      "Lc",
+      "Jn"
+    ],
+    "mentions": 51
+  },
+  {
+    "id": "joseph-epoux-marie",
+    "name": "Joseph (époux de Marie)",
+    "originalName": "Ἰωσήφ",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Autre",
+    "epoque": "Évangiles",
+    "date": "Ier siècle av. J.-C.",
+    "books": [
+      "Mt",
+      "Lc"
+    ],
+    "mentions": 15
+  },
+  {
+    "id": "elizabeth",
+    "name": "Élisabeth",
+    "originalName": "Ἐλισάβετ",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Évangiles",
+    "date": "Ier siècle av. J.-C.",
+    "books": [
+      "Lc"
+    ],
+    "mentions": 9
+  },
+  {
+    "id": "jean-baptiste",
+    "name": "Jean-Baptiste",
+    "originalName": "Ἰωάννης",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Prophète",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Mt",
+      "Lc"
+    ],
+    "mentions": 93
+  },
+  {
+    "id": "anne-prophetesse",
+    "name": "Anne la prophétesse",
+    "originalName": "Ἄννα",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Prophétesse",
+    "epoque": "Évangiles",
+    "date": "Ier siècle av. J.-C.",
+    "books": [
+      "Lc"
+    ],
+    "mentions": 3
+  },
+  {
+    "id": "andre",
+    "name": "André",
+    "originalName": "Ἀνδρέας",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Mt",
+      "Jn"
+    ],
+    "mentions": 13
+  },
+  {
+    "id": "pierre",
+    "name": "Pierre",
+    "originalName": "Πέτρος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Mt",
+      "Ac"
+    ],
+    "mentions": 195
+  },
+  {
+    "id": "jacques-zebedee",
+    "name": "Jacques (fils de Zébédée)",
+    "originalName": "Ἰάκωβος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Mt",
+      "Ac"
+    ],
+    "mentions": 42
+  },
+  {
+    "id": "jean-apotre",
+    "name": "Jean",
+    "originalName": "Ἰωάννης",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Jn",
+      "Ap"
+    ],
+    "mentions": 137
+  },
+  {
+    "id": "philippe",
+    "name": "Philippe",
+    "originalName": "Φίλιππος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Jn"
+    ],
+    "mentions": 15
+  },
+  {
+    "id": "barthelemy",
+    "name": "Barthélemy (Nathanaël)",
+    "originalName": "Βαρθολομαῖος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Jn"
+    ],
+    "mentions": 5
+  },
+  {
+    "id": "matthieu",
+    "name": "Matthieu (Lévi)",
+    "originalName": "Μαθθαῖος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Évangéliste",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Mt"
+    ],
+    "mentions": 9
+  },
+  {
+    "id": "thomas",
+    "name": "Thomas (Didyme)",
+    "originalName": "Θωμᾶς",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Jn"
+    ],
+    "mentions": 10
+  },
+  {
+    "id": "jacques-alphee",
+    "name": "Jacques (fils d'Alphée)",
+    "originalName": "Ἰάκωβος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Mt"
+    ],
+    "mentions": 4
+  },
+  {
+    "id": "thaddee",
+    "name": "Thaddée (Jude, fils de Jacques)",
+    "originalName": "Θαδδαῖος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Mt",
+      "Lc"
+    ],
+    "mentions": 3
+  },
+  {
+    "id": "simon-zelote",
+    "name": "Simon le Zélote",
+    "originalName": "Σίμων",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Mt",
+      "Lc"
+    ],
+    "mentions": 4
+  },
+  {
+    "id": "nicodeme",
+    "name": "Nicodème",
+    "originalName": "Νικόδημος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Disciple",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Jn"
+    ],
+    "mentions": 5
+  },
+  {
+    "id": "lazare",
+    "name": "Lazare",
+    "originalName": "Λάζαρος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Disciple",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Jn"
+    ],
+    "mentions": 11
+  },
+  {
+    "id": "marthe",
+    "name": "Marthe",
+    "originalName": "Μάρθα",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Disciple",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Lc",
+      "Jn"
+    ],
+    "mentions": 13
+  },
+  {
+    "id": "marie-bethanie",
+    "name": "Marie de Béthanie",
+    "originalName": "Μαρία",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Disciple",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Lc",
+      "Jn"
+    ],
+    "mentions": 8
+  },
+  {
+    "id": "marie-madeleine",
+    "name": "Marie-Madeleine",
+    "originalName": "Μαρία ἡ Μαγδαληνή",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Disciple",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Lc",
+      "Jn"
+    ],
+    "mentions": 14
+  },
+  {
+    "id": "zachee",
+    "name": "Zachée",
+    "originalName": "Ζακχαῖος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Disciple",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Lc"
+    ],
+    "mentions": 4
+  },
+  {
+    "id": "jeanne",
+    "name": "Jeanne",
+    "originalName": "Ἰωάννα",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Disciple",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Lc"
+    ],
+    "mentions": 2
+  },
+  {
+    "id": "salome",
+    "name": "Salomé",
+    "originalName": "Σαλώμη",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Disciple",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Mc"
+    ],
+    "mentions": 3
+  },
+  {
+    "id": "susanna",
+    "name": "Suzanne",
+    "originalName": "Σουσάννα",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Disciple",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Lc"
+    ],
+    "mentions": 1
+  },
+  {
+    "id": "photini",
+    "name": "Photine (la Samaritaine)",
+    "originalName": "Φωτεινή",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Disciple",
+    "epoque": "Évangiles",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Jn"
+    ],
+    "mentions": 1
+  },
+  {
+    "id": "paul",
+    "name": "Paul (Saul de Tarse)",
+    "originalName": "Παῦλος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Église primitive",
+    "date": "45 apr. J.-C.",
+    "books": [
+      "Ac",
+      "Rm",
+      "Ga"
+    ],
+    "mentions": 235
+  },
+  {
+    "id": "etienne",
+    "name": "Étienne",
+    "originalName": "Στέφανος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Disciple",
+    "epoque": "Église primitive",
+    "date": "35 apr. J.-C.",
+    "books": [
+      "Ac"
+    ],
+    "mentions": 7
+  },
+  {
+    "id": "matthias",
+    "name": "Matthias",
+    "originalName": "Μαθθίας",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Apôtre",
+    "epoque": "Église primitive",
+    "date": "30 apr. J.-C.",
+    "books": [
+      "Ac"
+    ],
+    "mentions": 2
+  },
+  {
+    "id": "barnabas",
+    "name": "Barnabas",
+    "originalName": "Βαρναβᾶς",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Missionnaire",
+    "epoque": "Église primitive",
+    "date": "45 apr. J.-C.",
+    "books": [
+      "Ac"
+    ],
+    "mentions": 23
+  },
+  {
+    "id": "silas",
+    "name": "Silas",
+    "originalName": "Σίλας",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Missionnaire",
+    "epoque": "Église primitive",
+    "date": "50 apr. J.-C.",
+    "books": [
+      "Ac",
+      "1Th"
+    ],
+    "mentions": 13
+  },
+  {
+    "id": "timothee",
+    "name": "Timothée",
+    "originalName": "Τιμόθεος",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Missionnaire",
+    "epoque": "Église primitive",
+    "date": "50 apr. J.-C.",
+    "books": [
+      "Ac",
+      "1Tm"
+    ],
+    "mentions": 24
+  },
+  {
+    "id": "luc",
+    "name": "Luc",
+    "originalName": "Λουκᾶς",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Évangéliste",
+    "epoque": "Église primitive",
+    "date": "60 apr. J.-C.",
+    "books": [
+      "Lc",
+      "Ac"
+    ],
+    "mentions": 3
+  },
+  {
+    "id": "apollos",
+    "name": "Apollos",
+    "originalName": "Ἀπολλώς",
+    "testament": "nouveau",
+    "genre": "homme",
+    "role": "Évangéliste",
+    "epoque": "Église primitive",
+    "date": "54 apr. J.-C.",
+    "books": [
+      "Ac",
+      "1Co"
+    ],
+    "mentions": 10
+  },
+  {
+    "id": "priscille",
+    "name": "Priscille",
+    "originalName": "Πρίσκιλλα",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Missionnaire",
+    "epoque": "Église primitive",
+    "date": "50 apr. J.-C.",
+    "books": [
+      "Ac",
+      "Rm"
+    ],
+    "mentions": 6
+  },
+  {
+    "id": "lydie",
+    "name": "Lydie",
+    "originalName": "Λυδία",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Église primitive",
+    "date": "50 apr. J.-C.",
+    "books": [
+      "Ac"
+    ],
+    "mentions": 2
+  },
+  {
+    "id": "phoebe",
+    "name": "Phoebé",
+    "originalName": "Φοίβη",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Missionnaire",
+    "epoque": "Église primitive",
+    "date": "55 apr. J.-C.",
+    "books": [
+      "Rm"
+    ],
+    "mentions": 2
+  },
+  {
+    "id": "damaris",
+    "name": "Damaris",
+    "originalName": "Δάμαρις",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Église primitive",
+    "date": "51 apr. J.-C.",
+    "books": [
+      "Ac"
+    ],
+    "mentions": 1
+  },
+  {
+    "id": "eunice",
+    "name": "Eunice",
+    "originalName": "Εὐνίκη",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Église primitive",
+    "date": "50 apr. J.-C.",
+    "books": [
+      "Ac",
+      "2Tm"
+    ],
+    "mentions": 1
+  },
+  {
+    "id": "nympha",
+    "name": "Nympha",
+    "originalName": "Νύμφα",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Église primitive",
+    "date": "60 apr. J.-C.",
+    "books": [
+      "Col"
+    ],
+    "mentions": 1
+  },
+  {
+    "id": "rhode",
+    "name": "Rhode",
+    "originalName": "Ῥόδη",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Autre",
+    "epoque": "Église primitive",
+    "date": "44 apr. J.-C.",
+    "books": [
+      "Ac"
+    ],
+    "mentions": 1
+  },
+  {
+    "id": "tabitha",
+    "name": "Tabitha (Dorcas)",
+    "originalName": "Ταβιθά",
+    "testament": "nouveau",
+    "genre": "femme",
+    "role": "Disciple",
+    "epoque": "Église primitive",
+    "date": "35 apr. J.-C.",
+    "books": [
+      "Ac"
+    ],
+    "mentions": 3
+  }
+]

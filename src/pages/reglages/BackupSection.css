@@ -1,0 +1,86 @@
+.backup-section {
+  padding: 20px 28px 32px;
+}
+
+.backup-section-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+  margin: 0 0 10px;
+}
+
+.backup-section-description {
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+.backup-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  margin-bottom: 16px;
+}
+
+.backup-banner--success {
+  background: var(--color-cartouche-genealogie);
+  color: var(--color-encre);
+  border: 1px solid var(--filet-barres);
+}
+
+.backup-banner--error {
+  background: var(--color-papier);
+  color: var(--color-oxblood);
+  border: 1px solid var(--color-oxblood);
+}
+
+.backup-banner button {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.backup-button {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-papier);
+  background: var(--color-oxblood);
+  border: 1px solid var(--color-oxblood);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  margin-bottom: 12px;
+}
+
+.backup-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.backup-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.backup-button--secondary {
+  color: var(--color-oxblood);
+  background: none;
+}

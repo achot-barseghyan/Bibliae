@@ -1,0 +1,38 @@
+/* Bibliae est pensée pour un écran de téléphone : sur un écran large
+   (navigateur desktop, tablette posée à plat), on la présente dans un
+   cadre centré à largeur de téléphone plutôt que d'étirer une mise en
+   page mobile sur toute la largeur — ce qui rendrait le texte illisible
+   et les rangées de boutons absurdement espacées.
+
+   .app-shell est en `position: fixed` avec des repères posés
+   directement sur le viewport (top/bottom/left/right), plutôt qu'une
+   largeur/hauteur en pourcentage : #root et ion-app n'ayant pas de
+   hauteur explicite, une hauteur en % ne pourrait pas se résoudre et
+   la boîte s'effondrerait à 0px (c'est le bug qu'on a eu). Fixer
+   directement les bords, avec des marges automatiques gauche/droite,
+   centre le cadre sans dépendre de la hauteur d'aucun ancêtre.
+
+   Le `transform` fait de cette boîte le "containing block" de tous
+   les éléments en `position: fixed` de l'app (feuilles, recherches,
+   panneaux...) : ils se calent alors sur le cadre plutôt que sur toute
+   la fenêtre du navigateur. Rien ne change en dessous du seuil —
+   l'expérience mobile est strictement identique à avant. */
+
+@media (min-width: 700px) {
+  body {
+    background: var(--color-hors-appareil);
+  }
+
+  .app-shell {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    transform: translateZ(0);
+    overflow: hidden;
+    box-shadow: 0 0 0 1px var(--filet-barres), 0 24px 64px rgba(35, 32, 26, 0.28);
+  }
+}

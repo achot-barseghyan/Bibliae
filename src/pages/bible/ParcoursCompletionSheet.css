@@ -1,0 +1,69 @@
+.parcours-completion-kicker {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: var(--taille-cartouche);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-or);
+  margin: 0;
+}
+
+.parcours-completion-name {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-chapitre);
+  color: var(--color-encre);
+  margin: 0 0 20px;
+}
+
+.parcours-completion-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 24px;
+}
+
+.parcours-completion-stat {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--filet-tableaux);
+  padding-bottom: 8px;
+}
+
+.parcours-completion-stat dt {
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  color: var(--encre-60);
+}
+
+.parcours-completion-stat dd {
+  margin: 0;
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+}
+
+.parcours-completion-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.parcours-completion-button {
+  min-height: 48px;
+  background: none;
+  border: 1px solid var(--color-oxblood);
+  border-radius: 8px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+  cursor: pointer;
+}
+
+.parcours-completion-button--primary {
+  background: var(--color-oxblood);
+  color: var(--color-papier);
+}

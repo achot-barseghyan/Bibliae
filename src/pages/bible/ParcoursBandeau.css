@@ -1,0 +1,70 @@
+.parcours-bandeau {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 20px;
+  background: var(--bible-border-soft);
+  border: none;
+  border-bottom: 1px solid var(--bible-border);
+  cursor: pointer;
+  text-align: left;
+}
+
+.parcours-bandeau-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--annot-solid-oxblood);
+}
+
+.parcours-bandeau-dot--or {
+  background: var(--annot-solid-or);
+}
+
+.parcours-bandeau-dot--olive {
+  background: var(--annot-solid-olive);
+}
+
+.parcours-bandeau-dot--bleu-encre {
+  background: var(--annot-solid-bleu-encre);
+}
+
+.parcours-bandeau-dot--sanguine {
+  background: var(--annot-solid-sanguine);
+}
+
+.parcours-bandeau-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.parcours-bandeau-label {
+  flex: 0 0 auto;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--bible-faint);
+}
+
+.parcours-bandeau-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--bible-font);
+  font-size: var(--taille-cartouche);
+  color: var(--bible-text);
+}
+
+.parcours-bandeau-chevron {
+  flex: 0 0 auto;
+  color: var(--bible-faint);
+}

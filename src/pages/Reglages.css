@@ -1,0 +1,37 @@
+.reglages-content {
+  --background: var(--color-papier);
+}
+
+.reglages-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 20px) 28px 8px;
+}
+
+.reglages-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-nom-figure);
+  color: var(--color-encre);
+  margin: 0;
+}
+
+.reglages-world-button {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-papier);
+  background: var(--color-oxblood);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.reglages-world-button:active {
+  transform: scale(0.92);
+}

@@ -1,0 +1,286 @@
+.bible-book-content {
+  --background: var(--bible-bg);
+}
+
+.bible-book-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 20px 4px;
+}
+
+.bible-book-title {
+  font-family: var(--bible-font);
+  font-weight: 400;
+  font-size: var(--taille-nom-figure);
+  color: var(--bible-text);
+  margin: 0 0 6px;
+}
+
+.bible-book-subtitle {
+  font-family: var(--bible-font);
+  font-size: var(--taille-valeur);
+  color: var(--bible-muted);
+  margin: 0;
+}
+
+.bible-book-badge {
+  flex: 0 0 auto;
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  color: var(--bible-faint);
+  padding-top: 4px;
+}
+
+.bible-book-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px 20px;
+}
+
+.bible-book-progress-track {
+  flex: 1 1 auto;
+  height: 2px;
+  background: var(--bible-border);
+}
+
+.bible-book-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--annot-solid-oxblood);
+}
+
+.bible-book-progress-fill--or {
+  background: var(--annot-solid-or);
+}
+
+.bible-book-progress-fill--olive {
+  background: var(--annot-solid-olive);
+}
+
+.bible-book-progress-fill--bleu-encre {
+  background: var(--annot-solid-bleu-encre);
+}
+
+.bible-book-progress-fill--sanguine {
+  background: var(--annot-solid-sanguine);
+}
+
+.bible-book-progress-count {
+  flex: 0 0 auto;
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  color: var(--bible-faint);
+}
+
+.bible-chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border-top: 1px solid var(--bible-border-soft);
+  border-left: 1px solid var(--bible-border-soft);
+  margin: 0 20px;
+}
+
+.bible-chapter-cell {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  background: var(--bible-bg);
+  border: none;
+  border-right: 1px solid var(--bible-border-soft);
+  border-bottom: 1px solid var(--bible-border-soft);
+  font-family: var(--bible-font);
+  font-weight: 400;
+  font-size: var(--taille-valeur);
+  color: var(--bible-accent);
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.bible-chapter-cell--empty {
+  background: var(--bible-empty-cell);
+  cursor: default;
+}
+
+.bible-chapter-cell:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: -2px;
+}
+
+/* --- Lu dans le parcours actif --- */
+.bible-chapter-cell.is-read {
+  background: var(--parcours-oxblood);
+  color: var(--color-encre);
+  font-weight: 500;
+}
+
+.bible-chapter-cell.is-read--or {
+  background: var(--parcours-or);
+}
+
+.bible-chapter-cell.is-read--olive {
+  background: var(--parcours-olive);
+}
+
+.bible-chapter-cell.is-read--bleu-encre {
+  background: var(--parcours-bleu-encre);
+}
+
+.bible-chapter-cell.is-read--sanguine {
+  background: var(--parcours-sanguine);
+}
+
+/* --- En cours (position de lecture courante du parcours actif) --- */
+.bible-chapter-cell.is-in-progress {
+  background: var(--bible-bg);
+  box-shadow: inset 0 0 0 2px var(--color-oxblood);
+  color: var(--color-oxblood);
+  font-weight: 600;
+}
+
+.bible-chapter-cell.is-in-progress::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 2px;
+  background: var(--color-or);
+}
+
+/* --- Lu dans un autre parcours : coin coupé --- */
+.bible-chapter-cell.has-other::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 7px 0 0;
+  border-color: var(--annot-solid-oxblood) transparent transparent transparent;
+}
+
+.bible-chapter-cell.has-other--or::before {
+  border-top-color: var(--annot-solid-or);
+}
+
+.bible-chapter-cell.has-other--olive::before {
+  border-top-color: var(--annot-solid-olive);
+}
+
+.bible-chapter-cell.has-other--bleu-encre::before {
+  border-top-color: var(--annot-solid-bleu-encre);
+}
+
+.bible-chapter-cell.has-other--sanguine::before {
+  border-top-color: var(--annot-solid-sanguine);
+}
+
+/* --- Annotation ou note présente sur ce chapitre --- */
+.bible-chapter-cell-note {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-oxblood);
+}
+
+/* --- Légende --- */
+.bible-book-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 20px 20px 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--bible-border-soft);
+}
+
+.bible-book-legend-row {
+  display: flex;
+  gap: 24px;
+}
+
+.bible-book-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  color: var(--bible-muted);
+}
+
+.bible-book-legend-swatch {
+  flex: 0 0 auto;
+  position: relative;
+  width: 14px;
+  height: 14px;
+  background: var(--bible-bg);
+  box-shadow: inset 0 0 0 1px var(--bible-border);
+}
+
+.bible-book-legend-swatch--read {
+  background: var(--parcours-oxblood);
+  box-shadow: none;
+}
+
+.bible-book-legend-swatch--read-or {
+  background: var(--parcours-or);
+}
+
+.bible-book-legend-swatch--read-olive {
+  background: var(--parcours-olive);
+}
+
+.bible-book-legend-swatch--read-bleu-encre {
+  background: var(--parcours-bleu-encre);
+}
+
+.bible-book-legend-swatch--read-sanguine {
+  background: var(--parcours-sanguine);
+}
+
+.bible-book-legend-swatch--progress {
+  box-shadow: inset 0 0 0 2px var(--color-oxblood);
+}
+
+.bible-book-legend-swatch--other::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 6px 0 0;
+  border-color: var(--annot-solid-oxblood) transparent transparent transparent;
+}
+
+.bible-book-legend-swatch--note::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-oxblood);
+}
+
+.bible-book-hint {
+  margin: 12px 20px 20px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: var(--taille-cartouche);
+  color: var(--bible-faint);
+}

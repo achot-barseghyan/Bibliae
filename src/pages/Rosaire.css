@@ -1,0 +1,213 @@
+.rosaire-content {
+  --background: var(--color-rosaire);
+}
+
+.rosaire-header {
+  display: flex;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 0;
+}
+
+.rosaire-close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-oxblood);
+  border: none;
+  color: var(--color-papier);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.rosaire-close:active {
+  transform: scale(0.94);
+}
+
+.rosaire-close:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.rosaire-layout {
+  display: flex;
+  align-items: stretch;
+  min-height: calc(100% - 68px);
+  padding: 8px 0 24px;
+}
+
+.rosaire-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  /* la marge de droite laisse la place au rail de grains, qui est en
+     position fixe et ne fait plus partie de ce flux */
+  padding: 12px 120px 24px 28px;
+}
+
+.rosaire-mystery-set {
+  align-self: flex-start;
+  max-width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 0 6px;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+}
+
+.rosaire-mystery-set:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.rosaire-mystery-title {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--color-oxblood);
+  margin: 0 0 18px;
+}
+
+.rosaire-prayer-name {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-chapitre);
+  color: var(--color-encre);
+  margin: 0 0 24px;
+}
+
+.rosaire-prayer-text {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-valeur);
+  letter-spacing: var(--tracking-min);
+  line-height: calc(1.9 * var(--a11y-leading));
+  color: var(--color-encre);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.rosaire-progress {
+  margin-top: auto;
+  padding-top: 24px;
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--encre-45);
+}
+
+.rosaire-rail {
+  /* fixe et centré sur l'écran : ne bouge jamais, quelle que soit la
+     hauteur du texte de prière affiché à côté */
+  position: fixed;
+  top: 0;
+  right: 6px;
+  width: 110px;
+  height: 100vh;
+  height: 100dvh;
+  /* zone dédiée au glissement pour avancer/reculer dans le chapelet */
+  touch-action: none;
+}
+
+.rosaire-thread {
+  position: absolute;
+  height: 1.5px;
+  background: #a9884f;
+  transform-origin: center;
+  pointer-events: none;
+  transition: top 0.22s ease, left 0.22s ease, width 0.22s ease,
+    transform 0.22s ease, opacity 0.22s ease;
+}
+
+.rosaire-bead {
+  position: absolute;
+  pointer-events: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: top 0.22s ease, left 0.22s ease, opacity 0.22s ease;
+}
+
+.rosaire-bead img {
+  display: block;
+  /* Ionic's normalize.css sets a global `img { max-width: 100% }` which,
+     inside this absolutely positioned/shrink-to-fit button, was silently
+     capping the crucifix's width below its intended size. */
+  max-width: none;
+  border-radius: 50%;
+  object-fit: contain;
+  transition: width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.rosaire-bead.is-current img {
+  box-shadow: 0 0 0 3px var(--color-or);
+}
+
+/* Le dessin du crucifix est déjà penché en diagonale dans son image ;
+   pas de recadrage circulaire ni de rotation supplémentaire ici. */
+.rosaire-bead--crucifix img {
+  border-radius: 0;
+}
+
+.rosaire-bead--crucifix.is-current img {
+  box-shadow: none;
+  filter: drop-shadow(0 0 4px var(--color-or)) drop-shadow(0 0 4px var(--color-or));
+}
+
+.rosaire-bead:active {
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+.rosaire-bead:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.rosaire-pager {
+  position: fixed;
+  z-index: 2;
+  right: 16px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rosaire-pager-button {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-papier);
+  border: 1px solid var(--filet-barres);
+  border-radius: 50%;
+  color: var(--color-encre);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(35, 32, 26, 0.12);
+}
+
+.rosaire-pager-button:disabled {
+  color: var(--encre-45);
+  cursor: default;
+  box-shadow: none;
+}
+
+.rosaire-pager-button:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}

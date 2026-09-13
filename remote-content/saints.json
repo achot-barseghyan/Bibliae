@@ -1,0 +1,365 @@
+[
+  {
+    "key": "travail-argent",
+    "items": [
+      {
+        "id": "chercher-un-travail",
+        "situation": "Chercher un travail",
+        "saintName": "Saint Joseph",
+        "saintMeta": "1er mai · Saint Joseph Artisan",
+        "bio": "Joseph a nourri la Sainte Famille du travail de ses mains, dans un métier obscur et sans prestige. L'Église l'a donné pour patron aux travailleurs et à ceux qui cherchent de quoi vivre.",
+        "prayer": "Saint Joseph, toi qui as gagné ton pain à la sueur de ton front et nourri le Fils de Dieu du travail de tes mains, obtiens-moi un travail honnête où je puisse vivre et faire vivre les miens. Apprends-moi la patience de l'attente et garde-moi du découragement. Amen."
+      },
+      {
+        "id": "perdre-son-emploi",
+        "situation": "Perdre son emploi",
+        "saintName": "Saint Joseph",
+        "saintMeta": "1er mai · Saint Joseph Artisan",
+        "bio": "Joseph a connu l'incertitude et l'exil pour protéger sa famille. Il comprend la peur de ne plus pouvoir subvenir aux besoins des siens.",
+        "prayer": "Saint Joseph, toi qui as su rebondir devant l'imprévu et faire confiance quand tout semblait incertain, aide-moi à traverser cette épreuve sans perdre espoir. Ouvre-moi un chemin nouveau et soutiens ma famille en ce temps difficile. Amen."
+      },
+      {
+        "id": "difficultes-argent",
+        "situation": "Difficultés d'argent",
+        "saintName": "Saint Nicolas de Myre",
+        "saintMeta": "6 décembre · Évêque de Myre",
+        "bio": "Évêque du IVe siècle, Nicolas donna secrètement sa fortune aux plus pauvres de son diocèse. Il reste le patron de ceux qui manquent du nécessaire.",
+        "prayer": "Saint Nicolas, toi dont la générosité cachée a sauvé des familles entières du besoin, intercède pour moi dans mes difficultés d'argent. Obtiens-moi ce qui m'est nécessaire et apprends-moi à ne pas m'y attacher. Amen."
+      },
+      {
+        "id": "passer-un-examen",
+        "situation": "Passer un examen",
+        "saintName": "Saint Joseph de Cupertino",
+        "saintMeta": "18 septembre · Patron des étudiants",
+        "bio": "Élève peu doué qui réussit contre toute attente ses examens de théologie, Joseph de Cupertino est invoqué depuis des siècles par les étudiants en difficulté.",
+        "prayer": "Saint Joseph de Cupertino, toi qui as surmonté tes propres limites devant les examinateurs, obtiens-moi le calme et la clarté d'esprit dont j'ai besoin. Que je donne le meilleur de ce que j'ai appris. Amen."
+      },
+      {
+        "id": "etudier-comprendre",
+        "situation": "Étudier, comprendre",
+        "saintName": "Saint Thomas d'Aquin",
+        "saintMeta": "28 janvier · Docteur angélique",
+        "bio": "Thomas d'Aquin a mis toute son intelligence au service de la foi, laissant une œuvre immense sur la raison éclairée par Dieu. L'Église en fait le patron des étudiants et des chercheurs.",
+        "prayer": "Saint Thomas d'Aquin, toi qui unissais l'intelligence et la prière, éclaire mon esprit dans mes études. Donne-moi la mémoire pour retenir, la pénétration pour comprendre et la force pour persévérer. Amen."
+      },
+      {
+        "id": "diriger-entreprendre",
+        "situation": "Diriger, entreprendre",
+        "saintName": "Saint Homobon de Crémone",
+        "saintMeta": "13 novembre · Patron des commerçants",
+        "bio": "Marchand de drap au XIIe siècle, Homobon menait ses affaires avec honnêteté et reversait ses gains aux pauvres. Il est le patron des commerçants et des chefs d'entreprise.",
+        "prayer": "Saint Homobon, toi qui as su conduire tes affaires dans la droiture, aide-moi à diriger mon travail avec justice et courage. Que mes décisions servent le bien de ceux qui dépendent de moi. Amen."
+      }
+    ]
+  },
+  {
+    "key": "sante",
+    "items": [
+      {
+        "id": "etre-malade",
+        "situation": "Être malade",
+        "saintName": "Saint Camille de Lellis",
+        "saintMeta": "14 juillet · Patron des malades et des infirmiers",
+        "bio": "Ancien soldat converti, Camille consacra sa vie à soigner les malades dans les hôpitaux de Rome. L'Église en fait le patron des malades et de ceux qui les soignent.",
+        "prayer": "Saint Camille de Lellis, toi qui as servi le Christ dans les malades, obtiens-moi la patience et la paix dans cette épreuve. Soutiens aussi ceux qui me soignent. Amen."
+      },
+      {
+        "id": "un-cancer",
+        "situation": "Un cancer",
+        "saintName": "Saint Pérégrin Laziosi",
+        "saintMeta": "1er mai · Patron des malades du cancer",
+        "bio": "Guéri miraculeusement d'un mal incurable à la jambe après une nuit de prière, Pérégrin est depuis invoqué par les malades atteints du cancer.",
+        "prayer": "Saint Pérégrin, toi qui as connu la maladie et la guérison, intercède pour moi et pour ceux que le cancer éprouve. Obtiens la force de traverser les soins et, si Dieu le veut, la guérison. Amen."
+      },
+      {
+        "id": "angoisse-nerfs",
+        "situation": "L'angoisse, les nerfs",
+        "saintName": "Sainte Dymphne",
+        "saintMeta": "15 mai · Patronne des malades nerveux",
+        "bio": "Jeune martyre irlandaise, Dymphne est invoquée depuis le Moyen Âge par les personnes souffrant d'angoisse et de troubles nerveux, dont beaucoup trouvèrent la paix par son intercession.",
+        "prayer": "Sainte Dymphne, toi qui as gardé la paix intérieure dans l'épreuve, apaise mon esprit agité. Obtiens-moi le calme et la confiance en Dieu au milieu de mon angoisse. Amen."
+      },
+      {
+        "id": "la-depression",
+        "situation": "La dépression",
+        "saintName": "Sainte Thérèse de Lisieux",
+        "saintMeta": "1er octobre · Docteur de l'Église",
+        "bio": "Thérèse traversa une nuit spirituelle et des épreuves de découragement, sans jamais cesser d'espérer. Sa petite voie console ceux qui traversent la même obscurité.",
+        "prayer": "Sainte Thérèse de Lisieux, toi qui as connu la nuit sans perdre confiance, prends-moi par la main dans cette dépression. Obtiens-moi la lumière d'un jour à la fois et la certitude d'être aimé de Dieu. Amen."
+      },
+      {
+        "id": "sortir-addiction",
+        "situation": "Sortir d'une addiction",
+        "saintName": "Saint Maximilien Kolbe",
+        "saintMeta": "14 août · Martyr de la charité",
+        "bio": "Franciscain mort à Auschwitz en donnant sa vie pour un autre prisonnier, Kolbe est un modèle de liberté intérieure offerte à qui semble ne plus rien maîtriser de sa vie.",
+        "prayer": "Saint Maximilien Kolbe, toi qui as choisi librement le don de toi jusqu'au bout, libère-moi de ce qui m'enchaîne. Donne-moi la force de tenir un jour, puis un autre. Amen."
+      },
+      {
+        "id": "une-operation",
+        "situation": "Une opération",
+        "saintName": "Saint Luc",
+        "saintMeta": "18 octobre · Évangéliste, médecin",
+        "bio": "Médecin de métier avant d'écrire son Évangile, Luc est le patron naturel des médecins, des chirurgiens et de ceux qui vont être opérés.",
+        "prayer": "Saint Luc, médecin et évangéliste, veille sur cette opération. Guide la main de ceux qui m'opèrent et donne-moi la paix avant, pendant et après. Amen."
+      },
+      {
+        "id": "attendre-un-enfant",
+        "situation": "Attendre un enfant",
+        "saintName": "Saint Gérard Majella",
+        "saintMeta": "16 octobre · Patron des femmes enceintes",
+        "bio": "Frère rédemptoriste connu pour sa charité envers les mères en attente d'enfant, Gérard Majella est invoqué depuis le XVIIIe siècle pour une grossesse et un accouchement heureux.",
+        "prayer": "Saint Gérard Majella, toi qui veillais sur les mères et leurs enfants à naître, protège cette grossesse. Garde la mère et l'enfant en bonne santé jusqu'au jour de la naissance. Amen."
+      },
+      {
+        "id": "ne-pas-pouvoir-enfant",
+        "situation": "Ne pas pouvoir d'enfant",
+        "saintName": "Sainte Anne",
+        "saintMeta": "26 juillet · Mère de la Vierge Marie",
+        "bio": "Anne attendit longtemps un enfant avant de mettre au monde Marie dans sa vieillesse. Elle est depuis la première invoquée par les couples qui espèrent un enfant.",
+        "prayer": "Sainte Anne, toi qui as porté longtemps l'espérance d'un enfant, intercède pour nous. Obtiens-nous la patience dans l'attente et, si Dieu le veut, la joie d'accueillir un enfant. Amen."
+      },
+      {
+        "id": "un-enfant-malade",
+        "situation": "Un enfant malade",
+        "saintName": "Saint Nicolas de Myre",
+        "saintMeta": "6 décembre · Évêque de Myre",
+        "bio": "La tradition prête à Nicolas plusieurs miracles en faveur d'enfants sauvés du danger. Il est resté, à travers les siècles, le protecteur des enfants.",
+        "prayer": "Saint Nicolas, toi qui as veillé sur les enfants en péril, prends sous ta protection cet enfant malade. Obtiens-lui la guérison et donne à sa famille la force de l'accompagner. Amen."
+      }
+    ]
+  },
+  {
+    "key": "famille",
+    "items": [
+      {
+        "id": "un-couple-en-crise",
+        "situation": "Un couple en crise",
+        "saintName": "Sainte Rita de Cascia",
+        "saintMeta": "22 mai · Patronne des époux éprouvés",
+        "bio": "Rita supporta durant des années un mariage difficile avant de voir son mari se convertir. Elle intercède depuis pour les couples que l'épreuve traverse.",
+        "prayer": "Sainte Rita de Cascia, toi qui as tenu bon dans un mariage éprouvé, intercède pour notre couple. Obtiens-nous la patience, le pardon et le désir de continuer à nous aimer. Amen."
+      },
+      {
+        "id": "rencontrer-quelquun",
+        "situation": "Rencontrer quelqu'un",
+        "saintName": "Saint Raphaël Archange",
+        "saintMeta": "29 septembre · Patron des fiançailles et des voyageurs",
+        "bio": "L'archange Raphaël guida Tobie et prépara sa rencontre avec Sara, celle qui deviendrait son épouse. Il est depuis invoqué pour une rencontre selon le cœur de Dieu.",
+        "prayer": "Saint Raphaël Archange, toi qui as guidé Tobie vers celle qui l'attendait, guide mes pas. Mets sur mon chemin la personne que Dieu a préparée pour moi, en son temps. Amen."
+      },
+      {
+        "id": "enfant-qui-seloigne",
+        "situation": "Un enfant qui s'éloigne",
+        "saintName": "Sainte Monique",
+        "saintMeta": "27 août · Mère de saint Augustin",
+        "bio": "Monique pria durant plus de trente ans pour la conversion de son fils Augustin, qui devint l'un des plus grands docteurs de l'Église. Elle est le modèle des parents qui espèrent le retour d'un enfant éloigné.",
+        "prayer": "Sainte Monique, toi dont les larmes et la persévérance ont obtenu la conversion de ton fils, prie pour le mien. Ne me laisse pas perdre espoir et ramène-le doucement vers le bien. Amen."
+      },
+      {
+        "id": "un-conflit-familial",
+        "situation": "Un conflit familial",
+        "saintName": "Saint Joseph",
+        "saintMeta": "19 mars · Époux de la Vierge Marie",
+        "bio": "Joseph a su accueillir dans le silence et la confiance des situations familiales bouleversantes. Il enseigne la paix dans les tensions du foyer.",
+        "prayer": "Saint Joseph, toi qui as gardé la paix du cœur dans les épreuves de ta famille, apaise notre foyer. Obtiens-nous l'écoute, le pardon et le désir de rester unis. Amen."
+      },
+      {
+        "id": "un-deuil",
+        "situation": "Un deuil",
+        "saintName": "Notre-Dame des Douleurs",
+        "saintMeta": "15 septembre · Vierge au pied de la croix",
+        "bio": "Marie s'est tenue debout au pied de la croix de son fils, unie à sa douleur sans se détourner. Elle accompagne depuis tous ceux qui pleurent un être cher.",
+        "prayer": "Notre-Dame des Douleurs, toi qui es restée debout devant la mort de ton fils, tiens-toi près de moi dans mon deuil. Obtiens-moi la consolation et l'espérance de le revoir un jour. Amen."
+      },
+      {
+        "id": "rester-seul",
+        "situation": "Rester seul",
+        "saintName": "Sainte Élisabeth de Hongrie",
+        "saintMeta": "17 novembre · Patronne des veuves",
+        "bio": "Devenue veuve très jeune, Élisabeth consacra le reste de sa vie aux pauvres et aux malades, trouvant dans le don d'elle-même une nouvelle raison de vivre.",
+        "prayer": "Sainte Élisabeth de Hongrie, toi qui as traversé la solitude sans t'y enfermer, apprends-moi à vivre pleinement ce temps seul. Ouvre mon cœur à ceux qui m'entourent. Amen."
+      }
+    ]
+  },
+  {
+    "key": "epreuves",
+    "items": [
+      {
+        "id": "une-cause-desesperee",
+        "situation": "Une cause désespérée",
+        "saintName": "Saint Jude Thaddée",
+        "saintMeta": "28 octobre · Apôtre, patron des causes désespérées",
+        "bio": "Apôtre au nom proche de celui du traître Judas, Jude fut longtemps délaissé par les fidèles avant de devenir, par un juste retour, le recours de ceux que personne d'autre n'écoute plus.",
+        "prayer": "Saint Jude Thaddée, toi que l'on invoque quand tout semble perdu, prends en pitié ma situation. Intercède auprès de Dieu pour cette cause que je te confie. Amen."
+      },
+      {
+        "id": "une-injustice-un-proces",
+        "situation": "Une injustice, un procès",
+        "saintName": "Saint Thomas More",
+        "saintMeta": "22 juin · Chancelier, martyr",
+        "bio": "Chancelier d'Angleterre, Thomas More préféra la prison et la mort plutôt que de trahir sa conscience face à un pouvoir injuste. Il est le patron des juristes et de ceux qui subissent une injustice.",
+        "prayer": "Saint Thomas More, toi qui as tenu ferme devant l'injustice, donne-moi le courage de défendre ce qui est juste. Obtiens que la vérité finisse par éclater dans cette affaire. Amen."
+      },
+      {
+        "id": "la-prison",
+        "situation": "La prison",
+        "saintName": "Saint Dismas",
+        "saintMeta": "25 mars · Le bon larron",
+        "bio": "Crucifié aux côtés du Christ, le bon larron reconnut sa faute et reçut la promesse du paradis en une seule parole de foi. Il est le patron des prisonniers et de ceux qui espèrent une seconde chance.",
+        "prayer": "Saint Dismas, toi à qui le Christ a promis le paradis à la dernière heure, intercède pour les prisonniers et pour moi. Obtiens-moi le repentir sincère et l'espérance du pardon. Amen."
+      },
+      {
+        "id": "perdre-la-foi",
+        "situation": "Perdre la foi",
+        "saintName": "Saint Thomas Apôtre",
+        "saintMeta": "3 juillet · Apôtre de l'Inde",
+        "bio": "Thomas douta de la résurrection jusqu'à voir et toucher les plaies du Christ ressuscité. Sa foi retrouvée, plus forte que son doute, en fait le patron de ceux qui traversent une crise de foi.",
+        "prayer": "Saint Thomas Apôtre, toi qui as douté avant de croire, comprends mes questions et mes doutes. Obtiens-moi de retrouver, comme toi, une foi vivante et confiante. Amen."
+      },
+      {
+        "id": "la-tentation",
+        "situation": "La tentation",
+        "saintName": "Saint Benoît",
+        "saintMeta": "11 juillet · Patriarche des moines d'Occident",
+        "bio": "Benoît se retira au désert pour lutter contre la tentation et fonda sur cette expérience une règle de vie qui traverse les siècles. Sa médaille est encore portée contre le mal.",
+        "prayer": "Saint Benoît, toi qui as vaincu la tentation dans la solitude, fortifie ma volonté. Éloigne de moi ce qui m'entraîne au mal et garde-moi ferme dans le bien. Amen."
+      },
+      {
+        "id": "les-scrupules",
+        "situation": "Les scrupules",
+        "saintName": "Saint Alphonse de Liguori",
+        "saintMeta": "1er août · Docteur de l'Église, moraliste",
+        "bio": "Fondateur des Rédemptoristes, Alphonse de Liguori consacra une grande partie de son œuvre à libérer les consciences angoissées d'une fausse culpabilité, sans jamais minimiser le péché réel.",
+        "prayer": "Saint Alphonse de Liguori, toi qui as guidé tant de consciences inquiètes, libère-moi de mes scrupules excessifs. Obtiens-moi un jugement juste et une confiance paisible en la miséricorde de Dieu. Amen."
+      },
+      {
+        "id": "guerre-violence",
+        "situation": "La guerre, la violence",
+        "saintName": "Saint Michel Archange",
+        "saintMeta": "29 septembre · Prince de la milice céleste",
+        "bio": "Chef des armées célestes qui terrassa le dragon de l'Apocalypse, Michel est invoqué depuis toujours contre la violence et le mal qui menacent les peuples et les personnes.",
+        "prayer": "Saint Michel Archange, défends-nous dans le combat contre la violence et la haine. Protège ceux qui souffrent de la guerre et obtiens la paix aux nations. Amen."
+      }
+    ]
+  },
+  {
+    "key": "voyage-protection",
+    "items": [
+      {
+        "id": "partir-en-voyage",
+        "situation": "Partir en voyage",
+        "saintName": "Saint Christophe",
+        "saintMeta": "25 juillet · Patron des voyageurs",
+        "bio": "Selon la légende, Christophe portait les voyageurs sur ses épaules pour traverser une rivière dangereuse, jusqu'au jour où il porta l'Enfant Jésus lui-même. Il veille depuis sur tous ceux qui prennent la route.",
+        "prayer": "Saint Christophe, toi qui as porté les voyageurs à travers le danger, veille sur mon voyage. Garde-moi de tout accident et ramène-moi sain et sauf. Amen."
+      },
+      {
+        "id": "prendre-lavion",
+        "situation": "Prendre l'avion",
+        "saintName": "Notre-Dame de Lorette",
+        "saintMeta": "10 décembre · Patronne de l'aviation",
+        "bio": "Vénérée dans la maison de Nazareth que la piété populaire dit transportée par les anges jusqu'en Italie, Notre-Dame de Lorette fut donnée patronne de l'aviation au XXe siècle.",
+        "prayer": "Notre-Dame de Lorette, patronne des aviateurs, veille sur ce vol. Garde l'appareil, l'équipage et tous les passagers jusqu'à l'arrivée. Amen."
+      },
+      {
+        "id": "prendre-la-mer",
+        "situation": "Prendre la mer",
+        "saintName": "Sainte Marie, Étoile de la mer",
+        "saintMeta": "15 août · Patronne des marins",
+        "bio": "Invoquée depuis des siècles par les marins sous le titre de Stella Maris, l'Étoile de la mer, Marie guide ceux qui prennent le large.",
+        "prayer": "Sainte Marie, Étoile de la mer, guide cette traversée. Garde le navire et tous ceux qui sont à bord, et ramène-nous à bon port. Amen."
+      },
+      {
+        "id": "retrouver-objet-perdu",
+        "situation": "Retrouver un objet perdu",
+        "saintName": "Saint Antoine de Padoue",
+        "saintMeta": "13 juin · Docteur de l'Église, patron des objets perdus",
+        "bio": "La tradition raconte qu'un livre précieux volé à Antoine lui fut miraculeusement rendu après sa prière. Depuis, on l'invoque pour retrouver ce qui a été perdu.",
+        "prayer": "Saint Antoine de Padoue, toi que l'on invoque pour ce qui est perdu, aide-moi à retrouver cet objet. Et si je ne le retrouve pas, obtiens-moi la paix devant cette perte. Amen."
+      },
+      {
+        "id": "exil-emigration",
+        "situation": "L'exil, l'émigration",
+        "saintName": "Sainte Françoise-Xavière Cabrini",
+        "saintMeta": "13 novembre · Patronne des émigrés",
+        "bio": "Religieuse italienne partie fonder des œuvres au service des migrants aux États-Unis, Frances Cabrini connut elle-même le déracinement et la difficulté de recommencer ailleurs.",
+        "prayer": "Sainte Françoise-Xavière Cabrini, toi qui as accompagné les émigrés loin de leur terre, accompagne-moi dans cet exil. Donne-moi la force de m'enraciner à nouveau et de garder l'espérance. Amen."
+      },
+      {
+        "id": "animal-malade",
+        "situation": "Un animal malade",
+        "saintName": "Saint François d'Assise",
+        "saintMeta": "4 octobre · Patron des animaux et de l'écologie",
+        "bio": "François voyait dans toute créature un reflet de la bonté de Dieu et appelait les animaux ses frères et sœurs. Il reste le protecteur naturel des bêtes.",
+        "prayer": "Saint François d'Assise, toi qui appelais les créatures tes frères, veille sur cet animal malade. Obtiens-lui, si Dieu le veut, la guérison, et donne-moi la paix devant son état. Amen."
+      }
+    ]
+  },
+  {
+    "key": "fin-de-vie",
+    "items": [
+      {
+        "id": "une-bonne-mort",
+        "situation": "Une bonne mort",
+        "saintName": "Saint Joseph",
+        "saintMeta": "19 mars · Patron de la bonne mort",
+        "bio": "La tradition tient que Joseph mourut entouré de Jésus et de Marie. Il est depuis le patron de la bonne mort, celle qui s'accompagne de paix et de présence aimante.",
+        "prayer": "Saint Joseph, toi qui es mort entouré de Jésus et de Marie, obtiens-moi la grâce d'une bonne mort. Que je puisse, à mon heure, quitter ce monde en paix avec Dieu. Amen."
+      },
+      {
+        "id": "veiller-un-mourant",
+        "situation": "Veiller un mourant",
+        "saintName": "Saint Joseph",
+        "saintMeta": "19 mars · Patron de la bonne mort",
+        "bio": "Patron de la bonne mort, Joseph est aussi invoqué par ceux qui accompagnent un proche dans ses derniers instants, pour trouver les mots et la présence justes.",
+        "prayer": "Saint Joseph, toi qui as accompagné la Sainte Famille jusqu'au bout, aide-moi à accompagner cette personne qui s'en va. Donne-lui la paix et donne-moi la force de rester présent. Amen."
+      },
+      {
+        "id": "apres-un-suicide",
+        "situation": "Après un suicide",
+        "saintName": "Notre-Dame des Douleurs",
+        "saintMeta": "15 septembre · Vierge au pied de la croix",
+        "bio": "Marie a connu la douleur la plus vive sans jamais se détourner de l'espérance. Elle accompagne avec une tendresse particulière ceux qui pleurent une mort par suicide, sans jugement.",
+        "prayer": "Notre-Dame des Douleurs, toi qui as tout enduré sans désespérer, prends dans ton cœur celui ou celle que j'ai perdu. Console mon chagrin et confie son âme à la miséricorde de Dieu. Amen."
+      }
+    ]
+  },
+  {
+    "key": "vie-spirituelle",
+    "items": [
+      {
+        "id": "discerner-sa-vocation",
+        "situation": "Discerner sa vocation",
+        "saintName": "Saint Ignace de Loyola",
+        "saintMeta": "31 juillet · Fondateur de la Compagnie de Jésus",
+        "bio": "D'abord soldat, Ignace se convertit après une blessure et bâtit une méthode de discernement encore utilisée aujourd'hui pour reconnaître la volonté de Dieu dans sa vie.",
+        "prayer": "Saint Ignace de Loyola, toi qui as appris à discerner l'appel de Dieu, éclaire mon chemin. Aide-moi à reconnaître ce à quoi Dieu m'appelle et à y répondre avec courage. Amen."
+      },
+      {
+        "id": "apprendre-a-prier",
+        "situation": "Apprendre à prier",
+        "saintName": "Sainte Thérèse d'Ávila",
+        "saintMeta": "15 octobre · Docteur de l'Église, mystique",
+        "bio": "Réformatrice du Carmel et maîtresse de prière, Thérèse d'Ávila a laissé une œuvre entière pour apprendre à parler à Dieu simplement, comme à un ami.",
+        "prayer": "Sainte Thérèse d'Ávila, toi qui as appris à parler à Dieu comme à un ami, enseigne-moi à prier. Donne-moi la persévérance quand la prière me semble aride. Amen."
+      },
+      {
+        "id": "aller-se-confesser",
+        "situation": "Aller se confesser",
+        "saintName": "Saint Jean-Marie Vianney",
+        "saintMeta": "4 août · Curé d'Ars, patron des prêtres",
+        "bio": "Le saint curé d'Ars passa des heures chaque jour au confessionnal, accueillant sans se lasser les pécheurs venus de toute la France. Il incarne la miséricorde offerte dans ce sacrement.",
+        "prayer": "Saint Jean-Marie Vianney, toi qui as accueilli tant de pécheurs avec patience, aide-moi à me préparer à me confesser. Donne-moi l'humilité de reconnaître mes fautes et la confiance en la miséricorde de Dieu. Amen."
+      },
+      {
+        "id": "pardonner",
+        "situation": "Pardonner",
+        "saintName": "Sainte Maria Goretti",
+        "saintMeta": "6 juillet · Vierge et martyre",
+        "bio": "Mortellement blessée à onze ans, Maria Goretti pardonna à son agresseur avant de mourir, et lui apparut plus tard en songe pour l'appeler à la conversion. Elle est le modèle d'un pardon qui semble impossible.",
+        "prayer": "Sainte Maria Goretti, toi qui as pardonné jusqu'au bout, apprends-moi à pardonner. Libère mon cœur de la rancune et donne-moi la force de tendre la main. Amen."
+      }
+    ]
+  }
+]

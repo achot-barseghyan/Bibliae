@@ -1,0 +1,54 @@
+.figure-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.figure-list-row {
+  display: block;
+  width: 100%;
+  padding: 14px 28px;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--filet-sections);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.figure-list-row:active {
+  transform: scale(0.98);
+}
+
+.figure-list-row:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: -2px;
+}
+
+.figure-list-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.figure-list-name {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+  margin: 0;
+}
+
+.figure-list-original {
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-valeur);
+  color: var(--encre-50);
+  white-space: nowrap;
+}
+
+.figure-list-meta {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  margin: 2px 0 0;
+}

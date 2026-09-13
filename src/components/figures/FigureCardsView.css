@@ -1,0 +1,115 @@
+.figure-cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.figure-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 28px;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--filet-sections);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.figure-row:active {
+  transform: scale(0.98);
+}
+
+.figure-row:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: -2px;
+}
+
+.figure-row-thumb {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-papier-enfonce);
+}
+
+.figure-row-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.figure-row-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.figure-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.figure-row-testament {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-45);
+}
+
+.figure-row-mentions {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-cartouche);
+  color: var(--encre-45);
+  white-space: nowrap;
+}
+
+.figure-row-name-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.figure-row-name {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+  margin: 0;
+}
+
+.figure-row-original {
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-valeur);
+  color: var(--encre-50);
+  white-space: nowrap;
+}
+
+.figure-row-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.figure-row-role {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--color-oxblood);
+}
+
+.figure-row-books {
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  color: var(--encre-45);
+  white-space: nowrap;
+}

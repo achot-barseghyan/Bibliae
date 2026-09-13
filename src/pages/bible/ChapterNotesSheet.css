@@ -1,0 +1,119 @@
+.chapter-notes-sheet {
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.chapter-notes-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: var(--taille-valeur);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 2px;
+}
+
+.chapter-notes-subtitle {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-cartouche);
+  color: var(--encre-60);
+  margin: 0;
+}
+
+.chapter-notes-list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 4px;
+}
+
+.chapter-notes-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 12px;
+  background: var(--color-papier-enfonce);
+  border: none;
+  border-left: 4px solid var(--annot-solid-oxblood);
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.chapter-notes-item--or {
+  border-left-color: var(--annot-solid-or);
+}
+
+.chapter-notes-item--olive {
+  border-left-color: var(--annot-solid-olive);
+}
+
+.chapter-notes-item--bleu-encre {
+  border-left-color: var(--annot-solid-bleu-encre);
+}
+
+.chapter-notes-item--sanguine {
+  border-left-color: var(--annot-solid-sanguine);
+}
+
+.chapter-notes-item:active {
+  transform: scale(0.99);
+}
+
+.chapter-notes-item-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chapter-notes-item-note {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-family: var(--font-cormorant);
+  font-weight: 600;
+  font-size: var(--taille-valeur);
+  line-height: 1.35;
+  color: var(--color-encre);
+}
+
+.chapter-notes-item-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+}
+
+.chapter-notes-item-ref {
+  flex: 0 0 auto;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+}
+
+.chapter-notes-item-quote {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-cartouche);
+  color: var(--encre-45);
+}
+
+.chapter-notes-item-chevron {
+  flex: 0 0 auto;
+  color: var(--encre-45);
+}

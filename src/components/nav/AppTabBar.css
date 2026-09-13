@@ -1,0 +1,78 @@
+.app-tab-bar {
+  display: flex;
+  align-items: stretch;
+  background: var(--color-tabbar);
+  border-top: 1px solid var(--filet-barres);
+  padding: 6px 8px calc(env(safe-area-inset-bottom, 0px) + 14px);
+  position: relative;
+}
+
+.app-tab-bar-button {
+  flex: 1 1 0;
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  border-top: 2px solid transparent;
+  color: var(--encre-60);
+  cursor: pointer;
+}
+
+.app-tab-bar-button:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: -2px;
+}
+
+.app-tab-bar-icon {
+  color: currentColor;
+}
+
+.app-tab-bar-label {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-onglet);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+}
+
+.app-tab-bar-button.is-active {
+  color: var(--color-oxblood);
+  border-top-color: var(--color-oxblood);
+}
+
+.app-tab-bar-center-slot {
+  flex: 0 0 auto;
+  width: 72px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.app-tab-bar-cross {
+  width: 62px;
+  height: 62px;
+  margin-top: -28px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-oxblood);
+  color: var(--color-papier);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(35, 32, 26, 0.35);
+  transition: transform 0.15s ease;
+}
+
+.app-tab-bar-cross:active {
+  transform: scale(0.95);
+}
+
+.app-tab-bar-cross:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 3px;
+}

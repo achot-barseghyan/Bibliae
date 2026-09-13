@@ -1,0 +1,188 @@
+.parcours-create-sheet {
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.parcours-create-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: var(--taille-valeur);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0;
+}
+
+.parcours-create-body {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-bottom: 8px;
+}
+
+.parcours-create-templates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.parcours-create-template {
+  padding: 7px 12px;
+  background: var(--filet-tableaux);
+  border: none;
+  border-radius: 999px;
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  color: var(--color-encre);
+  cursor: pointer;
+}
+
+.parcours-create-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.parcours-create-field-label {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+}
+
+.parcours-create-input {
+  min-height: 44px;
+  padding: 0 12px;
+  background: var(--filet-tableaux);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+}
+
+.parcours-create-input:focus-visible {
+  outline: none;
+  border-color: var(--color-oxblood);
+}
+
+.parcours-create-colors {
+  display: flex;
+  gap: 12px;
+}
+
+.parcours-create-color {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: var(--annot-solid-oxblood);
+}
+
+.parcours-create-color--or {
+  background: var(--annot-solid-or);
+}
+
+.parcours-create-color--olive {
+  background: var(--annot-solid-olive);
+}
+
+.parcours-create-color--bleu-encre {
+  background: var(--annot-solid-bleu-encre);
+}
+
+.parcours-create-color--sanguine {
+  background: var(--annot-solid-sanguine);
+}
+
+.parcours-create-color.is-selected {
+  border-color: var(--color-encre);
+}
+
+.parcours-create-color:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.parcours-create-scopes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.parcours-create-scope {
+  padding: 8px 12px;
+  background: var(--filet-tableaux);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  color: var(--color-encre);
+  cursor: pointer;
+}
+
+.parcours-create-scope.is-selected {
+  border-color: var(--color-oxblood);
+  color: var(--color-oxblood);
+}
+
+.parcours-create-books {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--filet-barres);
+  border-radius: 8px;
+  padding: 4px 12px;
+}
+
+.parcours-create-books-category {
+  padding: 6px 0;
+}
+
+.parcours-create-books-heading {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-cartouche);
+  color: var(--color-oxblood);
+  margin: 4px 0;
+}
+
+.parcours-create-book-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+}
+
+.parcours-create-books-count {
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  color: var(--encre-60);
+  margin: 8px 0 0;
+}
+
+.parcours-create-submit {
+  min-height: 48px;
+  background: var(--color-oxblood);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-papier);
+  cursor: pointer;
+}
+
+.parcours-create-submit:disabled {
+  opacity: 0.4;
+  cursor: default;
+}

@@ -1,0 +1,62 @@
+/* Thèmes de lecture de la Bible : chaque thème redéfinit un jeu de jetons
+   --bible-* consommés par BibleHeader/BibleIndex/BibleBook/BibleChapter.
+   Le thème "papier" reprend telles quelles les couleurs globales de l'app
+   (donc suit aussi le réglage "contraste renforcé" existant) ; les autres
+   thèmes définissent leurs propres couleurs, accent inclus, pour garder un
+   contraste correct sur des fonds clairs ou sombres. */
+
+.bible-world {
+  height: 100%;
+
+  --bible-bg: var(--color-papier);
+  --bible-text: var(--color-encre);
+  --bible-muted: var(--encre-60);
+  --bible-faint: var(--encre-45);
+  --bible-border: var(--filet-barres);
+  --bible-border-soft: var(--filet-tableaux);
+  --bible-accent: var(--color-oxblood);
+  --bible-empty-cell: var(--color-hors-appareil);
+
+  --bible-font: var(--font-cormorant);
+}
+
+.bible-world[data-bible-font='garamond'] {
+  --bible-font: var(--font-eb-garamond);
+}
+
+.bible-world[data-bible-font='inter'] {
+  --bible-font: var(--font-inter);
+}
+
+.bible-world[data-bible-theme='sepia'] {
+  --bible-bg: #eae0c8;
+  --bible-text: #4a3728;
+  --bible-muted: rgba(74, 55, 40, 0.62);
+  --bible-faint: rgba(74, 55, 40, 0.45);
+  --bible-border: rgba(74, 55, 40, 0.28);
+  --bible-border-soft: rgba(74, 55, 40, 0.18);
+  --bible-accent: #8b3a1e;
+  --bible-empty-cell: rgba(74, 55, 40, 0.12);
+}
+
+.bible-world[data-bible-theme='nuit'] {
+  --bible-bg: #1e1b17;
+  --bible-text: #ede5d3;
+  --bible-muted: rgba(237, 229, 211, 0.62);
+  --bible-faint: rgba(237, 229, 211, 0.42);
+  --bible-border: rgba(237, 229, 211, 0.24);
+  --bible-border-soft: rgba(237, 229, 211, 0.14);
+  --bible-accent: #d98a73;
+  --bible-empty-cell: rgba(237, 229, 211, 0.1);
+}
+
+.bible-world[data-bible-theme='contraste'] {
+  --bible-bg: #ffffff;
+  --bible-text: #000000;
+  --bible-muted: rgba(0, 0, 0, 0.75);
+  --bible-faint: rgba(0, 0, 0, 0.6);
+  --bible-border: rgba(0, 0, 0, 0.4);
+  --bible-border-soft: rgba(0, 0, 0, 0.25);
+  --bible-accent: #a3001e;
+  --bible-empty-cell: rgba(0, 0, 0, 0.08);
+}

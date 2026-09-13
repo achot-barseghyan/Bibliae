@@ -1,0 +1,135 @@
+.prier-home-content {
+  --background: var(--color-papier);
+}
+
+.prier-home-hero {
+  padding: 28px 24px 4px;
+}
+
+.prier-home-kicker {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-max);
+  color: var(--color-oxblood);
+  margin: 0 0 10px;
+}
+
+.prier-home-title {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-nom-figure);
+  color: var(--color-encre);
+  margin: 0 0 12px;
+}
+
+.prier-home-subtitle {
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-valeur);
+  line-height: calc(1.5 * var(--a11y-leading));
+  color: var(--encre-60);
+  margin: 0;
+  max-width: 34ch;
+}
+
+.prier-home-divider {
+  height: 1px;
+  margin: 28px 24px 8px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-or) 20%,
+    var(--color-or) 80%,
+    transparent
+  );
+}
+
+.prier-home-sections {
+  display: flex;
+  flex-direction: column;
+}
+
+.prier-home-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding: 22px 24px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--filet-sections);
+  text-align: left;
+  cursor: pointer;
+}
+
+.prier-home-row:active {
+  background: var(--color-papier-enfonce);
+}
+
+.prier-home-row:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: -2px;
+}
+
+.prier-home-row-roman {
+  flex: 0 0 auto;
+  padding-top: 2px;
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--color-or);
+}
+
+.prier-home-row-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.prier-home-row-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+}
+
+.prier-home-row-description {
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-valeur);
+  line-height: calc(1.4 * var(--a11y-leading));
+  color: var(--encre-60);
+}
+
+.prier-home-row-chevron {
+  flex: 0 0 auto;
+  margin-top: 6px;
+  color: var(--color-oxblood);
+}
+
+.prier-home-footer {
+  margin-top: 32px;
+  padding: 28px 28px calc(env(safe-area-inset-bottom, 0px) + 40px);
+  text-align: center;
+}
+
+.prier-home-quote {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  line-height: 1.5;
+  color: var(--encre-60);
+  margin: 0 0 10px;
+}
+
+.prier-home-reference {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-surtitre);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+  margin: 0;
+}

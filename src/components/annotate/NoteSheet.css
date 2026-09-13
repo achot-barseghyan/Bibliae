@@ -1,0 +1,22 @@
+.note-sheet-textarea {
+  width: 100%;
+  min-height: 120px;
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+  background: var(--color-papier-enfonce);
+  border: 1px solid var(--filet-barres);
+  border-radius: 8px;
+  padding: 12px;
+  resize: vertical;
+  margin: 0 0 16px;
+}
+
+.note-sheet-textarea::placeholder {
+  color: var(--encre-45);
+}
+
+.note-sheet-textarea:focus {
+  outline: none;
+  border-color: var(--color-oxblood);
+}

@@ -1,0 +1,147 @@
+.prier-search {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-papier);
+}
+
+.prier-search-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 16px 12px;
+  border-bottom: 1px solid var(--filet-sections);
+}
+
+.prier-search-field {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--color-papier-enfonce);
+  border-radius: 10px;
+}
+
+.prier-search-field-icon {
+  flex: 0 0 auto;
+  color: var(--encre-50);
+}
+
+.prier-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: none;
+  border: none;
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+}
+
+.prier-search-input:focus {
+  outline: none;
+}
+
+.prier-search-input::placeholder {
+  color: var(--encre-45);
+}
+
+.prier-search-close {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-encre);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.prier-search-close:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.prier-search-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+}
+
+.prier-search-hint,
+.prier-search-empty {
+  padding: 28px 24px;
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  line-height: 1.5;
+  color: var(--encre-60);
+}
+
+.prier-search-section {
+  padding-top: 8px;
+}
+
+.prier-search-section-label {
+  margin: 16px 24px 4px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-max);
+  color: var(--color-oxblood);
+}
+
+.prier-search-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 24px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--filet-sections);
+  text-align: left;
+  cursor: pointer;
+}
+
+.prier-search-row:active {
+  background: var(--color-papier-enfonce);
+}
+
+.prier-search-row:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: -2px;
+}
+
+.prier-search-row-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.prier-search-row-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+}
+
+.prier-search-row-subtitle {
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-50);
+}
+
+.prier-search-row-chevron {
+  flex: 0 0 auto;
+  color: var(--color-oxblood);
+}

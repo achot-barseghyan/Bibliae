@@ -1,0 +1,98 @@
+.prayer-detail-content {
+  --background: var(--color-papier);
+}
+
+.prayer-detail-not-found {
+  padding: 40px 28px;
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  text-align: center;
+}
+
+.prayer-detail-hero {
+  padding: 28px 28px 0;
+  text-align: center;
+}
+
+.prayer-detail-reference {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-max);
+  color: var(--color-oxblood);
+  margin: 0 0 10px;
+}
+
+.prayer-detail-title {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-chapitre);
+  color: var(--color-encre);
+  margin: 0;
+}
+
+.prayer-detail-divider {
+  height: 1px;
+  margin: 24px 40px 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-or) 20%,
+    var(--color-or) 80%,
+    transparent
+  );
+}
+
+.prayer-detail-tabs {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px 28px 12px;
+  border-bottom: 1px solid var(--filet-sections);
+}
+
+.prayer-detail-tab {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  padding: 4px 0 8px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-surtitre);
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-45);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.prayer-detail-tab.is-active {
+  color: var(--color-oxblood);
+  border-bottom-color: var(--color-oxblood);
+}
+
+.prayer-detail-tab:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.prayer-detail-body {
+  padding: 24px 28px 8px;
+}
+
+.prayer-detail-paragraph {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-prose);
+  line-height: calc(1.7 * var(--a11y-leading));
+  color: var(--color-encre);
+  margin: 0 0 18px;
+  white-space: pre-line;
+}
+
+.prayer-detail-footer {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0 calc(env(safe-area-inset-bottom, 0px) + 40px);
+  color: var(--color-or);
+}

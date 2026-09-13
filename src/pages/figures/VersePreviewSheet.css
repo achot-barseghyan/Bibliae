@@ -1,0 +1,130 @@
+.verse-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(28, 24, 20, 0.34);
+  display: flex;
+  align-items: flex-end;
+}
+
+.verse-sheet {
+  width: 100%;
+  background: var(--color-papier);
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
+  border: 1px solid var(--filet-barres);
+  border-bottom: none;
+  padding: 0 20px calc(env(safe-area-inset-bottom, 0px) + 20px);
+}
+
+.verse-sheet-handle {
+  width: 44px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--filet-barres);
+  margin: 10px auto 12px;
+  cursor: grab;
+}
+
+.verse-sheet-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.verse-sheet-ref {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 4px;
+}
+
+.verse-sheet-book {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  margin: 0;
+}
+
+.verse-sheet-close {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-encre);
+  cursor: pointer;
+  border-radius: 50%;
+  margin: -8px -8px 0 0;
+}
+
+.verse-sheet-close:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.verse-sheet-quote {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-verset);
+  font-style: italic;
+  line-height: calc(1.6 * var(--a11y-leading));
+  color: var(--color-encre);
+  margin: 0 0 22px;
+}
+
+.verse-sheet-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.verse-sheet-read {
+  flex: 1;
+  min-height: 48px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+  background: none;
+  border: 1px solid var(--color-oxblood);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.verse-sheet-read:active {
+  transform: scale(0.97);
+}
+
+.verse-sheet-bookmark {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-encre);
+  background: none;
+  border: 1px solid var(--filet-barres);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.verse-sheet-bookmark:active {
+  transform: scale(0.92);
+}
+
+.verse-sheet-bookmark[aria-pressed='true'] {
+  color: var(--color-oxblood);
+  border-color: var(--color-oxblood);
+}

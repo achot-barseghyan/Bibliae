@@ -1,0 +1,74 @@
+{
+  "hero": {
+    "wordmarkPrefix": "Bibli",
+    "wordmarkAccent": "ae",
+    "kicker": "Compendium de la Bible, dans la tradition catholique",
+    "headline": "Chaque figure, chaque lieu, chaque récit des Écritures, à portée de recherche.",
+    "bibliaeText": "Bibliae relie les personnages, les généalogies, les lieux et les événements bibliques dans un seul espace de lecture. Chaque fiche cite les versets, les commentaires des Pères de l'Église et l'enseignement du Catéchisme.",
+    "figuresKicker": "À l'affiche",
+    "figuresTitle": "Figures en vedette",
+    "figuresSubtitle": "Quatre figures parmi les dix mises en avant, relues chaque semaine."
+  },
+  "featuredFigures": [
+    {
+      "id": "jesus",
+      "name": "Jésus-Christ",
+      "category": "Évangiles · Ier siècle apr. J.-C.",
+      "description": "Fils de Dieu incarné ; sa vie, sa mort et sa résurrection fondent la foi chrétienne."
+    },
+    {
+      "id": "moise",
+      "name": "Moïse",
+      "category": "Exode · XIIIe siècle av. J.-C.",
+      "description": "Libérateur d'Israël, législateur, médiateur de l'Alliance au Sinaï."
+    },
+    {
+      "id": "mary",
+      "name": "Marie",
+      "category": "Évangiles · Ier siècle av. J.-C.",
+      "description": "Mère de Jésus, modèle de foi vénéré dans la tradition mariale catholique."
+    },
+    {
+      "id": "abraham",
+      "name": "Abraham",
+      "category": "Genèse · XIXe siècle av. J.-C.",
+      "description": "Père des croyants, appelé par Dieu à quitter son pays pour la Terre promise."
+    },
+    {
+      "id": "david",
+      "name": "David",
+      "category": "1-2 Samuel · Xe siècle av. J.-C.",
+      "description": "Roi d'Israël, poète des psaumes, ancêtre du Messie selon la généalogie davidique."
+    },
+    {
+      "id": "eve",
+      "name": "Ève",
+      "category": "Genèse · Origines",
+      "description": "Première femme, mère de l'humanité selon le récit de la Création."
+    },
+    {
+      "id": "sarah",
+      "name": "Sarah",
+      "category": "Genèse · XIXe siècle av. J.-C.",
+      "description": "Épouse d'Abraham, mère d'Isaac malgré son grand âge, figure de la promesse."
+    },
+    {
+      "id": "noe",
+      "name": "Noé",
+      "category": "Genèse · Origines",
+      "description": "Constructeur de l'arche, sauvé du déluge pour renouveler l'alliance avec Dieu."
+    },
+    {
+      "id": "esther",
+      "name": "Esther",
+      "category": "Livre d'Esther · Ve siècle av. J.-C.",
+      "description": "Reine de Perse qui sauva son peuple de l'extermination par son courage."
+    },
+    {
+      "id": "marie-madeleine",
+      "name": "Marie-Madeleine",
+      "category": "Évangiles · Ier siècle apr. J.-C.",
+      "description": "Disciple de Jésus, première témoin de sa résurrection."
+    }
+  ]
+}

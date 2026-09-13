@@ -1,0 +1,208 @@
+.figures-content {
+  --background: var(--color-papier);
+}
+
+.figures-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) 28px 16px;
+  border-bottom: 1px solid var(--filet-sections);
+}
+
+.figures-topbar-wordmark {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+}
+
+.figures-topbar-wordmark-accent {
+  color: var(--color-oxblood);
+}
+
+.figures-a11y-button {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--filet-barres);
+  background: var(--color-papier);
+  color: var(--color-encre);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.figures-a11y-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.figures-a11y-button.is-active {
+  background: var(--color-oxblood);
+  border-color: var(--color-oxblood);
+  color: var(--color-papier);
+  transform: rotate(90deg);
+}
+
+.figures-intro {
+  padding: 24px 28px 20px;
+}
+
+.figures-page-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-chapitre);
+  color: var(--color-encre);
+  margin: 0 0 10px;
+}
+
+.figures-page-subtitle {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-prose);
+  line-height: calc(1.5 * var(--a11y-leading));
+  color: var(--encre-60);
+  margin: 0;
+  max-width: 380px;
+}
+
+.figures-search-row {
+  display: flex;
+  gap: 10px;
+  padding: 0 28px 16px;
+}
+
+.figures-search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  font-family: var(--font-inter);
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+  background: var(--color-papier);
+  border: 1px solid var(--filet-barres);
+  border-radius: 8px;
+}
+
+.figures-search-input::placeholder {
+  color: var(--encre-45);
+}
+
+.figures-filters-button {
+  flex: 0 0 auto;
+  padding: 12px 18px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-encre);
+  background: var(--color-papier);
+  border: 1px solid var(--filet-barres);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.figures-filters-button:active {
+  transform: scale(0.95);
+}
+
+.figures-view-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 0 28px 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.figures-view-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.figures-view-tab {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-cartouche);
+  color: var(--color-encre);
+  background: var(--color-papier);
+  border: 1px solid var(--filet-barres);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.figures-view-tab:active {
+  transform: scale(0.94);
+}
+
+.figures-view-tab.is-active {
+  background: var(--color-oxblood);
+  border-color: var(--color-oxblood);
+  color: var(--color-papier);
+}
+
+.figures-alphabet-row {
+  display: flex;
+  gap: 8px;
+  padding: 0 28px 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.figures-alphabet-row::-webkit-scrollbar {
+  display: none;
+}
+
+.figures-alphabet-pill {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-cartouche);
+  color: var(--encre-60);
+  background: var(--color-papier);
+  border: 1px solid var(--filet-barres);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.figures-alphabet-pill:active:not(:disabled) {
+  transform: scale(0.9);
+}
+
+.figures-alphabet-pill.is-active {
+  background: var(--color-oxblood);
+  border-color: var(--color-oxblood);
+  color: var(--color-papier);
+}
+
+.figures-alphabet-pill:disabled {
+  color: var(--encre-45);
+  opacity: 0.4;
+  cursor: default;
+}
+
+.figures-count {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  padding: 0 28px 12px;
+  margin: 0;
+  border-bottom: 1px solid var(--filet-sections);
+}
+
+.figures-count-number {
+  font-weight: 500;
+  color: var(--color-encre);
+  font-size: var(--taille-titre-section);
+}

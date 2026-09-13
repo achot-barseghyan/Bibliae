@@ -1,0 +1,82 @@
+{
+  "mysterySets": {
+    "joyeux": {
+      "key": "joyeux",
+      "label": "Mystères Joyeux",
+      "days": "Lundi · Samedi",
+      "mysteries": [
+        "L'Annonciation",
+        "La Visitation",
+        "La Nativité",
+        "La Présentation au Temple",
+        "Le Recouvrement de Jésus au Temple"
+      ]
+    },
+    "douloureux": {
+      "key": "douloureux",
+      "label": "Mystères Douloureux",
+      "days": "Mardi · Vendredi",
+      "mysteries": [
+        "L'Agonie de Jésus au jardin des Oliviers",
+        "La Flagellation",
+        "Le Couronnement d'épines",
+        "Le Portement de croix",
+        "La Crucifixion et la mort de Jésus"
+      ]
+    },
+    "glorieux": {
+      "key": "glorieux",
+      "label": "Mystères Glorieux",
+      "days": "Mercredi · Dimanche",
+      "mysteries": [
+        "La Résurrection",
+        "L'Ascension",
+        "La Pentecôte",
+        "Assomption de Marie",
+        "Le Couronnement de Marie"
+      ]
+    },
+    "lumineux": {
+      "key": "lumineux",
+      "label": "Mystères Lumineux",
+      "days": "Jeudi",
+      "mysteries": [
+        "Le Baptême de Jésus au Jourdain",
+        "Les Noces de Cana",
+        "Annonce du Royaume de Dieu",
+        "La Transfiguration",
+        "L'institution de l'Eucharistie"
+      ]
+    }
+  },
+  "prayers": {
+    "signe-croix": {
+      "name": "Signe de croix",
+      "text": "Au nom du Père, et du Fils, et du Saint-Esprit. Amen."
+    },
+    "credo": {
+      "name": "Credo: Symbole des Apôtres",
+      "text": "Je crois en Dieu, le Père tout-puissant, Créateur du ciel et de la terre. Et en Jésus-Christ, son Fils unique, notre Seigneur, qui a été conçu du Saint-Esprit, est né de la Vierge Marie, a souffert sous Ponce Pilate, a été crucifié, est mort, a été enseveli, est descendu aux enfers, le troisième jour est ressuscité des morts, est monté aux cieux, est assis à la droite de Dieu le Père tout-puissant, d'où il viendra juger les vivants et les morts. Je crois en l'Esprit Saint, à la sainte Église catholique, à la communion des saints, à la rémission des péchés, à la résurrection de la chair, à la vie éternelle. Amen."
+    },
+    "notre-pere": {
+      "name": "Notre Père",
+      "text": "Notre Père, qui es aux cieux, que ton nom soit sanctifié, que ton règne vienne, que ta volonté soit faite sur la terre comme au ciel. Donne-nous aujourd'hui notre pain de ce jour. Pardonne-nous nos offenses, comme nous pardonnons aussi à ceux qui nous ont offensés. Et ne nous laisse pas entrer en tentation, mais délivre-nous du mal. Amen."
+    },
+    "je-vous-salue-marie": {
+      "name": "Je vous salue Marie",
+      "text": "Je vous salue, Marie, pleine de grâce ; le Seigneur est avec vous. Vous êtes bénie entre toutes les femmes, et Jésus, le fruit de vos entrailles, est béni. Sainte Marie, Mère de Dieu, priez pour nous, pauvres pécheurs, maintenant et à l'heure de notre mort. Amen."
+    },
+    "gloire-au-pere": {
+      "name": "Gloire au Père",
+      "text": "Gloire au Père, et au Fils, et au Saint-Esprit. Comme il était au commencement, maintenant et toujours, pour les siècles des siècles. Amen."
+    },
+    "annonce-mystere": {
+      "name": "Annoncer le mystère",
+      "text": ""
+    },
+    "salve-regina": {
+      "name": "Salve Regina",
+      "text": "Je vous salue, Reine, mère de miséricorde, notre vie, notre douceur, notre espérance, je vous salue. Enfants d'Ève, exilés, nous crions vers vous ; vers vous nous soupirons, gémissant et pleurant dans cette vallée de larmes. Ô vous, notre avocate, tournez vers nous votre regard miséricordieux. Et, après cet exil, montrez-nous Jésus, le fruit béni de vos entrailles. Ô clémente, ô miséricordieuse, ô douce Vierge Marie."
+    }
+  }
+}

@@ -1,0 +1,108 @@
+/* Ionic désactive la sélection de texte partout sur mobile par défaut
+   (html.plt-mobile ion-app { user-select: none }), pour éviter les
+   sélections accidentelles pendant le scroll/swipe. On la réactive
+   précisément sur les zones marquées comme annotables — et seulement
+   celles-là, pour ne pas rendre les boutons/libellés sélectionnables. */
+[data-annotate-text] {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+:root {
+  --annot-or: rgba(181, 137, 46, 0.28);
+  --annot-oxblood: rgba(107, 30, 35, 0.18);
+  --annot-olive: rgba(94, 106, 58, 0.22);
+  --annot-bleu-encre: rgba(58, 78, 106, 0.2);
+  --annot-sanguine: rgba(166, 92, 58, 0.22);
+  --annot-underline-color: rgba(107, 30, 35, 0.6);
+
+  /* Variantes pleines (alpha 1) des mêmes couleurs, pour les pastilles de
+     note et la barre d'accent du panneau "Mes notes" — le fond translucide
+     du surlignage n'a pas assez de contraste pour ces petits éléments. */
+  --annot-solid-or: #b5892e;
+  --annot-solid-oxblood: #6b1e23;
+  --annot-solid-olive: #5e6a3a;
+  --annot-solid-bleu-encre: #3a4e6a;
+  --annot-solid-sanguine: #a65c3a;
+
+  /* Fonds de cellule "lu" des parcours de lecture — même palette fermée que
+     les surlignages, mais avec une opacité propre (calibrée pour que le
+     chiffre en #23201A garde un contraste > 4.5:1), donc distincte de
+     --annot-*. Voir la spec "Parcours de lecture" §2. */
+  --parcours-or: rgba(181, 137, 46, 0.34);
+  --parcours-bleu-encre: rgba(58, 78, 106, 0.3);
+  --parcours-olive: rgba(94, 106, 58, 0.32);
+  --parcours-sanguine: rgba(166, 92, 58, 0.32);
+  --parcours-oxblood: rgba(107, 30, 35, 0.26);
+}
+
+.annot-run {
+  /* Le fond ne doit ni déborder de la hauteur de ligne ni faire sauter
+     l'interligne : box-decoration-break évite le "bloc" disgracieux quand
+     le surlignage franchit un retour à la ligne automatique. */
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0.05em 0;
+}
+
+.annot-run--or {
+  background-color: var(--annot-or);
+}
+
+.annot-run--oxblood {
+  background-color: var(--annot-oxblood);
+}
+
+.annot-run--olive {
+  background-color: var(--annot-olive);
+}
+
+.annot-run--bleu-encre {
+  background-color: var(--annot-bleu-encre);
+}
+
+.annot-run--sanguine {
+  background-color: var(--annot-sanguine);
+}
+
+.annot-run--underline {
+  border-bottom: 1px solid var(--annot-underline-color);
+}
+
+.annot-run-note-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  margin-left: 2px;
+  vertical-align: super;
+  font-family: var(--font-inter);
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--color-papier);
+  background: var(--annot-solid-oxblood);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.annot-run--or .annot-run-note-badge {
+  background: var(--annot-solid-or);
+}
+
+.annot-run--olive .annot-run-note-badge {
+  background: var(--annot-solid-olive);
+}
+
+.annot-run--bleu-encre .annot-run-note-badge {
+  background: var(--annot-solid-bleu-encre);
+}
+
+.annot-run--sanguine .annot-run-note-badge {
+  background: var(--annot-solid-sanguine);
+}

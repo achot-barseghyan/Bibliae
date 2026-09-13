@@ -1,0 +1,46 @@
+.full-screen-world {
+  --background: var(--color-papier);
+}
+
+.full-screen-world--rosaire {
+  --background: var(--color-rosaire);
+}
+
+.full-screen-world-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) 20px 0;
+}
+
+.full-screen-world-close {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-encre);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.full-screen-world-close:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.full-screen-world-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.full-screen-world-title {
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+  font-size: var(--taille-chapitre);
+  color: var(--color-encre);
+  margin: 0;
+}

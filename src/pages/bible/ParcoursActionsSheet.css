@@ -1,0 +1,127 @@
+.parcours-actions-title {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+  margin: 0;
+}
+
+.parcours-actions-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.parcours-actions-item {
+  min-height: 48px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--filet-tableaux);
+  text-align: left;
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-encre);
+  cursor: pointer;
+}
+
+.parcours-actions-item:first-child {
+  border-top: none;
+}
+
+.parcours-actions-item--danger {
+  color: var(--color-oxblood);
+}
+
+.parcours-actions-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 4px;
+}
+
+.parcours-actions-input {
+  min-height: 44px;
+  padding: 0 12px;
+  background: var(--filet-tableaux);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+}
+
+.parcours-actions-input:focus-visible {
+  outline: none;
+  border-color: var(--color-oxblood);
+}
+
+.parcours-actions-colors {
+  display: flex;
+  gap: 12px;
+}
+
+.parcours-actions-color {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: var(--annot-solid-oxblood);
+}
+
+.parcours-actions-color--or {
+  background: var(--annot-solid-or);
+}
+
+.parcours-actions-color--olive {
+  background: var(--annot-solid-olive);
+}
+
+.parcours-actions-color--bleu-encre {
+  background: var(--annot-solid-bleu-encre);
+}
+
+.parcours-actions-color--sanguine {
+  background: var(--annot-solid-sanguine);
+}
+
+.parcours-actions-color.is-selected {
+  border-color: var(--color-encre);
+}
+
+.parcours-actions-color:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.parcours-actions-warning {
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-valeur);
+  line-height: 1.5;
+  color: var(--color-encre);
+  margin: 0;
+}
+
+.parcours-actions-confirm {
+  min-height: 48px;
+  background: var(--color-encre);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-papier);
+  cursor: pointer;
+}
+
+.parcours-actions-confirm:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.parcours-actions-confirm--danger {
+  background: var(--color-oxblood);
+}

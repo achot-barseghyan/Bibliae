@@ -1,0 +1,114 @@
+.bible-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 12px;
+  border-bottom: 1px solid var(--bible-border);
+}
+
+.bible-header--accent {
+  border-bottom: 2px solid var(--bible-accent);
+}
+
+.bible-header-side {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.bible-header-side--right {
+  gap: 2px;
+}
+
+.bible-header-button {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--bible-text);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.bible-header-button.is-active {
+  color: var(--bible-accent);
+  background: var(--bible-border-soft);
+}
+
+.bible-header-button--world {
+  width: 36px;
+  height: 36px;
+  background: var(--color-oxblood);
+  border: none;
+  color: var(--color-papier);
+}
+
+.bible-header-button--world:active {
+  transform: scale(0.94);
+}
+
+.bible-header-notes-badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 0 9px;
+  margin-right: 2px;
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  font-weight: 600;
+  color: var(--bible-accent);
+  background: none;
+  border: 1px solid var(--bible-accent);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.bible-header-notes-badge:active {
+  transform: scale(0.94);
+}
+
+.bible-header-notes-badge:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: 2px;
+}
+
+.bible-header-button:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: 2px;
+}
+
+.bible-header-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: calc(100% - 180px);
+  text-align: center;
+  font-family: var(--bible-font);
+  font-weight: 400;
+  font-size: var(--taille-titre-section);
+  color: var(--bible-text);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bible-header-title--button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}

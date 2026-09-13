@@ -1,0 +1,105 @@
+.tour-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+}
+
+.tour-spotlight {
+  position: fixed;
+  /* La grande ombre portée assombrit tout l'écran sauf ce rectangle,
+     qui reste transparent : c'est la « fenêtre » du tour. */
+  box-shadow: 0 0 0 9999px rgba(28, 24, 20, 0.72);
+  border: 2px solid var(--color-oxblood);
+  pointer-events: none;
+}
+
+.tour-spotlight--pill {
+  border-radius: 18px;
+}
+
+.tour-spotlight--circle {
+  border-radius: 50%;
+}
+
+.tour-card {
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 112px;
+  background: var(--color-papier);
+  border: 1px solid var(--filet-barres);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(35, 32, 26, 0.25);
+}
+
+.tour-card-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+  margin: 0 0 8px;
+}
+
+.tour-card-text {
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-valeur);
+  line-height: 1.5;
+  color: var(--encre-60);
+  margin: 0 0 18px;
+}
+
+.tour-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tour-card-skip {
+  min-height: 44px;
+  padding: 0 4px;
+  background: none;
+  border: none;
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  color: var(--encre-45);
+  cursor: pointer;
+}
+
+.tour-card-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.tour-card-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--filet-barres);
+}
+
+.tour-card-dot.is-active {
+  background: var(--color-oxblood);
+}
+
+.tour-card-next {
+  min-height: 44px;
+  padding: 0 18px;
+  background: var(--color-oxblood);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-papier);
+  cursor: pointer;
+}
+
+.tour-card-next:focus-visible,
+.tour-card-skip:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}

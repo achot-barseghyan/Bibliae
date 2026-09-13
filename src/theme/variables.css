@@ -1,0 +1,125 @@
+/* Bibliae — design tokens
+   Palette fixe (pas de variante sombre) : voir les 4 couleurs de base
+   et leurs deux variantes marginales ci-dessous. */
+
+:root {
+  /* Couleurs — 4 seulement */
+  --color-papier: #EFE7D3;
+  --color-papier-enfonce: #E4D9BC;
+  --color-encre: #23201A;
+  --color-oxblood: #6B1E23;
+  --color-or: #B5892E;
+
+  /* Variantes marginales */
+  --color-cartouche-genealogie: #E8DEC4;
+  --color-hors-appareil: #D9D2C0;
+
+  /* Surfaces additionnelles pour la navigation entre mondes */
+  --color-tabbar: #EDE5D6;
+  --color-rosaire: #F7F1E2;
+
+  /* Opacités de l'encre */
+  --encre-72: rgba(35, 32, 26, 0.72); /* translittérations */
+  --encre-60: rgba(35, 32, 26, 0.60); /* légendes */
+  --encre-50: rgba(35, 32, 26, 0.50); /* attribution */
+  --encre-45: rgba(35, 32, 26, 0.45); /* pied de page */
+  --encre-42: rgba(35, 32, 26, 0.42); /* versets de contexte */
+
+  /* Filets */
+  --filet-sections: rgba(35, 32, 26, 0.20);
+  --filet-tableaux: rgba(35, 32, 26, 0.16);
+  --filet-barres: rgba(35, 32, 26, 0.28);
+
+  /* Fonts — 3 */
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-eb-garamond: 'EB Garamond', serif;
+  --font-inter: 'Inter', sans-serif;
+
+  /* Accessibilité : échelle de texte et interlignage pilotables via
+     data-text-scale / data-line-spacing sur <html> (voir useAccessibility) */
+  --a11y-scale: 1;
+  --a11y-leading: 1;
+
+  /* Échelle de corps */
+  --taille-nom-figure: calc(42px * var(--a11y-scale));
+  --taille-chapitre: calc(34px * var(--a11y-scale));
+  --taille-titre-section: calc(27px * var(--a11y-scale));
+  --taille-verset: calc(20px * var(--a11y-scale));
+  --taille-prose: calc(19px * var(--a11y-scale));
+  --taille-valeur: calc(17px * var(--a11y-scale));
+  --taille-cartouche: calc(12px * var(--a11y-scale));
+  --taille-surtitre: calc(10px * var(--a11y-scale));
+  --taille-onglet: calc(10px * var(--a11y-scale));
+
+  /* Interlettrage des surtitres/labels Inter */
+  --tracking-min: 0.14em;
+  --tracking-max: 0.22em;
+
+  /* --- Mapping Ionic --- */
+  --ion-font-family: var(--font-cormorant);
+  --ion-background-color: var(--color-papier);
+  --ion-background-color-rgb: 239, 231, 211;
+  --ion-text-color: var(--color-encre);
+  --ion-text-color-rgb: 35, 32, 26;
+
+  --ion-toolbar-background: var(--color-papier);
+  --ion-toolbar-color: var(--color-encre);
+  --ion-tab-bar-background: var(--color-papier);
+  --ion-tab-bar-color: var(--encre-60);
+  --ion-tab-bar-color-selected: var(--color-oxblood);
+  --ion-item-background: var(--color-papier);
+  --ion-border-color: var(--filet-sections);
+
+  --ion-color-primary: #6B1E23;
+  --ion-color-primary-rgb: 107, 30, 35;
+  --ion-color-primary-contrast: #EFE7D3;
+  --ion-color-primary-contrast-rgb: 239, 231, 211;
+  --ion-color-primary-shade: #5e1a1f;
+  --ion-color-primary-tint: #7a343a;
+
+  --ion-color-secondary: #B5892E;
+  --ion-color-secondary-rgb: 181, 137, 46;
+  --ion-color-secondary-contrast: #23201A;
+  --ion-color-secondary-contrast-rgb: 35, 32, 26;
+  --ion-color-secondary-shade: #a07929;
+  --ion-color-secondary-tint: #bd9544;
+}
+
+/* --- Accessibilité --- */
+
+html[data-text-scale="1"] {
+  --a11y-scale: 0.9;
+}
+
+html[data-text-scale="2"] {
+  --a11y-scale: 1;
+}
+
+html[data-text-scale="3"] {
+  --a11y-scale: 1.15;
+}
+
+html[data-text-scale="4"] {
+  --a11y-scale: 1.3;
+}
+
+html[data-line-spacing='true'] {
+  --a11y-leading: 1.35;
+}
+
+html[data-contrast='true'] {
+  --encre-72: rgba(35, 32, 26, 0.86);
+  --encre-60: rgba(35, 32, 26, 0.78);
+  --encre-50: rgba(35, 32, 26, 0.68);
+  --encre-45: rgba(35, 32, 26, 0.6);
+  --encre-42: rgba(35, 32, 26, 0.58);
+}
+
+html[data-reduce-motion='true'] *,
+html[data-reduce-motion='true'] *::before,
+html[data-reduce-motion='true'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}

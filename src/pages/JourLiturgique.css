@@ -1,0 +1,870 @@
+.jour-liturgique-content {
+  --background: var(--color-papier);
+}
+
+.jour-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 12px 8px;
+}
+
+.jour-header-back,
+.jour-header-today {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-encre);
+  cursor: pointer;
+}
+
+.jour-header-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+  margin: 0;
+}
+
+.jour-date-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 8px 28px 0;
+}
+
+.jour-date-line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 10px;
+}
+
+.jour-date-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--color-encre);
+}
+
+.jour-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.25;
+  color: var(--color-encre);
+  max-width: 320px;
+  margin: 0 0 8px;
+}
+
+.jour-subtitle {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  margin: 0 0 18px;
+}
+
+.jour-divider {
+  width: 140px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-or), transparent);
+  margin-bottom: 20px;
+}
+
+.jour-week-strip {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 0 16px 24px;
+}
+
+.jour-week-day {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 2px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+}
+
+.jour-week-day.is-active {
+  border-color: var(--color-oxblood);
+}
+
+.jour-week-letter {
+  font-family: var(--font-inter);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+}
+
+.jour-week-number {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+}
+
+.jour-week-day.is-active .jour-week-number {
+  color: var(--color-oxblood);
+}
+
+.jour-week-marker {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+.jour-week-marker--green {
+  /* Même vert que les surlignages olive des annotations (highlightColors.css),
+     répété ici en dur : cette page n'importe pas ce fichier et une variable
+     CSS non définie n'aurait pas de couleur de repli. */
+  background: #5e6a3a;
+}
+
+.jour-week-marker--gold {
+  background: var(--color-or);
+}
+
+.jour-week-legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 16px 20px;
+}
+
+.jour-week-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-inter);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+}
+
+.jour-week-marker.is-visible {
+  opacity: 1;
+}
+
+.jour-section {
+  padding: 20px 20px 0;
+}
+
+.jour-section-kicker {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 12px;
+  border-top: 1px solid var(--filet-barres);
+  padding-top: 18px;
+}
+
+.jour-readings {
+  display: flex;
+  flex-direction: column;
+}
+
+.jour-reading-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 0;
+  border-top: 1px solid var(--filet-barres);
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.jour-readings > .jour-reading-row:first-child {
+  border-top: none;
+}
+
+.jour-reading-row:disabled {
+  cursor: default;
+}
+
+.jour-reading-icon {
+  flex: 0 0 auto;
+  width: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 3px;
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--color-oxblood);
+}
+
+.jour-reading-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.jour-reading-label-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.jour-reading-type {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-cartouche);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+}
+
+.jour-reading-ref {
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+}
+
+.jour-reading-quote {
+  font-family: var(--font-inter);
+  font-size: var(--taille-valeur);
+  line-height: 1.4;
+  color: var(--color-encre);
+}
+
+.jour-reading-chevron {
+  flex: 0 0 auto;
+  color: var(--encre-60);
+  margin-top: 4px;
+}
+
+.jour-gospel-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-oxblood);
+  background: none;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-cartouche);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  cursor: pointer;
+}
+
+.jour-source {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-inter);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+  opacity: 0.7;
+  margin: 20px 20px 0;
+}
+
+.jour-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 24px 20px 0;
+}
+
+.jour-action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--filet-barres);
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.jour-action-icon {
+  color: var(--color-oxblood);
+}
+
+.jour-action-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+}
+
+.jour-action-meta {
+  font-family: var(--font-inter);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+}
+
+.jour-nav-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 28px 20px 0;
+  padding: 16px 0 calc(env(safe-area-inset-bottom, 0px) + 24px);
+  border-top: 1px solid var(--filet-barres);
+}
+
+.jour-nav-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  cursor: pointer;
+}
+
+.jour-nav-sep {
+  color: var(--color-or);
+  font-size: 12px;
+}
+
+.jour-nav-button:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+/* --- Bascule Ordinaire / Traditionnel --- */
+
+.jour-ordo-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 20px 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--filet-barres);
+}
+
+.jour-ordo-button {
+  padding: 10px 4px;
+  background: none;
+  border: none;
+  border-left: 1px solid var(--filet-barres);
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-encre);
+  cursor: pointer;
+}
+
+.jour-ordo-button:first-child {
+  border-left: none;
+}
+
+.jour-ordo-button.is-active {
+  font-weight: 600;
+  color: var(--color-oxblood);
+  background: var(--color-papier-enfonce);
+}
+
+.jour-ordo-button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* --- Blocs génériques (Ce que l'Église célèbre, heures, questions) --- */
+
+.jour-block {
+  padding: 20px 20px 0;
+}
+
+.jour-prose {
+  font-family: var(--font-inter);
+  font-size: var(--taille-prose);
+  line-height: 1.6;
+  color: var(--color-encre);
+  margin: 0;
+  text-align: left;
+}
+
+.jour-link-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  cursor: pointer;
+}
+
+.jour-link-chevron--up {
+  transform: rotate(-90deg);
+}
+
+.jour-section-heading-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--filet-barres);
+  padding-top: 18px;
+  margin-bottom: 8px;
+}
+
+.jour-section-title {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--color-encre);
+  margin: 0 0 12px;
+  border-top: 1px solid var(--filet-barres);
+  padding-top: 18px;
+}
+
+.jour-section-heading-row .jour-section-title {
+  border-top: none;
+  padding-top: 0;
+  margin: 0;
+}
+
+.jour-section-count {
+  font-family: var(--font-inter);
+  font-weight: 300;
+  font-size: var(--taille-cartouche);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+}
+
+.jour-hours-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--filet-barres);
+  border: 1px solid var(--filet-barres);
+}
+
+.jour-hour-card {
+  min-height: 60px;
+  padding: 10px 14px;
+  background: var(--color-papier);
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.jour-hour-card--all {
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+}
+
+.jour-hour-name {
+  font-family: var(--font-cormorant);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--color-encre);
+}
+
+.jour-hour-name.is-now {
+  color: var(--color-oxblood);
+}
+
+.jour-hour-meta {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--encre-60);
+}
+
+.jour-hour-meta.is-now {
+  color: var(--color-oxblood);
+}
+
+/* --- Vue détaillée (lecture / heure), plein écran, glisse depuis la droite --- */
+
+.jour-detail {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-papier);
+}
+
+.jour-header-titles {
+  text-align: center;
+}
+
+.jour-header-title--small {
+  font-size: 20px;
+  margin: 0;
+}
+
+.jour-header-subtitle {
+  font-family: var(--font-inter);
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--encre-60);
+  margin: 3px 0 0;
+}
+
+.jour-detail-tabs {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--color-papier-enfonce);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.jour-detail-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.jour-detail-tab {
+  flex: 0 0 auto;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid var(--filet-barres);
+  background: none;
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-cartouche);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-encre);
+  cursor: pointer;
+}
+
+.jour-detail-tab.is-active {
+  font-weight: 600;
+  border-color: var(--color-oxblood);
+  background: var(--color-papier);
+  color: var(--color-oxblood);
+}
+
+.jour-detail-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 26px 24px 32px;
+}
+
+.jour-detail-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.jour-detail-heading .jour-section-kicker {
+  border-top: none;
+  padding-top: 0;
+}
+
+.jour-detail-ref {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 27px;
+  color: var(--color-encre);
+  margin: 8px 0 0;
+}
+
+.jour-detail-paragraph {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--color-encre);
+  margin: 18px 0 0;
+  text-align: left;
+  /* Les `<br>` du texte source sont convertis en vrais retours à la ligne
+     (htmlToLines) : nécessaire pour les lectures découpées verset par
+     verset (offices), sinon tout s'aplatit en un seul bloc. */
+  white-space: pre-line;
+}
+
+.jour-latin-block {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--color-papier-enfonce);
+  border-left: 2px solid var(--color-oxblood);
+}
+
+.jour-latin-text {
+  font-family: var(--font-inter);
+  font-weight: 300;
+  font-style: italic;
+  margin: 0;
+  font-size: 15px;
+}
+
+.jour-commemoration {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--filet-barres);
+}
+
+.jour-detail-actions {
+  margin-top: 22px;
+}
+
+.jour-detail-footer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
+  border-top: 1px solid var(--filet-barres);
+}
+
+.jour-detail-pager {
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--encre-60);
+}
+
+/* --- Hors ligne : bandeau (contenu en cache affiché) --- */
+
+.jour-offline-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 20px;
+  background: var(--color-papier-enfonce);
+  border-top: 1px solid var(--filet-barres);
+  border-bottom: 1px solid var(--filet-barres);
+}
+
+.jour-offline-banner-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+}
+
+.jour-offline-banner-time {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-cartouche);
+  color: var(--encre-60);
+}
+
+/* --- Hors ligne : encart « conservé sur l'appareil » (contenu en cache) --- */
+
+.jour-offline-notice {
+  margin: 20px 20px 0;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--color-papier-enfonce);
+}
+
+.jour-offline-notice-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 8px;
+}
+
+.jour-offline-notice-text {
+  font-family: var(--font-inter);
+  font-size: var(--taille-cartouche);
+  line-height: 1.4;
+  color: var(--color-encre);
+  margin: 0 0 10px;
+}
+
+.jour-offline-notice-retry {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  cursor: pointer;
+}
+
+/* --- Hors ligne : aucune donnée pour cette date (écran plein) --- */
+
+.jour-offline-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 28px 0;
+}
+
+.jour-offline-empty-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--color-or);
+  color: var(--color-or);
+  margin-bottom: 18px;
+}
+
+.jour-offline-empty-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 10px;
+}
+
+.jour-offline-empty-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.25;
+  color: var(--color-encre);
+  max-width: 300px;
+  margin: 0 0 18px;
+}
+
+.jour-offline-empty .jour-prose {
+  max-width: 320px;
+  margin: 0 0 14px;
+  text-align: center;
+}
+
+.jour-offline-empty-note {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  max-width: 300px;
+  margin: 0 0 24px;
+}
+
+.jour-offline-empty-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.jour-offline-empty-actions .jour-gospel-button {
+  margin-top: 0;
+}
+
+.jour-offline-empty-secondary {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--filet-barres);
+  background: none;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-cartouche);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-encre);
+  cursor: pointer;
+}
+
+.jour-offline-empty-quote {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  max-width: 300px;
+  margin: 28px 0 0;
+}
+
+.jour-offline-empty-quote-ref {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-inter);
+  font-style: normal;
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}

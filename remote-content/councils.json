@@ -1,0 +1,18 @@
+[
+  {
+    "id": "nicee-325",
+    "display": "Nicée, 325",
+    "header": "Concile de Nicée, 325",
+    "title": "Symbole de Nicée",
+    "quote": "Nous croyons en un seul Seigneur Jésus-Christ, Fils unique de Dieu, engendré du Père avant tous les siècles, Dieu né de Dieu, lumière née de la lumière.",
+    "actionLabel": "Lire le symbole"
+  },
+  {
+    "id": "chalcedoine-451",
+    "display": "Chalcédoine, 451",
+    "header": "Concile de Chalcédoine, 451",
+    "title": "Définition de Chalcédoine",
+    "quote": "Un seul et même Christ, reconnu en deux natures, sans confusion, sans changement, sans division, sans séparation.",
+    "actionLabel": "Lire la définition"
+  }
+]
