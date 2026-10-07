@@ -39,7 +39,10 @@ export const CHURCH_PRAYERS: Prayer[] = [
     reference: 'Ave Maria · Lc 1, 28 et 42',
     texts: {
       fr: "Je vous salue, Marie, pleine de grâce ;\nle Seigneur est avec vous.\nVous êtes bénie entre toutes les femmes,\net Jésus, le fruit de vos entrailles, est béni.\n\nSainte Marie, Mère de Dieu,\npriez pour nous, pauvres pécheurs,\nmaintenant et à l'heure de notre mort.\n\nAmen.",
-      la: 'Ave Maria, gratia plena,\nDominus tecum.\nBenedicta tu in mulieribus,\net benedictus fructus ventris tui, Iesus.\n\nSancta Maria, Mater Dei,\nora pro nobis peccatoribus,\nnunc et in hora mortis nostrae.\n\nAmen.'
+      en: "Hail Mary, full of grace,\nthe Lord is with thee.\nBlessed art thou among women,\nand blessed is the fruit of thy womb, Jesus.\n\nHoly Mary, Mother of God,\npray for us sinners,\nnow and at the hour of our death.\n\nAmen.",
+      la: 'Ave Maria, gratia plena,\nDominus tecum.\nBenedicta tu in mulieribus,\net benedictus fructus ventris tui, Iesus.\n\nSancta Maria, Mater Dei,\nora pro nobis peccatoribus,\nnunc et in hora mortis nostrae.\n\nAmen.',
+      el: "Χαῖρε, Μαρία, κεχαριτωμένη,\nὁ Κύριος μετὰ σοῦ.\nΕὐλογημένη σὺ ἐν γυναιξί,\nκαὶ εὐλογημένος ὁ καρπὸς τῆς κοιλίας σου, Ἰησοῦς.\n\nἉγία Μαρία, Μῆτερ τοῦ Θεοῦ,\nπρέσβευε ὑπὲρ ἡμῶν τῶν ἁμαρτωλῶν,\nνῦν καὶ ἐν τῇ ὥρᾳ τοῦ θανάτου ἡμῶν.\n\nἈμήν.",
+      arc: "Shlam lakh Maryam, malyath taybutha,\nMaran ammakh.\nMbarakhta at b'neshe,\nwambarakh hu pira d'karsakh, Yeshua.\n\nQaddishtha Maryam, emmeh d'Alaha,\nsalay hlafayn hatyeh,\nhasha wab'shaatha d'mawthan.\n\nAmeyn."
     }
   },
   {
@@ -48,7 +51,10 @@ export const CHURCH_PRAYERS: Prayer[] = [
     reference: 'Gloria Patri · Doxologie mineure',
     texts: {
       fr: 'Gloire au Père, et au Fils, et au Saint-Esprit,\ncomme il était au commencement, maintenant et toujours,\net dans les siècles des siècles.\n\nAmen.',
-      la: 'Gloria Patri, et Filio, et Spiritui Sancto.\nSicut erat in principio, et nunc, et semper,\net in saecula saeculorum.\n\nAmen.'
+      en: "Glory be to the Father, and to the Son, and to the Holy Spirit,\nas it was in the beginning, is now, and ever shall be,\nworld without end.\n\nAmen.",
+      la: 'Gloria Patri, et Filio, et Spiritui Sancto.\nSicut erat in principio, et nunc, et semper,\net in saecula saeculorum.\n\nAmen.',
+      el: "Δόξα Πατρὶ καὶ Υἱῷ καὶ Ἁγίῳ Πνεύματι,\nκαὶ νῦν καὶ ἀεὶ καὶ εἰς τοὺς αἰῶνας τῶν αἰώνων.\n\nἈμήν.",
+      arc: "Shubha l'Aba wal'Bra wal'Ruha Qaddisha,\nmen alam wadamma l'alam almin.\n\nAmeyn."
     }
   },
   {
@@ -57,7 +63,9 @@ export const CHURCH_PRAYERS: Prayer[] = [
     reference: 'Symbole des Apôtres',
     texts: {
       fr: "Je crois en Dieu, le Père tout-puissant,\nCréateur du ciel et de la terre.\n\nEt en Jésus-Christ, son Fils unique, notre Seigneur,\nqui a été conçu du Saint-Esprit,\nest né de la Vierge Marie,\na souffert sous Ponce Pilate,\na été crucifié, est mort, a été enseveli,\nest descendu aux enfers,\nle troisième jour est ressuscité des morts,\nest monté aux cieux,\nest assis à la droite de Dieu le Père tout-puissant,\nd'où il viendra juger les vivants et les morts.\n\nJe crois en l'Esprit Saint,\nà la sainte Église catholique,\nà la communion des saints,\nà la rémission des péchés,\nà la résurrection de la chair,\nà la vie éternelle.\n\nAmen.",
-      la: "Credo in Deum, Patrem omnipotentem,\nCreatorem caeli et terrae.\n\nEt in Iesum Christum, Filium eius unicum, Dominum nostrum,\nqui conceptus est de Spiritu Sancto,\nnatus ex Maria Virgine,\npassus sub Pontio Pilato,\ncrucifixus, mortuus, et sepultus,\ndescendit ad inferos,\ntertia die resurrexit a mortuis,\nascendit ad caelos,\nsedet ad dexteram Dei Patris omnipotentis,\ninde venturus est iudicare vivos et mortuos.\n\nCredo in Spiritum Sanctum,\nsanctam Ecclesiam catholicam,\nsanctorum communionem,\nremissionem peccatorum,\ncarnis resurrectionem,\nvitam aeternam.\n\nAmen."
+      en: "I believe in God, the Father almighty,\nCreator of heaven and earth.\n\nAnd in Jesus Christ, his only Son, our Lord,\nwho was conceived by the Holy Spirit,\nborn of the Virgin Mary,\nsuffered under Pontius Pilate,\nwas crucified, died and was buried;\nhe descended into hell;\non the third day he rose again from the dead;\nhe ascended into heaven,\nand is seated at the right hand of God the Father almighty;\nfrom there he will come to judge the living and the dead.\n\nI believe in the Holy Spirit,\nthe holy catholic Church,\nthe communion of saints,\nthe forgiveness of sins,\nthe resurrection of the body,\nand life everlasting.\n\nAmen.",
+      la: "Credo in Deum, Patrem omnipotentem,\nCreatorem caeli et terrae.\n\nEt in Iesum Christum, Filium eius unicum, Dominum nostrum,\nqui conceptus est de Spiritu Sancto,\nnatus ex Maria Virgine,\npassus sub Pontio Pilato,\ncrucifixus, mortuus, et sepultus,\ndescendit ad inferos,\ntertia die resurrexit a mortuis,\nascendit ad caelos,\nsedet ad dexteram Dei Patris omnipotentis,\ninde venturus est iudicare vivos et mortuos.\n\nCredo in Spiritum Sanctum,\nsanctam Ecclesiam catholicam,\nsanctorum communionem,\nremissionem peccatorum,\ncarnis resurrectionem,\nvitam aeternam.\n\nAmen.",
+      el: "Πιστεύω εἰς Θεὸν Πατέρα παντοκράτορα,\nποιητὴν οὐρανοῦ καὶ γῆς.\n\nΚαὶ εἰς Ἰησοῦν Χριστόν, Υἱὸν αὐτοῦ τὸν μονογενῆ, τὸν Κύριον ἡμῶν,\nτὸν συλληφθέντα ἐκ Πνεύματος Ἁγίου,\nγεννηθέντα ἐκ Μαρίας τῆς παρθένου,\nπαθόντα ἐπὶ Ποντίου Πιλάτου,\nσταυρωθέντα, θανόντα καὶ ταφέντα,\nκατελθόντα εἰς τὰ κατώτατα,\nτῇ τρίτῃ ἡμέρᾳ ἀναστάντα ἀπὸ τῶν νεκρῶν,\nἀνελθόντα εἰς τοὺς οὐρανούς,\nκαθεζόμενον ἐν δεξιᾷ Θεοῦ Πατρὸς παντοδυνάμου,\nἐκεῖθεν ἐρχόμενον κρῖναι ζῶντας καὶ νεκρούς.\n\nΠιστεύω εἰς τὸ Πνεῦμα τὸ Ἅγιον,\nἁγίαν καθολικὴν ἐκκλησίαν,\nἁγίων κοινωνίαν,\nἄφεσιν ἁμαρτιῶν,\nσαρκὸς ἀνάστασιν,\nζωὴν αἰώνιον.\n\nἈμήν."
     }
   },
   {
@@ -65,7 +73,9 @@ export const CHURCH_PRAYERS: Prayer[] = [
     title: 'Acte de contrition',
     reference: 'Rituel romain',
     texts: {
-      fr: "Mon Dieu, j'ai un grand regret de vous avoir offensé,\nparce que vous êtes infiniment bon\net que le péché vous déplaît.\n\nJe prends la ferme résolution, avec le secours de votre sainte grâce,\nde ne plus vous offenser et de faire pénitence.\n\nAmen."
+      fr: "Mon Dieu, j'ai un grand regret de vous avoir offensé,\nparce que vous êtes infiniment bon\net que le péché vous déplaît.\n\nJe prends la ferme résolution, avec le secours de votre sainte grâce,\nde ne plus vous offenser et de faire pénitence.\n\nAmen.",
+      en: "O my God, I am heartily sorry for having offended you,\nbecause you are infinitely good\nand sin displeases you.\n\nI firmly resolve, with the help of your holy grace,\nnever more to offend you and to do penance.\n\nAmen.",
+      la: "Deus meus, ex toto corde paenitet me omnium meorum peccatorum,\neaque detestor, quia peccando\nnon solum poenas a te iuste statutas promeritus sum,\nsed praesertim quia offendi te, summum bonum,\nac dignum qui super omnia diligaris.\n\nIdeo firmiter propono, adiuvante gratia tua,\nde cetero me non peccaturum\npeccandique occasiones proximas fugiturum.\n\nAmen."
     }
   },
   {
@@ -74,6 +84,7 @@ export const CHURCH_PRAYERS: Prayer[] = [
     reference: "Angele Dei · Prière à l'ange gardien",
     texts: {
       fr: "Ange de Dieu, qui êtes mon gardien,\npuisque la bonté divine m'a confié à vous,\néclairez-moi, gardez-moi, conduisez-moi et gouvernez-moi.\n\nAmen.",
+      en: "Angel of God, my guardian dear,\nto whom God's love commits me here,\never this day be at my side,\nto light and guard, to rule and guide.\n\nAmen.",
       la: 'Angele Dei, qui custos es mei,\nme tibi commissum pietate superna,\nillumina, custodi, rege et guberna.\n\nAmen.'
     }
   },
@@ -82,7 +93,8 @@ export const CHURCH_PRAYERS: Prayer[] = [
     title: 'Je vous salue, Joseph',
     reference: 'Prière à saint Joseph',
     texts: {
-      fr: "Je vous salue, Joseph, comblé de grâce,\nle Sauveur a reposé entre vos bras et grandi sous votre toit.\nVous êtes béni entre tous les hommes,\net Jésus, l'enfant de votre épouse Marie, est béni.\n\nSaint Joseph, donné pour père au Fils de Dieu,\npriez pour nous qui avons recours à vous,\net obtenez à nos familles la paix, le pain et la sainteté de vos jours,\nmaintenant et à l'heure de notre mort.\n\nAmen."
+      fr: "Je vous salue, Joseph, comblé de grâce,\nle Sauveur a reposé entre vos bras et grandi sous votre toit.\nVous êtes béni entre tous les hommes,\net Jésus, l'enfant de votre épouse Marie, est béni.\n\nSaint Joseph, donné pour père au Fils de Dieu,\npriez pour nous qui avons recours à vous,\net obtenez à nos familles la paix, le pain et la sainteté de vos jours,\nmaintenant et à l'heure de notre mort.\n\nAmen.",
+      en: "Hail Joseph, full of grace,\nthe Saviour rested in your arms and grew up under your roof.\nBlessed are you among all men,\nand blessed is Jesus, the child of Mary your spouse.\n\nSaint Joseph, given as father to the Son of God,\npray for us who have recourse to you,\nand obtain for our families peace, bread and the holiness of your days,\nnow and at the hour of our death.\n\nAmen."
     }
   },
   {
@@ -91,6 +103,7 @@ export const CHURCH_PRAYERS: Prayer[] = [
     reference: 'Memorare · Saint Bernard de Clairvaux',
     texts: {
       fr: "Souvenez-vous, ô très miséricordieuse Vierge Marie,\nqu'on n'a jamais entendu dire\nqu'aucun de ceux qui ont eu recours à votre protection,\nimploré votre assistance, ou réclamé votre secours,\nait été abandonné.\n\nAnimé d'une pareille confiance, ô Vierge des vierges, ô ma Mère,\nje cours vers vous,\net gémissant sous le poids de mes péchés,\nje me prosterne à vos pieds.\n\nÔ Mère du Verbe incarné,\nne méprisez pas mes prières,\nmais écoutez-les favorablement et daignez les exaucer.\n\nAmen.",
+      en: "Remember, O most gracious Virgin Mary,\nthat never was it known\nthat anyone who fled to thy protection,\nimplored thy help, or sought thine intercession,\nwas left unaided.\n\nInspired by this confidence,\nI fly unto thee, O Virgin of virgins, my Mother;\nto thee do I come,\nbefore thee I stand, sinful and sorrowful.\n\nO Mother of the Word Incarnate,\ndespise not my petitions,\nbut in thy mercy hear and answer me.\n\nAmen.",
       la: "Memorare, O piissima Virgo Maria,\nnon esse auditum a saeculo,\nquemquam ad tua currentem praesidia,\ntua implorantem auxilia, tua petentem suffragia,\nesse derelictum.\n\nEgo tali animatus confidentia,\nad te, Virgo Virginum, Mater, curro,\nad te venio,\ncoram te gemens peccator assisto.\n\nNoli, Mater Verbi, verba mea despicere;\nsed audi propitia et exaudi.\n\nAmen."
     }
   },
@@ -100,6 +113,7 @@ export const CHURCH_PRAYERS: Prayer[] = [
     reference: 'Antienne mariale · XIe siècle',
     texts: {
       fr: "Je vous salue, Reine, mère de miséricorde,\nnotre vie, notre douceur, notre espérance, je vous salue.\n\nEnfants d'Ève, exilés, nous crions vers vous ;\nvers vous nous soupirons,\ngémissant et pleurant dans cette vallée de larmes.\n\nÔ vous, notre avocate,\ntournez vers nous votre regard miséricordieux.\nEt, après cet exil, montrez-nous Jésus,\nle fruit béni de vos entrailles.\n\nÔ clémente, ô miséricordieuse, ô douce Vierge Marie.",
+      en: "Hail, holy Queen, Mother of mercy,\nour life, our sweetness and our hope.\n\nTo thee do we cry, poor banished children of Eve;\nto thee do we send up our sighs,\nmourning and weeping in this valley of tears.\n\nTurn then, most gracious advocate,\nthine eyes of mercy toward us;\nand after this our exile,\nshow unto us the blessed fruit of thy womb, Jesus.\n\nO clement, O loving, O sweet Virgin Mary.",
       la: 'Salve Regina, Mater misericordiae,\nvita, dulcedo, et spes nostra, salve.\n\nAd te clamamus, exsules filii Evae.\nAd te suspiramus, gementes et flentes\nin hac lacrimarum valle.\n\nEia ergo, advocata nostra,\nillos tuos misericordes oculos ad nos converte.\nEt Iesum, benedictum fructum ventris tui,\nnobis post hoc exsilium ostende.\n\nO clemens, O pia, O dulcis Virgo Maria.'
     }
   },
@@ -109,7 +123,9 @@ export const CHURCH_PRAYERS: Prayer[] = [
     reference: 'Cantique de Marie · Lc 1, 46-55',
     texts: {
       fr: "Mon âme exalte le Seigneur,\nexulte mon esprit en Dieu, mon Sauveur !\nIl s'est penché sur son humble servante ;\ndésormais tous les âges me diront bienheureuse.\n\nLe Puissant fit pour moi des merveilles ;\nSaint est son nom !\nSon amour s'étend d'âge en âge\nsur ceux qui le craignent.\n\nDéployant la force de son bras,\nil disperse les superbes.\nIl renverse les puissants de leurs trônes,\nil élève les humbles.\nIl comble de biens les affamés,\nrenvoie les riches les mains vides.\n\nIl relève Israël son serviteur,\nil se souvient de son amour,\nde la promesse faite à nos pères,\nen faveur d'Abraham et sa descendance à jamais.",
-      la: 'Magnificat anima mea Dominum,\net exsultavit spiritus meus in Deo salutari meo,\nquia respexit humilitatem ancillae suae.\nEcce enim ex hoc beatam me dicent omnes generationes,\n\nquia fecit mihi magna qui potens est,\net sanctum nomen eius.\nEt misericordia eius a progenie in progenies\ntimentibus eum.\n\nFecit potentiam in brachio suo,\ndispersit superbos mente cordis sui.\nDeposuit potentes de sede,\net exaltavit humiles.\nEsurientes implevit bonis,\net divites dimisit inanes.\n\nSuscepit Israel puerum suum,\nrecordatus misericordiae suae,\nsicut locutus est ad patres nostros,\nAbraham et semini eius in saecula.'
+      en: "My soul doth magnify the Lord,\nand my spirit hath rejoiced in God my Saviour,\nbecause he hath regarded the humility of his handmaid;\nfor behold, from henceforth all generations shall call me blessed.\n\nFor he that is mighty hath done great things to me,\nand holy is his name.\nAnd his mercy is from generation unto generations,\nto them that fear him.\n\nHe hath shewed might in his arm;\nhe hath scattered the proud in the conceit of their heart.\nHe hath put down the mighty from their seat,\nand hath exalted the humble.\nHe hath filled the hungry with good things,\nand the rich he hath sent empty away.\n\nHe hath received Israel his servant,\nbeing mindful of his mercy,\nas he spoke to our fathers,\nto Abraham and to his seed for ever.",
+      la: 'Magnificat anima mea Dominum,\net exsultavit spiritus meus in Deo salutari meo,\nquia respexit humilitatem ancillae suae.\nEcce enim ex hoc beatam me dicent omnes generationes,\n\nquia fecit mihi magna qui potens est,\net sanctum nomen eius.\nEt misericordia eius a progenie in progenies\ntimentibus eum.\n\nFecit potentiam in brachio suo,\ndispersit superbos mente cordis sui.\nDeposuit potentes de sede,\net exaltavit humiles.\nEsurientes implevit bonis,\net divites dimisit inanes.\n\nSuscepit Israel puerum suum,\nrecordatus misericordiae suae,\nsicut locutus est ad patres nostros,\nAbraham et semini eius in saecula.',
+      el: "Μεγαλύνει ἡ ψυχή μου τὸν Κύριον,\nκαὶ ἠγαλλίασεν τὸ πνεῦμά μου ἐπὶ τῷ Θεῷ τῷ σωτῆρί μου,\nὅτι ἐπέβλεψεν ἐπὶ τὴν ταπείνωσιν τῆς δούλης αὐτοῦ.\nἸδοὺ γὰρ ἀπὸ τοῦ νῦν μακαριοῦσίν με πᾶσαι αἱ γενεαί,\n\nὅτι ἐποίησέν μοι μεγάλα ὁ δυνατός,\nκαὶ ἅγιον τὸ ὄνομα αὐτοῦ.\nΚαὶ τὸ ἔλεος αὐτοῦ εἰς γενεὰς καὶ γενεὰς\nτοῖς φοβουμένοις αὐτόν.\n\nἘποίησεν κράτος ἐν βραχίονι αὐτοῦ,\nδιεσκόρπισεν ὑπερηφάνους διανοίᾳ καρδίας αὐτῶν·\nκαθεῖλεν δυνάστας ἀπὸ θρόνων\nκαὶ ὕψωσεν ταπεινούς,\nπεινῶντας ἐνέπλησεν ἀγαθῶν\nκαὶ πλουτοῦντας ἐξαπέστειλεν κενούς.\n\nἈντελάβετο Ἰσραὴλ παιδὸς αὐτοῦ,\nμνησθῆναι ἐλέους,\nκαθὼς ἐλάλησεν πρὸς τοὺς πατέρας ἡμῶν,\nτῷ Ἀβραὰμ καὶ τῷ σπέρματι αὐτοῦ εἰς τὸν αἰῶνα."
     }
   },
   {
@@ -117,7 +133,9 @@ export const CHURCH_PRAYERS: Prayer[] = [
     title: 'Angelus',
     reference: "Prière de l'Incarnation · midi",
     texts: {
-      fr: "L'Ange du Seigneur apporta l'annonce à Marie,\net elle conçut du Saint-Esprit.\nJe vous salue, Marie...\n\nVoici la servante du Seigneur,\nqu'il me soit fait selon votre parole.\nJe vous salue, Marie...\n\nEt le Verbe s'est fait chair,\net il a habité parmi nous.\nJe vous salue, Marie...\n\nPriez pour nous, sainte Mère de Dieu,\nafin que nous soyons rendus dignes des promesses de Jésus-Christ.\n\nRépandez, Seigneur, votre grâce en nos âmes,\nafin que nous, qui avons connu par le message de l'Ange l'incarnation de votre Fils bien-aimé,\nsoyons conduits par sa passion et par sa croix à la gloire de la résurrection.\nPar le même Jésus-Christ notre Seigneur.\n\nAmen."
+      fr: "L'Ange du Seigneur apporta l'annonce à Marie,\net elle conçut du Saint-Esprit.\nJe vous salue, Marie...\n\nVoici la servante du Seigneur,\nqu'il me soit fait selon votre parole.\nJe vous salue, Marie...\n\nEt le Verbe s'est fait chair,\net il a habité parmi nous.\nJe vous salue, Marie...\n\nPriez pour nous, sainte Mère de Dieu,\nafin que nous soyons rendus dignes des promesses de Jésus-Christ.\n\nRépandez, Seigneur, votre grâce en nos âmes,\nafin que nous, qui avons connu par le message de l'Ange l'incarnation de votre Fils bien-aimé,\nsoyons conduits par sa passion et par sa croix à la gloire de la résurrection.\nPar le même Jésus-Christ notre Seigneur.\n\nAmen.",
+      en: "The Angel of the Lord declared unto Mary,\nand she conceived of the Holy Spirit.\nHail Mary...\n\nBehold the handmaid of the Lord,\nbe it done unto me according to thy word.\nHail Mary...\n\nAnd the Word was made flesh,\nand dwelt among us.\nHail Mary...\n\nPray for us, O holy Mother of God,\nthat we may be made worthy of the promises of Christ.\n\nPour forth, we beseech thee, O Lord, thy grace into our hearts,\nthat we, to whom the incarnation of Christ thy Son was made known by the message of an angel,\nmay by his passion and cross be brought to the glory of his resurrection.\nThrough the same Christ our Lord.\n\nAmen.",
+      la: "Angelus Domini nuntiavit Mariae,\net concepit de Spiritu Sancto.\nAve Maria...\n\nEcce ancilla Domini,\nfiat mihi secundum verbum tuum.\nAve Maria...\n\nEt Verbum caro factum est,\net habitavit in nobis.\nAve Maria...\n\nOra pro nobis, sancta Dei Genetrix,\nut digni efficiamur promissionibus Christi.\n\nGratiam tuam, quaesumus, Domine, mentibus nostris infunde,\nut qui, angelo nuntiante, Christi Filii tui incarnationem cognovimus,\nper passionem eius et crucem ad resurrectionis gloriam perducamur.\nPer eundem Christum Dominum nostrum.\n\nAmen."
     }
   },
   {
@@ -126,6 +144,7 @@ export const CHURCH_PRAYERS: Prayer[] = [
     reference: 'Antienne mariale · temps pascal',
     texts: {
       fr: "Reine du ciel, réjouissez-vous, alléluia,\ncar celui que vous avez mérité de porter, alléluia,\nest ressuscité comme il l'a dit, alléluia.\n\nPriez Dieu pour nous, alléluia.",
+      en: "Queen of Heaven, rejoice, alleluia,\nfor he whom thou didst merit to bear, alleluia,\nhas risen, as he said, alleluia.\n\nPray for us to God, alleluia.",
       la: 'Regina caeli, laetare, alleluia.\nQuia quem meruisti portare, alleluia.\nResurrexit, sicut dixit, alleluia.\n\nOra pro nobis Deum, alleluia.'
     }
   },
@@ -134,7 +153,8 @@ export const CHURCH_PRAYERS: Prayer[] = [
     title: 'Seigneur, fais de moi un instrument de ta paix',
     reference: "Attribuée à saint François d'Assise",
     texts: {
-      fr: "Seigneur, fais de moi un instrument de ta paix.\nLà où est la haine, que je mette l'amour.\nLà où est l'offense, que je mette le pardon.\nLà où est la discorde, que je mette l'union.\nLà où est l'erreur, que je mette la vérité.\nLà où est le doute, que je mette la foi.\nLà où est le désespoir, que je mette l'espérance.\nLà où sont les ténèbres, que je mette la lumière.\nLà où est la tristesse, que je mette la joie.\n\nÔ Maître,\nque je ne cherche pas tant à être consolé qu'à consoler,\nà être compris qu'à comprendre,\nà être aimé qu'à aimer.\n\nCar c'est en donnant qu'on reçoit,\nc'est en s'oubliant qu'on trouve,\nc'est en pardonnant qu'on est pardonné,\nc'est en mourant qu'on ressuscite à l'éternelle vie."
+      fr: "Seigneur, fais de moi un instrument de ta paix.\nLà où est la haine, que je mette l'amour.\nLà où est l'offense, que je mette le pardon.\nLà où est la discorde, que je mette l'union.\nLà où est l'erreur, que je mette la vérité.\nLà où est le doute, que je mette la foi.\nLà où est le désespoir, que je mette l'espérance.\nLà où sont les ténèbres, que je mette la lumière.\nLà où est la tristesse, que je mette la joie.\n\nÔ Maître,\nque je ne cherche pas tant à être consolé qu'à consoler,\nà être compris qu'à comprendre,\nà être aimé qu'à aimer.\n\nCar c'est en donnant qu'on reçoit,\nc'est en s'oubliant qu'on trouve,\nc'est en pardonnant qu'on est pardonné,\nc'est en mourant qu'on ressuscite à l'éternelle vie.",
+      en: "Lord, make me an instrument of your peace.\nWhere there is hatred, let me sow love.\nWhere there is injury, pardon.\nWhere there is discord, union.\nWhere there is error, truth.\nWhere there is doubt, faith.\nWhere there is despair, hope.\nWhere there is darkness, light.\nWhere there is sadness, joy.\n\nO Divine Master,\ngrant that I may not so much seek to be consoled as to console,\nto be understood as to understand,\nto be loved as to love.\n\nFor it is in giving that we receive,\nit is in forgetting ourselves that we find,\nit is in pardoning that we are pardoned,\nand it is in dying that we are raised to eternal life."
     }
   },
   {
@@ -142,7 +162,9 @@ export const CHURCH_PRAYERS: Prayer[] = [
     title: 'Acte de foi',
     reference: 'Vertus théologales',
     texts: {
-      fr: "Mon Dieu, je crois fermement toutes les vérités\nque vous avez révélées et que la sainte Église nous propose de croire,\nparce que vous ne pouvez ni vous tromper ni nous tromper.\n\nAmen."
+      fr: "Mon Dieu, je crois fermement toutes les vérités\nque vous avez révélées et que la sainte Église nous propose de croire,\nparce que vous ne pouvez ni vous tromper ni nous tromper.\n\nAmen.",
+      en: "O my God, I firmly believe all the truths\nthat you have revealed and that the holy Church proposes for our belief,\nbecause you can neither deceive nor be deceived.\n\nAmen.",
+      la: "Domine Deus, firma fide credo et confiteor\nomnia et singula quae sancta Ecclesia catholica proponit,\nquia tu ea omnia, Deus, revelasti,\nqui es aeterna veritas et sapientia\nquae nec fallere nec falli potest.\n\nIn hac fide vivere et mori statuo.\n\nAmen."
     }
   },
   {
@@ -150,7 +172,9 @@ export const CHURCH_PRAYERS: Prayer[] = [
     title: "Acte d'espérance",
     reference: 'Vertus théologales',
     texts: {
-      fr: "Mon Dieu, j'espère avec une ferme confiance\nque vous me donnerez, par les mérites de Jésus-Christ,\nvotre grâce en ce monde et le bonheur éternel dans l'autre,\nparce que vous l'avez promis et que vous êtes fidèle à vos promesses.\n\nAmen."
+      fr: "Mon Dieu, j'espère avec une ferme confiance\nque vous me donnerez, par les mérites de Jésus-Christ,\nvotre grâce en ce monde et le bonheur éternel dans l'autre,\nparce que vous l'avez promis et que vous êtes fidèle à vos promesses.\n\nAmen.",
+      en: "O my God, I hope with firm confidence\nthat you will give me, through the merits of Jesus Christ,\nyour grace in this world and eternal happiness in the next,\nbecause you have promised it and you are faithful to your promises.\n\nAmen.",
+      la: "Domine Deus, spero per gratiam tuam\nme remissionem omnium peccatorum,\net post hanc vitam aeternam felicitatem esse consecuturum,\nquia tu promisisti,\nqui es infinite potens, fidelis, benignus et misericors.\n\nIn hac spe vivere et mori statuo.\n\nAmen."
     }
   },
   {
@@ -158,7 +182,9 @@ export const CHURCH_PRAYERS: Prayer[] = [
     title: 'Acte de charité',
     reference: 'Vertus théologales',
     texts: {
-      fr: "Mon Dieu, je vous aime de tout mon cœur et par-dessus toute chose,\nparce que vous êtes infiniment bon et digne d'être aimé,\net j'aime mon prochain comme moi-même pour l'amour de vous.\n\nAmen."
+      fr: "Mon Dieu, je vous aime de tout mon cœur et par-dessus toute chose,\nparce que vous êtes infiniment bon et digne d'être aimé,\net j'aime mon prochain comme moi-même pour l'amour de vous.\n\nAmen.",
+      en: "O my God, I love you with all my heart and above all things,\nbecause you are infinitely good and worthy of being loved,\nand I love my neighbour as myself for the love of you.\n\nAmen.",
+      la: "Domine Deus, amo te super omnia\net proximum meum propter te,\nquia tu es summum, infinitum et perfectissimum bonum,\nomni dilectione dignum.\n\nIn hac caritate vivere et mori statuo.\n\nAmen."
     }
   },
   {
@@ -167,6 +193,7 @@ export const CHURCH_PRAYERS: Prayer[] = [
     reference: 'Léon XIII, 1886',
     texts: {
       fr: "Saint Michel Archange, défendez-nous dans le combat ;\nsoyez notre secours contre la malice et les embûches du démon.\n\nQue Dieu lui commande, nous vous en supplions humblement,\net vous, prince de la milice céleste,\nrefoulez en enfer par la puissance divine\nSatan et les autres esprits mauvais\nqui rôdent dans le monde pour la perte des âmes.\n\nAmen.",
+      en: "Saint Michael the Archangel, defend us in battle;\nbe our protection against the wickedness and snares of the devil.\n\nMay God rebuke him, we humbly pray;\nand do thou, O prince of the heavenly host,\nby the power of God, thrust into hell\nSatan and all the evil spirits\nwho prowl about the world seeking the ruin of souls.\n\nAmen.",
       la: 'Sancte Michael Archangele, defende nos in proelio;\ncontra nequitiam et insidias diaboli esto praesidium.\n\nImperet illi Deus, supplices deprecamur:\ntuque, princeps militiae caelestis,\nSatanam aliosque spiritus malignos,\nqui ad perditionem animarum pervagantur in mundo,\ndivina virtute in infernum detrude.\n\nAmen.'
     }
   },
@@ -175,7 +202,9 @@ export const CHURCH_PRAYERS: Prayer[] = [
     title: 'Chapelet de la Divine Miséricorde',
     reference: 'Sainte Faustine Kowalska · 1935',
     texts: {
-      fr: "Sur le gros grain :\nPère éternel, je vous offre le Corps et le Sang,\nl'Âme et la Divinité de votre Fils bien-aimé, Notre Seigneur Jésus-Christ,\nen propitiation pour nos péchés et ceux du monde entier.\n\nSur les dix petits grains, répété dix fois :\nPour sa douloureuse Passion,\nayez pitié de nous et du monde entier.\n\nEn conclusion, trois fois :\nDieu Saint, Dieu Fort, Dieu Immortel,\nayez pitié de nous et du monde entier."
+      fr: "Sur le gros grain :\nPère éternel, je vous offre le Corps et le Sang,\nl'Âme et la Divinité de votre Fils bien-aimé, Notre Seigneur Jésus-Christ,\nen propitiation pour nos péchés et ceux du monde entier.\n\nSur les dix petits grains, répété dix fois :\nPour sa douloureuse Passion,\nayez pitié de nous et du monde entier.\n\nEn conclusion, trois fois :\nDieu Saint, Dieu Fort, Dieu Immortel,\nayez pitié de nous et du monde entier.",
+      en: "On the large bead:\nEternal Father, I offer you the Body and Blood,\nSoul and Divinity of your dearly beloved Son, our Lord Jesus Christ,\nin atonement for our sins and those of the whole world.\n\nOn the ten small beads, ten times:\nFor the sake of his sorrowful Passion,\nhave mercy on us and on the whole world.\n\nIn conclusion, three times:\nHoly God, Holy Mighty One, Holy Immortal One,\nhave mercy on us and on the whole world.",
+      la: "In grano maiore:\nPater aeterne, offero tibi Corpus et Sanguinem,\nAnimam et Divinitatem dilectissimi Filii tui, Domini nostri Iesu Christi,\nin propitiationem pro peccatis nostris et totius mundi.\n\nIn granis minoribus, decies:\nPro dolorosa eius passione,\nmiserere nobis et totius mundi.\n\nIn fine, ter:\nSanctus Deus, Sanctus Fortis, Sanctus Immortalis,\nmiserere nobis et totius mundi."
     }
   },
   {
@@ -184,6 +213,7 @@ export const CHURCH_PRAYERS: Prayer[] = [
     reference: "Hymne à l'Esprit Saint · IXe siècle",
     texts: {
       fr: "Viens, Esprit Créateur,\nvisite les âmes des tiens,\nemplis de la grâce d'en haut\nles cœurs que tu as créés.\n\nToi qu'on appelle le Consolateur,\nle don du Dieu Très-Haut,\nla source vive, le feu, l'amour,\nl'onction de l'esprit !\n\nDonne-nous par toi la connaissance du Père et du Fils,\net croyons en toi,\nl'Esprit de l'un et de l'autre, à jamais.\n\nAmen.",
+      en: "Come, Creator Spirit,\nvisit the souls of your own,\nfill with grace from on high\nthe hearts that you have made.\n\nYou who are called the Paraclete,\nthe gift of God most high,\nliving fountain, fire, love,\nand anointing of the soul.\n\nGrant us through you to know the Father\nand to know the Son as well,\nand you, the Spirit of them both,\nmay we believe in for evermore.\n\nAmen.",
       la: 'Veni, Creator Spiritus,\nmentes tuorum visita,\nimple superna gratia\nquae tu creasti pectora.\n\nQui diceris Paraclitus,\naltissimi donum Dei,\nfons vivus, ignis, caritas,\net spiritalis unctio.\n\nDa nobis Patrem noscere,\nnoscamus atque Filium,\nteque utriusque Spiritum\ncredamus omni tempore.\n\nAmen.'
     }
   },
@@ -193,6 +223,7 @@ export const CHURCH_PRAYERS: Prayer[] = [
     reference: "Hymne d'action de grâce · IVe siècle",
     texts: {
       fr: "Nous te louons, ô Dieu,\nnous te bénissons, Seigneur.\nToute la terre te vénère, ô Père éternel !\n\nDevant toi se prosternent les archanges,\nles cieux et toutes les puissances de l'univers.\nDevant toi les chérubins et les séraphins\nchantent sans repos :\n\nSaint, Saint, Saint, le Seigneur, le Dieu de l'univers !\nLe ciel et la terre sont remplis de la majesté de ta gloire.",
+      en: "We praise thee, O God;\nwe acknowledge thee to be the Lord.\nAll the earth doth worship thee,\nthe Father everlasting.\n\nTo thee all Angels cry aloud,\nthe heavens and all the powers therein.\nTo thee Cherubim and Seraphim\ncontinually do cry:\n\nHoly, Holy, Holy,\nLord God of Sabaoth;\nheaven and earth are full\nof the majesty of thy glory.",
       la: 'Te Deum laudamus,\nte Dominum confitemur.\nTe aeternum Patrem,\nomnis terra veneratur.\n\nTibi omnes Angeli,\ntibi caeli et universae potestates.\nTibi Cherubim et Seraphim\nincessabili voce proclamant:\n\nSanctus, Sanctus, Sanctus,\nDominus Deus Sabaoth.\nPleni sunt caeli et terra\nmaiestatis gloriae tuae.'
     }
   }

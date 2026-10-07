@@ -62,7 +62,11 @@ const CouncilPreviewSheet: React.FC<CouncilPreviewSheetProps> = ({ council, onCl
           </button>
         </div>
 
-        <p className="verse-sheet-quote">« {council.quote} »</p>
+        <div className="verse-sheet-body">
+          <div className="verse-sheet-body-scroll">
+            <p className="verse-sheet-quote">« {council.quote} »</p>
+          </div>
+        </div>
 
         <div className="verse-sheet-actions">
           <button

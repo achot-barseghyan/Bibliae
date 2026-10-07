@@ -1,9 +1,9 @@
 # Contenu distant de Bibliae
 
 Ces fichiers contiennent tout le texte éditorial de l'app (accueil, figures,
-prières, saints, chapelet, conciles). L'app va les chercher au lancement sur
-GitHub ; les modifier ici met l'app à jour **sans nouvelle version sur les
-stores**.
+prières, saints, chapelet, conciles, Catéchisme). L'app va les chercher au
+lancement sur GitHub ; les modifier ici met l'app à jour **sans nouvelle
+version sur les stores**.
 
 ## Mise en place (une seule fois)
 
@@ -12,7 +12,7 @@ stores**.
    d'initialisation (pas de README, pas de .gitignore).
 3. Clique "Create repository".
 4. Sur la page du nouveau dépôt (vide), clique "uploading an existing file".
-5. Glisse-dépose les 7 fichiers `.json` de ce dossier (pas ce README).
+5. Glisse-dépose les 8 fichiers `.json` de ce dossier (pas ce README).
 6. En bas, écris un message de commit (ex. "Contenu initial") et clique
    "Commit changes".
 
@@ -59,6 +59,11 @@ C'est tout : la branche s'appelle `main` par défaut, ce que l'app attend déjà
 - `rosary.json` — `mysterySets` (les 4 séries de mystères) et `prayers`
   (les prières fixes du chapelet).
 - `councils.json` — les conciles cités dans les fiches, par `id`.
+- `catechisme.json` — les paragraphes du Catéchisme cités par les fiches
+  « Les bases », par `id` (le numéro de paragraphe, ex. `"1131"`). Le texte
+  fourni par défaut avec l'app est une reformulation à vérifier et corriger
+  face au texte officiel ; c'est justement ce fichier qui permet de le
+  remplacer sans mise à jour de l'app.
 
 Dans tous les cas : seuls les champs que tu modifies sont pris en compte,
 le reste garde sa valeur d'origine. Tu peux donc, par exemple, ne laisser

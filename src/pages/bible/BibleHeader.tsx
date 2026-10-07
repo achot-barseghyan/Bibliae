@@ -7,7 +7,7 @@ import {
   NoteIcon,
   SearchIcon
 } from '../../components/nav/icons';
-import BibleAccessibilityPanel from './BibleAccessibilityPanel';
+import AccessibilityQuickSheet from '../../components/AccessibilityQuickSheet';
 import BibleSearch from './BibleSearch';
 import { tapHaptic } from '../../utils/haptics';
 import './BibleHeader.css';
@@ -107,7 +107,7 @@ const BibleHeader: React.FC<BibleHeaderProps> = ({
       </header>
 
       <AnimatePresence>
-        {isA11yOpen && <BibleAccessibilityPanel onClose={() => setIsA11yOpen(false)} />}
+        {isA11yOpen && <AccessibilityQuickSheet onClose={() => setIsA11yOpen(false)} />}
       </AnimatePresence>
 
       <AnimatePresence>

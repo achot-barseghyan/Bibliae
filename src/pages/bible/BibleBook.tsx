@@ -11,6 +11,8 @@ import ParcoursBandeau from './ParcoursBandeau';
 import ParcoursSelectorSheet from './ParcoursSelectorSheet';
 import ParcoursCreateSheet from './ParcoursCreateSheet';
 import ParcoursCompletionSheet from './ParcoursCompletionSheet';
+import ChapterActionSheet from './ChapterActionSheet';
+import ChapterMenuTour from './ChapterMenuTour';
 import './BibleBook.css';
 
 const COLUMNS = 6;
@@ -21,107 +23,92 @@ const BibleBook: React.FC = () => {
   const navigate = useNavigate();
   const { bookId = '' } = useParams<{ bookId: string }>();
   const book = getBook(bookId);
-  const {
-    parcours,
-    activeParcours,
-    isRead,
-    markRead,
-    unmarkRead,
-    otherReaderOf,
-    positionFor,
-    forParcours,
-    hasEverMarkedManually
-  } = useReadingProgress();
+  const { parcours, activeParcours, isRead, otherReaderOf, positionFor, forParcours } = useReadingProgress();
   const { annotations } = useAnnotations();
 
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [completedParcoursId, setCompletedParcoursId] = useState<string | null>(null);
+  const [menuChapter, setMenuChapter] = useState<number | null>(null);
 
   const annotatedSourceIds = useMemo(
-    () => new Set(annotations.filter((a) => a.target.kind === 'verse').map((a) => a.target.sourceId)),
+    () =>
+      new Set(
+        annotations.filter((a) => a.target.kind === 'verse' || a.target.kind === 'chapter').map((a) => a.target.sourceId)
+      ),
     [annotations]
   );
 
-  // --- Gestes de la grille : tap ouvre ; appui long bascule lu/non lu sans
-  // ouvrir ; appui long puis glissement étend le marquage à une plage. ---
+  // --- Gestes de la grille : tap ouvre le chapitre ; appui long ouvre un menu
+  // d'actions sans l'ouvrir. La navigation est déclenchée directement au
+  // relâchement du pointeur plutôt que via l'événement `click` natif : sur
+  // certains appareils ce dernier arrive trop tard (après un appui long), ce
+  // qui rouvrait le chapitre au relâchement. `onClick` ne sert donc plus qu'à
+  // l'activation clavier (Entrée/Espace).
   const pressTimer = useRef<number | undefined>(undefined);
   const pressStart = useRef<{ x: number; y: number } | null>(null);
-  const dragValueRef = useRef<boolean | null>(null);
-  const draggedChaptersRef = useRef<Set<number>>(new Set());
+  const pressChapterRef = useRef<number | null>(null);
   const longPressEngagedRef = useRef(false);
 
-  const applyToChapter = (chapter: number, value: boolean) => {
-    if (!activeParcours || !book) return;
-    if (draggedChaptersRef.current.has(chapter)) return;
-    draggedChaptersRef.current.add(chapter);
-    tapHaptic();
-    if (value) {
-      const { justCompleted } = markRead(activeParcours.id, book.id, chapter, 'manual');
-      if (justCompleted) setCompletedParcoursId(activeParcours.id);
-    } else {
-      unmarkRead(activeParcours.id, book.id, chapter);
-    }
-  };
-
   const handlePointerMove = (e: PointerEvent) => {
-    if (!pressStart.current) return;
-    if (!longPressEngagedRef.current) {
-      const dx = e.clientX - pressStart.current.x;
-      const dy = e.clientY - pressStart.current.y;
-      if (Math.hypot(dx, dy) > MOVE_CANCEL_PX) {
-        // Mouvement avant la fin du délai : l'utilisateur fait défiler la page, pas un appui long.
-        window.clearTimeout(pressTimer.current);
-        pressStart.current = null;
-      }
-      return;
+    if (!pressStart.current || longPressEngagedRef.current) return;
+    const dx = e.clientX - pressStart.current.x;
+    const dy = e.clientY - pressStart.current.y;
+    if (Math.hypot(dx, dy) > MOVE_CANCEL_PX) {
+      // Mouvement avant la fin du délai : l'utilisateur fait défiler la page, pas un appui long.
+      window.clearTimeout(pressTimer.current);
+      pressStart.current = null;
     }
-    if (dragValueRef.current === null) return;
-    const el = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement | null;
-    const chapterAttr = el?.closest<HTMLElement>('[data-chapter]')?.dataset.chapter;
-    if (!chapterAttr) return;
-    applyToChapter(Number(chapterAttr), dragValueRef.current);
   };
 
-  const endGesture = () => {
+  const cleanupGesture = () => {
     window.clearTimeout(pressTimer.current);
     pressTimer.current = undefined;
     pressStart.current = null;
-    dragValueRef.current = null;
-    draggedChaptersRef.current.clear();
+    pressChapterRef.current = null;
     window.removeEventListener('pointermove', handlePointerMove);
-    window.removeEventListener('pointerup', endGesture);
-    window.removeEventListener('pointercancel', endGesture);
-    // Laisse le clic natif (déclenché juste après pointerup pour un appui long) voir le flag
-    // avant de le réinitialiser pour le prochain geste.
-    window.setTimeout(() => {
-      longPressEngagedRef.current = false;
-    }, 0);
+    window.removeEventListener('pointerup', handlePointerUp);
+    window.removeEventListener('pointercancel', handlePointerCancel);
+  };
+
+  const handlePointerCancel = () => {
+    longPressEngagedRef.current = false;
+    cleanupGesture();
+  };
+
+  const handlePointerUp = () => {
+    const wasTap = pressStart.current !== null && !longPressEngagedRef.current;
+    const chapter = pressChapterRef.current;
+    cleanupGesture();
+    longPressEngagedRef.current = false;
+    if (wasTap && chapter !== null && book) {
+      navigate(`/bible/${book.id}/${chapter}`);
+    }
   };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>, chapter: number) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     if (!book) return;
     pressStart.current = { x: e.clientX, y: e.clientY };
+    pressChapterRef.current = chapter;
     longPressEngagedRef.current = false;
     window.addEventListener('pointermove', handlePointerMove);
-    window.addEventListener('pointerup', endGesture);
-    window.addEventListener('pointercancel', endGesture);
+    window.addEventListener('pointerup', handlePointerUp);
+    window.addEventListener('pointercancel', handlePointerCancel);
     pressTimer.current = window.setTimeout(() => {
-      if (!pressStart.current || !activeParcours) return;
+      if (!pressStart.current) return;
       longPressEngagedRef.current = true;
-      const nextValue = !isRead(activeParcours.id, book.id, chapter);
-      dragValueRef.current = nextValue;
-      applyToChapter(chapter, nextValue);
+      tapHaptic();
+      setMenuChapter(chapter);
     }, LONG_PRESS_MS);
   };
 
-  const handleTap = (chapter: number) => {
-    if (longPressEngagedRef.current) {
-      longPressEngagedRef.current = false;
-      return;
-    }
-    navigate(`/bible/${book!.id}/${chapter}`);
+  const handleKeyboardClick = (e: React.MouseEvent<HTMLButtonElement>, chapter: number) => {
+    // Les taps/clics pointeur sont déjà traités dans handlePointerUp ; ce
+    // handler ne doit réagir qu'à une activation clavier (Entrée/Espace),
+    // reconnaissable à detail === 0.
+    if (e.detail !== 0 || !book) return;
+    navigate(`/bible/${book.id}/${chapter}`);
   };
 
   if (!book) {
@@ -196,7 +183,7 @@ const BibleBook: React.FC = () => {
                 className={classes.join(' ')}
                 data-chapter={chapter}
                 onPointerDown={(e) => handlePointerDown(e, chapter)}
-                onClick={() => handleTap(chapter)}
+                onClick={(e) => handleKeyboardClick(e, chapter)}
                 onContextMenu={(e) => e.preventDefault()}
               >
                 {chapter}
@@ -229,9 +216,7 @@ const BibleBook: React.FC = () => {
           </div>
         </div>
 
-        {!hasEverMarkedManually && (
-          <p className="bible-book-hint">Appui long sur un chapitre pour le marquer lu sans l'ouvrir.</p>
-        )}
+        <ChapterMenuTour />
 
         <AnimatePresence>
           {isSelectorOpen && <ParcoursSelectorSheet onClose={() => setIsSelectorOpen(false)} />}
@@ -252,6 +237,17 @@ const BibleBook: React.FC = () => {
                 setCompletedParcoursId(null);
                 setIsCreateOpen(true);
               }}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {menuChapter !== null && (
+            <ChapterActionSheet
+              book={book}
+              chapterNumber={menuChapter}
+              onClose={() => setMenuChapter(null)}
+              onJustCompleted={(parcoursId) => setCompletedParcoursId(parcoursId)}
             />
           )}
         </AnimatePresence>

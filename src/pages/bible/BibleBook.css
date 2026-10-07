@@ -277,10 +277,3 @@
   background: var(--color-oxblood);
 }
 
-.bible-book-hint {
-  margin: 12px 20px 20px;
-  font-family: var(--font-eb-garamond);
-  font-style: italic;
-  font-size: var(--taille-cartouche);
-  color: var(--bible-faint);
-}

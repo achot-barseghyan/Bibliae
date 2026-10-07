@@ -1,6 +1,8 @@
 /* Bibliae — design tokens
-   Palette fixe (pas de variante sombre) : voir les 4 couleurs de base
-   et leurs deux variantes marginales ci-dessous. */
+   Palette de base ci-dessous ; la police et le thème de lecture choisis
+   dans Réglages (voir useBibleReadingPrefs) peuvent la redéfinir en
+   entier pour toute l'app via data-reading-font / data-reading-theme
+   sur <html> (section « Lecture » plus bas). */
 
 :root {
   /* Couleurs — 4 seulement */
@@ -122,4 +124,84 @@ html[data-reduce-motion='true'] *::after {
   animation-iteration-count: 1 !important;
   transition-duration: 0.001ms !important;
   scroll-behavior: auto !important;
+}
+
+/* --- Lecture : police et thème (Réglages > Lecture biblique), appliqués
+   à toute l'app — pas seulement à l'écran Bible. Chaque thème redéfinit
+   la palette de base ; --encre-*/--filet-* restent des rgba() de la même
+   teinte que --color-encre pour garder les mêmes contrastes relatifs. */
+
+html[data-reading-font='garamond'] {
+  --font-cormorant: var(--font-eb-garamond);
+}
+
+html[data-reading-font='inter'] {
+  --font-cormorant: var(--font-inter);
+  --font-eb-garamond: var(--font-inter);
+}
+
+html[data-reading-theme='sepia'] {
+  --color-papier: #eae0c8;
+  --color-papier-enfonce: #ded0ad;
+  --color-cartouche-genealogie: #e3d6b6;
+  --color-hors-appareil: #d8cba8;
+  --color-tabbar: #e7dcc0;
+  --color-rosaire: #f1e8ce;
+  --color-encre: #4a3728;
+  --color-oxblood: #8b3a1e;
+  --color-or: #a87c3b;
+
+  --encre-72: rgba(74, 55, 40, 0.72);
+  --encre-60: rgba(74, 55, 40, 0.6);
+  --encre-50: rgba(74, 55, 40, 0.5);
+  --encre-45: rgba(74, 55, 40, 0.45);
+  --encre-42: rgba(74, 55, 40, 0.42);
+
+  --filet-sections: rgba(74, 55, 40, 0.2);
+  --filet-tableaux: rgba(74, 55, 40, 0.16);
+  --filet-barres: rgba(74, 55, 40, 0.28);
+}
+
+html[data-reading-theme='nuit'] {
+  --color-papier: #1e1b17;
+  --color-papier-enfonce: #262220;
+  --color-cartouche-genealogie: #2a2521;
+  --color-hors-appareil: #332d28;
+  --color-tabbar: #221e1a;
+  --color-rosaire: #211d19;
+  --color-encre: #ede5d3;
+  --color-oxblood: #d98a73;
+  --color-or: #d9a94a;
+
+  --encre-72: rgba(237, 229, 211, 0.72);
+  --encre-60: rgba(237, 229, 211, 0.6);
+  --encre-50: rgba(237, 229, 211, 0.5);
+  --encre-45: rgba(237, 229, 211, 0.45);
+  --encre-42: rgba(237, 229, 211, 0.42);
+
+  --filet-sections: rgba(237, 229, 211, 0.2);
+  --filet-tableaux: rgba(237, 229, 211, 0.16);
+  --filet-barres: rgba(237, 229, 211, 0.28);
+}
+
+html[data-reading-theme='contraste'] {
+  --color-papier: #ffffff;
+  --color-papier-enfonce: #efefef;
+  --color-cartouche-genealogie: #f5f5f5;
+  --color-hors-appareil: #e8e8e8;
+  --color-tabbar: #f7f7f7;
+  --color-rosaire: #fafafa;
+  --color-encre: #000000;
+  --color-oxblood: #a3001e;
+  --color-or: #7a5800;
+
+  --encre-72: rgba(0, 0, 0, 0.8);
+  --encre-60: rgba(0, 0, 0, 0.75);
+  --encre-50: rgba(0, 0, 0, 0.68);
+  --encre-45: rgba(0, 0, 0, 0.6);
+  --encre-42: rgba(0, 0, 0, 0.58);
+
+  --filet-sections: rgba(0, 0, 0, 0.3);
+  --filet-tableaux: rgba(0, 0, 0, 0.25);
+  --filet-barres: rgba(0, 0, 0, 0.4);
 }

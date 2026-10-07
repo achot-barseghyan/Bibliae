@@ -1,0 +1,116 @@
+.catechisme-content {
+  --background: var(--color-papier);
+}
+
+.catechisme-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 12px;
+  background: var(--color-papier);
+  border-bottom: 1px solid var(--filet-barres);
+}
+
+.catechisme-back {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-encre);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.catechisme-back:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.catechisme-header-title {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-cartouche);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+  margin: 0;
+}
+
+.catechisme-body {
+  padding: 28px 24px 48px;
+  text-align: center;
+}
+
+.catechisme-kicker {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-max);
+  color: var(--color-oxblood);
+  margin: 0 0 8px;
+}
+
+.catechisme-title {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-nom-figure);
+  color: var(--color-encre);
+  margin: 0 0 4px;
+}
+
+.catechisme-subtitle {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  margin: 0;
+}
+
+.catechisme-rule {
+  width: 48px;
+  height: 1px;
+  background: var(--filet-barres);
+  margin: 20px auto 28px;
+}
+
+.catechisme-paragraphs {
+  text-align: left;
+}
+
+.catechisme-paragraph {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  line-height: calc(1.6 * var(--a11y-leading));
+  color: var(--color-encre);
+  margin: 0 0 18px;
+}
+
+.catechisme-paragraph-number {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  color: var(--color-oxblood);
+  vertical-align: super;
+  margin-right: 6px;
+}
+
+.catechisme-placeholder {
+  border: 1px dashed var(--filet-barres);
+  border-radius: 6px;
+  padding: 32px 20px;
+}
+
+.catechisme-placeholder-text {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  margin: 0;
+}

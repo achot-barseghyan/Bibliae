@@ -2,6 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useSyncExternalStore,
   type ReactNode
@@ -33,6 +34,15 @@ const BibleReadingPrefsContext = createContext<BibleReadingPrefsContextValue | n
 export const BibleReadingPrefsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const appData = useSyncExternalStore(subscribeAppData, getAppDataSnapshot, getAppDataSnapshot);
   const prefs = appData.settings.bibleReading;
+
+  // La police et le thème choisis ici s'appliquent à toute l'app (voir
+  // theme/variables.css) : posés sur <html>, comme data-text-scale
+  // (useAccessibility), pas seulement sur le conteneur .bible-world.
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute('data-reading-font', prefs.font);
+    root.setAttribute('data-reading-theme', prefs.theme);
+  }, [prefs]);
 
   const update = useCallback(
     <K extends keyof BibleReadingPrefs>(key: K, value: BibleReadingPrefs[K]) => {

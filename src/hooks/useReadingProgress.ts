@@ -2,11 +2,11 @@ import { useCallback, useSyncExternalStore } from 'react';
 import {
   archiveParcours,
   chapterReadsForParcours,
+  clearReadingPosition,
   createParcours,
   deleteParcours,
   getActiveParcours,
   getAppDataSnapshot,
-  hasEverMarkedChapterManually,
   isChapterRead,
   markChapterRead,
   mostRecentOtherReader,
@@ -88,8 +88,8 @@ export function useReadingProgress() {
       setReadingPosition(parcoursId, bookId, chapter, scrollRatio),
     []
   );
+  const clearPosition = useCallback((parcoursId: string) => clearReadingPosition(parcoursId), []);
   const nextColor = useCallback(() => nextAvailableParcoursColor(parcours), [parcours]);
-  const hasEverMarkedManually = hasEverMarkedChapterManually(appData);
   const totalForScope = useCallback(
     (scope: ReadingScope, scopeBooks: string[] = []) => totalChaptersForScope(scope, scopeBooks),
     []
@@ -114,9 +114,9 @@ export function useReadingProgress() {
     markRead,
     unmarkRead,
     savePosition,
+    clearPosition,
     nextColor,
-    totalForScope,
-    hasEverMarkedManually
+    totalForScope
   };
 }
 

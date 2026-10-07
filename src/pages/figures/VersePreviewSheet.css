@@ -9,15 +9,19 @@
 
 .verse-sheet {
   width: 100%;
+  max-height: min(86vh, 720px);
+  display: flex;
+  flex-direction: column;
   background: var(--color-papier);
   border-top-left-radius: 22px;
   border-top-right-radius: 22px;
   border: 1px solid var(--filet-barres);
   border-bottom: none;
-  padding: 0 20px calc(env(safe-area-inset-bottom, 0px) + 20px);
+  overflow: hidden;
 }
 
 .verse-sheet-handle {
+  flex: 0 0 auto;
   width: 44px;
   height: 4px;
   border-radius: 999px;
@@ -27,11 +31,66 @@
 }
 
 .verse-sheet-header {
+  flex: 0 0 auto;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 16px;
+  padding: 0 20px;
+}
+
+.verse-sheet-body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.verse-sheet-body-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 20px;
+}
+
+.verse-sheet-scroll-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 36px;
+  background: linear-gradient(to bottom, transparent, var(--color-papier));
+  pointer-events: none;
+}
+
+.verse-sheet-scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  transform: translateX(-50%);
+  color: var(--color-oxblood);
+  pointer-events: none;
+  animation: verse-sheet-bounce 1.4s ease-in-out infinite;
+}
+
+@keyframes verse-sheet-bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(4px);
+  }
+}
+
+.verse-sheet-actions {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 10px;
+  padding: 16px 20px calc(env(safe-area-inset-bottom, 0px) + 20px);
 }
 
 .verse-sheet-ref {
@@ -51,6 +110,15 @@
   margin: 0;
 }
 
+.verse-sheet-header-actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: -8px -8px 0 0;
+}
+
+.verse-sheet-a11y,
 .verse-sheet-close {
   flex: 0 0 auto;
   width: 44px;
@@ -63,9 +131,14 @@
   color: var(--color-encre);
   cursor: pointer;
   border-radius: 50%;
-  margin: -8px -8px 0 0;
 }
 
+.verse-sheet-a11y.is-active {
+  color: var(--color-oxblood);
+  background: var(--color-papier-enfonce);
+}
+
+.verse-sheet-a11y:focus-visible,
 .verse-sheet-close:focus-visible {
   outline: 2px solid var(--color-oxblood);
   outline-offset: 2px;
@@ -74,15 +147,57 @@
 .verse-sheet-quote {
   font-family: var(--font-cormorant);
   font-size: var(--taille-verset);
-  font-style: italic;
+  font-style: normal;
   line-height: calc(1.6 * var(--a11y-leading));
   color: var(--color-encre);
   margin: 0 0 22px;
 }
 
-.verse-sheet-actions {
+.verse-sheet-verse {
+  margin: 0 0 12px;
+}
+
+.verse-sheet-verse:last-child {
+  margin-bottom: 0;
+}
+
+.verse-sheet-verse-number {
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  color: var(--color-oxblood);
+  vertical-align: super;
+  margin-right: 4px;
+}
+
+.verse-sheet-loading {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 0 34px;
+}
+
+.verse-sheet-loading-spinner {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--filet-barres);
+  border-top-color: var(--color-oxblood);
+  animation: verse-sheet-spin 0.8s linear infinite;
+}
+
+@keyframes verse-sheet-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.verse-sheet-loading-text {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  margin: 0;
 }
 
 .verse-sheet-read {

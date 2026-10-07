@@ -145,6 +145,16 @@ function getReadyDatabase(): Promise<SQLiteDBConnection> {
   return readyPromise;
 }
 
+/**
+ * Ouvre (et remplit au besoin) la base en arrière-plan, pour que le premier
+ * affichage de versets n'attende pas toute l'initialisation SQLite.
+ */
+export function warmUpBibleDatabase(): void {
+  getReadyDatabase().catch((error) => {
+    console.warn('Préchargement de la base biblique échoué, nouvel essai à la demande.', error);
+  });
+}
+
 export async function fetchChapterVerses(bookId: string, chapter: number): Promise<Verse[]> {
   const numero = numeroForBookId(bookId);
   if (numero === undefined) return [];

@@ -1,0 +1,112 @@
+.reading-prefs-section {
+  background: var(--color-papier);
+  border-bottom: 1px solid var(--filet-sections);
+  padding: 20px 28px 24px;
+}
+
+.reading-prefs-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.reading-prefs-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+  margin: 0;
+}
+
+.reading-prefs-reset {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.reading-prefs-reset:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.reading-prefs-reset:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.reading-prefs-label {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+  margin: 0 0 10px;
+}
+
+.reading-prefs-font-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.reading-prefs-font-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  font-size: 18px;
+  color: var(--color-encre);
+  background: var(--color-papier);
+  border: 1px solid var(--filet-barres);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.2s ease;
+}
+
+.reading-prefs-font-button:active {
+  transform: scale(0.95);
+}
+
+.reading-prefs-font-button.is-active {
+  border-color: var(--color-oxblood);
+  border-width: 2px;
+  color: var(--color-oxblood);
+}
+
+.reading-prefs-theme-row {
+  display: flex;
+  gap: 10px;
+}
+
+.reading-prefs-theme-button {
+  flex: 1;
+  height: 48px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-cormorant);
+  font-size: 16px;
+  border: 1px solid var(--filet-barres);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.reading-prefs-theme-button:active {
+  transform: scale(0.95);
+}
+
+.reading-prefs-theme-button.is-active {
+  box-shadow: 0 0 0 2px var(--color-oxblood);
+}

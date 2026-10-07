@@ -1,0 +1,301 @@
+.paroisses-content {
+  --background: var(--color-papier);
+}
+
+.paroisses-header {
+  display: flex;
+  align-items: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 12px;
+}
+
+.paroisses-header-button {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-encre);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.paroisses-header-button:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+/* --- Titre --- */
+
+.paroisses-hero {
+  padding: 8px 28px 4px;
+}
+
+.paroisses-title {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-chapitre);
+  line-height: 1.15;
+  color: var(--color-encre);
+  margin: 0 0 14px;
+}
+
+.paroisses-subtitle {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-prose);
+  line-height: 1.5;
+  color: var(--encre-72);
+  margin: 0;
+}
+
+/* --- Recherche --- */
+
+.paroisses-search {
+  padding: 24px 28px 0;
+}
+
+.paroisses-search-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--filet-barres);
+}
+
+.paroisses-search-icon {
+  flex: 0 0 auto;
+  color: var(--encre-60);
+}
+
+.paroisses-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  background: none;
+  outline: none;
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-verset);
+  color: var(--color-encre);
+}
+
+.paroisses-search-input::placeholder {
+  color: var(--encre-45);
+}
+
+.paroisses-search-clear {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  cursor: pointer;
+}
+
+/* --- Autour de moi --- */
+
+.paroisses-locate {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 28px;
+  padding: 16px 0;
+  border: none;
+  border-bottom: 1px solid var(--filet-barres);
+  background: none;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  cursor: pointer;
+}
+
+.paroisses-locate:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.paroisses-locate-error {
+  margin: 12px 28px 0;
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--color-oxblood);
+}
+
+/* --- Résultats --- */
+
+.paroisses-results {
+  padding: 0 28px;
+}
+
+.paroisses-results-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 0 10px;
+  border-bottom: 1px solid var(--filet-sections);
+}
+
+.paroisses-results-count {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0;
+}
+
+.paroisses-results-query {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  margin: 0;
+}
+
+.paroisses-hint,
+.paroisses-error,
+.paroisses-empty {
+  padding: 20px 0;
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+}
+
+.paroisses-error {
+  color: var(--color-oxblood);
+}
+
+/* --- Carte paroisse --- */
+
+.paroisses-card {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--filet-sections);
+}
+
+.paroisses-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 10px;
+}
+
+.paroisses-card-name {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  line-height: 1.2;
+  color: var(--color-encre);
+  margin: 0;
+}
+
+.paroisses-card-zip {
+  flex: 0 0 auto;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--color-oxblood);
+}
+
+.paroisses-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 10px;
+}
+
+.paroisses-card-tag {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--color-papier-enfonce);
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+}
+
+.paroisses-card-tag--link {
+  background: none;
+  border: 1px solid var(--color-oxblood);
+  color: var(--color-oxblood);
+  text-decoration: none;
+}
+
+.paroisses-card-meta {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  color: var(--encre-60);
+  margin: 0;
+}
+
+/* --- Bon à savoir --- */
+
+.paroisses-note {
+  margin: 28px 28px 0;
+  padding: 20px;
+  border-left: 3px solid var(--color-or);
+  background: var(--color-papier-enfonce);
+}
+
+.paroisses-note-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 10px;
+}
+
+.paroisses-note-text {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  line-height: 1.5;
+  color: var(--color-encre);
+  margin: 0;
+}
+
+/* --- Pied de page --- */
+
+.paroisses-footer {
+  margin-top: 32px;
+  padding: 28px 28px calc(env(safe-area-inset-bottom, 0px) + 32px);
+  border-top: 1px solid var(--filet-sections);
+  text-align: center;
+}
+
+.paroisses-footer-wordmark {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 14px;
+}
+
+.paroisses-footer-links {
+  font-family: var(--font-inter);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+  opacity: 0.7;
+  margin: 0;
+}

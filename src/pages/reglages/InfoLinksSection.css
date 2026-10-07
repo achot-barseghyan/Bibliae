@@ -1,0 +1,29 @@
+.info-links-section {
+  margin: 8px 28px 24px;
+  border-top: 1px solid var(--filet-barres);
+}
+
+.info-links-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--filet-tableaux);
+  cursor: pointer;
+  text-align: left;
+}
+
+.info-links-row-label {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-valeur);
+  color: var(--color-encre);
+}
+
+.info-links-row-chevron {
+  flex: 0 0 auto;
+  color: var(--encre-60);
+}

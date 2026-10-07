@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { IonContent, IonPage } from '@ionic/react';
 import { CrossIcon } from '../components/nav/icons';
 import WorldSheet from '../components/nav/WorldSheet';
+import AccessibilityPanel from '../components/AccessibilityPanel';
+import ReadingPrefsSection from '../components/ReadingPrefsSection';
 import { tapHaptic } from '../utils/haptics';
 import BackupSection from './reglages/BackupSection';
+import InfoLinksSection from './reglages/InfoLinksSection';
 import './Reglages.css';
 
 const Reglages: React.FC = () => {
@@ -27,7 +30,10 @@ const Reglages: React.FC = () => {
           </button>
         </header>
 
+        <AccessibilityPanel />
+        <ReadingPrefsSection />
         <BackupSection />
+        <InfoLinksSection />
 
         <WorldSheet isOpen={isWorldSheetOpen} onClose={() => setIsWorldSheetOpen(false)} />
       </IonContent>

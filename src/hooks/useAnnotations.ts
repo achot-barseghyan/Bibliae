@@ -3,6 +3,7 @@ import {
   addAnnotation,
   deleteAnnotation,
   deleteAnnotationGroup,
+  deleteAnnotationsForSource,
   filterAnnotationsForBlock,
   findExactAnnotation,
   getAppDataSnapshot,
@@ -43,8 +44,12 @@ export function useAnnotations() {
   const updateNote = useCallback((id: string, note: string | null) => updateAnnotationNote(id, note), []);
   const remove = useCallback((id: string) => deleteAnnotation(id), []);
   const removeGroup = useCallback((groupId: string) => deleteAnnotationGroup(groupId), []);
+  const removeAllForSource = useCallback(
+    (kind: AnnotationTargetKind, sourceId: string) => deleteAnnotationsForSource(kind, sourceId),
+    []
+  );
 
-  return { annotations, forBlock, findExact, add, updateStyle, updateNote, remove, removeGroup };
+  return { annotations, forBlock, findExact, add, updateStyle, updateNote, remove, removeGroup, removeAllForSource };
 }
 
 export type { Annotation };

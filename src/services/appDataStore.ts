@@ -40,7 +40,7 @@ export interface AppDataSettings {
 // (jamais sur une position d'écran). Voir la spec "Annotations de texte".
 export type HighlightColor = 'or' | 'oxblood' | 'olive' | 'bleu-encre' | 'sanguine';
 
-export type AnnotationTargetKind = 'verse' | 'prayer' | 'saint' | 'figure-prose';
+export type AnnotationTargetKind = 'verse' | 'chapter' | 'prayer' | 'saint' | 'figure-prose';
 
 export interface AnnotationTarget {
   kind: AnnotationTargetKind;
@@ -541,6 +541,13 @@ export function deleteAnnotationGroup(groupId: string): void {
   }));
 }
 
+export function deleteAnnotationsForSource(kind: AnnotationTargetKind, sourceId: string): void {
+  setAppData((prev) => ({
+    ...prev,
+    annotations: prev.annotations.filter((a) => !(a.target.kind === kind && a.target.sourceId === sourceId))
+  }));
+}
+
 // --- Annotations : sélecteurs purs (le hook useAnnotations les applique à un
 // snapshot réactif ; ne pas les appeler directement sur `cache` depuis un
 // composant, ce qui ne déclencherait pas de re-render). ---
@@ -634,11 +641,6 @@ export function isChapterRead(data: AppData, parcoursId: string, bookId: string,
 
 export function readingPositionForParcours(data: AppData, parcoursId: string): ReadingPosition | undefined {
   return data.readingPositions.find((p) => p.parcoursId === parcoursId);
-}
-
-/** L'utilisateur a-t-il déjà utilisé l'appui long pour marquer un chapitre lu (indice de découvrabilité) ? */
-export function hasEverMarkedChapterManually(data: AppData): boolean {
-  return data.chapterReads.some((c) => c.source === 'manual');
 }
 
 /** Le parcours (autre que `excludeParcoursId`) ayant le plus récemment lu ce chapitre, s'il en existe un. */
@@ -836,5 +838,12 @@ export function setReadingPosition(
       ...prev.readingPositions.filter((p) => p.parcoursId !== parcoursId),
       { parcoursId, bookId, chapter, scrollRatio, updatedAt: now }
     ]
+  }));
+}
+
+export function clearReadingPosition(parcoursId: string): void {
+  setAppData((prev) => ({
+    ...prev,
+    readingPositions: prev.readingPositions.filter((p) => p.parcoursId !== parcoursId)
   }));
 }

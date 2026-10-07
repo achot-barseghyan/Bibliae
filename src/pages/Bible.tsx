@@ -1,13 +1,17 @@
 import { Route } from 'react-router-dom';
 import { IonRouterOutlet } from '@ionic/react';
-import { BibleReadingPrefsProvider, useBibleReadingPrefs } from '../hooks/useBibleReadingPrefs';
+import { useBibleReadingPrefs } from '../hooks/useBibleReadingPrefs';
 import BibleIndex from './bible/BibleIndex';
 import BibleBook from './bible/BibleBook';
 import BibleChapter from './bible/BibleChapter';
 import MesLectures from './bible/MesLectures';
 import './bible/bibleTheme.css';
 
-const BibleWorld: React.FC = () => {
+// BibleReadingPrefsProvider est monté globalement dans App.tsx : la feuille
+// d'accessibilité partagée (AccessibilityQuickSheet) doit pouvoir modifier
+// ces préférences depuis n'importe quel monde (Figures, Réglages...), pas
+// seulement depuis celui-ci.
+const Bible: React.FC = () => {
   const { prefs } = useBibleReadingPrefs();
 
   return (
@@ -21,11 +25,5 @@ const BibleWorld: React.FC = () => {
     </div>
   );
 };
-
-const Bible: React.FC = () => (
-  <BibleReadingPrefsProvider>
-    <BibleWorld />
-  </BibleReadingPrefsProvider>
-);
 
 export default Bible;

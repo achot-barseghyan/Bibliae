@@ -18,8 +18,20 @@
   justify-content: center;
   background: none;
   border: none;
+  border-radius: 50%;
   color: var(--color-encre);
   cursor: pointer;
+}
+
+.jour-header-today.is-active {
+  color: var(--color-oxblood);
+  background: var(--color-papier-enfonce);
+}
+
+.jour-header-side--right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 .jour-header-title {
@@ -62,7 +74,7 @@
 .jour-title {
   font-family: var(--font-cormorant);
   font-weight: 500;
-  font-size: 26px;
+  font-size: calc(26px * var(--a11y-scale));
   line-height: 1.25;
   color: var(--color-encre);
   max-width: 320px;
@@ -110,7 +122,7 @@
 
 .jour-week-letter {
   font-family: var(--font-inter);
-  font-size: 9px;
+  font-size: calc(9px * var(--a11y-scale));
   text-transform: uppercase;
   letter-spacing: var(--tracking-min);
   color: var(--encre-60);
@@ -156,7 +168,7 @@
   align-items: center;
   gap: 6px;
   font-family: var(--font-inter);
-  font-size: 9px;
+  font-size: calc(9px * var(--a11y-scale));
   text-transform: uppercase;
   letter-spacing: var(--tracking-min);
   color: var(--encre-60);
@@ -256,7 +268,7 @@
 .jour-reading-quote {
   font-family: var(--font-inter);
   font-size: var(--taille-valeur);
-  line-height: 1.4;
+  line-height: calc(1.4 * var(--a11y-leading));
   color: var(--color-encre);
 }
 
@@ -291,7 +303,7 @@
   align-items: center;
   gap: 8px;
   font-family: var(--font-inter);
-  font-size: 9px;
+  font-size: calc(9px * var(--a11y-scale));
   text-transform: uppercase;
   letter-spacing: var(--tracking-min);
   color: var(--encre-60);
@@ -332,7 +344,7 @@
 
 .jour-action-meta {
   font-family: var(--font-inter);
-  font-size: 9px;
+  font-size: calc(9px * var(--a11y-scale));
   text-transform: uppercase;
   letter-spacing: var(--tracking-min);
   color: var(--encre-60);
@@ -356,7 +368,7 @@
   border: none;
   font-family: var(--font-inter);
   font-weight: 600;
-  font-size: 9px;
+  font-size: calc(9px * var(--a11y-scale));
   text-transform: uppercase;
   letter-spacing: var(--tracking-min);
   color: var(--color-oxblood);
@@ -365,7 +377,7 @@
 
 .jour-nav-sep {
   color: var(--color-or);
-  font-size: 12px;
+  font-size: calc(12px * var(--a11y-scale));
 }
 
 .jour-nav-button:disabled {
@@ -391,7 +403,7 @@
   border-left: 1px solid var(--filet-barres);
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: 10px;
+  font-size: calc(10px * var(--a11y-scale));
   letter-spacing: var(--tracking-min);
   text-transform: uppercase;
   color: var(--color-encre);
@@ -422,7 +434,7 @@
 .jour-prose {
   font-family: var(--font-inter);
   font-size: var(--taille-prose);
-  line-height: 1.6;
+  line-height: calc(1.6 * var(--a11y-leading));
   color: var(--color-encre);
   margin: 0;
   text-align: left;
@@ -462,7 +474,7 @@
 .jour-section-title {
   font-family: var(--font-cormorant);
   font-weight: 400;
-  font-size: 24px;
+  font-size: calc(24px * var(--a11y-scale));
   color: var(--color-encre);
   margin: 0 0 12px;
   border-top: 1px solid var(--filet-barres);
@@ -518,7 +530,7 @@
 .jour-hour-name {
   font-family: var(--font-cormorant);
   font-weight: 600;
-  font-size: 20px;
+  font-size: calc(20px * var(--a11y-scale));
   color: var(--color-encre);
 }
 
@@ -529,7 +541,7 @@
 .jour-hour-meta {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: 12px;
+  font-size: calc(12px * var(--a11y-scale));
   letter-spacing: 0.02em;
   color: var(--encre-60);
 }
@@ -553,19 +565,14 @@
   text-align: center;
 }
 
-.jour-header-title--small {
-  font-size: 20px;
-  margin: 0;
-}
-
 .jour-header-subtitle {
   font-family: var(--font-inter);
-  font-weight: 300;
-  font-size: 9px;
+  font-weight: 600;
+  font-size: calc(13px * var(--a11y-scale));
   letter-spacing: var(--tracking-min);
   text-transform: uppercase;
-  color: var(--encre-60);
-  margin: 3px 0 0;
+  color: var(--color-oxblood);
+  margin: 0;
 }
 
 .jour-detail-tabs {
@@ -606,10 +613,20 @@
   color: var(--color-oxblood);
 }
 
-.jour-detail-body {
+.jour-detail-swiper {
   flex: 1 1 auto;
   min-height: 0;
+  width: 100%;
+}
+
+.jour-detail-slide {
+  height: 100%;
+}
+
+.jour-detail-body {
+  height: 100%;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 26px 24px 32px;
 }
 
@@ -628,7 +645,7 @@
 .jour-detail-ref {
   font-family: var(--font-cormorant);
   font-weight: 400;
-  font-size: 27px;
+  font-size: calc(27px * var(--a11y-scale));
   color: var(--color-encre);
   margin: 8px 0 0;
 }
@@ -636,8 +653,8 @@
 .jour-detail-paragraph {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: 18px;
-  line-height: 1.65;
+  font-size: calc(21px * var(--a11y-scale));
+  line-height: calc(1.7 * var(--a11y-leading));
   color: var(--color-encre);
   margin: 18px 0 0;
   text-align: left;
@@ -645,6 +662,14 @@
      (htmlToLines) : nécessaire pour les lectures découpées verset par
      verset (offices), sinon tout s'aplatit en un seul bloc. */
   white-space: pre-line;
+}
+
+.jour-verse-number {
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  color: var(--color-oxblood);
+  vertical-align: super;
+  margin-right: 4px;
 }
 
 .jour-latin-block {
@@ -659,7 +684,8 @@
   font-weight: 300;
   font-style: italic;
   margin: 0;
-  font-size: 15px;
+  font-size: calc(15px * var(--a11y-scale));
+  line-height: calc(1.5 * var(--a11y-leading));
 }
 
 .jour-commemoration {
@@ -670,23 +696,6 @@
 
 .jour-detail-actions {
   margin-top: 22px;
-}
-
-.jour-detail-footer {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 12px 20px calc(env(safe-area-inset-bottom, 0px) + 16px);
-  border-top: 1px solid var(--filet-barres);
-}
-
-.jour-detail-pager {
-  font-family: var(--font-cormorant);
-  font-weight: 300;
-  font-size: 14px;
-  color: var(--encre-60);
 }
 
 /* --- Hors ligne : bandeau (contenu en cache affiché) --- */
@@ -743,7 +752,7 @@
 .jour-offline-notice-text {
   font-family: var(--font-inter);
   font-size: var(--taille-cartouche);
-  line-height: 1.4;
+  line-height: calc(1.4 * var(--a11y-leading));
   color: var(--color-encre);
   margin: 0 0 10px;
 }
@@ -799,7 +808,7 @@
 .jour-offline-empty-title {
   font-family: var(--font-cormorant);
   font-weight: 500;
-  font-size: 26px;
+  font-size: calc(26px * var(--a11y-scale));
   line-height: 1.25;
   color: var(--color-encre);
   max-width: 300px;

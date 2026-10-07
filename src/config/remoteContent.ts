@@ -16,5 +16,6 @@ export const REMOTE_CONTENT_PATHS = {
   prayers: 'prayers.json',
   saints: 'saints.json',
   rosary: 'rosary.json',
-  councils: 'councils.json'
+  councils: 'councils.json',
+  catechisme: 'catechisme.json'
 } as const;

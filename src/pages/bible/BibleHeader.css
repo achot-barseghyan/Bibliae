@@ -1,10 +1,13 @@
 .bible-header {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 12px;
+  background: var(--bible-bg);
   border-bottom: 1px solid var(--bible-border);
 }
 

@@ -6,6 +6,7 @@ import { findIntercession } from '../data/saints';
 
 export type BookmarkType =
   | 'verse'
+  | 'chapter'
   | 'figure'
   | 'council'
   | 'prayer'
@@ -33,6 +34,21 @@ function resolveVerse(key: string, rest: string): ResolvedBookmark {
     type: 'verse',
     title: `${book.name} ${chapter}, ${verseStart}`,
     subtitle: 'Verset',
+    path: `/bible/${bookId}/${chapter}`
+  };
+}
+
+function resolveChapter(key: string, rest: string): ResolvedBookmark {
+  const [bookId, chapter] = rest.split('-');
+  const book = getBook(bookId);
+  if (!book || !chapter) {
+    return { key, type: 'unknown', title: key, subtitle: 'Ce favori ne peut plus être retrouvé' };
+  }
+  return {
+    key,
+    type: 'chapter',
+    title: `${book.name} ${chapter}`,
+    subtitle: 'Chapitre',
     path: `/bible/${bookId}/${chapter}`
   };
 }
@@ -128,6 +144,8 @@ export function resolveBookmark(key: string): ResolvedBookmark {
   switch (prefix) {
     case 'verse':
       return resolveVerse(key, rest);
+    case 'chapter':
+      return resolveChapter(key, rest);
     case 'figure':
       return resolveFigure(key, rest);
     case 'council':
@@ -145,6 +163,7 @@ export function resolveBookmark(key: string): ResolvedBookmark {
 
 export const BOOKMARK_TYPE_LABELS: Record<BookmarkType, string> = {
   verse: 'Versets',
+  chapter: 'Chapitres',
   figure: 'Figures',
   council: 'Conciles',
   prayer: 'Prières',
@@ -156,6 +175,7 @@ export const BOOKMARK_TYPE_LABELS: Record<BookmarkType, string> = {
 
 export const BOOKMARK_TYPE_ORDER: BookmarkType[] = [
   'verse',
+  'chapter',
   'figure',
   'prayer',
   'saint',

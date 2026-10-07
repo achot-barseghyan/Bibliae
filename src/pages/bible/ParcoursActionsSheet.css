@@ -8,6 +8,7 @@
 .parcours-actions-list {
   display: flex;
   flex-direction: column;
+  padding: 0 20px;
 }
 
 .parcours-actions-item {
@@ -33,11 +34,16 @@
   color: var(--color-oxblood);
 }
 
+.parcours-actions-item:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 .parcours-actions-panel {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-top: 4px;
+  padding: 4px 20px 0;
 }
 
 .parcours-actions-input {

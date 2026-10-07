@@ -1,0 +1,99 @@
+.a11y-quick-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(28, 24, 20, 0.34);
+  display: flex;
+  align-items: flex-end;
+}
+
+.a11y-quick-sheet {
+  width: 100%;
+  max-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-papier);
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
+  border: 1px solid var(--filet-barres);
+  border-bottom: none;
+}
+
+.a11y-quick-header {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  margin: -4px 8px -4px 0;
+}
+
+.a11y-quick-close {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-encre);
+  cursor: pointer;
+}
+
+.a11y-quick-close:active {
+  transform: scale(0.92);
+}
+
+.a11y-quick-close:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.a11y-quick-handle {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--filet-barres);
+  margin: 10px auto 4px;
+  cursor: grab;
+}
+
+/* Les couleurs de l'aperçu viennent des styles en ligne (voir
+   AccessibilityQuickSheet.tsx, calculés depuis READING_THEMES/READING_FONTS)
+   plutôt que de jetons CSS scopés à .bible-world, pour que l'aperçu reste
+   correct quel que soit l'écran d'où la feuille est ouverte. */
+.a11y-quick-preview {
+  flex: 0 0 auto;
+  margin: 10px 20px 4px;
+  padding: 18px 16px;
+  border-radius: 10px;
+  border: 1px solid;
+}
+
+.a11y-quick-preview-kicker {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  margin: 0 0 10px;
+}
+
+.a11y-quick-preview-text {
+  font-size: var(--taille-verset);
+  line-height: calc(1.6 * var(--a11y-leading));
+  margin: 0;
+}
+
+.a11y-quick-preview-verse-number {
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  vertical-align: super;
+  margin-right: 4px;
+}
+
+.a11y-quick-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+}

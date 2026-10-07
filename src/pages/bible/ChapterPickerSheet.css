@@ -1,0 +1,74 @@
+.chapter-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px 16px;
+}
+
+.chapter-picker-title {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--bible-font);
+  font-size: var(--taille-titre-section);
+  color: var(--bible-text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.chapter-picker-title:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: 2px;
+}
+
+.chapter-picker-grid {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--bible-border-soft);
+  border-left: 1px solid var(--bible-border-soft);
+  margin: 0 20px;
+}
+
+.chapter-picker-cell {
+  box-sizing: border-box;
+  flex: 0 0 14.2857%;
+  max-width: 14.2857%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bible-bg);
+  border: none;
+  border-right: 1px solid var(--bible-border-soft);
+  border-bottom: 1px solid var(--bible-border-soft);
+  font-family: var(--bible-font);
+  font-size: var(--taille-cartouche);
+  color: var(--bible-accent);
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.chapter-picker-cell:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: -2px;
+}
+
+.chapter-picker-cell.is-current {
+  background: var(--color-oxblood);
+  color: var(--color-papier);
+  font-weight: 600;
+}
+
+.chapter-picker-cell--empty {
+  background: var(--bible-empty-cell);
+  cursor: default;
+}
+
+.chapter-picker-hint {
+  margin: 16px 20px 4px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: var(--taille-cartouche);
+  color: var(--bible-faint);
+}

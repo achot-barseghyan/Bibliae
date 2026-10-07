@@ -220,6 +220,120 @@
   margin: 0;
 }
 
+.figure-detail-map-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 200px;
+  padding: 32px 24px;
+  margin-bottom: 16px;
+  border: 1px dashed var(--color-or);
+  border-radius: 4px;
+  background-color: var(--color-papier-enfonce);
+  background-image: linear-gradient(var(--filet-tableaux) 1px, transparent 1px),
+    linear-gradient(90deg, var(--filet-tableaux) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: center;
+  overflow: hidden;
+}
+
+.figure-detail-map-tick {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+}
+
+.figure-detail-map-tick::before,
+.figure-detail-map-tick::after {
+  content: '';
+  position: absolute;
+  background: var(--color-or);
+}
+
+.figure-detail-map-tick::before {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.figure-detail-map-tick::after {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+.figure-detail-map-tick--tl {
+  top: -6px;
+  left: -6px;
+}
+
+.figure-detail-map-tick--tr {
+  top: -6px;
+  right: -6px;
+}
+
+.figure-detail-map-tick--bl {
+  bottom: -6px;
+  left: -6px;
+}
+
+.figure-detail-map-tick--br {
+  bottom: -6px;
+  right: -6px;
+}
+
+.figure-detail-map-icon {
+  color: var(--color-or);
+}
+
+.figure-detail-map-divider {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+  text-align: center;
+}
+
+.figure-detail-map-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-or) 20%, var(--color-or) 80%, transparent);
+}
+
+.figure-detail-map-divider-label {
+  position: relative;
+  display: inline-block;
+  padding: 0 14px;
+  background: var(--color-papier-enfonce);
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-max);
+  color: var(--color-or);
+}
+
+.figure-detail-map-message {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  line-height: 1.5;
+  color: var(--encre-72);
+  text-align: center;
+  margin: 0;
+}
+
 .figure-detail-timeline {
   position: relative;
   padding-left: 18px;

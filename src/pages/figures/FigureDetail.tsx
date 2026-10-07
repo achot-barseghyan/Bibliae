@@ -8,7 +8,7 @@ import { useRemoteFigureDetails } from '../../hooks/content/useRemoteFigureDetai
 import { useRemoteCouncils } from '../../hooks/content/useRemoteCouncils';
 import type { ScriptureRef } from '../../data/figureDetails';
 import type { Council } from '../../data/councils';
-import { ChevronLeftIcon, BookmarkIcon, SearchIcon, SparkleIcon, TreeIcon, MapIcon } from '../../components/nav/icons';
+import { ChevronLeftIcon, BookmarkIcon, SearchIcon, SparkleIcon, TreeIcon, CompassIcon } from '../../components/nav/icons';
 import ScriptureRefChip from './ScriptureRefChip';
 import VersePreviewSheet from './VersePreviewSheet';
 import CouncilPreviewSheet from './CouncilPreviewSheet';
@@ -124,10 +124,19 @@ const FigureDetail: React.FC = () => {
     title: 'Lieux de vie',
     content: (
       <>
-        <div className="figure-detail-placeholder-box">
-          <MapIcon />
-          <p className="figure-detail-placeholder-label">
-            Carte{detail?.regionLabel ? ` · ${detail.regionLabel}` : ' · à venir'}
+        <div className="figure-detail-map-card">
+          <span className="figure-detail-map-tick figure-detail-map-tick--tl" aria-hidden="true" />
+          <span className="figure-detail-map-tick figure-detail-map-tick--tr" aria-hidden="true" />
+          <span className="figure-detail-map-tick figure-detail-map-tick--bl" aria-hidden="true" />
+          <span className="figure-detail-map-tick figure-detail-map-tick--br" aria-hidden="true" />
+          <CompassIcon className="figure-detail-map-icon" />
+          <div className="figure-detail-map-divider">
+            <span className="figure-detail-map-divider-label">Carte · à venir</span>
+          </div>
+          <p className="figure-detail-map-message">
+            Cette carte n'est pas encore disponible.
+            <br />
+            Nous y travaillons.
           </p>
         </div>
         {detail?.locationsSummary && (

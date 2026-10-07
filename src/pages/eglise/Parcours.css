@@ -1,0 +1,330 @@
+.parcours-content {
+  --background: var(--color-papier);
+}
+
+.parcours-header {
+  display: flex;
+  align-items: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 12px;
+}
+
+.parcours-header-button {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-encre);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.parcours-header-button:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+/* --- Progression --- */
+
+.parcours-progress {
+  padding: 4px 28px 0;
+}
+
+.parcours-progress-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 12px;
+}
+
+.parcours-progress-track {
+  display: flex;
+  gap: 6px;
+}
+
+.parcours-progress-segment {
+  flex: 1 1 0;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 2px;
+  background: var(--filet-barres);
+  cursor: pointer;
+}
+
+.parcours-progress-segment:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.parcours-progress-segment.is-filled {
+  background: var(--color-oxblood);
+}
+
+/* --- Titre --- */
+
+.parcours-hero {
+  padding: 20px 28px 4px;
+}
+
+.parcours-title {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-chapitre);
+  line-height: 1.15;
+  color: var(--color-encre);
+  margin: 0 0 14px;
+}
+
+.parcours-intro {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-prose);
+  line-height: 1.5;
+  color: var(--encre-72);
+  margin: 0;
+}
+
+/* --- Sections --- */
+
+.parcours-section {
+  padding: 28px 28px 0;
+}
+
+.parcours-section-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+  margin: 0 0 12px;
+}
+
+.parcours-paragraph {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-prose);
+  line-height: calc(1.55 * var(--a11y-leading));
+  color: var(--color-encre);
+  margin: 0 0 16px;
+}
+
+/* --- Citation mise en avant --- */
+
+.parcours-pull-quote {
+  margin: 24px 28px 0;
+  padding: 18px 20px;
+  border-left: 3px solid var(--color-or);
+  background: var(--color-papier-enfonce);
+}
+
+.parcours-pull-quote-text {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-verset);
+  line-height: 1.4;
+  color: var(--color-encre);
+  margin: 0 0 8px;
+}
+
+.parcours-pull-quote-ref {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0;
+}
+
+/* --- Ce qu'enseigne l'Église --- */
+
+.parcours-teaching {
+  margin: 32px 28px 0;
+  padding: 20px;
+  border: 1px solid var(--filet-barres);
+  border-radius: 4px;
+  background: var(--color-papier-enfonce);
+}
+
+.parcours-teaching-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 10px;
+}
+
+.parcours-teaching-text {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-verset);
+  line-height: 1.4;
+  color: var(--color-encre);
+  margin: 0 0 16px;
+}
+
+.parcours-teaching-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.parcours-teaching-tag {
+  display: inline-flex;
+  padding: 5px 10px;
+  border: 1px solid var(--filet-barres);
+  border-radius: 4px;
+  background: var(--color-papier);
+  font-family: var(--font-inter);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+}
+
+/* --- Pour aller plus loin --- */
+
+.parcours-further {
+  padding: 32px 28px 0;
+}
+
+.parcours-further-kicker {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-max);
+  color: var(--encre-60);
+  margin: 0 0 14px;
+}
+
+.parcours-further-list {
+  border: 1px solid var(--filet-barres);
+  border-radius: 4px;
+}
+
+.parcours-further-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  text-align: left;
+  padding: 16px 18px;
+  border: none;
+  border-bottom: 1px solid var(--filet-barres);
+  background: none;
+  cursor: pointer;
+}
+
+.parcours-further-card:last-child {
+  border-bottom: none;
+}
+
+.parcours-further-card-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 6px;
+}
+
+.parcours-further-card-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-verset);
+  color: var(--color-encre);
+  margin: 0 0 6px;
+}
+
+.parcours-further-card-description {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-valeur);
+  line-height: 1.4;
+  color: var(--encre-60);
+}
+
+/* --- Navigation précédent / suivant --- */
+
+.parcours-nav {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 36px;
+  padding: 20px 28px 0;
+  border-top: 1px solid var(--filet-sections);
+}
+
+.parcours-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  max-width: 48%;
+}
+
+.parcours-nav-prev {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.parcours-nav-next {
+  align-items: flex-end;
+  text-align: right;
+  margin-left: auto;
+}
+
+.parcours-nav-label {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--taille-surtitre);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-50);
+}
+
+.parcours-nav-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-verset);
+  color: var(--color-oxblood);
+}
+
+/* --- Pied de page --- */
+
+.parcours-footer {
+  margin-top: 32px;
+  padding: 28px 28px calc(env(safe-area-inset-bottom, 0px) + 32px);
+  border-top: 1px solid var(--filet-sections);
+  text-align: center;
+}
+
+.parcours-footer-wordmark {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-cartouche);
+  letter-spacing: var(--tracking-min);
+  color: var(--color-oxblood);
+  margin: 0 0 14px;
+}
+
+.parcours-footer-links {
+  font-family: var(--font-inter);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-min);
+  color: var(--encre-60);
+  opacity: 0.7;
+  margin: 0;
+}

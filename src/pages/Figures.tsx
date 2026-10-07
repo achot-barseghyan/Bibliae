@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { IonContent, IonPage } from '@ionic/react';
 import { normalizeLetter, type Figure } from '../data/figures';
 import { normalizeForSearch } from '../utils/text';
-import AccessibilityPanel from '../components/AccessibilityPanel';
+import AccessibilityQuickSheet from '../components/AccessibilityQuickSheet';
 import { AccessibilityIcon } from '../components/nav/icons';
 import { useAccessibility } from '../hooks/useAccessibility';
 import { useFigures } from '../hooks/useFigures';
@@ -67,9 +67,6 @@ const Figures: React.FC = () => {
   const [filters, setFilters] = useState<Filters>(defaultFilters);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
-  const panelTransition = accessibilitySettings.reduceMotion
-    ? { duration: 0 }
-    : { duration: 0.32, ease: [0.4, 0, 0.2, 1] as const };
   const viewTransition = accessibilitySettings.reduceMotion
     ? { duration: 0 }
     : { duration: 0.18, ease: [0.4, 0, 0.2, 1] as const };
@@ -109,26 +106,19 @@ const Figures: React.FC = () => {
           <button
             type="button"
             className={`figures-a11y-button${isAccessibilityOpen ? ' is-active' : ''}`}
-            onClick={() => setIsAccessibilityOpen((value) => !value)}
+            onClick={() => setIsAccessibilityOpen(true)}
             aria-pressed={isAccessibilityOpen}
             aria-label="Accessibilité"
+            aria-haspopup="dialog"
+            aria-expanded={isAccessibilityOpen}
           >
             <AccessibilityIcon />
           </button>
         </header>
 
-        <AnimatePresence initial={false}>
+        <AnimatePresence>
           {isAccessibilityOpen && (
-            <motion.div
-              key="a11y-panel"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={panelTransition}
-              style={{ overflow: 'hidden' }}
-            >
-              <AccessibilityPanel />
-            </motion.div>
+            <AccessibilityQuickSheet onClose={() => setIsAccessibilityOpen(false)} />
           )}
         </AnimatePresence>
 

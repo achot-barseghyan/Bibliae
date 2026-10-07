@@ -4,6 +4,8 @@
 
 .rosaire-header {
   display: flex;
+  align-items: center;
+  gap: 10px;
   padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 0;
 }
 
@@ -29,6 +31,35 @@
   outline-offset: 2px;
 }
 
+.rosaire-reset {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  background: none;
+  border: 1px solid var(--color-oxblood);
+  border-radius: 18px;
+  color: var(--color-oxblood);
+  font-family: var(--font-cormorant);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.rosaire-reset:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.rosaire-reset:not(:disabled):active {
+  transform: scale(0.96);
+}
+
+.rosaire-reset:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
 .rosaire-layout {
   display: flex;
   align-items: stretch;
@@ -46,35 +77,75 @@
   padding: 12px 120px 24px 28px;
 }
 
+.rosaire-day {
+  margin: 0 0 6px;
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--encre-50);
+}
+
 .rosaire-mystery-set {
   align-self: flex-start;
   max-width: 100%;
+  /* bloc de texte simple (pas de flex) : quand le titre passe à la ligne,
+     le chevron suit le dernier mot au lieu d'être repoussé au bord droit */
+  display: block;
+  margin: 0 0 8px;
+  padding: 0;
   background: none;
   border: none;
-  padding: 0;
-  margin: 0 0 6px;
   cursor: pointer;
   text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   font-family: var(--font-cormorant);
-  font-weight: 400;
   font-size: var(--taille-titre-section);
+  line-height: 1.15;
   color: var(--color-encre);
 }
 
-.rosaire-mystery-set:focus-visible {
-  outline: 2px solid var(--color-oxblood);
-  outline-offset: 2px;
+.rosaire-mystery-set-chevron {
+  margin-left: 6px;
+  vertical-align: middle;
+  color: var(--color-oxblood);
+}
+
+.rosaire-mystery-row {
+  margin: 0 0 18px;
 }
 
 .rosaire-mystery-title {
+  display: inline;
+  padding: 0;
+  background: none;
+  border: none;
+  text-align: left;
   font-family: var(--font-cormorant);
   font-style: italic;
   font-size: var(--taille-valeur);
   color: var(--color-oxblood);
-  margin: 0 0 18px;
+}
+
+button.rosaire-mystery-title {
+  cursor: pointer;
+}
+
+.rosaire-mystery-info {
+  margin-left: 6px;
+  vertical-align: -2px;
+}
+
+.rosaire-mystery-set:focus-visible,
+button.rosaire-mystery-title:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.rosaire-divider {
+  border: none;
+  border-top: 1px solid var(--encre-42);
+  border-top-color: color-mix(in srgb, var(--color-encre) 15%, transparent);
+  margin: 0 0 22px;
 }
 
 .rosaire-prayer-name {
@@ -88,12 +159,11 @@
 .rosaire-prayer-text {
   font-family: var(--font-cormorant);
   font-weight: 500;
-  font-size: var(--taille-valeur);
-  letter-spacing: var(--tracking-min);
-  line-height: calc(1.9 * var(--a11y-leading));
+  font-size: var(--taille-prose);
+  line-height: calc(1.6 * var(--a11y-leading));
   color: var(--color-encre);
-  text-transform: uppercase;
-  margin: 0;
+  white-space: pre-line;
+  margin: 0 0 16px;
 }
 
 .rosaire-progress {

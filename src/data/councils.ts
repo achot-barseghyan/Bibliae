@@ -29,6 +29,24 @@ export const COUNCILS: Council[] = [
     quote:
       'Un seul et même Christ, reconnu en deux natures, sans confusion, sans changement, sans division, sans séparation.',
     actionLabel: 'Lire la définition'
+  },
+  {
+    id: 'ephese-431',
+    display: 'Éphèse, 431',
+    header: "Concile d'Éphèse, 431",
+    title: 'Définition de la Theotokos',
+    quote:
+      "Si quelqu'un ne confesse pas que l'Emmanuel est véritablement Dieu, et qu'à ce titre la sainte Vierge est Mère de Dieu — puisqu'elle a enfanté selon la chair le Verbe de Dieu fait chair —, qu'il soit anathème.",
+    actionLabel: 'Lire la définition'
+  },
+  {
+    id: 'vatican-1-1870',
+    display: 'Vatican I, 1870',
+    header: 'Concile Vatican I, 1870',
+    title: 'Constitution Pastor Aeternus',
+    quote:
+      "Le Pontife Romain, lorsqu'il parle ex cathedra, jouit, par l'assistance divine promise à saint Pierre, de cette infaillibilité dont le divin Rédempteur a voulu munir son Église.",
+    actionLabel: 'Lire la définition'
   }
 ];
 

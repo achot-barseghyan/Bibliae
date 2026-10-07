@@ -1,7 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IonContent, IonPage } from '@ionic/react';
-import { AnimatePresence, motion, type PanInfo, type Transition } from 'framer-motion';
+import { AnimatePresence, motion, type Transition } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperInstance } from 'swiper';
+import 'swiper/css';
 import { useLiturgicalDay } from '../hooks/useLiturgicalDay';
 import { useLiturgicalMonth } from '../hooks/useLiturgicalMonth';
 import { useBookmarks } from '../hooks/useBookmarks';
@@ -19,8 +22,10 @@ import {
   BookmarkIcon,
   AirplaneIcon,
   RefreshIcon,
-  SparkleIcon
+  SparkleIcon,
+  AccessibilityIcon
 } from '../components/nav/icons';
+import AccessibilityQuickSheet from '../components/AccessibilityQuickSheet';
 import { tapHaptic } from '../utils/haptics';
 import './JourLiturgique.css';
 
@@ -117,6 +122,42 @@ function htmlParagraphs(html: string): string[] {
     .filter(Boolean);
 }
 
+/** Met le numéro de verset en tête de ligne en exposant coloré, comme dans
+ * le lecteur biblique (voir `.bible-chapter-verse-number`) : les lectures
+ * et offices commencent souvent chaque verset par son numéro brut, sur sa
+ * propre ligne ("13 Alors, nous ne serons plus...") — sauf le premier,
+ * collé à l'interpellation d'ouverture ("Frères : 01 Moi qui suis...").
+ * Les numéros sont fournis avec un zéro de tête (« 01 », « 02 »...) qu'on
+ * retire, AELF ne les affichant pas ainsi. */
+function renderVerseLines(text: string): ReactNode[] {
+  return text.split('\n').flatMap((line, i) => {
+    const startMatch = line.match(/^(\d{1,3})\s+(.+)$/);
+    const inlineMatch = !startMatch && i === 0 ? line.match(/^(.*?:\s*)(\d{1,3})\s+(.+)$/) : null;
+
+    let content: ReactNode;
+    if (startMatch) {
+      content = (
+        <Fragment key={`l-${i}`}>
+          <span className="jour-verse-number">{parseInt(startMatch[1], 10)}</span>
+          {startMatch[2]}
+        </Fragment>
+      );
+    } else if (inlineMatch) {
+      content = (
+        <Fragment key={`l-${i}`}>
+          {inlineMatch[1]}
+          <span className="jour-verse-number">{parseInt(inlineMatch[2], 10)}</span>
+          {inlineMatch[3]}
+        </Fragment>
+      );
+    } else {
+      content = <Fragment key={`l-${i}`}>{line}</Fragment>;
+    }
+
+    return i === 0 ? [content] : [<br key={`b-${i}`} />, content];
+  });
+}
+
 function excerptOf(html: string): string {
   const text = stripHtml(html)
     .replace(/^(En ce temps-là|Frères et sœurs|Frères|Lecture[^:]*:)\s*,?\s*/i, '')
@@ -203,6 +244,7 @@ const JourLiturgique: React.FC = () => {
   const [ordo, setOrdo] = useState<'nom' | 'vom'>('nom');
   const [isDescExpanded, setIsDescExpanded] = useState(false);
   const [detail, setDetail] = useState<Detail | null>(null);
+  const [isA11yOpen, setIsA11yOpen] = useState(false);
   const { feast, isLoading, isStale, cachedAt, retry } = useLiturgicalDay(date);
   const { isBookmarked, toggle } = useBookmarks();
   const { settings } = useAccessibility();
@@ -258,11 +300,10 @@ const dateLabel = new Date(`${date}T12:00:00`).toLocaleDateString('fr-FR', {
   const openHour = (hourKey: string) => {
     const items = active?.offices[hourKey] ?? [];
     if (items.length === 0) return;
-    const firstRefIndex = items.findIndex((i) => i.ref);
     tapHaptic();
     setDetail({
       tabs: items,
-      index: firstRefIndex === -1 ? 0 : firstRefIndex,
+      index: 0,
       subtitle: `${HOUR_LABELS[hourKey] ?? hourKey} · ${dateLabel}`
     });
   };
@@ -285,15 +326,31 @@ const dateLabel = new Date(`${date}T12:00:00`).toLocaleDateString('fr-FR', {
             <ChevronLeftIcon size={20} />
           </button>
           <h1 className="jour-header-title">Jour liturgique</h1>
-          <button
-            type="button"
-            className="jour-header-today"
-            onClick={() => setDate(todayIso())}
-            aria-label="Revenir à aujourd'hui"
-          >
-            <CalendarIcon size={19} />
-          </button>
+          <div className="jour-header-side jour-header-side--right">
+            <button
+              type="button"
+              className={`jour-header-today${isA11yOpen ? ' is-active' : ''}`}
+              onClick={() => setIsA11yOpen(true)}
+              aria-label="Accessibilité et lecture"
+              aria-haspopup="dialog"
+              aria-expanded={isA11yOpen}
+            >
+              <AccessibilityIcon size={19} />
+            </button>
+            <button
+              type="button"
+              className="jour-header-today"
+              onClick={() => setDate(todayIso())}
+              aria-label="Revenir à aujourd'hui"
+            >
+              <CalendarIcon size={19} />
+            </button>
+          </div>
         </header>
+
+        <AnimatePresence>
+          {isA11yOpen && <AccessibilityQuickSheet onClose={() => setIsA11yOpen(false)} />}
+        </AnimatePresence>
 
         {isStale && feast && (
           <div className="jour-offline-banner">
@@ -481,7 +538,13 @@ const dateLabel = new Date(`${date}T12:00:00`).toLocaleDateString('fr-FR', {
                 <h2 className="jour-section-title">Liturgie des heures</h2>
                 <div className="jour-hours-grid">
                   {hours.map((h) => {
-                    const firstItem = active.offices[h]?.find((i) => i.ref) ?? active.offices[h]?.[0];
+                    // Aperçu de la lecture de l'heure : on cible spécifiquement la
+                    // lecture (biblique), pas n'importe quel élément pourvu d'une
+                    // référence — sinon un psaume (lui aussi référencé, ex. "18a")
+                    // rendu plus tôt dans la liste passerait avant elle.
+                    const firstItem =
+                      active.offices[h]?.find((i) => i.key === 'short_reading' || i.key === 'lecture') ??
+                      active.offices[h]?.[0];
                     return (
                       <button key={h} type="button" className="jour-hour-card" onClick={() => openHour(h)}>
                         <span className={`jour-hour-name${h === nowHour ? ' is-now' : ''}`}>{HOUR_LABELS[h] ?? h}</span>
@@ -577,9 +640,9 @@ const LiturgicalDetailView: React.FC<LiturgicalDetailViewProps> = ({
   transition
 }) => {
   const navigate = useNavigate();
-  const item = tabs[index];
-  const target = resolveReadingChapter(item.ref);
   const activeTabRef = useRef<HTMLButtonElement>(null);
+  const swiperRef = useRef<SwiperInstance | null>(null);
+  const [isA11yOpen, setIsA11yOpen] = useState(false);
 
   // Fait défiler la barre d'onglets pour garder l'onglet actif visible :
   // sinon, en avançant avec le pager du bas, l'onglet courant peut sortir
@@ -588,26 +651,14 @@ const LiturgicalDetailView: React.FC<LiturgicalDetailViewProps> = ({
     activeTabRef.current?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }, [index]);
 
-  // Glisser vers la gauche/droite change d'onglet, comme le ferait la
-  // pagination du bas. On exige un geste nettement plus horizontal que
-  // vertical, sinon un simple défilement du texte pourrait être pris pour
-  // un swipe.
-  const handlePanEnd = (_event: PointerEvent | MouseEvent | TouchEvent, info: PanInfo) => {
-    // Un geste rapide ("à-coup") parcourt peu de distance avant le lâcher :
-    // le déplacement (offset) reste petit même si le mouvement est franchement
-    // horizontal. Se fier au seul offset pour juger la direction rejetait
-    // alors ces gestes à tort — on regarde aussi la vitesse, qui elle reste
-    // nettement horizontale dans ce cas.
-    const offsetIsHorizontal = Math.abs(info.offset.x) > Math.abs(info.offset.y) * 1.2;
-    const velocityIsHorizontal = Math.abs(info.velocity.x) > Math.abs(info.velocity.y) * 1.2;
-    if (!offsetIsHorizontal && !velocityIsHorizontal) return;
-
-    if (info.offset.x < -70 || info.velocity.x < -500) {
-      onIndexChange(Math.min(tabs.length - 1, index + 1));
-    } else if (info.offset.x > 70 || info.velocity.x > 500) {
-      onIndexChange(Math.max(0, index - 1));
+  // L'onglet actif peut changer depuis l'extérieur du swipe (clic sur un
+  // onglet, boutons de pagination) : on répercute alors le changement sur
+  // le Swiper, qui sinon ne connaît que les gestes de glissement.
+  useEffect(() => {
+    if (swiperRef.current && swiperRef.current.activeIndex !== index) {
+      swiperRef.current.slideTo(index);
     }
-  };
+  }, [index]);
 
   return (
     <motion.div
@@ -622,11 +673,23 @@ const LiturgicalDetailView: React.FC<LiturgicalDetailViewProps> = ({
           <ChevronLeftIcon size={20} />
         </button>
         <div className="jour-header-titles">
-          <p className="jour-header-title jour-header-title--small">{item.label}</p>
           <p className="jour-header-subtitle">{subtitle}</p>
         </div>
-        <div className="jour-header-today" aria-hidden="true" />
+        <button
+          type="button"
+          className={`jour-header-today${isA11yOpen ? ' is-active' : ''}`}
+          onClick={() => setIsA11yOpen(true)}
+          aria-label="Accessibilité et lecture"
+          aria-haspopup="dialog"
+          aria-expanded={isA11yOpen}
+        >
+          <AccessibilityIcon size={19} />
+        </button>
       </header>
+
+      <AnimatePresence>
+        {isA11yOpen && <AccessibilityQuickSheet onClose={() => setIsA11yOpen(false)} />}
+      </AnimatePresence>
 
       <div className="jour-detail-tabs">
         {tabs.map((t, i) => (
@@ -642,68 +705,63 @@ const LiturgicalDetailView: React.FC<LiturgicalDetailViewProps> = ({
         ))}
       </div>
 
-      <motion.div className="jour-detail-body" onPanEnd={handlePanEnd}>
-        <div className="jour-detail-heading">
-          <p className="jour-section-kicker">{item.label}</p>
-          {item.ref && <p className="jour-detail-ref">{item.ref}</p>}
-          <div className="jour-divider" aria-hidden="true" />
-        </div>
+      <Swiper
+        className="jour-detail-swiper"
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
+        initialSlide={index}
+        slidesPerView={1}
+        spaceBetween={0}
+        resistanceRatio={0.65}
+        onSlideChange={(swiper) => onIndexChange(swiper.activeIndex)}
+      >
+        {tabs.map((t, i) => {
+          const slideTarget = resolveReadingChapter(t.ref);
+          return (
+            <SwiperSlide key={t.key} className="jour-detail-slide">
+              <div className="jour-detail-body">
+                <div className="jour-detail-heading">
+                  <p className="jour-section-kicker">{t.label}</p>
+                  {t.ref && <p className="jour-detail-ref">{t.ref}</p>}
+                  <div className="jour-divider" aria-hidden="true" />
+                </div>
 
-        {htmlParagraphs(item.text).map((p, i) => (
-          <p className="jour-detail-paragraph" key={i}>
-            {p}
-          </p>
-        ))}
+                {htmlParagraphs(t.text).map((p, j) => (
+                  <p className="jour-detail-paragraph" key={j}>
+                    {renderVerseLines(p)}
+                  </p>
+                ))}
 
-        {item.source && (
-          <div className="jour-latin-block">
-            <p className="jour-detail-paragraph jour-latin-text">{htmlToLines(item.source.text)}</p>
-          </div>
-        )}
+                {t.source && (
+                  <div className="jour-latin-block">
+                    <p className="jour-detail-paragraph jour-latin-text">{htmlToLines(t.source.text)}</p>
+                  </div>
+                )}
 
-        {commemorationLine && index === tabs.length - 1 && (
-          <div className="jour-commemoration">
-            <p className="jour-section-kicker">Commémoraison</p>
-            <p className="jour-prose">{commemorationLine}</p>
-          </div>
-        )}
+                {commemorationLine && i === tabs.length - 1 && (
+                  <div className="jour-commemoration">
+                    <p className="jour-section-kicker">Commémoraison</p>
+                    <p className="jour-prose">{commemorationLine}</p>
+                  </div>
+                )}
 
-        <div className="jour-detail-actions">
-          {target && (
-            <button
-              type="button"
-              className="jour-gospel-button"
-              onClick={() => navigate(`/bible/${target.bookId}/${target.chapter}`)}
-            >
-              Ouvrir dans la Bible
-            </button>
-          )}
-        </div>
-      </motion.div>
-
-      <footer className="jour-detail-footer">
-        <button
-          type="button"
-          className="jour-nav-button"
-          onClick={() => onIndexChange(index - 1)}
-          disabled={index === 0}
-        >
-          <ChevronLeftIcon size={14} />
-          {tabs[index - 1]?.label ?? ''}
-        </button>
-        <span className="jour-detail-pager">
-          {index + 1} / {tabs.length}
-        </span>
-        <button
-          type="button"
-          className="jour-nav-button"
-          onClick={() => onIndexChange(index + 1)}
-          disabled={index === tabs.length - 1}
-        >
-          {tabs[index + 1]?.label ?? ''}
-          <ChevronRightIcon size={14} />
-        </button>
-      </footer>
+                <div className="jour-detail-actions">
+                  {slideTarget && (
+                    <button
+                      type="button"
+                      className="jour-gospel-button"
+                      onClick={() => navigate(`/bible/${slideTarget.bookId}/${slideTarget.chapter}`)}
+                    >
+                      Ouvrir dans la Bible
+                    </button>
+                  )}
+                </div>
+              </div>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
     </motion.div>
   );
 };

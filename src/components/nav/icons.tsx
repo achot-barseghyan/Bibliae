@@ -484,6 +484,41 @@ export const RefreshIcon: React.FC<IconProps> = ({ size = 16, className }) => (
   </svg>
 );
 
+export const LocationIcon: React.FC<IconProps> = ({ size = 16, className }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    className={className}
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="7" />
+    <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none" />
+    <path d="M12 2v3M12 19v3M2 12h3M19 12h3" strokeLinecap="round" />
+  </svg>
+);
+
+export const CompassIcon: React.FC<IconProps> = ({ size = 40, className }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 40 40"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.2"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden="true"
+  >
+    <circle cx="20" cy="20" r="13" />
+    <path d="M20 10 L22 18 L30 20 L22 22 L20 30 L18 22 L10 20 L18 18 Z" />
+    <circle cx="20" cy="20" r="1.4" fill="currentColor" stroke="none" />
+  </svg>
+);
+
 export const MapIcon: React.FC<IconProps> = ({ size = 40, className }) => (
   <svg
     width={size}
@@ -499,5 +534,24 @@ export const MapIcon: React.FC<IconProps> = ({ size = 40, className }) => (
     <path d="M14 6 6 9v25l8-3 12 3 8-3V6l-8 3-12-3z" />
     <path d="M14 6v25M26 9v25" />
     <circle cx="20" cy="18" r="2.5" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+export const InfoIcon: React.FC<IconProps> = ({ size = 14, className }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 11v5" />
+    <path d="M12 8h.01" />
   </svg>
 );
