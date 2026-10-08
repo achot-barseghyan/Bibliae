@@ -159,3 +159,62 @@
   text-align: center;
   color: var(--color-oxblood);
 }
+
+/* Pastille family-chart « d'autres proches ne sont pas affichés » : une
+   petite icône dorée au-dessus du portrait ; toucher la carte recentre. */
+.family-tree-canvas.f3 div.mini-tree {
+  top: -18px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  z-index: 1;
+  color: var(--color-or);
+  pointer-events: none;
+}
+
+.family-tree-canvas.f3 div.mini-tree svg {
+  width: 30px;
+}
+
+.family-tree-canvas.f3 div.mini-tree line,
+.family-tree-canvas.f3 div.mini-tree path {
+  stroke: var(--color-or);
+  stroke-width: 2.5px;
+}
+
+/* Branche d'ancêtres commune repliée à cet endroit (voir
+   restyleDuplicateToggles) : étiquette au-dessus du portrait. */
+.family-tree-canvas.f3 .f3-toggle-div.family-tree-toggle {
+  top: auto !important;
+  bottom: calc(100% + 4px);
+  width: max-content !important;
+  height: auto !important;
+  transform: translateX(-50%);
+  z-index: 2 !important;
+}
+
+.family-tree-toggle-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 4px 10px;
+  border: 1px solid var(--color-or);
+  border-radius: 10px;
+  background: var(--color-papier);
+  white-space: nowrap;
+}
+
+.family-tree-toggle-title {
+  font-family: var(--font-inter);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-oxblood);
+}
+
+.family-tree-toggle-action {
+  font-family: var(--font-inter);
+  font-size: 9px;
+  font-style: italic;
+  color: var(--encre-60);
+}
