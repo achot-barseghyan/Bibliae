@@ -106,3 +106,18 @@
 .annot-run--sanguine .annot-run-note-badge {
   background: var(--annot-solid-sanguine);
 }
+
+/* Nom d'une figure biblique cliquable : discret pour ne pas gêner la
+   lecture, un soulignage pointillé suffit à le signaler. */
+.annot-link {
+  cursor: pointer;
+  text-decoration: underline dotted;
+  text-decoration-color: color-mix(in srgb, var(--color-oxblood) 55%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.annot-link:active {
+  color: var(--color-oxblood);
+}

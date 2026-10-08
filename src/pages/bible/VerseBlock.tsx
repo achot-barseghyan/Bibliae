@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAnnotations, type Annotation } from '../../hooks/useAnnotations';
 import AnnotatedText from '../../components/annotate/AnnotatedText';
+import { findFigureMentions } from '../../data/figureMentions';
 import { ChevronDownIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
 import './VerseBlock.css';
 
 interface VerseBlockProps {
   sourceId: string;
+  bookId: string;
+  chapter: number;
   verseNumber: number;
   verseText: string;
   onOpenExistingNote: (annotation: Annotation) => void;
@@ -18,8 +22,26 @@ interface VerseBlockProps {
  * un état local par verset — visibilité du panneau, note dépliée — sans
  * violer les règles des hooks dans un `.map()`.
  */
-const VerseBlock: React.FC<VerseBlockProps> = ({ sourceId, verseNumber, verseText, onOpenExistingNote }) => {
+const VerseBlock: React.FC<VerseBlockProps> = ({
+  sourceId,
+  bookId,
+  chapter,
+  verseNumber,
+  verseText,
+  onOpenExistingNote
+}) => {
+  const navigate = useNavigate();
   const { forBlock } = useAnnotations();
+  // Noms des figures bibliques, cliquables vers leur fiche.
+  const figureLinks = useMemo(
+    () =>
+      findFigureMentions(verseText, bookId, chapter).map((m) => ({
+        start: m.start,
+        end: m.end,
+        target: m.figureId
+      })),
+    [verseText, bookId, chapter]
+  );
   const blockAnnotations = forBlock('verse', sourceId, verseNumber);
   const noteAnnotations = blockAnnotations
     .filter((a) => a.note !== null)
@@ -45,6 +67,11 @@ const VerseBlock: React.FC<VerseBlockProps> = ({ sourceId, verseNumber, verseTex
             text={verseText}
             annotations={blockAnnotations}
             noteNumbers={noteNumbers}
+            links={figureLinks}
+            onLinkClick={(figureId) => {
+              tapHaptic();
+              navigate(`/figures/${figureId}`);
+            }}
             onNoteBadgeClick={(id) => {
               tapHaptic();
               setPanelVisible(true);

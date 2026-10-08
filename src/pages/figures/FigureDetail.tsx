@@ -9,6 +9,8 @@ import { useRemoteCouncils } from '../../hooks/content/useRemoteCouncils';
 import type { ScriptureRef } from '../../data/figureDetails';
 import type { Council } from '../../data/councils';
 import { ChevronLeftIcon, BookmarkIcon, SearchIcon, SparkleIcon, TreeIcon, CompassIcon } from '../../components/nav/icons';
+import { hasGenealogy } from '../../data/genealogy';
+import FamilyTree from './FamilyTree';
 import ScriptureRefChip from './ScriptureRefChip';
 import VersePreviewSheet from './VersePreviewSheet';
 import CouncilPreviewSheet from './CouncilPreviewSheet';
@@ -113,10 +115,14 @@ const FigureDetail: React.FC = () => {
   sections.push({
     title: 'Généalogie et relations',
     content: (
-      <div className="figure-detail-placeholder-box">
-        <TreeIcon />
-        <p className="figure-detail-placeholder-label">Arbre généalogique · à venir</p>
-      </div>
+      hasGenealogy(figure.id) ? (
+        <FamilyTree figureId={figure.id} figures={figures} />
+      ) : (
+        <div className="figure-detail-placeholder-box">
+          <TreeIcon />
+          <p className="figure-detail-placeholder-label">L'Écriture ne nomme pas sa famille</p>
+        </div>
+      )
     )
   });
 

@@ -197,6 +197,8 @@ const BibleChapter: React.FC = () => {
                 <VerseBlock
                   key={verse.number}
                   sourceId={sourceId}
+                  bookId={book.id}
+                  chapter={chapterNumber}
                   verseNumber={verse.number}
                   verseText={verse.text}
                   onOpenExistingNote={(annotation) =>

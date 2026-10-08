@@ -2,12 +2,23 @@ import { Fragment } from 'react';
 import type { Annotation } from '../../services/appDataStore';
 import './highlightColors.css';
 
+/** Portion du texte cliquable (ex. nom d'une figure), par décalages de caractères. */
+export interface TextLink {
+  start: number;
+  end: number;
+  target: string;
+}
+
 interface AnnotatedTextProps {
   text: string;
   annotations: Annotation[];
   /** Numéro (1, 2, 3…) affiché en exposant pour chaque annotation qui porte une note. */
   noteNumbers?: Map<string, number>;
   onNoteBadgeClick?: (annotationId: string) => void;
+  /** Liens posés par-dessus le texte, sans en changer le contenu : les
+   * décalages des annotations (calculés sur le texte brut) restent valides. */
+  links?: TextLink[];
+  onLinkClick?: (target: string) => void;
 }
 
 interface Run {
@@ -16,6 +27,7 @@ interface Run {
   highlight: string | null;
   underline: boolean;
   noteAnnotationId: string | null;
+  link: string | null;
 }
 
 /**
@@ -27,12 +39,14 @@ interface Run {
  * logique pour la pastille de note : celle de l'annotation-avec-note la plus
  * récemment modifiée parmi celles qui couvrent le run.
  */
-function buildRuns(text: string, annotations: Annotation[]): Run[] {
+function buildRuns(text: string, annotations: Annotation[], links: TextLink[]): Run[] {
   const boundaries = new Set<number>([0, text.length]);
-  annotations.forEach((a) => {
-    boundaries.add(Math.max(0, Math.min(text.length, a.target.start)));
-    boundaries.add(Math.max(0, Math.min(text.length, a.target.end)));
-  });
+  const addRange = (start: number, end: number) => {
+    boundaries.add(Math.max(0, Math.min(text.length, start)));
+    boundaries.add(Math.max(0, Math.min(text.length, end)));
+  };
+  annotations.forEach((a) => addRange(a.target.start, a.target.end));
+  links.forEach((l) => addRange(l.start, l.end));
   const points = Array.from(boundaries).sort((a, b) => a - b);
 
   const runs: Run[] = [];
@@ -41,9 +55,10 @@ function buildRuns(text: string, annotations: Annotation[]): Run[] {
     const end = points[i + 1];
     if (start === end) continue;
 
+    const link = links.find((l) => l.start <= start && l.end >= end)?.target ?? null;
     const covering = annotations.filter((a) => a.target.start <= start && a.target.end >= end);
     if (covering.length === 0) {
-      runs.push({ start, end, highlight: null, underline: false, noteAnnotationId: null });
+      runs.push({ start, end, highlight: null, underline: false, noteAnnotationId: null, link });
       continue;
     }
 
@@ -54,22 +69,50 @@ function buildRuns(text: string, annotations: Annotation[]): Run[] {
       withNote.length > 0
         ? withNote.reduce((latest, a) => (a.updatedAt > latest.updatedAt ? a : latest)).id
         : null;
-    runs.push({ start, end, highlight: mostRecent.style.highlight, underline, noteAnnotationId });
+    runs.push({ start, end, highlight: mostRecent.style.highlight, underline, noteAnnotationId, link });
   }
   return runs;
 }
 
-const AnnotatedText: React.FC<AnnotatedTextProps> = ({ text, annotations, noteNumbers, onNoteBadgeClick }) => {
-  if (annotations.length === 0) {
+const AnnotatedText: React.FC<AnnotatedTextProps> = ({
+  text,
+  annotations,
+  noteNumbers,
+  onNoteBadgeClick,
+  links = [],
+  onLinkClick
+}) => {
+  if (annotations.length === 0 && links.length === 0) {
     return <>{text}</>;
   }
 
-  const runs = buildRuns(text, annotations);
+  const runs = buildRuns(text, annotations, links);
 
   return (
     <>
       {runs.map((run, i) => {
-        const slice = text.slice(run.start, run.end);
+        const raw = text.slice(run.start, run.end);
+        const slice = run.link ? (
+          <span
+            className="annot-link"
+            role="link"
+            tabIndex={0}
+            onClick={(e) => {
+              // Un appui long sert à sélectionner du texte pour l'annoter :
+              // on ne suit pas le lien si une sélection est en cours.
+              if (window.getSelection()?.isCollapsed === false) return;
+              e.stopPropagation();
+              onLinkClick?.(run.link as string);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') onLinkClick?.(run.link as string);
+            }}
+          >
+            {raw}
+          </span>
+        ) : (
+          raw
+        );
         if (!run.highlight && !run.underline) {
           return <Fragment key={i}>{slice}</Fragment>;
         }
