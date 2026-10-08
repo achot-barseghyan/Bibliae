@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">ionic-app-base</string>
-    <string name="title_activity_main">ionic-app-base</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">Bibliae</string>
+    <string name="title_activity_main">Bibliae</string>
+    <string name="package_name">com.bibliae.app</string>
+    <string name="custom_url_scheme">com.bibliae.app</string>
 </resources>

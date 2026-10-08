@@ -158,6 +158,16 @@ function renderVerseLines(text: string): ReactNode[] {
   });
 }
 
+/** Antienne d'un psaume/cantique : libellé « Antienne » en rouge, puis le
+ * texte en gras italique, comme dans le bréviaire. */
+function Antienne({ html }: { html: string }) {
+  return (
+    <p className="jour-detail-paragraph jour-antienne">
+      <span className="jour-antienne-label">Antienne</span> <span className="jour-antienne-text">{htmlToLines(html)}</span>
+    </p>
+  );
+}
+
 function excerptOf(html: string): string {
   const text = stripHtml(html)
     .replace(/^(En ce temps-là|Frères et sœurs|Frères|Lecture[^:]*:)\s*,?\s*/i, '')
@@ -727,11 +737,15 @@ const LiturgicalDetailView: React.FC<LiturgicalDetailViewProps> = ({
                   <div className="jour-divider" aria-hidden="true" />
                 </div>
 
+                {t.antienne && <Antienne html={t.antienne} />}
+
                 {htmlParagraphs(t.text).map((p, j) => (
                   <p className="jour-detail-paragraph" key={j}>
                     {renderVerseLines(p)}
                   </p>
                 ))}
+
+                {t.antienne && <Antienne html={t.antienne} />}
 
                 {t.source && (
                   <div className="jour-latin-block">

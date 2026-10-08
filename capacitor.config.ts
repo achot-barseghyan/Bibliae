@@ -7,8 +7,8 @@ const liveReload = process.env.CAP_LIVE_RELOAD === 'true';
 const liveReloadHost = process.env.CAP_LIVE_RELOAD_HOST || '10.0.2.2';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ionic-app-base',
+  appId: 'com.bibliae.app',
+  appName: 'Bibliae',
   webDir: 'dist',
   ...(liveReload && {
     server: {

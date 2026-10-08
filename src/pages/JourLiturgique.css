@@ -266,7 +266,7 @@
 }
 
 .jour-reading-quote {
-  font-family: var(--font-inter);
+  font-family: var(--font-lecture);
   font-size: var(--taille-valeur);
   line-height: calc(1.4 * var(--a11y-leading));
   color: var(--color-encre);
@@ -432,7 +432,7 @@
 }
 
 .jour-prose {
-  font-family: var(--font-inter);
+  font-family: var(--font-lecture);
   font-size: var(--taille-prose);
   line-height: calc(1.6 * var(--a11y-leading));
   color: var(--color-encre);
@@ -651,7 +651,7 @@
 }
 
 .jour-detail-paragraph {
-  font-family: var(--font-inter);
+  font-family: var(--font-lecture);
   font-weight: 400;
   font-size: calc(21px * var(--a11y-scale));
   line-height: calc(1.7 * var(--a11y-leading));
@@ -672,6 +672,16 @@
   margin-right: 4px;
 }
 
+.jour-antienne-label {
+  font-weight: 600;
+  color: var(--color-oxblood);
+}
+
+.jour-antienne-text {
+  font-weight: 600;
+  font-style: italic;
+}
+
 .jour-latin-block {
   margin-top: 16px;
   padding: 14px 16px;
@@ -680,7 +690,7 @@
 }
 
 .jour-latin-text {
-  font-family: var(--font-inter);
+  font-family: var(--font-lecture);
   font-weight: 300;
   font-style: italic;
   margin: 0;

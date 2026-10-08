@@ -36,6 +36,9 @@
   --font-cormorant: 'Cormorant Garamond', serif;
   --font-eb-garamond: 'EB Garamond', serif;
   --font-inter: 'Inter', sans-serif;
+  /* Police du texte à lire (lectures, offices…) : suit la police choisie
+     dans Réglages > Lecture biblique (voir data-reading-font plus bas). */
+  --font-lecture: var(--font-cormorant);
 
   /* Accessibilité : échelle de texte et interlignage pilotables via
      data-text-scale / data-line-spacing sur <html> (voir useAccessibility) */
@@ -133,11 +136,13 @@ html[data-reduce-motion='true'] *::after {
 
 html[data-reading-font='garamond'] {
   --font-cormorant: var(--font-eb-garamond);
+  --font-lecture: var(--font-eb-garamond);
 }
 
 html[data-reading-font='inter'] {
   --font-cormorant: var(--font-inter);
   --font-eb-garamond: var(--font-inter);
+  --font-lecture: var(--font-inter);
 }
 
 html[data-reading-theme='sepia'] {

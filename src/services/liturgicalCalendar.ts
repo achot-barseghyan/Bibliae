@@ -24,6 +24,8 @@ export interface LiturgicalItem {
   text: string;
   /** Texte latin d'origine (messe traditionnelle uniquement). */
   source?: TextSource | null;
+  /** Antienne d'un psaume/cantique d'office : affichée avant et après le texte. */
+  antienne?: string | null;
 }
 
 export interface OrdoData {
@@ -239,14 +241,14 @@ function pericopeItem(key: string, defaultLabel: string, value: unknown): Liturg
 }
 
 /** Antienne + psaume/cantique combinés en un seul onglet (antienne, texte,
- * antienne répétée), comme les présente le bréviaire. */
+ * antienne répétée), comme les présente le bréviaire. L'antienne reste à part
+ * du texte pour être mise en forme distinctement à l'affichage. */
 function psalmItem(key: string, labelPrefix: string, antienneValue: unknown, psalmValue: unknown): LiturgicalItem | null {
   const psalm = asRefText(psalmValue);
   if (!psalm) return null;
   const antienne = asText(antienneValue);
-  const text = antienne ? `${antienne}<br /><br />${psalm.texte}<br /><br />${antienne}` : psalm.texte;
   const label = psalm.titre ?? (psalm.reference ? psalmLabelFromReference(labelPrefix, psalm.reference) : labelPrefix);
-  return { key, label, ref: psalm.reference, text };
+  return { key, label, ref: psalm.reference, text: psalm.texte, antienne };
 }
 
 /** Pour un cantique, l'AELF met un titre complet dans `reference`
