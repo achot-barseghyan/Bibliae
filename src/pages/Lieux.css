@@ -1,0 +1,202 @@
+.lieux-content {
+  --background: var(--color-papier);
+}
+
+.lieux-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: calc(env(safe-area-inset-top, 0px) + 36px) 32px
+    calc(env(safe-area-inset-bottom, 0px) + 120px);
+  box-sizing: border-box;
+}
+
+.lieux-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* --- Rose des vents --- */
+
+.lieux-compass {
+  width: min(240px, 66vw);
+  height: auto;
+  overflow: visible;
+}
+
+.lieux-compass-ring {
+  fill: none;
+  stroke: var(--color-or);
+  stroke-width: 1;
+  opacity: 0.75;
+}
+
+.lieux-compass-ring--inner {
+  stroke-width: 0.8;
+  opacity: 0.45;
+}
+
+.lieux-compass-tick {
+  stroke: var(--color-or);
+  stroke-width: 0.8;
+  opacity: 0.7;
+}
+
+.lieux-compass-north {
+  font-family: var(--font-cormorant);
+  font-size: 15px;
+  font-weight: 600;
+  text-anchor: middle;
+  fill: var(--color-oxblood);
+}
+
+.lieux-compass-star {
+  transform-origin: 0 0;
+  animation: lieux-compass-settle 1.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* La rose oscille un instant avant de se fixer, comme une aiguille. */
+@keyframes lieux-compass-settle {
+  0% {
+    transform: rotate(-28deg);
+  }
+  45% {
+    transform: rotate(9deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lieux-compass-star {
+    animation: none;
+  }
+}
+
+html[data-reduce-motion='true'] .lieux-compass-star {
+  animation: none;
+}
+
+.lieux-compass-point--dark {
+  fill: var(--color-oxblood);
+}
+
+.lieux-compass-point--mid {
+  fill: color-mix(in srgb, var(--color-oxblood) 72%, var(--color-papier));
+  stroke: var(--color-oxblood);
+  stroke-width: 0.6;
+}
+
+.lieux-compass-point--light {
+  fill: color-mix(in srgb, var(--color-or) 30%, var(--color-papier));
+  stroke: var(--color-or);
+  stroke-width: 0.6;
+}
+
+.lieux-compass-point--outline {
+  fill: var(--color-papier);
+  stroke: var(--color-or);
+  stroke-width: 0.6;
+}
+
+.lieux-compass-center {
+  fill: var(--color-or);
+  stroke: var(--color-papier);
+  stroke-width: 1.5;
+}
+
+/* --- Texte --- */
+
+.lieux-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.lieux-divider::before,
+.lieux-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-or) 55%, transparent);
+}
+
+.lieux-divider-label {
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-or);
+}
+
+.lieux-title {
+  margin: 14px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(32px * var(--a11y-scale));
+  line-height: 1.15;
+  color: var(--color-encre);
+}
+
+.lieux-message {
+  max-width: 320px;
+  margin: 14px 0 0;
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: var(--taille-valeur);
+  line-height: calc(1.5 * var(--a11y-leading));
+  color: var(--encre-60);
+}
+
+/* --- Actions --- */
+
+.lieux-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 40px;
+}
+
+.lieux-notify {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 48px;
+  border: 1px solid var(--color-oxblood);
+  border-radius: 999px;
+  background: var(--color-oxblood);
+  font-family: var(--font-inter);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-papier);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lieux-notify.is-on {
+  background: none;
+  color: var(--color-oxblood);
+}
+
+.lieux-back {
+  padding: 6px 10px;
+  border: none;
+  background: none;
+  font-family: var(--font-inter);
+  font-size: 13px;
+  color: var(--color-oxblood);
+  cursor: pointer;
+}

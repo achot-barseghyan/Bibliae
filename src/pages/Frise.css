@@ -1,0 +1,489 @@
+.frise-content {
+  --background: var(--color-papier);
+}
+
+/* --- En-tête (même gabarit que Figures) --- */
+
+.frise-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) 28px 16px;
+  border-bottom: 1px solid var(--filet-sections);
+}
+
+.frise-topbar-wordmark {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  color: var(--color-encre);
+}
+
+.frise-topbar-wordmark-accent {
+  color: var(--color-oxblood);
+}
+
+.frise-a11y-button {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--filet-barres);
+  background: var(--color-papier);
+  color: var(--color-encre);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.frise-a11y-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.frise-a11y-button.is-active {
+  background: var(--color-oxblood);
+  border-color: var(--color-oxblood);
+  color: var(--color-papier);
+  transform: rotate(90deg);
+}
+
+.frise-intro {
+  padding: 24px 28px 16px;
+}
+
+.frise-page-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: var(--taille-chapitre);
+  color: var(--color-encre);
+  margin: 0 0 10px;
+}
+
+.frise-page-subtitle {
+  font-family: var(--font-cormorant);
+  font-size: var(--taille-prose);
+  line-height: calc(1.5 * var(--a11y-leading));
+  color: var(--encre-60);
+  margin: 0;
+  max-width: 380px;
+}
+
+/* --- Raccourcis de périodes --- */
+
+.frise-periods {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 28px 16px;
+  scrollbar-width: none;
+}
+
+.frise-periods::-webkit-scrollbar {
+  display: none;
+}
+
+.frise-period-chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--filet-barres);
+  border-radius: 999px;
+  background: none;
+  font-family: var(--font-cormorant);
+  font-size: 15px;
+  color: var(--color-encre);
+  cursor: pointer;
+}
+
+.frise-period-chip-numeral {
+  font-family: var(--font-inter);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--color-or);
+}
+
+.frise-period-chip.is-active {
+  background: var(--color-encre);
+  border-color: var(--color-encre);
+  color: var(--color-papier);
+}
+
+/* --- Panneau de la frise --- */
+
+.frise-panel {
+  margin: 0 0 8px;
+  padding: 20px 0 20px;
+  background: var(--color-papier);
+  border-top: 1px solid var(--filet-sections);
+  border-bottom: 1px solid var(--filet-sections);
+}
+
+.frise-panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.frise-panel-kicker {
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--encre-60);
+}
+
+.frise-panel-direction {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--encre-60);
+}
+
+.frise-scroller {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.frise-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.frise-track {
+  --band-top: 150px;
+  --band-height: 34px;
+  position: relative;
+  height: 300px;
+}
+
+.frise-band {
+  position: absolute;
+  top: var(--band-top);
+  height: var(--band-height);
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--color-papier);
+}
+
+.frise-band--encre {
+  background: var(--color-encre);
+}
+
+.frise-band--oxblood {
+  background: var(--color-oxblood);
+}
+
+/* Le nom de la période reste visible tant qu'on fait défiler sa bande. */
+.frise-band-label {
+  position: sticky;
+  left: 12px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 0 12px;
+  font-family: var(--font-cormorant);
+  font-size: 17px;
+  color: var(--color-papier);
+  white-space: nowrap;
+}
+
+.frise-band-numeral {
+  font-family: var(--font-inter);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-or);
+}
+
+/* --- Événements --- */
+
+.frise-event {
+  position: absolute;
+  width: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.frise-event-tick {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  background: var(--encre-45);
+}
+
+.frise-event-label {
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: max-content;
+  max-width: 124px;
+  text-align: left;
+}
+
+.frise-event-date {
+  font-family: var(--font-inter);
+  font-size: 10px;
+  color: var(--encre-60);
+}
+
+.frise-event-title {
+  font-family: var(--font-cormorant);
+  font-size: 16px;
+  line-height: 1.15;
+  color: var(--color-encre);
+}
+
+/* Au-dessus de la bande : l'étiquette repose sur le trait. */
+.frise-event--up-near,
+.frise-event--up-far {
+  bottom: calc(100% - var(--band-top));
+}
+
+.frise-event--up-near .frise-event-tick {
+  bottom: 0;
+  height: 14px;
+}
+
+.frise-event--up-far .frise-event-tick {
+  bottom: 0;
+  height: 62px;
+}
+
+.frise-event--up-near .frise-event-label {
+  bottom: 18px;
+}
+
+.frise-event--up-far .frise-event-label {
+  bottom: 66px;
+}
+
+/* Au-dessous de la bande : l'étiquette pend sous le trait. */
+.frise-event--down-near,
+.frise-event--down-far {
+  top: calc(var(--band-top) + var(--band-height));
+}
+
+.frise-event--down-near .frise-event-tick {
+  top: 0;
+  height: 14px;
+}
+
+.frise-event--down-far .frise-event-tick {
+  top: 0;
+  height: 62px;
+}
+
+.frise-event--down-near .frise-event-label {
+  top: 18px;
+}
+
+.frise-event--down-far .frise-event-label {
+  top: 66px;
+}
+
+.frise-event.is-selected .frise-event-tick {
+  width: 2px;
+  background: var(--color-or);
+}
+
+.frise-event.is-selected .frise-event-title {
+  color: var(--color-oxblood);
+}
+
+.frise-event.is-selected .frise-event-date {
+  color: var(--color-oxblood);
+}
+
+/* --- Fiche de l'événement choisi --- */
+
+.frise-card {
+  margin: 4px 16px 0;
+  padding: 22px 22px 20px;
+  background: var(--color-rosaire);
+  border: 1px solid var(--filet-sections);
+  border-radius: 4px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  animation: frise-card-in 0.25s ease;
+}
+
+@keyframes frise-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.frise-card-kicker {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-or);
+}
+
+.frise-card-count {
+  letter-spacing: 0.04em;
+  color: var(--encre-45);
+}
+
+.frise-card-title {
+  margin: 12px 0 4px;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(30px * var(--a11y-scale));
+  line-height: 1.1;
+  color: var(--color-encre);
+}
+
+.frise-card-meta {
+  margin: 0;
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--color-oxblood);
+}
+
+.frise-card-text {
+  margin: 16px 0 0;
+  font-family: var(--font-lecture);
+  font-size: var(--taille-valeur);
+  line-height: calc(1.6 * var(--a11y-leading));
+  color: var(--color-encre);
+}
+
+.frise-card-figures {
+  display: flex;
+  gap: 14px;
+  margin: 18px -22px 0;
+  padding: 0 22px 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.frise-card-figures::-webkit-scrollbar {
+  display: none;
+}
+
+.frise-card-figure {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 64px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.frise-card-figure-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--color-or);
+  background: var(--color-papier);
+}
+
+.frise-card-figure-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.frise-card-figure-name {
+  max-width: 100%;
+  font-family: var(--font-cormorant);
+  font-size: 13px;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--color-encre);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.frise-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 22px;
+}
+
+.frise-card-prev,
+.frise-card-next,
+.frise-card-read {
+  height: 44px;
+  border-radius: 999px;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.frise-card-read {
+  flex: 1;
+  padding: 0 16px;
+  border: 1px solid var(--color-oxblood);
+  background: var(--color-oxblood);
+  color: var(--color-papier);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.frise-card-prev,
+.frise-card-next {
+  border: 1px solid var(--color-oxblood);
+  background: none;
+  color: var(--color-oxblood);
+}
+
+.frise-card-prev {
+  flex: 0 0 44px;
+}
+
+.frise-card-next {
+  padding: 0 18px;
+  margin-left: auto;
+}
+
+.frise-card-prev:disabled,
+.frise-card-next:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.frise-footnote {
+  margin: 0;
+  /* Dégage la barre d'onglets et son bouton central en relief. */
+  padding: 16px 28px calc(env(safe-area-inset-bottom, 0px) + 130px);
+  font-family: var(--font-cormorant);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--encre-60);
+}
