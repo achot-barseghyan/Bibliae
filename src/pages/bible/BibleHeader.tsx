@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import {
   AccessibilityIcon,
   CrossIcon,
+  ChevronDownIcon,
   ChevronLeftIcon,
   NoteIcon,
   SearchIcon
@@ -61,10 +62,15 @@ const BibleHeader: React.FC<BibleHeaderProps> = ({
               onTitleClick();
             }}
           >
-            {title}
+            {/* Le texte seul est tronqué (« … ») : le chevron reste visible
+                pour signaler que le titre ouvre un sélecteur. */}
+            <span className="bible-header-title-text">{title}</span>
+            <ChevronDownIcon size={11} />
           </button>
         ) : (
-          <h1 className="bible-header-title">{title}</h1>
+          <h1 className="bible-header-title">
+            <span className="bible-header-title-text">{title}</span>
+          </h1>
         )}
 
         <div className="bible-header-side bible-header-side--right">

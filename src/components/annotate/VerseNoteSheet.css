@@ -1,0 +1,118 @@
+/* Feuille « Note » (handoff « Annotation dans le lecteur »). */
+
+.verse-note-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(35, 32, 26, 0.38);
+}
+
+.verse-note-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 41;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 12px 22px calc(env(safe-area-inset-bottom, 0px) + 30px);
+  box-sizing: border-box;
+  border-radius: 22px 22px 0 0;
+  background: #f7f1e3;
+}
+
+.verse-note-sheet-handle {
+  width: 44px;
+  height: 4px;
+  margin: 0 auto 16px;
+  border-radius: 2px;
+  background: rgba(35, 32, 26, 0.25);
+}
+
+.verse-note-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.verse-note-sheet-kicker {
+  font-family: var(--font-inter);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #b5892e;
+}
+
+.verse-note-sheet-cancel {
+  padding: 6px 0;
+  border: none;
+  background: none;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(35, 32, 26, 0.6);
+  cursor: pointer;
+}
+
+.verse-note-sheet-quote {
+  margin: 12px 0 0;
+  max-height: 30vh;
+  overflow-y: auto;
+  padding: 12px 14px;
+  background: #efe7d3;
+  box-shadow: inset 2px 0 0 #b5892e;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(35, 32, 26, 0.78);
+}
+
+.verse-note-sheet-input {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 6px 0 10px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 0.5px solid rgba(35, 32, 26, 0.3);
+  border-radius: 0;
+  background: transparent;
+  resize: none;
+  outline: none;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.45;
+  color: #23201a;
+  /* Ionic désactive la sélection sur mobile : on la rend au champ de saisie. */
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.verse-note-sheet-input::placeholder {
+  color: rgba(35, 32, 26, 0.45);
+}
+
+.verse-note-sheet-save {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 18px;
+  border: none;
+  border-radius: 24px;
+  background: #6b1e23;
+  font-family: var(--font-inter);
+  font-size: 13px;
+  font-weight: 500;
+  color: #f7f1e3;
+  cursor: pointer;
+}
+
+.verse-note-sheet-save:focus-visible,
+.verse-note-sheet-cancel:focus-visible {
+  outline: 2px solid #b5892e;
+  outline-offset: 2px;
+}

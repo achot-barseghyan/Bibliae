@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IonContent, IonPage } from '@ionic/react';
-import { Preferences } from '@capacitor/preferences';
+import CompassRose from '../components/CompassRose';
 import { CheckIcon } from '../components/nav/icons';
+import { getWantsLieuxNotice, setWantsLieuxNotice } from '../services/lieuxNotice';
 import { tapHaptic } from '../utils/haptics';
 import './Lieux.css';
-
-/** Intérêt pour l'ouverture de la section, enregistré sur l'appareil : une
- * prochaine version pourra s'en servir pour prévenir l'utilisateur. */
-const NOTIFY_KEY = 'bibliae:lieux:notify-on-open';
 
 const BellIcon: React.FC = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -17,62 +14,22 @@ const BellIcon: React.FC = () => (
   </svg>
 );
 
-/** Rose des vents : quatre grandes pointes cardinales bicolores, quatre
- * petites pointes intercardinales, deux cercles et le nord marqué. */
-const CompassRose: React.FC = () => {
-  const cardinal = [0, 90, 180, 270];
-  const intercardinal = [45, 135, 225, 315];
-  const ticks = Array.from({ length: 16 }, (_, i) => i * 22.5);
-  return (
-    <svg className="lieux-compass" viewBox="-120 -130 240 250" aria-hidden="true">
-      <circle r="112" className="lieux-compass-ring" />
-      <circle r="74" className="lieux-compass-ring lieux-compass-ring--inner" />
-      {ticks.map((angle) => (
-        <line
-          key={angle}
-          y1={-112}
-          y2={angle % 90 === 0 ? -100 : -106}
-          transform={`rotate(${angle})`}
-          className="lieux-compass-tick"
-        />
-      ))}
-      <text y="-117" className="lieux-compass-north">
-        N
-      </text>
-      <g className="lieux-compass-star">
-        {intercardinal.map((angle) => (
-          <g key={angle} transform={`rotate(${angle})`}>
-            <path d="M0 0 L-9 -9 L0 -62 Z" className="lieux-compass-point--light" />
-            <path d="M0 0 L9 -9 L0 -62 Z" className="lieux-compass-point--outline" />
-          </g>
-        ))}
-        {cardinal.map((angle) => (
-          <g key={angle} transform={`rotate(${angle})`}>
-            <path d="M0 0 L-11 -11 L0 -92 Z" className="lieux-compass-point--dark" />
-            <path d="M0 0 L11 -11 L0 -92 Z" className="lieux-compass-point--mid" />
-          </g>
-        ))}
-        <circle r="5" className="lieux-compass-center" />
-      </g>
-    </svg>
-  );
-};
-
 const Lieux: React.FC = () => {
   const navigate = useNavigate();
   const [wantsNotice, setWantsNotice] = useState(false);
 
   useEffect(() => {
-    Preferences.get({ key: NOTIFY_KEY })
-      .then(({ value }) => setWantsNotice(value === 'true'))
-      .catch(() => {});
+    // Demande enregistrée sur l'appareil : quand la section ouvrira
+    // (LIEUX_AVAILABLE), une annonce s'affichera au lancement — voir
+    // LieuxOpeningNotice.
+    getWantsLieuxNotice().then(setWantsNotice);
   }, []);
 
   const toggleNotice = () => {
     tapHaptic();
     const next = !wantsNotice;
     setWantsNotice(next);
-    Preferences.set({ key: NOTIFY_KEY, value: String(next) }).catch(() => {});
+    setWantsLieuxNotice(next);
   };
 
   return (
@@ -80,7 +37,7 @@ const Lieux: React.FC = () => {
       <IonContent fullscreen className="lieux-content">
         <div className="lieux-page">
           <div className="lieux-hero">
-            <CompassRose />
+            <CompassRose className="lieux-compass" />
 
             <div className="lieux-divider">
               <span className="lieux-divider-label">En préparation</span>

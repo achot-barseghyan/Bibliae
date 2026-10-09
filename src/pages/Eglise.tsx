@@ -272,9 +272,6 @@ const Eglise: React.FC = () => {
           >
             Trouver une paroisse
           </button>
-          <button type="button" className="eglise-cta-secondary">
-            Poser une question
-          </button>
         </section>
 
         <footer className="eglise-footer">

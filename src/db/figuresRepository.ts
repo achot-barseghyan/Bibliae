@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import type { SQLiteDBConnection } from '@capacitor-community/sqlite';
 import { figures as seedFigures, type Figure } from '../data/figures';
 import { getDatabase } from './sqlite';
@@ -96,6 +97,12 @@ function getReadyDatabase(): Promise<SQLiteDBConnection> {
 }
 
 export async function fetchAllFigures(): Promise<Figure[]> {
+  // Sur le web, SQLite est émulé sur le fil principal et gèle l'interface
+  // à l'ouverture (voir db/bibleWebStore.ts) : les figures étant des
+  // données fixes, on les sert directement, triées comme la requête.
+  if (Capacitor.getPlatform() === 'web') {
+    return [...seedFigures].sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  }
   const db = await getReadyDatabase();
   const result = await db.query('SELECT * FROM figures ORDER BY name;');
   return (result.values ?? []).map((row) => rowToFigure(row as FigureRow));

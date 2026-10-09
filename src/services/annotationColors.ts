@@ -2,23 +2,25 @@ import type { HighlightColor } from './appDataStore';
 
 export interface HighlightColorInfo {
   key: HighlightColor;
-  rgba: string;
-  usageLabel: string;
+  /** Nom affiché (accessibilité). */
+  label: string;
+  /** Couleur pleine de la pastille ; le surlignage l'applique à ~75 % d'opacité. */
+  hex: string;
 }
 
-// Valeurs et libellés d'usage indicatifs, tels que spécifiés. Les libellés ne
-// sont affichés que dans les réglages (documentation), jamais dans le menu
-// contextuel — l'utilisateur reste libre du sens qu'il donne à chaque couleur.
+// Palette du handoff « Annotation dans le lecteur » : Or, Rose, Sauge, Ciel,
+// Lavande. Les clés stockées restent celles de l'ancienne palette (elles
+// servent aussi aux couleurs des parcours de lecture) : chaque ancienne
+// couleur s'affiche simplement avec sa nouvelle teinte la plus proche, sans
+// migration des annotations existantes.
 export const HIGHLIGHT_COLORS: HighlightColorInfo[] = [
-  { key: 'or', rgba: 'rgba(181, 137, 46, 0.28)', usageLabel: 'ce qui est à retenir' },
-  { key: 'oxblood', rgba: 'rgba(107, 30, 35, 0.18)', usageLabel: 'ce qui interroge' },
-  { key: 'olive', rgba: 'rgba(94, 106, 58, 0.22)', usageLabel: 'ce qui console' },
-  { key: 'bleu-encre', rgba: 'rgba(58, 78, 106, 0.20)', usageLabel: 'ce qui est à étudier' },
-  { key: 'sanguine', rgba: 'rgba(166, 92, 58, 0.22)', usageLabel: 'ce qui est à prier' }
+  { key: 'or', label: 'Or', hex: '#E9CF86' },
+  { key: 'sanguine', label: 'Rose', hex: '#E7B5A8' },
+  { key: 'olive', label: 'Sauge', hex: '#C5D0A4' },
+  { key: 'bleu-encre', label: 'Ciel', hex: '#B5CBD6' },
+  { key: 'oxblood', label: 'Lavande', hex: '#CDBBD8' }
 ];
 
-export const UNDERLINE_COLOR = 'rgba(107, 30, 35, 0.6)';
-
-export function highlightColorValue(key: HighlightColor): string {
-  return HIGHLIGHT_COLORS.find((c) => c.key === key)?.rgba ?? HIGHLIGHT_COLORS[0].rgba;
+export function highlightColorInfo(key: HighlightColor): HighlightColorInfo {
+  return HIGHLIGHT_COLORS.find((c) => c.key === key) ?? HIGHLIGHT_COLORS[0];
 }

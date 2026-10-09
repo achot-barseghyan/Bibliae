@@ -131,7 +131,7 @@ html[data-reduce-motion='true'] *::after {
 
 /* --- Lecture : police et thème (Réglages > Lecture biblique), appliqués
    à toute l'app — pas seulement à l'écran Bible. Chaque thème redéfinit
-   la palette de base ; --encre-*/--filet-* restent des rgba() de la même
+   la palette de base ; --encre-xx et --filet-xx restent des rgba() de la même
    teinte que --color-encre pour garder les mêmes contrastes relatifs. */
 
 html[data-reading-font='garamond'] {

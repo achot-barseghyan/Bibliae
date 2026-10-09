@@ -102,6 +102,38 @@
 
 .bible-chapter-verses {
   text-align: left;
+  /* La sélection se fait au mot (useWordSelection) : on coupe la sélection
+     native, la loupe et le menu contextuel du système sur le texte. */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bible-chapter-verses [data-w] {
+  cursor: text;
+}
+
+/* La barre d'annotation recouvre le bas de l'écran : de la marge pour que
+   les derniers versets restent atteignables pendant une sélection. */
+.bible-chapter-verses.has-selection {
+  padding-bottom: 200px;
+}
+
+.bible-chapter-annotate-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--bible-muted);
+}
+
+.bible-chapter-annotate-hint svg {
+  flex: none;
 }
 
 .bible-chapter-verse {

@@ -26,6 +26,9 @@ export interface LiturgicalItem {
   source?: TextSource | null;
   /** Antienne d'un psaume/cantique d'office : affichée avant et après le texte. */
   antienne?: string | null;
+  /** Titre propre d'une hymne ("Le soir peut revenir"), affiché sous le
+   * libellé générique de l'onglet. */
+  title?: string | null;
 }
 
 export interface OrdoData {
@@ -227,17 +230,19 @@ function simpleItem(key: string, label: string, value: unknown): LiturgicalItem 
   return text ? { key, label, ref: null, text } : null;
 }
 
-function hymnItem(key: string, value: unknown): LiturgicalItem | null {
+/** L'onglet porte la nature de la pièce ("Hymne", "Te Deum"...) plutôt que
+ * son titre propre, gardé à part pour être affiché sous le libellé. */
+function hymnItem(key: string, label: string, value: unknown): LiturgicalItem | null {
   const h = asRefText(value);
-  return h ? { key, label: h.titre ?? 'Hymne', ref: null, text: h.texte } : null;
+  return h ? { key, label, ref: null, text: h.texte, title: h.titre } : null;
 }
 
 /** Lecture courte ou longue avec référence biblique ("Parole de Dieu",
- * lecture de l'Office des lectures...) : le titre propre de la lecture
- * (s'il existe) prime sur le libellé par défaut. */
-function pericopeItem(key: string, defaultLabel: string, value: unknown): LiturgicalItem | null {
+ * lecture de l'Office des lectures...) : l'onglet porte la nature de la
+ * pièce, le titre propre de la lecture (s'il existe) est affiché à part. */
+function pericopeItem(key: string, label: string, value: unknown): LiturgicalItem | null {
   const p = asRefText(value);
-  return p ? { key, label: p.titre ?? defaultLabel, ref: p.reference, text: p.texte } : null;
+  return p ? { key, label, ref: p.reference, text: p.texte, title: p.titre } : null;
 }
 
 /** Antienne + psaume/cantique combinés en un seul onglet (antienne, texte,
@@ -283,9 +288,8 @@ function notrePereItem(value: unknown): LiturgicalItem | null {
 }
 
 function patristicItem(titreValue: unknown, texteValue: unknown): LiturgicalItem | null {
-  const label = asText(titreValue);
   const text = asText(texteValue);
-  return label && text ? { key: 'patristique', label, ref: null, text } : null;
+  return text ? { key: 'patristique', label: 'Lecture patristique', ref: null, text, title: asText(titreValue) } : null;
 }
 
 function compact(items: Array<LiturgicalItem | null>): LiturgicalItem[] {
@@ -295,16 +299,16 @@ function compact(items: Array<LiturgicalItem | null>): LiturgicalItem[] {
 function mapLectures(raw: Record<string, unknown>): LiturgicalItem[] {
   return compact([
     simpleItem('introduction', 'Introduction', raw.introduction),
-    hymnItem('hymne', raw.hymne),
+    hymnItem('hymne', 'Hymne', raw.hymne),
     psalmItem('psaume_1', 'Psaume', raw.antienne_1, raw.psaume_1),
     psalmItem('psaume_2', 'Psaume', raw.antienne_2, raw.psaume_2),
     psalmItem('psaume_3', 'Psaume', raw.antienne_3, raw.psaume_3),
     simpleItem('verset_psaume', 'Verset', raw.verset_psaume),
-    pericopeItem('lecture', 'Parole de Dieu', raw.lecture),
+    pericopeItem('lecture', 'Lecture', raw.lecture),
     simpleItem('repons_lecture', 'Répons', raw.repons_lecture),
     patristicItem(raw.titre_patristique, raw.texte_patristique),
     simpleItem('repons_patristique', 'Répons patristique', raw.repons_patristique),
-    hymnItem('te_deum', raw.te_deum),
+    hymnItem('te_deum', 'Te Deum', raw.te_deum),
     simpleItem('collect', 'Oraison', raw.oraison)
   ]);
 }
@@ -313,7 +317,7 @@ function mapLaudes(raw: Record<string, unknown>): LiturgicalItem[] {
   return compact([
     simpleItem('introduction', 'Introduction', raw.introduction),
     psalmItem('invitatoire', 'Invitatoire', raw.antienne_invitatoire, raw.psaume_invitatoire),
-    hymnItem('hymne', raw.hymne),
+    hymnItem('hymne', 'Hymne', raw.hymne),
     psalmItem('psaume_1', 'Psaume', raw.antienne_1, raw.psaume_1),
     psalmItem('psaume_2', 'Psaume', raw.antienne_2, raw.psaume_2),
     psalmItem('psaume_3', 'Psaume', raw.antienne_3, raw.psaume_3),
@@ -329,7 +333,7 @@ function mapLaudes(raw: Record<string, unknown>): LiturgicalItem[] {
 function mapPetiteHeure(raw: Record<string, unknown>): LiturgicalItem[] {
   return compact([
     simpleItem('introduction', 'Introduction', raw.introduction),
-    hymnItem('hymne', raw.hymne),
+    hymnItem('hymne', 'Hymne', raw.hymne),
     psalmItem('psaume_1', 'Psaume', raw.antienne_1, raw.psaume_1),
     psalmItem('psaume_2', 'Psaume', raw.antienne_2, raw.psaume_2),
     psalmItem('psaume_3', 'Psaume', raw.antienne_3, raw.psaume_3),
@@ -342,7 +346,7 @@ function mapPetiteHeure(raw: Record<string, unknown>): LiturgicalItem[] {
 function mapVepres(raw: Record<string, unknown>): LiturgicalItem[] {
   return compact([
     simpleItem('introduction', 'Introduction', raw.introduction),
-    hymnItem('hymne', raw.hymne),
+    hymnItem('hymne', 'Hymne', raw.hymne),
     psalmItem('psaume_1', 'Psaume', raw.antienne_1, raw.psaume_1),
     psalmItem('psaume_2', 'Psaume', raw.antienne_2, raw.psaume_2),
     psalmItem('psaume_3', 'Psaume', raw.antienne_3, raw.psaume_3),
@@ -358,7 +362,7 @@ function mapVepres(raw: Record<string, unknown>): LiturgicalItem[] {
 function mapComplies(raw: Record<string, unknown>): LiturgicalItem[] {
   return compact([
     simpleItem('introduction', 'Introduction', raw.introduction),
-    hymnItem('hymne', raw.hymne),
+    hymnItem('hymne', 'Hymne', raw.hymne),
     psalmItem('psaume_1', 'Psaume', raw.antienne_1, raw.psaume_1),
     psalmItem('psaume_2', 'Psaume', raw.antienne_2, raw.psaume_2),
     pericopeItem('short_reading', 'Parole de Dieu', raw.pericope),
@@ -366,7 +370,7 @@ function mapComplies(raw: Record<string, unknown>): LiturgicalItem[] {
     psalmItem('cantique_symeon', 'Cantique', raw.antienne_symeon, raw.cantique_symeon),
     simpleItem('collect', 'Oraison', raw.oraison),
     simpleItem('benediction', 'Bénédiction', raw.benediction),
-    hymnItem('hymne_mariale', raw.hymne_mariale)
+    hymnItem('hymne_mariale', 'Hymne mariale', raw.hymne_mariale)
   ]);
 }
 

@@ -1,0 +1,92 @@
+/* Rose des vents (page Lieux, annonce d'ouverture). La taille est
+   fixée par le parent via `className`. */
+
+.compass-rose {
+  height: auto;
+  overflow: visible;
+}
+
+.compass-rose-ring {
+  fill: none;
+  stroke: var(--color-or);
+  stroke-width: 1;
+  opacity: 0.75;
+}
+
+.compass-rose-ring--inner {
+  stroke-width: 0.8;
+  opacity: 0.45;
+}
+
+.compass-rose-tick {
+  stroke: var(--color-or);
+  stroke-width: 0.8;
+  opacity: 0.7;
+}
+
+.compass-rose-north {
+  font-family: var(--font-cormorant);
+  font-size: 15px;
+  font-weight: 600;
+  text-anchor: middle;
+  fill: var(--color-oxblood);
+}
+
+.compass-rose-star {
+  transform-origin: 0 0;
+  animation: compass-rose-settle 1.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* La rose oscille un instant avant de se fixer, comme une aiguille. */
+@keyframes compass-rose-settle {
+  0% {
+    transform: rotate(-28deg);
+  }
+  45% {
+    transform: rotate(9deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .compass-rose-star {
+    animation: none;
+  }
+}
+
+html[data-reduce-motion='true'] .compass-rose-star {
+  animation: none;
+}
+
+.compass-rose-point--dark {
+  fill: var(--color-oxblood);
+}
+
+.compass-rose-point--mid {
+  fill: color-mix(in srgb, var(--color-oxblood) 72%, var(--color-papier));
+  stroke: var(--color-oxblood);
+  stroke-width: 0.6;
+}
+
+.compass-rose-point--light {
+  fill: color-mix(in srgb, var(--color-or) 30%, var(--color-papier));
+  stroke: var(--color-or);
+  stroke-width: 0.6;
+}
+
+.compass-rose-point--outline {
+  fill: var(--color-papier);
+  stroke: var(--color-or);
+  stroke-width: 0.6;
+}
+
+.compass-rose-center {
+  fill: var(--color-or);
+  stroke: var(--color-papier);
+  stroke-width: 1.5;
+}

@@ -363,28 +363,12 @@
   display: block;
   width: 100%;
   max-width: 380px;
-  margin: 0 auto 12px;
+  margin: 0 auto;
   padding: 14px 20px;
   border: none;
   border-radius: 8px;
   background: var(--color-or);
   color: var(--color-encre);
-  font-family: var(--font-inter);
-  font-weight: 600;
-  font-size: var(--taille-valeur);
-  cursor: pointer;
-}
-
-.eglise-cta-secondary {
-  display: block;
-  width: 100%;
-  max-width: 380px;
-  margin: 0 auto;
-  padding: 13px 20px;
-  border-radius: 8px;
-  border: 1px solid rgba(239, 231, 211, 0.5);
-  background: none;
-  color: var(--color-papier);
   font-family: var(--font-inter);
   font-weight: 600;
   font-size: var(--taille-valeur);

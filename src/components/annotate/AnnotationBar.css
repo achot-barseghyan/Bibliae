@@ -1,0 +1,193 @@
+/* Barre d'annotation flottante (handoff « Annotation dans le lecteur »).
+   Couleurs fixes, identiques dans tous les thèmes de lecture : la pilule
+   sombre se détache aussi bien du papier que du thème nuit. */
+
+.annot-bar {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 22px);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.annot-bar > * {
+  pointer-events: auto;
+}
+
+/* --- Pastille de contexte --- */
+
+.annot-bar-context {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  min-height: 32px;
+  margin-bottom: 8px;
+  padding: 0 6px 0 14px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background: #f7f1e3;
+  box-shadow:
+    0 6px 18px rgba(35, 32, 26, 0.18),
+    inset 0 0 0 0.5px rgba(35, 32, 26, 0.2);
+}
+
+.annot-bar-ref {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-eb-garamond);
+  font-size: 15px;
+  color: #6b1e23;
+}
+
+.annot-bar-context-divider {
+  flex: none;
+  width: 0.5px;
+  height: 16px;
+  margin: 0 4px;
+  background: rgba(35, 32, 26, 0.25);
+}
+
+.annot-bar-context-action {
+  flex: none;
+  min-height: 32px;
+  padding: 0 8px;
+  border: none;
+  background: none;
+  font-family: var(--font-inter);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #23201a;
+  cursor: pointer;
+}
+
+.annot-bar-close {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: rgba(35, 32, 26, 0.6);
+  cursor: pointer;
+}
+
+/* --- Pilule d'outils --- */
+
+.annot-bar-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  width: 100%;
+  min-height: 66px;
+  padding: 0 8px 0 12px;
+  box-sizing: border-box;
+  border-radius: 33px;
+  background: rgba(30, 27, 22, 0.95);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 40px rgba(35, 32, 26, 0.4);
+}
+
+.annot-bar-colors,
+.annot-bar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.annot-bar-swatch {
+  width: 36px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.annot-bar-swatch-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  transition:
+    width 0.2s,
+    height 0.2s,
+    box-shadow 0.2s;
+}
+
+.annot-bar-swatch.is-active .annot-bar-swatch-dot {
+  width: 26px;
+  height: 26px;
+  box-shadow:
+    0 0 0 2px #1e1b16,
+    0 0 0 3.5px #f7f1e3;
+}
+
+.annot-bar-tools-divider {
+  flex: none;
+  width: 0.5px;
+  height: 30px;
+  background: rgba(247, 241, 227, 0.22);
+}
+
+.annot-bar-action {
+  width: 48px;
+  height: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0;
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.annot-bar-action.is-active {
+  background: rgba(226, 190, 110, 0.18);
+}
+
+.annot-bar-action-label {
+  font-family: var(--font-inter);
+  font-size: 9px;
+  font-weight: 500;
+  color: rgba(247, 241, 227, 0.8);
+}
+
+.annot-bar-action--erase .annot-bar-action-label {
+  color: #e8a8a2;
+}
+
+.annot-bar-swatch:focus-visible,
+.annot-bar-action:focus-visible,
+.annot-bar-context-action:focus-visible,
+.annot-bar-close:focus-visible {
+  outline: 2px solid #e2be6e;
+  outline-offset: 2px;
+}
+
+/* Écrans étroits : les pastilles se resserrent pour que tout tienne. */
+@media (max-width: 370px) {
+  .annot-bar-swatch {
+    width: 30px;
+  }
+
+  .annot-bar-action {
+    width: 44px;
+  }
+}

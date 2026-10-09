@@ -15,8 +15,9 @@ import APropos from './pages/reglages/APropos';
 import Sources from './pages/reglages/Sources';
 import Contact from './pages/reglages/Contact';
 import Favoris from './pages/Favoris';
-import JourLiturgique from './pages/JourLiturgique';
+import JourLiturgique, { LiturgieLecture } from './pages/JourLiturgique';
 import Catechisme from './pages/Catechisme';
+import LieuxOpeningNotice from './components/LieuxOpeningNotice';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -73,9 +74,11 @@ const App: React.FC = () => (
             <Route path="/favoris" element={<Favoris />} />
             <Route path="/liturgie" element={<JourLiturgique />} />
             <Route path="/liturgie/:date" element={<JourLiturgique />} />
+            <Route path="/liturgie/:date/:part" element={<LiturgieLecture />} />
             <Route path="/catechisme/:ref" element={<Catechisme />} />
             <Route path="/" element={<Navigate to="/compendium/accueil" replace />} />
           </IonRouterOutlet>
+          <LieuxOpeningNotice />
         </IonReactRouter>
       </BibleReadingPrefsProvider>
     </IonApp>

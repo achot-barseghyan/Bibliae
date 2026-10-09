@@ -1,6 +1,12 @@
+import { Capacitor } from '@capacitor/core';
 import type { SQLiteDBConnection } from '@capacitor-community/sqlite';
 import { BOOKS } from '../data/bible';
 import { getDatabase } from './sqlite';
+import { getWebBible, webChapterVerses, webSearchVerses } from './bibleWebStore';
+
+// Sur le web, la Bible est servie en mémoire depuis le JSON plutôt que par
+// SQLite émulé, qui gelait l'interface au lancement (voir bibleWebStore.ts).
+const isWeb = Capacitor.getPlatform() === 'web';
 
 const CREATE_LIVRES = `
   CREATE TABLE IF NOT EXISTS livres (
@@ -150,7 +156,8 @@ function getReadyDatabase(): Promise<SQLiteDBConnection> {
  * affichage de versets n'attende pas toute l'initialisation SQLite.
  */
 export function warmUpBibleDatabase(): void {
-  getReadyDatabase().catch((error) => {
+  const ready: Promise<unknown> = isWeb ? getWebBible(BIBLE_DATA_URL) : getReadyDatabase();
+  ready.catch((error) => {
     console.warn('Préchargement de la base biblique échoué, nouvel essai à la demande.', error);
   });
 }
@@ -158,6 +165,11 @@ export function warmUpBibleDatabase(): void {
 export async function fetchChapterVerses(bookId: string, chapter: number): Promise<Verse[]> {
   const numero = numeroForBookId(bookId);
   if (numero === undefined) return [];
+
+  if (isWeb) {
+    const verses = await webChapterVerses(BIBLE_DATA_URL, numero, chapter);
+    return verses.map((v) => ({ number: v.verset, text: v.texte }));
+  }
 
   const db = await getReadyDatabase();
   const result = await db.query(
@@ -196,6 +208,11 @@ function rowsToSearchResults(rows: SearchRow[]): VerseSearchResult[] {
 export async function searchVerses(query: string): Promise<VerseSearchResult[]> {
   const trimmed = query.trim();
   if (!trimmed) return [];
+
+  if (isWeb) {
+    const verses = await webSearchVerses(BIBLE_DATA_URL, trimmed, SEARCH_LIMIT);
+    return rowsToSearchResults(verses);
+  }
 
   const db = await getReadyDatabase();
 

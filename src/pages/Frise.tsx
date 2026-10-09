@@ -35,12 +35,34 @@ const PERIOD_BANDS = FRISE.map((period, p) => {
   };
 });
 
+/** Événement sélectionné, mémorisé pour retrouver sa place sur la frise en
+ * revenant d'un chapitre biblique ou d'une fiche figure (la page est
+ * démontée entre-temps) ou si le système recharge l'app. */
+const SELECTED_KEY = 'frise-selected';
+
+function loadSelected(): number {
+  try {
+    const index = parseInt(localStorage.getItem(SELECTED_KEY) ?? '', 10);
+    return index >= 0 && index < FRISE_EVENTS.length ? index : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function saveSelected(index: number) {
+  try {
+    localStorage.setItem(SELECTED_KEY, String(index));
+  } catch {
+    // Stockage indisponible : la frise repartira simplement du début.
+  }
+}
+
 const Frise: React.FC = () => {
   const navigate = useNavigate();
   const { figures } = useFigures();
   const { settings } = useAccessibility();
   const [isA11yOpen, setIsA11yOpen] = useState(false);
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(loadSelected);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const periodsRef = useRef<HTMLDivElement>(null);
 
@@ -48,15 +70,13 @@ const Frise: React.FC = () => {
   const event = FRISE_EVENTS[selected];
   const totalWidth = EDGE * 2 + FRISE_EVENTS.length * SPACING;
 
-  // Garde l'événement choisi au centre de la frise, et sa période visible
-  // dans la rangée de raccourcis.
-  useEffect(() => {
+  const centerOn = (index: number, behavior: ScrollBehavior) => {
     const scroller = scrollerRef.current;
     if (scroller) {
       scroller.scrollTo({
         // On centre l'étiquette (qui part du trait vers la droite), pas le trait.
-        left: eventX(selected) + LABEL_HALF_WIDTH - scroller.clientWidth / 2,
-        behavior: settings.reduceMotion ? 'auto' : 'smooth'
+        left: eventX(index) + LABEL_HALF_WIDTH - scroller.clientWidth / 2,
+        behavior
       });
     }
     // Sans animation : un second défilement doux simultané interromprait
@@ -66,12 +86,36 @@ const Frise: React.FC = () => {
     if (periods && chip) {
       periods.scrollLeft = chip.offsetLeft + chip.offsetWidth / 2 - periods.clientWidth / 2;
     }
+  };
+
+  // Garde l'événement choisi au centre de la frise, et sa période visible
+  // dans la rangée de raccourcis.
+  useEffect(() => {
+    centerOn(selected, settings.reduceMotion ? 'auto' : 'smooth');
   }, [selected, settings.reduceMotion]);
+
+  // Quand on part vers un chapitre ou une fiche, Ionic masque la page
+  // (`display: none`), ce qui remet ses défilements à zéro ; à l'ouverture,
+  // la frise n'a pas encore sa largeur. Dans les deux cas elle change de
+  // taille en (ré)apparaissant : on se replace alors d'un coup, sans
+  // animation, sur l'événement choisi.
+  const selectedRef = useRef(selected);
+  selectedRef.current = selected;
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(() => {
+      if (scroller.clientWidth > 0) centerOn(selectedRef.current, 'auto');
+    });
+    observer.observe(scroller);
+    return () => observer.disconnect();
+  }, []);
 
   const select = (index: number) => {
     if (index < 0 || index >= FRISE_EVENTS.length) return;
     tapHaptic();
     setSelected(index);
+    saveSelected(index);
   };
 
   return (

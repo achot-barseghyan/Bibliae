@@ -550,12 +550,11 @@
   color: var(--color-oxblood);
 }
 
-/* --- Vue détaillée (lecture / heure), plein écran, glisse depuis la droite --- */
+/* --- Page de lecture (messe / heure), occupe toute la page Ionic --- */
 
 .jour-detail {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: 20;
   display: flex;
   flex-direction: column;
   background: var(--color-papier);
@@ -675,6 +674,11 @@
 .jour-antienne-label {
   font-weight: 600;
   color: var(--color-oxblood);
+}
+
+.jour-rubric {
+  color: var(--color-oxblood);
+  font-style: normal;
 }
 
 .jour-antienne-text {

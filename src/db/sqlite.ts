@@ -8,20 +8,11 @@ const sqlite = new SQLiteConnection(CapacitorSQLite);
 
 let dbPromise: Promise<SQLiteDBConnection> | null = null;
 
-async function ensureWebStore(): Promise<void> {
-  await customElements.whenDefined('jeep-sqlite');
-  let jeepEl = document.querySelector('jeep-sqlite');
-  if (!jeepEl) {
-    jeepEl = document.createElement('jeep-sqlite');
-    document.body.appendChild(jeepEl);
-    await customElements.whenDefined('jeep-sqlite');
-  }
-  await sqlite.initWebStore();
-}
-
 async function openConnection(): Promise<SQLiteDBConnection> {
+  // Le web n'utilise pas SQLite (émulé par sql.js sur le fil principal, il
+  // gelait l'interface) : la Bible et les figures y sont servies en mémoire.
   if (Capacitor.getPlatform() === 'web') {
-    await ensureWebStore();
+    throw new Error('SQLite n’est pas utilisé sur la plateforme web.');
   }
 
   const isConsistent = (await sqlite.checkConnectionsConsistency()).result ?? false;
@@ -36,7 +27,7 @@ async function openConnection(): Promise<SQLiteDBConnection> {
   return db;
 }
 
-/** Retourne la connexion SQLite partagée, en l'ouvrant si nécessaire (web ou natif). */
+/** Retourne la connexion SQLite partagée (iOS/Android), en l'ouvrant si nécessaire. */
 export function getDatabase(): Promise<SQLiteDBConnection> {
   if (!dbPromise) {
     dbPromise = openConnection().catch((error) => {

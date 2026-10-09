@@ -17,6 +17,15 @@ const Paroisses: React.FC = () => {
   const trimmed = query.trim();
 
   const locateMe = () => {
+    // Les navigateurs refusent la position aux pages servies en http (hors
+    // localhost), sans même afficher de demande : l'erreur ressemble alors à
+    // un refus de l'utilisateur alors que l'autorisation est bien donnée.
+    if (!window.isSecureContext) {
+      setLocateError(
+        "La localisation n'est possible que sur une adresse sécurisée (https). Ouvre l'app via son lien https, ou cherche ta ville à la main."
+      );
+      return;
+    }
     if (!navigator.geolocation) {
       setLocateError("La géolocalisation n'est pas disponible sur cet appareil.");
       return;
@@ -47,10 +56,21 @@ const Paroisses: React.FC = () => {
           })
           .finally(() => setIsLocating(false));
       },
-      () => {
-        setLocateError("Impossible d'accéder à ta position. Vérifie les autorisations de localisation.");
+      (geoError) => {
+        if (geoError.code === geoError.PERMISSION_DENIED) {
+          setLocateError(
+            "Accès à la position refusé. Autorise la localisation pour ce site (ou l'app) dans les réglages du navigateur et du téléphone."
+          );
+        } else if (geoError.code === geoError.TIMEOUT) {
+          setLocateError('La position met trop de temps à arriver. Réessaie, ou cherche ta ville à la main.');
+        } else {
+          setLocateError("Position introuvable. Vérifie que la localisation du téléphone est activée.");
+        }
         setIsLocating(false);
-      }
+      },
+      // La ville suffit : une position approchée (réseau) répond vite et
+      // fonctionne en intérieur, là où le GPS peut ne jamais répondre.
+      { enableHighAccuracy: false, timeout: 15000, maximumAge: 10 * 60 * 1000 }
     );
   };
 

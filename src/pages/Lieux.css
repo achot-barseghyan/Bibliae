@@ -18,100 +18,11 @@
   text-align: center;
 }
 
-/* --- Rose des vents --- */
+/* --- Rose des vents et texte --- */
 
 .lieux-compass {
   width: min(240px, 66vw);
-  height: auto;
-  overflow: visible;
 }
-
-.lieux-compass-ring {
-  fill: none;
-  stroke: var(--color-or);
-  stroke-width: 1;
-  opacity: 0.75;
-}
-
-.lieux-compass-ring--inner {
-  stroke-width: 0.8;
-  opacity: 0.45;
-}
-
-.lieux-compass-tick {
-  stroke: var(--color-or);
-  stroke-width: 0.8;
-  opacity: 0.7;
-}
-
-.lieux-compass-north {
-  font-family: var(--font-cormorant);
-  font-size: 15px;
-  font-weight: 600;
-  text-anchor: middle;
-  fill: var(--color-oxblood);
-}
-
-.lieux-compass-star {
-  transform-origin: 0 0;
-  animation: lieux-compass-settle 1.6s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-/* La rose oscille un instant avant de se fixer, comme une aiguille. */
-@keyframes lieux-compass-settle {
-  0% {
-    transform: rotate(-28deg);
-  }
-  45% {
-    transform: rotate(9deg);
-  }
-  75% {
-    transform: rotate(-3deg);
-  }
-  100% {
-    transform: rotate(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lieux-compass-star {
-    animation: none;
-  }
-}
-
-html[data-reduce-motion='true'] .lieux-compass-star {
-  animation: none;
-}
-
-.lieux-compass-point--dark {
-  fill: var(--color-oxblood);
-}
-
-.lieux-compass-point--mid {
-  fill: color-mix(in srgb, var(--color-oxblood) 72%, var(--color-papier));
-  stroke: var(--color-oxblood);
-  stroke-width: 0.6;
-}
-
-.lieux-compass-point--light {
-  fill: color-mix(in srgb, var(--color-or) 30%, var(--color-papier));
-  stroke: var(--color-or);
-  stroke-width: 0.6;
-}
-
-.lieux-compass-point--outline {
-  fill: var(--color-papier);
-  stroke: var(--color-or);
-  stroke-width: 0.6;
-}
-
-.lieux-compass-center {
-  fill: var(--color-or);
-  stroke: var(--color-papier);
-  stroke-width: 1.5;
-}
-
-/* --- Texte --- */
 
 .lieux-divider {
   display: flex;

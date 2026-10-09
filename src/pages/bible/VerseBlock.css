@@ -1,183 +1,129 @@
-.verse-notes {
-  margin: -4px 0 20px;
+/* --- Verset annotable au mot près (handoff « Annotation dans le lecteur ») --- */
+
+.verse-block {
+  margin: 0 0 12px;
 }
 
-.verse-notes-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 8px;
+.verse-block .bible-chapter-verse {
+  margin: 0;
 }
 
-.verse-notes-toggle-label {
-  flex: 0 0 auto;
-  font-family: var(--font-inter);
-  font-size: var(--taille-surtitre);
-  font-weight: 600;
-  letter-spacing: var(--tracking-min);
-  color: var(--bible-accent);
-}
-
-.verse-notes-toggle-rule {
-  flex: 1 1 auto;
-  height: 0;
-  border-bottom: 1px dashed var(--bible-border);
-}
-
-.verse-notes-toggle-action {
-  flex: 0 0 auto;
-  font-family: var(--font-inter);
-  font-size: var(--taille-surtitre);
-  letter-spacing: var(--tracking-min);
-  color: var(--bible-faint);
-}
-
-.verse-notes-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.verse-notes-item {
-  border-left: 3px solid var(--annot-solid-oxblood);
-  background: var(--bible-border-soft);
-  border-radius: 0 6px 6px 0;
-}
-
-.verse-notes-item--or {
-  border-left-color: var(--annot-solid-or);
-}
-
-.verse-notes-item--olive {
-  border-left-color: var(--annot-solid-olive);
-}
-
-.verse-notes-item--bleu-encre {
-  border-left-color: var(--annot-solid-bleu-encre);
-}
-
-.verse-notes-item--sanguine {
-  border-left-color: var(--annot-solid-sanguine);
-}
-
-.verse-notes-item-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 8px 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-}
-
-.verse-notes-item.is-expanded .verse-notes-item-header {
-  align-items: flex-start;
-}
-
-.verse-notes-badge {
-  flex: 0 0 auto;
-  font-family: var(--font-inter);
-  font-size: var(--taille-cartouche);
-  font-weight: 600;
-  line-height: 1;
-  color: var(--annot-solid-oxblood);
-}
-
-.verse-notes-item--or .verse-notes-badge {
-  color: var(--annot-solid-or);
-}
-
-.verse-notes-item--olive .verse-notes-badge {
-  color: var(--annot-solid-olive);
-}
-
-.verse-notes-item--bleu-encre .verse-notes-badge {
-  color: var(--annot-solid-bleu-encre);
-}
-
-.verse-notes-item--sanguine .verse-notes-badge {
-  color: var(--annot-solid-sanguine);
-}
-
-.verse-notes-label {
-  flex: 0 1 auto;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: var(--bible-font);
-  font-weight: 600;
-  font-size: var(--taille-valeur);
-  color: var(--bible-text);
-}
-
-.verse-notes-item.is-expanded .verse-notes-label {
-  flex: 1 1 100%;
-  overflow: visible;
-  text-overflow: clip;
-  white-space: normal;
-}
-
-.verse-notes-preview {
-  flex: 1 1 auto;
-  min-width: 0;
-  font-family: var(--bible-font);
-  font-size: var(--taille-valeur);
-  color: var(--bible-faint);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.verse-notes-chevron {
-  flex: 0 0 auto;
-  margin-left: auto;
-  color: var(--bible-faint);
-  transform: rotate(-90deg);
-  transition: transform 0.15s ease;
-}
-
-.verse-notes-item.is-expanded .verse-notes-chevron {
-  transform: rotate(0deg);
-}
-
-.verse-notes-item.is-expanded .verse-notes-item-header {
-  padding-bottom: 4px;
-}
-
-.verse-notes-body {
-  padding: 0 10px 10px;
-}
-
-.verse-notes-text {
-  font-family: var(--bible-font);
-  font-size: var(--taille-valeur);
-  line-height: 1.5;
-  color: var(--bible-muted);
-  margin: 0 0 6px;
-}
-
-.verse-notes-text em,
-.verse-notes-text i {
-  font-style: italic;
-}
-
-.verse-notes-edit {
+/* Numéro de verset : il sélectionne le verset entier, d'où une cible tactile
+   élargie par du rembourrage (sans décaler le texte). */
+.bible-chapter-verse-number.verse-number-target {
   display: inline-block;
-  font-family: var(--font-inter);
-  font-size: var(--taille-cartouche);
-  letter-spacing: var(--tracking-min);
-  text-transform: uppercase;
-  color: var(--bible-accent);
-  background: none;
-  border: none;
-  padding: 0;
+  padding: 6px 4px 6px 0;
+  margin: -6px 0;
+  font-weight: 600;
+  color: var(--annot-solid-or);
   cursor: pointer;
+  transition: color 0.15s;
+}
+
+.bible-chapter-verse-number.verse-number-target.is-selected {
+  color: var(--bible-accent);
+}
+
+/* Couleurs de surlignage à ~75 % d'opacité (hex + C0), fond continu sur les
+   espaces d'un même passage, sans arrondi. */
+.vw-hl {
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition: background-color 0.15s;
+}
+
+.vw-hl--or {
+  background-color: #e9cf86c0;
+}
+
+.vw-hl--sanguine {
+  background-color: #e7b5a8c0;
+}
+
+.vw-hl--olive {
+  background-color: #c5d0a4c0;
+}
+
+.vw-hl--bleu-encre {
+  background-color: #b5cbd6c0;
+}
+
+.vw-hl--oxblood {
+  background-color: #cdbbd8c0;
+}
+
+/* Les teintes pastel restent lisibles sur fond sombre si le texte surligné
+   repasse en encre foncée. */
+.bible-world[data-bible-theme='nuit'] .vw-hl {
+  color: #1e1b16;
+}
+
+.vw-ul {
+  border-bottom: 1.5px solid var(--color-oxblood);
+}
+
+.bible-world[data-bible-theme='nuit'] .vw-ul {
+  border-bottom-color: var(--bible-accent);
+}
+
+/* La sélection en cours prime sur le surlignage. */
+.vw-sel,
+.vw-hl.vw-sel {
+  background-color: rgba(107, 30, 35, 0.2);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.bible-world[data-bible-theme='nuit'] .vw-sel {
+  background-color: rgba(217, 138, 115, 0.32);
+}
+
+/* --- Note affichée sous le verset où se termine le passage annoté --- */
+
+.verse-note-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px 12px 10px;
+  border: none;
+  border-radius: 0;
+  background: #f7f1e3;
+  box-shadow:
+    inset 2px 0 0 #6b1e23,
+    inset 0 0 0 0.5px rgba(35, 32, 26, 0.2);
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.verse-note-card-icon {
+  flex: none;
+  margin-top: 3px;
+  color: #6b1e23;
+}
+
+.verse-note-card-text {
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(16px * var(--a11y-scale, 1));
+  line-height: 1.4;
+  color: #23201a;
+  white-space: pre-line;
+}
+
+.bible-world[data-bible-theme='nuit'] .verse-note-card {
+  background: rgba(237, 229, 211, 0.08);
+  box-shadow:
+    inset 2px 0 0 var(--bible-accent),
+    inset 0 0 0 0.5px var(--bible-border);
+}
+
+.bible-world[data-bible-theme='nuit'] .verse-note-card-icon {
+  color: var(--bible-accent);
+}
+
+.bible-world[data-bible-theme='nuit'] .verse-note-card-text {
+  color: var(--bible-text);
 }

@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 
 const DEBOUNCE_MS = 400;
 const API_BASE = 'https://open-church.io/api/parishes';
+const GEOCODER_URL = 'https://api-adresse.data.gouv.fr/search/';
+/** Score minimal du géocodeur pour considérer la saisie comme une ville. */
+const CITY_MIN_SCORE = 0.6;
 
 export interface Parish {
   id: number;
@@ -33,6 +36,84 @@ function parseParish(raw: RawParish): Parish {
   };
 }
 
+interface ParishPage {
+  'hydra:member'?: RawParish[];
+}
+
+async function fetchParishes(param: 'name' | 'zipCode', value: string): Promise<Parish[]> {
+  const response = await fetch(`${API_BASE}?${param}=${encodeURIComponent(value)}`, {
+    headers: { Accept: 'application/ld+json' }
+  });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const data = (await response.json()) as ParishPage;
+  return Array.isArray(data['hydra:member']) ? data['hydra:member'].map(parseParish) : [];
+}
+
+/** Minuscules sans accents ni tirets : « Chalon-sur-Saône » → « chalon sur saone ». */
+function normalize(text: string): string {
+  return text
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[-'’]/g, ' ')
+    .replace(/s+/g, ' ')
+    .trim();
+}
+
+/** Codes postaux d'une ville, via la Base Adresse Nationale : open-church
+ * ne connaît pas les noms de communes, seulement les codes postaux. */
+async function cityPostcodes(query: string): Promise<string[]> {
+  const response = await fetch(`${GEOCODER_URL}?q=${encodeURIComponent(query)}&type=municipality&limit=5`);
+  if (!response.ok) return [];
+  const data = (await response.json()) as {
+    features?: Array<{ properties?: { postcode?: string; score?: number } }>;
+  };
+  const best = data.features?.[0]?.properties?.score ?? 0;
+  if (best < CITY_MIN_SCORE) return [];
+  // Une même commune peut avoir plusieurs codes postaux ; on garde ceux des
+  // résultats presque aussi pertinents que le meilleur.
+  const codes = (data.features ?? [])
+    .filter((f) => (f.properties?.score ?? 0) >= best - 0.05)
+    .map((f) => f.properties?.postcode)
+    .filter((code): code is string => !!code);
+  return [...new Set(codes)];
+}
+
+/** La recherche par code postal d'open-church est approchée (elle renvoie
+ * aussi des codes voisins) : on ne garde que les correspondances exactes. */
+async function parishesForPostcode(postcode: string): Promise<Parish[]> {
+  const parishes = await fetchParishes('zipCode', postcode);
+  return parishes.filter((parish) => parish.zipCode === postcode);
+}
+
+/** Recherche « nom, ville ou code postal », comme l'annonce la page :
+ * d'abord les paroisses de la ville (ou du code postal), puis celles dont
+ * le nom contient vraiment la saisie — la recherche par nom de l'API étant
+ * approchée, elle renvoie sinon des paroisses sans rapport (« Chatou » pour
+ * « chalon »). */
+async function searchParishes(query: string): Promise<Parish[]> {
+  if (/^d{5}$/.test(query)) return parishesForPostcode(query);
+
+  const [byName, postcodes] = await Promise.all([
+    fetchParishes('name', query),
+    cityPostcodes(query).catch(() => [] as string[])
+  ]);
+  const byCity = (await Promise.all(postcodes.map(parishesForPostcode))).flat();
+
+  const words = normalize(query).split(' ');
+  const nameMatches = byName.filter((parish) => {
+    const name = normalize(parish.name);
+    return words.every((word) => name.includes(word));
+  });
+
+  const seen = new Set<number>();
+  return [...byCity, ...nameMatches].filter((parish) => {
+    if (seen.has(parish.id)) return false;
+    seen.add(parish.id);
+    return true;
+  });
+}
+
 interface UseParishSearchResult {
   results: Parish[];
   totalItems: number;
@@ -61,18 +142,11 @@ export function useParishSearch(query: string): UseParishSearchResult {
     setError(null);
 
     const timer = setTimeout(() => {
-      fetch(`${API_BASE}?name=${encodeURIComponent(trimmed)}`, {
-        headers: { Accept: 'application/ld+json' }
-      })
-        .then((response) => {
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          return response.json();
-        })
-        .then((data: { 'hydra:member'?: RawParish[]; 'hydra:totalItems'?: number }) => {
+      searchParishes(trimmed)
+        .then((parishes) => {
           if (cancelled) return;
-          const members = Array.isArray(data['hydra:member']) ? data['hydra:member'] : [];
-          setResults(members.map(parseParish));
-          setTotalItems(typeof data['hydra:totalItems'] === 'number' ? data['hydra:totalItems'] : members.length);
+          setResults(parishes);
+          setTotalItems(parishes.length);
         })
         .catch((err) => {
           console.error('Échec de la recherche de paroisses', err);
