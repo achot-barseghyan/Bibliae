@@ -5,6 +5,9 @@ import { tapHaptic } from '../../utils/haptics';
 import './InfoPage.css';
 import WorldButton from '../../components/nav/WorldButton';
 
+/** Portraits des figures bibliques : crédit demandé par l'artiste. */
+const ARTIST_SHOP_URL = 'https://www.etsy.com/shop/DolceDreamsStudio';
+
 const Sources: React.FC = () => {
   const navigate = useNavigate();
 
@@ -58,6 +61,20 @@ const Sources: React.FC = () => {
               <p className="info-page-list-desc">
                 Textes publics de l'Église catholique (Notre Père, Je vous salue Marie, chapelet
                 du Rosaire…).
+              </p>
+            </li>
+            <li className="info-page-list-item">
+              <p className="info-page-list-title">Illustrations des figures</p>
+              <p className="info-page-list-desc">
+                Artwork by DolceDreamsStudio ·{' '}
+                <a
+                  className="info-page-link"
+                  href={ARTIST_SHOP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Boutique Etsy
+                </a>
               </p>
             </li>
           </ul>

@@ -2,16 +2,16 @@
 // vedette). Les images restent des imports locaux : le contenu distant ne
 // peut surcharger que les champs texte, jamais `image`.
 
-import jesusImg from '../assets/images/men/Jesus_Christ.png';
-import moiseImg from '../assets/images/men/Moses.png';
-import marieImg from '../assets/images/women/Mary and Baby Jesus.png';
-import abrahamImg from '../assets/images/men/Abraham.png';
-import davidImg from '../assets/images/men/David.png';
-import eveImg from '../assets/images/women/Eve.png';
-import sarahImg from '../assets/images/women/Sarah.png';
-import noeImg from '../assets/images/men/Noah.png';
-import estherImg from '../assets/images/women/Esther.png';
-import marieMadeleineImg from '../assets/images/women/Mary Magdalene.png';
+import jesusImg from '../assets/images/men/Jesus_Christ.webp';
+import moiseImg from '../assets/images/men/Moses.webp';
+import marieImg from '../assets/images/women/Mary and Baby Jesus.webp';
+import abrahamImg from '../assets/images/men/Abraham.webp';
+import davidImg from '../assets/images/men/David.webp';
+import eveImg from '../assets/images/women/Eve.webp';
+import sarahImg from '../assets/images/women/Sarah.webp';
+import noeImg from '../assets/images/men/Noah.webp';
+import estherImg from '../assets/images/women/Esther.webp';
+import marieMadeleineImg from '../assets/images/women/Mary Magdalene.webp';
 
 export interface FeaturedFigure {
   id: string;

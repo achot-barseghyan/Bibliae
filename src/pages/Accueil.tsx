@@ -5,6 +5,7 @@ import { useRemoteAccueil } from '../hooks/content/useRemoteAccueil';
 import { useFigures } from '../hooks/useFigures';
 import { useReadingProgress } from '../hooks/useReadingProgress';
 import { useLiturgicalDay } from '../hooks/useLiturgicalDay';
+import LiturgicalCard from '../components/LiturgicalCard';
 import { BOOKS, getBook } from '../data/bible';
 import { MYSTERY_ORDER } from '../data/rosary';
 import {
@@ -15,7 +16,7 @@ import {
   RosaireIcon,
   PrierIcon
 } from '../components/nav/icons';
-import jesusImg from '../assets/images/men/Jesus_Christ.png';
+import jesusImg from '../assets/images/men/Jesus_Christ.webp';
 import './Accueil.css';
 
 const SEARCH_CHIPS: { label: string; path: string }[] = [
@@ -25,15 +26,6 @@ const SEARCH_CHIPS: { label: string; path: string }[] = [
   { label: 'Prières', path: '/prier/prieres' },
   { label: 'Saints', path: '/prier/saints' }
 ];
-
-const LITURGICAL_COLORS: Record<string, string> = {
-  blanc: '#e8e1cd',
-  rouge: '#6b1e23',
-  vert: '#4a5d3a',
-  violet: '#5a3d6b',
-  rose: '#c98a9c',
-  noir: '#23201a'
-};
 
 // Numéro de semaine ISO : détermine, de façon stable et sans backend, quel
 // quart des figures en vedette est mis en avant cette semaine.
@@ -165,42 +157,7 @@ const Accueil: React.FC = () => {
         </nav>
 
         {feast && (
-          <button
-            type="button"
-            className="liturgical-banner"
-            onClick={() => navigate('/liturgie')}
-          >
-            <p className="liturgical-banner-date">
-              <span
-                className="liturgical-banner-dot"
-                style={{ background: LITURGICAL_COLORS[feast.color] ?? 'var(--color-oxblood)' }}
-                aria-hidden="true"
-              />
-              {new Date(feast.date).toLocaleDateString('fr-FR', {
-                weekday: 'long',
-                day: 'numeric',
-                month: 'long'
-              })}{' '}
-              · {feast.color}
-            </p>
-            <div className="liturgical-banner-title-row">
-              {/* Les jours "de la férie" n'ont pas de saint particulier : `name`
-                  contient déjà "Vendredi de la 23e semaine...". Les autres jours,
-                  `name` est le nom du saint et `line` porte la semaine/saison. */}
-              <span className="liturgical-banner-title">
-                {feast.rank === 'Férie' ? feast.name : feast.line ?? feast.name}
-              </span>
-              <ChevronRightIcon size={16} />
-            </div>
-            {(feast.rank !== 'Férie' || gospel) && (
-              <p className="liturgical-banner-sub">
-                {feast.rank !== 'Férie' && feast.name}
-                {feast.rank !== 'Férie' && gospel ? ' · ' : ''}
-                {gospel?.ref}
-              </p>
-            )}
-            <p className="liturgical-banner-source">Source : {feast.source.name}</p>
-          </button>
+          <LiturgicalCard feast={feast} gospelRef={gospel?.ref ?? undefined} onOpen={() => navigate('/liturgie')} />
         )}
 
         <section className="figures-section">

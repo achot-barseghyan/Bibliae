@@ -22,6 +22,15 @@ const ChapeletIcon: IconComponent = ({ width = 14, height = 14, className }) => 
   </svg>
 );
 
+/** Accueil : maison à toit en pointe. */
+const AccueilIcon: React.FC = () => (
+  <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M3.5 11 12 3.5l8.5 7.5" />
+    <path d="M6 9v11.5h12V9" />
+    <path d="M10 20.5v-6h4v6" />
+  </svg>
+);
+
 /** Bougie : corps, mèche et flamme. */
 const BougieIcon: IconComponent = ({ width = 14, height = 14, className }) => (
   <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
@@ -47,6 +56,7 @@ const worlds: World[] = [
 ];
 
 const shortcuts = [
+  { label: 'Accueil', path: '/compendium/accueil', icon: <AccueilIcon /> },
   { label: 'Liturgie', path: '/liturgie', icon: <CalendarIcon size={14} /> },
   { label: 'Favoris', path: '/favoris', icon: <BookmarkIcon size={14} filled /> },
   { label: 'Réglages', path: '/reglages', icon: <SettingsIcon size={14} /> }
@@ -107,10 +117,12 @@ const RosaceMenu: React.FC<RosaceMenuProps> = ({ isOpen, onClose }) => {
   const [sheetRef, width] = useElementWidth<HTMLDivElement>(402);
   const dx = (width - 402) / 2;
 
-  const go = (path: string, isCurrent: boolean) => {
+  // Le monde courant ne fait que refermer le menu ; l'accueil de l'app a son
+  // propre bouton (« Accueil »).
+  const go = (path: string, isCurrent = false) => {
     tapHaptic();
     onClose();
-    if (!isCurrent) navigate(path);
+    if (!isCurrent && location.pathname !== path) navigate(path);
   };
 
   return (
@@ -198,7 +210,7 @@ const RosaceMenu: React.FC<RosaceMenuProps> = ({ isOpen, onClose }) => {
                 type="button"
                 className="rosace-menu-shortcut"
                 style={delay(i)}
-                onClick={() => go(s.path, location.pathname.startsWith(s.path))}
+                onClick={() => go(s.path)}
               >
                 {s.icon}
                 <span>{s.label}</span>

@@ -138,3 +138,9 @@
   cursor: pointer;
   text-decoration: none;
 }
+
+.info-page-link {
+  color: var(--color-oxblood);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

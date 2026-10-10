@@ -292,12 +292,15 @@ html[data-reduce-motion='true'] .rosace-menu-rays {
 
 .rosace-menu-shortcut {
   flex: 1 1 0;
+  min-width: 0;
+  /* Icône au-dessus du libellé : 4 boutons tiennent sur une ligne dès 360px. */
+  flex-direction: column;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 4px;
   height: 44px;
-  padding: 0 6px;
+  padding: 0 2px;
   border: 0.5px solid var(--filet-barres);
   /* Petite arcade */
   border-radius: 22px 22px 4px 4px;
