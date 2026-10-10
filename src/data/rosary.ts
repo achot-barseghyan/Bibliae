@@ -1,10 +1,11 @@
-// Structure du chapelet : les quatre séries de mystères, les prières
+// Structure du chapelet : les trois séries de mystères (répartition
+// traditionnelle d'avant 2002, sans les mystères lumineux), les prières
 // fixes (texte catéchétique universel, pas une traduction liturgique
 // récente) et la séquence complète de grains pour une récitation.
 
 import type { ScriptureRef } from './figureDetails';
 
-export type MysterySetKey = 'joyeux' | 'douloureux' | 'glorieux' | 'lumineux';
+export type MysterySetKey = 'joyeux' | 'douloureux' | 'glorieux';
 
 export interface MysterySet {
   key: MysterySetKey;
@@ -19,7 +20,7 @@ export const MYSTERY_SETS: Record<MysterySetKey, MysterySet> = {
   joyeux: {
     key: 'joyeux',
     label: 'Mystères Joyeux',
-    days: 'Lundi · Samedi',
+    days: 'Lundi · Jeudi',
     mysteries: [
       "L'Annonciation",
       'La Visitation',
@@ -57,7 +58,7 @@ export const MYSTERY_SETS: Record<MysterySetKey, MysterySet> = {
   glorieux: {
     key: 'glorieux',
     label: 'Mystères Glorieux',
-    days: 'Mercredi · Dimanche',
+    days: 'Mercredi · Samedi · Dimanche',
     mysteries: [
       'La Résurrection',
       "L'Ascension",
@@ -72,43 +73,23 @@ export const MYSTERY_SETS: Record<MysterySetKey, MysterySet> = {
       { display: 'Lc 1, 46-55', bookId: 'lc', chapter: 1, verseStart: 46, verseEnd: 55 },
       { display: 'Ap 12, 1-6', bookId: 'ap', chapter: 12, verseStart: 1, verseEnd: 6 }
     ]
-  },
-  lumineux: {
-    key: 'lumineux',
-    label: 'Mystères Lumineux',
-    days: 'Jeudi',
-    mysteries: [
-      'Le Baptême de Jésus au Jourdain',
-      'Les Noces de Cana',
-      'Annonce du Royaume de Dieu',
-      'La Transfiguration',
-      "L'institution de l'Eucharistie"
-    ],
-    refs: [
-      { display: 'Mt 3, 13-17', bookId: 'mt', chapter: 3, verseStart: 13, verseEnd: 17 },
-      { display: 'Jn 2, 1-12', bookId: 'jn', chapter: 2, verseStart: 1, verseEnd: 12 },
-      { display: 'Mc 1, 14-15', bookId: 'mc', chapter: 1, verseStart: 14, verseEnd: 15 },
-      { display: 'Mt 17, 1-8', bookId: 'mt', chapter: 17, verseStart: 1, verseEnd: 8 },
-      { display: 'Mt 26, 26-29', bookId: 'mt', chapter: 26, verseStart: 26, verseEnd: 29 }
-    ]
   }
 };
 
-export const MYSTERY_ORDER: MysterySetKey[] = ['joyeux', 'douloureux', 'glorieux', 'lumineux'];
+export const MYSTERY_ORDER: MysterySetKey[] = ['joyeux', 'douloureux', 'glorieux'];
 
+// Répartition traditionnelle : joyeux lundi et jeudi, douloureux mardi et
+// vendredi, glorieux mercredi, samedi et dimanche.
 export function mysterySetForToday(date: Date = new Date()): MysterySetKey {
   switch (date.getDay()) {
     case 1:
-    case 6:
+    case 4:
       return 'joyeux';
     case 2:
     case 5:
       return 'douloureux';
-    case 3:
-    case 0:
-      return 'glorieux';
     default:
-      return 'lumineux';
+      return 'glorieux';
   }
 }
 

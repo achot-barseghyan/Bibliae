@@ -1,6 +1,6 @@
 import { Preferences } from '@capacitor/preferences';
 import type { MysterySetKey } from '../data/rosary';
-import { mysterySetForToday } from '../data/rosary';
+import { MYSTERY_ORDER, mysterySetForToday } from '../data/rosary';
 import type { PrayerLanguage } from '../data/prayers';
 import { BOOKS, booksByTestament } from '../data/bible';
 
@@ -127,6 +127,12 @@ export const defaultBibleReadingPrefs: BibleReadingPrefs = {
 
 function defaultRosaryProgress(): RosaryProgress {
   return { mysterySet: mysterySetForToday(), stepIndex: 0 };
+}
+
+/** Série inconnue (ex. « lumineux », retiré) : on repart sur celle du jour. */
+function sanitizeRosaryProgress(raw: Partial<RosaryProgress> | undefined): RosaryProgress {
+  const progress = { ...defaultRosaryProgress(), ...raw };
+  return MYSTERY_ORDER.includes(progress.mysterySet) ? progress : defaultRosaryProgress();
 }
 
 function generateParcoursId(): string {
@@ -319,7 +325,7 @@ function sanitize(value: unknown): AppData {
     settings: {
       accessibility: { ...defaultAccessibilitySettings, ...settings.accessibility },
       bibleReading: { ...defaultBibleReadingPrefs, ...settings.bibleReading },
-      rosaryProgress: { ...defaultRosaryProgress(), ...settings.rosaryProgress }
+      rosaryProgress: sanitizeRosaryProgress(settings.rosaryProgress)
     }
   };
 }
@@ -360,7 +366,7 @@ function migrateFromLocalStorage(): AppData {
   try {
     const raw = localStorage.getItem(LEGACY_ROSARY_PROGRESS_KEY);
     if (raw) {
-      data.settings.rosaryProgress = { ...defaultRosaryProgress(), ...JSON.parse(raw) };
+      data.settings.rosaryProgress = sanitizeRosaryProgress(JSON.parse(raw));
     }
   } catch {
     // clé absente ou corrompue : on garde le défaut

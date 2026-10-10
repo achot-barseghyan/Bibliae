@@ -3,7 +3,7 @@
     "joyeux": {
       "key": "joyeux",
       "label": "Mystères Joyeux",
-      "days": "Lundi · Samedi",
+      "days": "Lundi · Jeudi",
       "mysteries": [
         "L'Annonciation",
         "La Visitation",
@@ -101,7 +101,7 @@
     "glorieux": {
       "key": "glorieux",
       "label": "Mystères Glorieux",
-      "days": "Mercredi · Dimanche",
+      "days": "Mercredi · Samedi · Dimanche",
       "mysteries": [
         "La Résurrection",
         "L'Ascension",
@@ -144,55 +144,6 @@
           "chapter": 12,
           "verseStart": 1,
           "verseEnd": 6
-        }
-      ]
-    },
-    "lumineux": {
-      "key": "lumineux",
-      "label": "Mystères Lumineux",
-      "days": "Jeudi",
-      "mysteries": [
-        "Le Baptême de Jésus au Jourdain",
-        "Les Noces de Cana",
-        "Annonce du Royaume de Dieu",
-        "La Transfiguration",
-        "L'institution de l'Eucharistie"
-      ],
-      "refs": [
-        {
-          "display": "Mt 3, 13-17",
-          "bookId": "mt",
-          "chapter": 3,
-          "verseStart": 13,
-          "verseEnd": 17
-        },
-        {
-          "display": "Jn 2, 1-12",
-          "bookId": "jn",
-          "chapter": 2,
-          "verseStart": 1,
-          "verseEnd": 12
-        },
-        {
-          "display": "Mc 1, 14-15",
-          "bookId": "mc",
-          "chapter": 1,
-          "verseStart": 14,
-          "verseEnd": 15
-        },
-        {
-          "display": "Mt 17, 1-8",
-          "bookId": "mt",
-          "chapter": 17,
-          "verseStart": 1,
-          "verseEnd": 8
-        },
-        {
-          "display": "Mt 26, 26-29",
-          "bookId": "mt",
-          "chapter": 26,
-          "verseStart": 26,
-          "verseEnd": 29
         }
       ]
     }

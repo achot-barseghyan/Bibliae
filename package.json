@@ -12,6 +12,7 @@
     "test.unit": "vitest",
     "lint": "eslint",
     "android": "cap run android",
+    "android:open": "npm run build && cap sync android && cap open android",
     "android:live": "npm run build && cross-env CAP_LIVE_RELOAD=true cap sync android && cross-env CAP_LIVE_RELOAD=true cap run android",
     "android:device:live": "npm run build && adb reverse tcp:5173 tcp:5173 && cross-env CAP_LIVE_RELOAD=true CAP_LIVE_RELOAD_HOST=localhost cap sync android && cross-env CAP_LIVE_RELOAD=true CAP_LIVE_RELOAD_HOST=localhost cap run android"
   },
