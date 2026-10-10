@@ -1,0 +1,194 @@
+/* Barre rosace : SVG de 120 de haut collé en bas. Seuls les 72px du bas
+   (y 48 → 120) sont pleins ; au-dessus, le contenu passe derrière, sauf
+   sous le fronton. La rosace (60×60) est centrée, son centre sur le bord
+   (y=48), donc à 72px + zone de sécurité du bas de l'écran.
+
+   Les durées sont des transitions/animations CSS : « Réduire les
+   animations » les coupe (voir variables.css). */
+
+:root {
+  /* Hauteur pleine de la barre : sert aux pages pour se caler au-dessus. */
+  --rosace-bar-h: calc(72px + env(safe-area-inset-bottom, 0px));
+}
+
+.rosace-nav {
+  display: contents;
+}
+
+.rosace-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Au-dessus des en-têtes collants (20), sous les feuilles des pages ;
+     passe au-dessus du menu quand il est ouvert. */
+  z-index: 25;
+  height: calc(120px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(transparent 120px, var(--color-papier) 120px);
+  pointer-events: none;
+}
+
+.rosace-nav.is-open .rosace-bar,
+.rosace-nav.is-closing .rosace-bar {
+  z-index: 202;
+}
+
+.rosace-bar-frame {
+  display: block;
+}
+
+/* --- Tracé progressif, au premier affichage seulement --- */
+
+.rosace-nav.is-drawing .rosace-bar-lines path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: rosace-bar-draw 1.6s cubic-bezier(0.4, 0, 0.2, 1) var(--d, 0ms) forwards;
+}
+
+@keyframes rosace-bar-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* --- Vitraux : s'allument du centre vers les bords --- */
+
+.rosace-bar-vitraux path {
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+}
+
+.rosace-nav.is-open .rosace-bar-vitraux path {
+  opacity: 0.85;
+  transition: opacity 0.5s ease calc(300ms + var(--dist) * 90ms);
+}
+
+/* --- Rosace --- */
+
+.rosace-button {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  filter: drop-shadow(0 3px 6px rgba(35, 32, 26, 0.22));
+  transition:
+    transform 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.4s ease;
+}
+
+.rosace-glyph {
+  display: block;
+}
+
+.rosace-button:focus-visible {
+  outline: 2px solid var(--color-or);
+  outline-offset: 3px;
+}
+
+/* Monte au sommet de l'arc : centre 75px sous le haut de la feuille, qui
+   fait 560px et repose sur le haut de la barre pleine (72px). Le centre de
+   la rosace étant déjà à 72px du bas, il monte de 560 − 75 = 485px. */
+.rosace-nav.is-open .rosace-button {
+  transform: translateY(-485px) scale(1.4);
+  filter: drop-shadow(0 0 10px rgba(240, 213, 142, 0.7));
+  transition:
+    transform 0.85s cubic-bezier(0.25, 1.1, 0.35, 1),
+    filter 0.85s ease;
+}
+
+.rosace-petal {
+  fill: #8A2E33;
+  transition: fill 0.2s ease;
+}
+
+.rosace-nav.is-open .rosace-petal {
+  fill: var(--vitrail);
+  transition: fill 0.5s ease calc(500ms + var(--i) * 70ms);
+}
+
+/* --- Variante à onglets (Compendium) : 2 onglets de chaque côté --- */
+
+.rosace-bar-tabs {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  right: 0;
+  height: 72px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 96px 1fr 1fr;
+}
+
+.rosace-bar-tab {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  padding: 12px 0 0;
+  background: none;
+  border: none;
+  color: var(--encre-60);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.3s ease;
+}
+
+.rosace-bar-tab:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: -2px;
+}
+
+.rosace-bar-tab-icon {
+  color: currentColor;
+}
+
+.rosace-bar-tab-label,
+.rosace-bar-menu-label {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.rosace-bar-tab-diamond {
+  width: 4px;
+  height: 4px;
+  margin-top: 1px;
+  background: var(--color-or);
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.rosace-bar-tab.is-active {
+  color: var(--color-oxblood);
+}
+
+.rosace-bar-tab.is-active .rosace-bar-tab-label {
+  font-weight: 600;
+}
+
+.rosace-bar-tab.is-active .rosace-bar-tab-diamond {
+  opacity: 1;
+}
+
+/* Sous la rosace (qui finit à y=78). */
+.rosace-bar-menu-label {
+  position: absolute;
+  top: 87px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--encre-60);
+}

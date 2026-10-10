@@ -49,18 +49,6 @@
   background: var(--bible-border-soft);
 }
 
-.bible-header-button--world {
-  width: 36px;
-  height: 36px;
-  background: var(--color-oxblood);
-  border: none;
-  color: var(--color-papier);
-}
-
-.bible-header-button--world:active {
-  transform: scale(0.94);
-}
-
 .bible-header-notes-badge {
   flex: 0 0 auto;
   display: inline-flex;
@@ -124,4 +112,20 @@
 
 .bible-header-title--button svg {
   flex: 0 0 auto;
+}
+
+/* Accueil du monde (pas de bouton retour) : titre aligné à gauche, sur la
+   même marge que le contenu (12 + 8 = 20px), icônes à droite. */
+.bible-header--home {
+  grid-template-columns: minmax(0, 1fr) max-content;
+}
+
+.bible-header--home .bible-header-side--left {
+  display: none;
+}
+
+.bible-header--home .bible-header-title {
+  justify-content: flex-start;
+  text-align: left;
+  padding-left: 8px;
 }

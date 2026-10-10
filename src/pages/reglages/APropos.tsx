@@ -3,6 +3,7 @@ import { IonContent, IonPage } from '@ionic/react';
 import { ChevronLeftIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
 import './InfoPage.css';
+import WorldButton from '../../components/nav/WorldButton';
 
 const APropos: React.FC = () => {
   const navigate = useNavigate();
@@ -61,6 +62,7 @@ const APropos: React.FC = () => {
 
           <p className="info-page-footer-note">Développé par Adrien Barseghyan.</p>
         </div>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

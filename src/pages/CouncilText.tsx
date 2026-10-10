@@ -4,6 +4,7 @@ import { useRemoteCouncil } from '../hooks/content/useRemoteCouncils';
 import { CloseIcon } from '../components/nav/icons';
 import { tapHaptic } from '../utils/haptics';
 import './FullScreenWorld.css';
+import WorldButton from '../components/nav/WorldButton';
 
 const CouncilText: React.FC = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const CouncilText: React.FC = () => {
         <div className="full-screen-world-body">
           <h1 className="full-screen-world-title">{council?.title ?? 'Texte introuvable'}</h1>
         </div>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

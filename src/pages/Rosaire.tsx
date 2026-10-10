@@ -5,8 +5,8 @@ import { buildSequence, type BeadImageKey } from '../data/rosary';
 import { useRemoteRosary } from '../hooks/content/useRemoteRosary';
 import { useRosaryProgress } from '../hooks/useRosaryProgress';
 import { useAccessibility } from '../hooks/useAccessibility';
-import { CrossIcon, ChevronUpIcon, ChevronDownIcon, RefreshIcon, InfoIcon } from '../components/nav/icons';
-import WorldSheet from '../components/nav/WorldSheet';
+import { ChevronUpIcon, ChevronDownIcon, RefreshIcon, InfoIcon } from '../components/nav/icons';
+import WorldButton from '../components/nav/WorldButton';
 import { tapHaptic } from '../utils/haptics';
 import { BEAD_IMAGES } from './rosaire/beadImages';
 import MysteryPickerSheet from './rosaire/MysteryPickerSheet';
@@ -47,7 +47,6 @@ const Rosaire: React.FC = () => {
     month: 'long'
   });
   const [isPickerOpen, setIsPickerOpen] = useState(false);
-  const [isWorldSheetOpen, setIsWorldSheetOpen] = useState(false);
   const [meditationRef, setMeditationRef] = useState<ScriptureRef | null>(null);
 
   const sequence = useMemo(() => buildSequence(), []);
@@ -161,17 +160,6 @@ const Rosaire: React.FC = () => {
     <IonPage>
       <IonContent fullscreen className="rosaire-content">
         <header className="rosaire-header">
-          <button
-            type="button"
-            className="rosaire-close"
-            onClick={() => {
-              tapHaptic();
-              setIsWorldSheetOpen(true);
-            }}
-            aria-label="Changer de monde"
-          >
-            <CrossIcon size={17} />
-          </button>
           <button
             type="button"
             className="rosaire-reset"
@@ -345,8 +333,7 @@ const Rosaire: React.FC = () => {
             <VersePreviewSheet refData={meditationRef} onClose={() => setMeditationRef(null)} />
           )}
         </AnimatePresence>
-
-        <WorldSheet isOpen={isWorldSheetOpen} onClose={() => setIsWorldSheetOpen(false)} />
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

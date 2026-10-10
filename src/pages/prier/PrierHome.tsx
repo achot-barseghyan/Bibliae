@@ -4,7 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import { IonContent, IonPage } from '@ionic/react';
 import { useBookmarks } from '../../hooks/useBookmarks';
 import { ChevronRightIcon } from '../../components/nav/icons';
-import WorldSheet from '../../components/nav/WorldSheet';
+import WorldButton from '../../components/nav/WorldButton';
 import PrierHeader from './PrierHeader';
 import PrierSearch from './PrierSearch';
 import './PrierHome.css';
@@ -30,15 +30,12 @@ const PrierHome: React.FC = () => {
   const navigate = useNavigate();
   const { isBookmarked, toggle } = useBookmarks();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isWorldSheetOpen, setIsWorldSheetOpen] = useState(false);
 
   return (
     <IonPage>
       <IonContent fullscreen className="prier-home-content">
         <PrierHeader
           label="Prier"
-          onBack={() => setIsWorldSheetOpen(true)}
-          backIcon="world"
           onSearch={() => setIsSearchOpen(true)}
           isBookmarked={isBookmarked('prier:home')}
           onToggleBookmark={() => toggle('prier:home')}
@@ -82,8 +79,7 @@ const PrierHome: React.FC = () => {
         <AnimatePresence>
           {isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}
         </AnimatePresence>
-
-        <WorldSheet isOpen={isWorldSheetOpen} onClose={() => setIsWorldSheetOpen(false)} />
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

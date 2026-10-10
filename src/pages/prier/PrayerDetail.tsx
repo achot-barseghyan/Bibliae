@@ -9,6 +9,7 @@ import { SparkleIcon } from '../../components/nav/icons';
 import PrierHeader from './PrierHeader';
 import PrierSearch from './PrierSearch';
 import './PrayerDetail.css';
+import WorldButton from '../../components/nav/WorldButton';
 
 const LANGUAGE_ORDER: PrayerLanguage[] = ['fr', 'en', 'la', 'el', 'arc'];
 
@@ -34,6 +35,7 @@ const PrayerDetail: React.FC = () => {
           <AnimatePresence>
             {isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}
           </AnimatePresence>
+          <WorldButton />
         </IonContent>
       </IonPage>
     );
@@ -93,6 +95,7 @@ const PrayerDetail: React.FC = () => {
         <AnimatePresence>
           {isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}
         </AnimatePresence>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

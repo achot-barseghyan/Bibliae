@@ -413,6 +413,11 @@ export function replaceAppData(next: AppData): void {
   notify();
 }
 
+/** Remet le store à l'état d'une première installation (favoris, annotations, parcours, réglages). */
+export function resetAppData(): void {
+  replaceAppData(defaultAppData());
+}
+
 function chapterReadKey(c: { parcoursId: string; bookId: string; chapter: number }): string {
   return `${c.parcoursId}:${c.bookId}:${c.chapter}`;
 }

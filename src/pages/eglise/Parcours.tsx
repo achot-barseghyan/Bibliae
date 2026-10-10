@@ -8,6 +8,7 @@ import ScriptureRefChip from '../figures/ScriptureRefChip';
 import VersePreviewSheet from '../figures/VersePreviewSheet';
 import { tapHaptic } from '../../utils/haptics';
 import './Parcours.css';
+import WorldButton from '../../components/nav/WorldButton';
 
 interface ParcoursLocationState {
   stepId?: string;
@@ -190,6 +191,7 @@ const Parcours: React.FC = () => {
         <AnimatePresence>
           {activeRef && <VersePreviewSheet refData={activeRef} onClose={() => setActiveRef(null)} />}
         </AnimatePresence>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

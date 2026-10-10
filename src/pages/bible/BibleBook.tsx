@@ -14,6 +14,7 @@ import ParcoursCompletionSheet from './ParcoursCompletionSheet';
 import ChapterActionSheet from './ChapterActionSheet';
 import ChapterMenuTour from './ChapterMenuTour';
 import './BibleBook.css';
+import WorldButton from '../../components/nav/WorldButton';
 
 const COLUMNS = 6;
 const LONG_PRESS_MS = 450;
@@ -115,7 +116,8 @@ const BibleBook: React.FC = () => {
     return (
       <IonPage>
         <IonContent fullscreen className="bible-book-content">
-          <BibleHeader title="Livre introuvable" backIcon="chevron" onBack={() => navigate(-1)} />
+          <BibleHeader title="Livre introuvable" onBack={() => navigate(-1)} />
+          <WorldButton />
         </IonContent>
       </IonPage>
     );
@@ -131,7 +133,7 @@ const BibleBook: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen className="bible-book-content">
-        <BibleHeader title={book.name} backIcon="chevron" onBack={() => navigate(-1)} />
+        <BibleHeader title={book.name} onBack={() => navigate(-1)} />
 
         <ParcoursBandeau onOpenSelector={() => setIsSelectorOpen(true)} />
 
@@ -251,6 +253,7 @@ const BibleBook: React.FC = () => {
             />
           )}
         </AnimatePresence>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

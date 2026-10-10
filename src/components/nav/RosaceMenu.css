@@ -1,0 +1,325 @@
+/* Feuille du menu rosace : 560px de haut, posée sur le haut de la barre
+   pleine (--rosace-bar-h, voir RosaceNavBar.css), qui reste visible et
+   au-dessus pendant que le menu est ouvert. Les transitions sont pilotées
+   par `.rosace-nav.is-open`. */
+
+/* --- Voile (sur le contenu, pas sur la barre) --- */
+
+.rosace-menu-voile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: var(--rosace-bar-h);
+  z-index: 200;
+  background: rgba(28, 22, 16, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.45s;
+}
+
+.rosace-nav.is-open .rosace-menu-voile {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease, visibility 0s;
+}
+
+/* --- Feuille --- */
+
+.rosace-menu-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: var(--rosace-bar-h);
+  z-index: 201;
+  height: 560px;
+  transform: translateY(118%);
+  visibility: hidden;
+  transition:
+    transform 0.45s cubic-bezier(0.5, 0, 0.75, 0),
+    visibility 0s linear 0.45s;
+}
+
+.rosace-nav.is-open .rosace-menu-sheet {
+  transform: translateY(0);
+  visibility: visible;
+  transition:
+    transform 0.7s cubic-bezier(0.2, 0.85, 0.25, 1) 50ms,
+    visibility 0s;
+}
+
+.rosace-menu-arch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.rosace-menu-arc {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.2s ease;
+}
+
+.rosace-nav.is-open .rosace-menu-arc--1 {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.3s ease 350ms;
+}
+
+.rosace-menu-arc--2 {
+  opacity: 0.7;
+}
+
+.rosace-nav.is-open .rosace-menu-arc--2 {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.5s ease 500ms;
+}
+
+.rosace-menu-traceries {
+  fill: none;
+  stroke: var(--color-or);
+  stroke-width: 0.5;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.rosace-nav.is-open .rosace-menu-traceries {
+  opacity: 1;
+  transition: opacity 0.6s ease 700ms;
+}
+
+/* Rayons derrière la rosace, centrés sur sa position d'arrivée (75px). */
+.rosace-menu-rays {
+  position: absolute;
+  top: calc(75px - 90px);
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  margin-left: -90px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.3);
+  transition: opacity 0.15s ease, transform 0s linear 0.2s;
+}
+
+.rosace-nav.is-open .rosace-menu-rays {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.9s ease 0.6s,
+    transform 1.2s cubic-bezier(0.2, 0.85, 0.25, 1) 0.5s;
+}
+
+.rosace-menu-rays-disc {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(240, 213, 142, 0.32) 0 4deg, transparent 4deg 15deg);
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 18%, transparent 70%);
+  mask-image: radial-gradient(circle closest-side, #000 18%, transparent 70%);
+  animation: rosace-rays-spin 40s linear infinite;
+}
+
+@keyframes rosace-rays-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+html[data-reduce-motion='true'] .rosace-menu-rays {
+  display: none;
+}
+
+/* --- Contenu --- */
+
+.rosace-menu-content {
+  position: absolute;
+  top: 146px;
+  left: 30px;
+  right: 30px;
+}
+
+.rosace-menu-wordmark {
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-oxblood);
+  text-align: center;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-or);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.rosace-nav.is-open .rosace-menu-wordmark {
+  opacity: 1;
+  transition: opacity 0.6s ease 420ms;
+}
+
+.rosace-menu-entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rosace-menu-entry-item + .rosace-menu-entry-item {
+  border-top: 0.5px solid var(--filet-barres);
+}
+
+.rosace-menu-entry-item,
+.rosace-menu-shortcut {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.15s ease, transform 0s linear 0.2s;
+}
+
+.rosace-nav.is-open .rosace-menu-entry-item {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.5s ease calc(500ms + var(--i) * 75ms),
+    transform 0.6s cubic-bezier(0.2, 0.85, 0.25, 1) calc(500ms + var(--i) * 75ms);
+}
+
+.rosace-nav.is-open .rosace-menu-shortcut {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.5s ease calc(820ms + var(--i) * 75ms),
+    transform 0.6s cubic-bezier(0.2, 0.85, 0.25, 1) calc(820ms + var(--i) * 75ms),
+    background 0.2s ease;
+}
+
+.rosace-menu-entry {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 13px 10px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--color-encre);
+  transition: background 0.2s ease;
+}
+
+.rosace-menu-entry:active {
+  background: rgba(107, 30, 35, 0.04);
+}
+
+.rosace-menu-entry:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: -2px;
+}
+
+.rosace-menu-entry.is-current {
+  background: rgba(107, 30, 35, 0.06);
+}
+
+.rosace-menu-lancet {
+  position: relative;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 32px;
+}
+
+.rosace-menu-lancet svg {
+  display: block;
+  fill: none;
+  stroke: var(--filet-barres);
+}
+
+.rosace-menu-lancet-icon {
+  position: absolute;
+  left: 6.5px;
+  top: 14px;
+  color: var(--color-oxblood);
+}
+
+.rosace-menu-entry.is-current .rosace-menu-lancet svg {
+  fill: var(--color-oxblood);
+  stroke: var(--color-or);
+}
+
+.rosace-menu-entry.is-current .rosace-menu-lancet-icon {
+  color: #F0D58E;
+}
+
+.rosace-menu-entry-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.rosace-menu-entry-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.15;
+  color: var(--color-encre);
+}
+
+.rosace-menu-entry-subtitle {
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 14.5px;
+  line-height: 1.3;
+  color: var(--encre-60);
+}
+
+.rosace-menu-entry-here {
+  flex: 0 0 auto;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+.rosace-menu-shortcuts {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.rosace-menu-shortcut {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 6px;
+  border: 0.5px solid var(--filet-barres);
+  /* Petite arcade */
+  border-radius: 22px 22px 4px 4px;
+  background: none;
+  color: var(--color-oxblood);
+  cursor: pointer;
+}
+
+.rosace-menu-shortcut:active {
+  background: rgba(107, 30, 35, 0.06);
+}
+
+.rosace-menu-shortcut:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
+}
+
+.rosace-menu-shortcut span {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-encre);
+}

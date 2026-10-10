@@ -12,7 +12,7 @@ import {
 } from '../../data/bible';
 import { useAccessibility } from '../../hooks/useAccessibility';
 import { useReadingProgress } from '../../hooks/useReadingProgress';
-import WorldSheet from '../../components/nav/WorldSheet';
+import WorldButton from '../../components/nav/WorldButton';
 import BibleHeader from './BibleHeader';
 import ParcoursBandeau from './ParcoursBandeau';
 import ParcoursSelectorSheet from './ParcoursSelectorSheet';
@@ -29,7 +29,6 @@ const BibleIndex: React.FC = () => {
   const { settings } = useAccessibility();
   const { activeParcours, forParcours } = useReadingProgress();
   const [testament, setTestament] = useState<Testament>('ancien');
-  const [isWorldSheetOpen, setIsWorldSheetOpen] = useState(false);
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<Partial<Record<CategoryKey, HTMLDivElement | null>>>({});
@@ -73,8 +72,6 @@ const BibleIndex: React.FC = () => {
       <IonContent fullscreen className="bible-index-content">
         <BibleHeader
           title="La Bible"
-          backIcon="world"
-          onBack={() => setIsWorldSheetOpen(true)}
         />
 
         <ParcoursBandeau onOpenSelector={() => setIsSelectorOpen(true)} />
@@ -185,11 +182,10 @@ const BibleIndex: React.FC = () => {
           </div>
         </div>
 
-        <WorldSheet isOpen={isWorldSheetOpen} onClose={() => setIsWorldSheetOpen(false)} />
-
         <AnimatePresence>
           {isSelectorOpen && <ParcoursSelectorSheet onClose={() => setIsSelectorOpen(false)} />}
         </AnimatePresence>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

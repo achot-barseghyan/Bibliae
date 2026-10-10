@@ -27,6 +27,7 @@ import {
 import AccessibilityQuickSheet from '../components/AccessibilityQuickSheet';
 import { tapHaptic } from '../utils/haptics';
 import './JourLiturgique.css';
+import WorldButton from '../components/nav/WorldButton';
 
 const LITURGICAL_COLORS: Record<string, string> = {
   blanc: '#e8e1cd',
@@ -633,6 +634,7 @@ const JourLiturgique: React.FC = () => {
             <ChevronRightIcon size={14} />
           </button>
         </footer>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );
@@ -870,6 +872,7 @@ export const LiturgieLecture: React.FC = () => {
           </Swiper>
         )}
       </div>
+      <WorldButton spacer={false} />
     </IonPage>
   );
 };

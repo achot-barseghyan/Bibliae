@@ -28,22 +28,6 @@
   outline-offset: 2px;
 }
 
-.prier-header-back--world {
-  width: 36px;
-  height: 36px;
-  justify-content: center;
-  padding: 0;
-  margin-left: 0;
-  background: var(--color-oxblood);
-  border: none;
-  border-radius: 50%;
-  color: var(--color-papier);
-}
-
-.prier-header-back--world:active {
-  transform: scale(0.94);
-}
-
 .prier-header-label {
   font-family: var(--font-inter);
   font-weight: 500;

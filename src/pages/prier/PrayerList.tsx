@@ -7,6 +7,7 @@ import { ChevronRightIcon } from '../../components/nav/icons';
 import PrierHeader from './PrierHeader';
 import PrierSearch from './PrierSearch';
 import './PrayerList.css';
+import WorldButton from '../../components/nav/WorldButton';
 
 const PrayerList: React.FC = () => {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ const PrayerList: React.FC = () => {
         <AnimatePresence>
           {isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}
         </AnimatePresence>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

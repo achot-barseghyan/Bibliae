@@ -9,15 +9,14 @@ import {
   type BookmarkType,
   type ResolvedBookmark
 } from '../services/bookmarkResolver';
-import { CrossIcon, BookmarkIcon } from '../components/nav/icons';
-import WorldSheet from '../components/nav/WorldSheet';
+import { BookmarkIcon } from '../components/nav/icons';
+import WorldButton from '../components/nav/WorldButton';
 import { tapHaptic } from '../utils/haptics';
 import './Favoris.css';
 
 const Favoris: React.FC = () => {
   const navigate = useNavigate();
   const { bookmarks, toggle } = useBookmarks();
-  const [isWorldSheetOpen, setIsWorldSheetOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState<BookmarkType | 'all'>('all');
 
   const allGroups = useMemo(() => {
@@ -54,17 +53,6 @@ const Favoris: React.FC = () => {
       <IonContent fullscreen className="favoris-content">
         <header className="favoris-header">
           <h1 className="favoris-title">Favoris</h1>
-          <button
-            type="button"
-            className="favoris-world-button"
-            onClick={() => {
-              tapHaptic();
-              setIsWorldSheetOpen(true);
-            }}
-            aria-label="Changer de monde"
-          >
-            <CrossIcon size={18} />
-          </button>
         </header>
 
         {allGroups.length > 0 && (
@@ -123,8 +111,7 @@ const Favoris: React.FC = () => {
             </section>
           ))
         )}
-
-        <WorldSheet isOpen={isWorldSheetOpen} onClose={() => setIsWorldSheetOpen(false)} />
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

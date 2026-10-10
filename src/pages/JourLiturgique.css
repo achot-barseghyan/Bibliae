@@ -626,7 +626,8 @@
   height: 100%;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 26px 24px 32px;
+  /* marge basse : laisse la place à la croix flottante (WorldButton) */
+  padding: 26px 24px calc(env(safe-area-inset-bottom, 0px) + 110px);
 }
 
 .jour-detail-heading {

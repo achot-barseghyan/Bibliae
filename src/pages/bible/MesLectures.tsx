@@ -10,6 +10,7 @@ import { tapHaptic } from '../../utils/haptics';
 import ParcoursCreateSheet from './ParcoursCreateSheet';
 import ParcoursActionsSheet from './ParcoursActionsSheet';
 import './MesLectures.css';
+import WorldButton from '../../components/nav/WorldButton';
 
 const LONG_PRESS_MS = 450;
 const WEEKDAY_LABELS = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
@@ -310,6 +311,7 @@ const MesLectures: React.FC = () => {
         <AnimatePresence>
           {actionsFor && <ParcoursActionsSheet parcours={actionsFor} onClose={() => setActionsFor(null)} />}
         </AnimatePresence>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

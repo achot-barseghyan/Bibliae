@@ -3,6 +3,7 @@ import { IonContent, IonPage } from '@ionic/react';
 import { ChevronLeftIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
 import './InfoPage.css';
+import WorldButton from '../../components/nav/WorldButton';
 
 const CONTACT_EMAIL = 'contact@bibliae.app';
 
@@ -36,6 +37,7 @@ const Contact: React.FC = () => {
             {CONTACT_EMAIL}
           </a>
         </div>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

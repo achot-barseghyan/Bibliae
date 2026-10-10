@@ -28,3 +28,10 @@ export async function isLieuxNoticeDue(): Promise<boolean> {
 }
 
 export const markLieuxNoticeShown = () => writeFlag(NOTICE_SHOWN_KEY, true);
+
+export async function clearLieuxNoticeFlags(): Promise<void> {
+  await Promise.all([
+    Preferences.remove({ key: WANTS_NOTICE_KEY }).catch(() => {}),
+    Preferences.remove({ key: NOTICE_SHOWN_KEY }).catch(() => {})
+  ]);
+}

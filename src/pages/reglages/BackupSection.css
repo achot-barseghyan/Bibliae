@@ -84,3 +84,13 @@
   color: var(--color-oxblood);
   background: none;
 }
+
+/* Action destructive : discrète, séparée des boutons de sauvegarde. */
+.backup-button--danger {
+  margin-top: 24px;
+  color: var(--color-oxblood);
+  background: none;
+  border-color: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

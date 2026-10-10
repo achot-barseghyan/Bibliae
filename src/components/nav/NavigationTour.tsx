@@ -3,16 +3,16 @@ import SpotlightTour, { type TourStep } from './SpotlightTour';
 
 const STEPS: TourStep[] = [
   {
-    selector: '.app-tab-bar',
+    selector: '.app-tab-bar .rosace-bar',
     title: 'Le Compendium',
     text: "Figures, Lieux, Frise et Église sont les quatre sections du Compendium, l'index de la Bible.",
     shape: 'pill',
     padding: 0
   },
   {
-    selector: '.app-tab-bar-cross',
+    selector: '.app-tab-bar .rosace-button',
     title: 'Changer de monde',
-    text: 'Ce bouton ouvre La Bible et le Rosaire, les deux autres grands espaces de l’application.',
+    text: 'La rosace ouvre le menu : La Bible, le Rosaire et Prier, les autres grands espaces de l’application.',
     shape: 'circle',
     padding: 6
   }

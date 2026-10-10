@@ -6,6 +6,7 @@ import { locationLabelFromZip } from '../../utils/frenchDepartments';
 import { ChevronLeftIcon, SearchIcon, LocationIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
 import './Paroisses.css';
+import WorldButton from '../../components/nav/WorldButton';
 
 const Paroisses: React.FC = () => {
   const navigate = useNavigate();
@@ -203,6 +204,7 @@ const Paroisses: React.FC = () => {
           <p className="paroisses-footer-wordmark">Lux Scripturae, Fides Ecclesiae</p>
           <p className="paroisses-footer-links">À propos · Sources · Contact</p>
         </footer>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

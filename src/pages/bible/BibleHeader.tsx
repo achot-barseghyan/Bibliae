@@ -2,7 +2,6 @@ import { useState, type ReactNode } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import {
   AccessibilityIcon,
-  CrossIcon,
   ChevronDownIcon,
   ChevronLeftIcon,
   NoteIcon,
@@ -15,8 +14,8 @@ import './BibleHeader.css';
 
 interface BibleHeaderProps {
   title: ReactNode;
-  onBack: () => void;
-  backIcon?: 'world' | 'chevron';
+  /** Absent sur la page d'accueil du monde : la barre rosace (WorldButton) sert de navigation. */
+  onBack?: () => void;
   onTitleClick?: () => void;
   accent?: boolean;
   /** Nombre de notes du chapitre affiché ; le badge n'apparaît que si > 0. */
@@ -27,7 +26,6 @@ interface BibleHeaderProps {
 const BibleHeader: React.FC<BibleHeaderProps> = ({
   title,
   onBack,
-  backIcon = 'chevron',
   onTitleClick,
   accent = false,
   notesCount = 0,
@@ -38,19 +36,21 @@ const BibleHeader: React.FC<BibleHeaderProps> = ({
 
   return (
     <>
-      <header className={`bible-header${accent ? ' bible-header--accent' : ''}`}>
+      <header className={`bible-header${accent ? ' bible-header--accent' : ''}${onBack ? '' : ' bible-header--home'}`}>
         <div className="bible-header-side bible-header-side--left">
-          <button
-            type="button"
-            className={`bible-header-button${backIcon === 'world' ? ' bible-header-button--world' : ''}`}
-            onClick={() => {
-              tapHaptic();
-              onBack();
-            }}
-            aria-label={backIcon === 'world' ? 'Changer de monde' : 'Retour'}
-          >
-            {backIcon === 'world' ? <CrossIcon size={17} /> : <ChevronLeftIcon size={22} />}
-          </button>
+          {onBack && (
+            <button
+              type="button"
+              className="bible-header-button"
+              onClick={() => {
+                tapHaptic();
+                onBack();
+              }}
+              aria-label="Retour"
+            >
+              <ChevronLeftIcon size={22} />
+            </button>
+          )}
         </div>
 
         {onTitleClick ? (

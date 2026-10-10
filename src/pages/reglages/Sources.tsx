@@ -3,6 +3,7 @@ import { IonContent, IonPage } from '@ionic/react';
 import { ChevronLeftIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
 import './InfoPage.css';
+import WorldButton from '../../components/nav/WorldButton';
 
 const Sources: React.FC = () => {
   const navigate = useNavigate();
@@ -61,6 +62,7 @@ const Sources: React.FC = () => {
             </li>
           </ul>
         </div>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

@@ -1,12 +1,12 @@
-import { ChevronLeftIcon, CrossIcon, BookmarkIcon, SearchIcon } from '../../components/nav/icons';
+import { ChevronLeftIcon, BookmarkIcon, SearchIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
 import './PrierHeader.css';
 
 interface PrierHeaderProps {
   label: string;
   roman?: string;
-  onBack: () => void;
-  backIcon?: 'chevron' | 'world';
+  /** Absent sur l'accueil de Prier : la barre rosace (WorldButton) sert de navigation. */
+  onBack?: () => void;
   onSearch: () => void;
   isBookmarked?: boolean;
   onToggleBookmark?: () => void;
@@ -16,30 +16,27 @@ const PrierHeader: React.FC<PrierHeaderProps> = ({
   label,
   roman,
   onBack,
-  backIcon = 'chevron',
   onSearch,
   isBookmarked,
   onToggleBookmark
 }) => (
   <header className="prier-header">
-    <button
-      type="button"
-      className={`prier-header-back${backIcon === 'world' ? ' prier-header-back--world' : ''}`}
-      onClick={() => {
-        tapHaptic();
-        onBack();
-      }}
-      aria-label={backIcon === 'world' ? 'Changer de monde' : 'Retour'}
-    >
-      {backIcon === 'world' ? (
-        <CrossIcon size={17} />
-      ) : (
-        <>
-          <ChevronLeftIcon size={18} />
-          <span className="prier-header-label">{label}</span>
-        </>
-      )}
-    </button>
+    {onBack ? (
+      <button
+        type="button"
+        className="prier-header-back"
+        onClick={() => {
+          tapHaptic();
+          onBack();
+        }}
+        aria-label="Retour"
+      >
+        <ChevronLeftIcon size={18} />
+        <span className="prier-header-label">{label}</span>
+      </button>
+    ) : (
+      <span className="prier-header-label">{label}</span>
+    )}
 
     <div className="prier-header-actions">
       {roman && <span className="prier-header-roman">{roman}</span>}

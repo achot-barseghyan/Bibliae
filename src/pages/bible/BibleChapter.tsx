@@ -4,7 +4,8 @@ import { IonContent, IonPage } from '@ionic/react';
 import { AnimatePresence } from 'framer-motion';
 import { getBook, getCategory } from '../../data/bible';
 import { useChapterVerses } from '../../hooks/useChapterVerses';
-import { BookIcon, ChevronLeftIcon, ChevronRightIcon } from '../../components/nav/icons';
+import { ChevronLeftIcon, ChevronRightIcon } from '../../components/nav/icons';
+import WorldButton from '../../components/nav/WorldButton';
 import { tapHaptic } from '../../utils/haptics';
 import { useAccessibility } from '../../hooks/useAccessibility';
 import { useAnnotations } from '../../hooks/useAnnotations';
@@ -407,7 +408,8 @@ const BibleChapter: React.FC = () => {
     return (
       <IonPage>
         <IonContent fullscreen className="bible-chapter-content">
-          <BibleHeader title="Chapitre introuvable" backIcon="chevron" onBack={() => navigate(-1)} />
+          <BibleHeader title="Chapitre introuvable" onBack={() => navigate(-1)} />
+          <WorldButton />
         </IonContent>
       </IonPage>
     );
@@ -422,7 +424,6 @@ const BibleChapter: React.FC = () => {
       <IonContent fullscreen className="bible-chapter-content" ref={ionContentRef}>
         <BibleHeader
           accent
-          backIcon="chevron"
           onBack={() => navigate(-1)}
           onTitleClick={() => setIsChapterPickerOpen(true)}
           notesCount={chapterNotes.length}
@@ -433,7 +434,9 @@ const BibleChapter: React.FC = () => {
         <div className="bible-chapter-body">
           <p className="bible-chapter-kicker">{category.label}</p>
           <h1 className="bible-chapter-title">{book.name}</h1>
-          <p className="bible-chapter-subtitle">Chapitre {chapterNumber}</p>
+          <p className="bible-chapter-subtitle">
+            Chapitre {chapterNumber} sur {book.chapters}
+          </p>
           <p className="bible-chapter-source">
             Texte basé sur la Bible Crampon 1923, adapté et modernisé pour cette application
           </p>
@@ -511,21 +514,10 @@ const BibleChapter: React.FC = () => {
             </span>
           </button>
 
-          <button
-            type="button"
-            className="bible-chapter-pager-center"
-            onClick={() => {
-              tapHaptic();
-              setIsChapterPickerOpen(true);
-            }}
-            aria-haspopup="dialog"
-            aria-label="Choisir un chapitre"
-          >
-            <BookIcon size={18} />
-            <span className="bible-chapter-pager-progress">
-              {chapterNumber} / {book.chapters}
-            </span>
-          </button>
+          {/* Laisse passer le bas de la rosace (WorldButton), qui déborde
+              au-dessus de sa barre. Le choix du chapitre reste accessible
+              depuis le titre de l'en-tête. */}
+          <span className="bible-chapter-pager-center" aria-hidden="true" />
 
           <button
             type="button"
@@ -666,6 +658,7 @@ const BibleChapter: React.FC = () => {
             />
           )}
         </AnimatePresence>
+        <WorldButton spacer={false} />
       </IonContent>
     </IonPage>
   );

@@ -14,8 +14,10 @@ import FamilyTree from './FamilyTree';
 import ScriptureRefChip from './ScriptureRefChip';
 import VersePreviewSheet from './VersePreviewSheet';
 import CouncilPreviewSheet from './CouncilPreviewSheet';
+import FigureSearch from './FigureSearch';
 import { tapHaptic } from '../../utils/haptics';
 import './FigureDetail.css';
+import WorldButton from '../../components/nav/WorldButton';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
 
@@ -33,6 +35,7 @@ const FigureDetail: React.FC = () => {
   const { isBookmarked, toggle } = useBookmarks();
   const [activeRef, setActiveRef] = useState<ScriptureRef | null>(null);
   const [activeCouncil, setActiveCouncil] = useState<Council | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const figure = figures.find((f) => f.id === figureId);
 
@@ -54,6 +57,7 @@ const FigureDetail: React.FC = () => {
             </button>
           </header>
           <p className="figure-detail-not-found">Figure introuvable.</p>
+          <WorldButton />
         </IonContent>
       </IonPage>
     );
@@ -204,7 +208,15 @@ const FigureDetail: React.FC = () => {
           >
             <BookmarkIcon size={19} filled={isBookmarked(figureBookmarkKey)} />
           </button>
-          <button type="button" className="figure-detail-header-button" aria-label="Rechercher">
+          <button
+            type="button"
+            className="figure-detail-header-button"
+            onClick={() => {
+              tapHaptic();
+              setIsSearchOpen(true);
+            }}
+            aria-label="Rechercher"
+          >
             <SearchIcon size={19} />
           </button>
         </div>
@@ -293,6 +305,10 @@ const FigureDetail: React.FC = () => {
           <CouncilPreviewSheet council={activeCouncil} onClose={() => setActiveCouncil(null)} />
         )}
       </AnimatePresence>
+      <AnimatePresence>
+        {isSearchOpen && <FigureSearch figures={figures} onClose={() => setIsSearchOpen(false)} />}
+      </AnimatePresence>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

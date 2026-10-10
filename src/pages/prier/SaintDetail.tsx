@@ -8,6 +8,7 @@ import { SparkleIcon } from '../../components/nav/icons';
 import PrierHeader from './PrierHeader';
 import PrierSearch from './PrierSearch';
 import './SaintDetail.css';
+import WorldButton from '../../components/nav/WorldButton';
 
 const SaintDetail: React.FC = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const SaintDetail: React.FC = () => {
           <AnimatePresence>
             {isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}
           </AnimatePresence>
+          <WorldButton />
         </IonContent>
       </IonPage>
     );
@@ -76,6 +78,7 @@ const SaintDetail: React.FC = () => {
         <AnimatePresence>
           {isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}
         </AnimatePresence>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

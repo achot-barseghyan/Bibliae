@@ -9,28 +9,6 @@
   padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 0;
 }
 
-.rosaire-close {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-oxblood);
-  border: none;
-  color: var(--color-papier);
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.rosaire-close:active {
-  transform: scale(0.94);
-}
-
-.rosaire-close:focus-visible {
-  outline: 2px solid var(--color-oxblood);
-  outline-offset: 2px;
-}
-
 .rosaire-reset {
   height: 36px;
   display: flex;
@@ -251,7 +229,8 @@ button.rosaire-mystery-title:focus-visible {
   position: fixed;
   z-index: 2;
   right: 16px;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  /* Au-dessus de la barre rosace (WorldButton). */
+  bottom: calc(var(--rosace-bar-h) + 12px);
   display: flex;
   flex-direction: column;
   gap: 8px;

@@ -4,6 +4,7 @@ import { useRemoteCatechismRange } from '../hooks/content/useRemoteCatechisme';
 import { ChevronLeftIcon } from '../components/nav/icons';
 import { tapHaptic } from '../utils/haptics';
 import './Catechisme.css';
+import WorldButton from '../components/nav/WorldButton';
 
 const Catechisme: React.FC = () => {
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ const Catechisme: React.FC = () => {
             </div>
           )}
         </div>
+        <WorldButton />
       </IonContent>
     </IonPage>
   );

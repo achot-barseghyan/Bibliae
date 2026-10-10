@@ -1,0 +1,4 @@
+/* Barre rosace pleine (--rosace-bar-h) + la rosace qui dépasse au-dessus. */
+.world-button-spacer {
+  height: calc(var(--rosace-bar-h) + 40px);
+}

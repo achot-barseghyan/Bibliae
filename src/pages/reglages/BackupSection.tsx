@@ -3,7 +3,9 @@ import { AnimatePresence } from 'framer-motion';
 import { exportAppData } from '../../services/backupExport';
 import { pickImportFile, readAndValidateImportFile, type ImportValidationError } from '../../services/backupImport';
 import { mergeAppData, replaceAppData, type AppData } from '../../services/appDataStore';
+import { eraseAllUserData } from '../../services/eraseUserData';
 import ImportChoiceSheet from './ImportChoiceSheet';
+import EraseDataSheet from './EraseDataSheet';
 import './BackupSection.css';
 
 type Banner = { kind: 'success' | 'error'; message: string };
@@ -24,6 +26,14 @@ const BackupSection: React.FC = () => {
   const [isImporting, setIsImporting] = useState(false);
   const [pendingImport, setPendingImport] = useState<{ data: AppData; bookmarksCount: number } | null>(null);
   const [banner, setBanner] = useState<Banner | null>(null);
+  const [isEraseConfirmOpen, setIsEraseConfirmOpen] = useState(false);
+
+  const handleEraseChoice = async (choice: 'erase' | 'cancel') => {
+    setIsEraseConfirmOpen(false);
+    if (choice === 'cancel') return;
+    await eraseAllUserData();
+    setBanner({ kind: 'success', message: 'Toutes vos données ont été effacées.' });
+  };
 
   const handleExport = async () => {
     setBanner(null);
@@ -80,10 +90,11 @@ const BackupSection: React.FC = () => {
 
   return (
     <section className="backup-section">
-      <h2 className="backup-section-title">Sauvegarde</h2>
+      <h2 className="backup-section-title">Mes données</h2>
       <p className="backup-section-description">
-        Vos favoris et réglages restent sur cet appareil. Exportez-les avant de changer de
-        téléphone pour les retrouver ensuite, sur Android comme sur iOS.
+        Vos favoris, notes, surlignages, progression et réglages restent sur cet appareil.
+        Exportez-les avant de changer de téléphone pour les retrouver ensuite, sur Android comme
+        sur iOS.
       </p>
 
       {banner && (
@@ -106,7 +117,20 @@ const BackupSection: React.FC = () => {
       >
         {isImporting ? 'Sélection en cours…' : 'Importer mes données'}
       </button>
+      <button
+        type="button"
+        className="backup-button backup-button--danger"
+        onClick={() => {
+          setBanner(null);
+          setIsEraseConfirmOpen(true);
+        }}
+      >
+        Effacer toutes mes données
+      </button>
 
+      <AnimatePresence>
+        {isEraseConfirmOpen && <EraseDataSheet onChoice={handleEraseChoice} />}
+      </AnimatePresence>
       <AnimatePresence>
         {pendingImport && (
           <ImportChoiceSheet bookmarksCount={pendingImport.bookmarksCount} onChoice={handleChoice} />
