@@ -40,7 +40,7 @@ const APropos: React.FC = () => {
           <ul className="info-page-list">
             <li className="info-page-list-item">
               <p className="info-page-list-title">Compendium</p>
-              <p className="info-page-list-desc">Figures, lieux, frise et Église : l'index de la Bible.</p>
+              <p className="info-page-list-desc">Figures, événements, frise et Église : l'index de la Bible.</p>
             </li>
             <li className="info-page-list-item">
               <p className="info-page-list-title">La Bible</p>

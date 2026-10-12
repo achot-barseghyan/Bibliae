@@ -16,6 +16,7 @@ import WorldButton from '../../components/nav/WorldButton';
 import BibleHeader from './BibleHeader';
 import ParcoursBandeau from './ParcoursBandeau';
 import ParcoursSelectorSheet from './ParcoursSelectorSheet';
+import PlanCard from './PlanCard';
 import { ChevronRightIcon } from '../../components/nav/icons';
 import './BibleIndex.css';
 
@@ -69,7 +70,8 @@ const BibleIndex: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent fullscreen className="bible-index-content">
+      <IonContent fullscreen scrollY={false} className="bible-index-content">
+        <div className="bible-index-layout">
         <BibleHeader
           title="La Bible"
         />
@@ -97,6 +99,9 @@ const BibleIndex: React.FC = () => {
 
         <div className="bible-index-body">
           <div className="bible-index-list" ref={scrollRef}>
+            <div className="bible-index-plan">
+              <PlanCard />
+            </div>
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={testament}
@@ -180,6 +185,7 @@ const BibleIndex: React.FC = () => {
               </button>
             ))}
           </div>
+        </div>
         </div>
 
         <AnimatePresence>

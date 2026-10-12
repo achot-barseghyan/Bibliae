@@ -8,6 +8,16 @@
   margin: 0;
 }
 
+/* Passage ouvert depuis un lien (pastille de référence d'une fiche) :
+   un filet or et un fond léger, sans toucher aux annotations. */
+.verse-block.is-focused {
+  margin: 0 0 0 -12px;
+  padding: 0 0 12px 10px;
+  border-left: 2px solid var(--color-or);
+  background: linear-gradient(to right, rgba(181, 137, 46, 0.1), rgba(181, 137, 46, 0.03));
+  scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 96px);
+}
+
 /* Numéro de verset : il sélectionne le verset entier, d'où une cible tactile
    élargie par du rembourrage (sans décaler le texte). */
 .bible-chapter-verse-number.verse-number-target {
@@ -15,13 +25,15 @@
   padding: 6px 4px 6px 0;
   margin: -6px 0;
   font-weight: 600;
-  color: var(--annot-solid-or);
+  color: var(--bible-accent);
   cursor: pointer;
-  transition: color 0.15s;
 }
 
 .bible-chapter-verse-number.verse-number-target.is-selected {
-  color: var(--bible-accent);
+  /* Le numéro est déjà en oxblood : la sélection du verset se lit au soulignement. */
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
 }
 
 /* Couleurs de surlignage à ~75 % d'opacité (hex + C0), fond continu sur les

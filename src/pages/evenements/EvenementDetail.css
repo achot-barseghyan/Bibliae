@@ -1,0 +1,1052 @@
+/* Fiche événement — palette fixe (pas de mode sombre en v1). */
+
+.evd-content {
+  --background: #efe7d3;
+}
+
+.evd-page {
+  --evd-papier: #efe7d3;
+  --evd-carte: #f4eddc;
+  --evd-bande: #e4d9bc;
+  --evd-encre: #23201a;
+  --evd-oxblood: #6b1e23;
+  --evd-or: #b5892e;
+  --evd-or-clair: #d9b66a;
+  --evd-or-pale: #f0d58e;
+  --evd-nuit: #1b2640;
+  --evd-nuit-2: #2e3f60;
+  --evd-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --evd-draw-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background: var(--evd-papier);
+  color: var(--evd-encre);
+  overflow-x: clip;
+  -webkit-touch-callout: none;
+}
+
+.evd-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+}
+
+.evd-art.is-flipped {
+  transform: scaleX(-1);
+}
+
+/* --- Étoiles --- */
+
+.evd-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.evd-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff8e6;
+  box-shadow: 0 0 4px rgba(255, 248, 230, 0.9);
+  animation: evd-twinkle 3s ease-in-out infinite;
+}
+
+/* --- 1. En-tête --- */
+
+.evd-hero {
+  position: relative;
+  height: 404px;
+  overflow: hidden;
+  background: var(--evd-nuit);
+  transition: clip-path 650ms var(--evd-ease);
+}
+
+.evd-hero-parallax {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.evd-hero-zoom {
+  position: absolute;
+  /* Agrandie au-delà du cadre : les bords déchirés de l'illustration
+     restent hors champ. */
+  inset: -7%;
+  background-size: cover;
+  background-position: center 40%;
+  animation: evd-zoom 22s ease-in-out infinite alternate;
+}
+
+.evd-hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.evd-hero-glow.is-star {
+  width: 220px;
+  height: 220px;
+  margin: -110px 0 0 -110px;
+  transform: none;
+  background: radial-gradient(circle, rgba(255, 244, 214, 0.55) 0%, rgba(240, 213, 142, 0.2) 35%, transparent 68%);
+  animation: evd-pulse 5.5s ease-in-out infinite;
+}
+
+.evd-hero-glow.is-warm {
+  width: 200px;
+  height: 120px;
+  margin: -60px 0 0 -100px;
+  transform: none;
+  background: radial-gradient(closest-side, rgba(255, 190, 110, 0.55), transparent);
+  animation: evd-pulse 3.2s ease-in-out infinite;
+}
+
+.evd-hero-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 90px;
+  background: linear-gradient(to bottom, rgba(239, 231, 211, 0), var(--evd-papier));
+  pointer-events: none;
+}
+
+/* Agrandissement de la carte de la liste : son illustration s'efface au
+   profit de celle de l'en-tête pendant que l'arche s'ouvre. */
+.evd-morph-card {
+  position: absolute;
+  inset: -9%;
+  background-size: cover;
+  background-position: center;
+  opacity: 1;
+  transition-property: opacity;
+  transition-timing-function: ease-in;
+}
+
+.evd-page.is-morphing .evd-morph-card {
+  opacity: 0;
+}
+
+.evd-body {
+  position: relative;
+  transition: opacity 500ms ease-out 150ms, transform 600ms var(--evd-ease) 150ms;
+}
+
+.evd-page.is-morph-start .evd-body,
+.evd-page.is-morphing .evd-body {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.evd-page.is-morphing .evd-body {
+  transition-delay: 0ms;
+}
+
+/* --- 2. Barre du haut --- */
+
+.evd-bar {
+  --evd-bar-p: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 8px) 12px 8px 6px;
+  color: #f4eddc;
+  pointer-events: none;
+}
+
+.evd-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #efe7d3;
+  border-bottom: 1px solid rgba(35, 32, 26, 0.16);
+  opacity: var(--evd-bar-p);
+}
+
+.evd-bar > * {
+  position: relative;
+  pointer-events: auto;
+}
+
+.evd-bar-back {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 44px;
+  padding: 0 8px 0 4px;
+  border: none;
+  background: none;
+  color: inherit;
+  font-family: var(--font-inter);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.evd-bar-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: inherit;
+  opacity: 0.85;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.evd-bar-icon:active {
+  transform: scale(0.9);
+}
+
+.evd-bar-icon.is-active {
+  opacity: 1;
+}
+
+/* --- Apparitions (une fois, au défilement) --- */
+
+.evd-rise {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 900ms var(--evd-ease), transform 1100ms var(--evd-ease);
+}
+
+.evd-rise.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.evd-draw {
+  fill: none;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1600ms var(--evd-draw-ease);
+}
+
+.is-in .evd-draw,
+.evd-draw.is-in {
+  stroke-dashoffset: 0;
+}
+
+/* --- Titres de section --- */
+
+.evd-section-title {
+  text-align: center;
+  padding: 0 28px;
+  margin-bottom: 28px;
+}
+
+.evd-section-title h2 {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(30px * var(--a11y-scale));
+  line-height: 1.1;
+  margin: 0;
+}
+
+.evd-section-title p {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: calc(18px * var(--a11y-scale));
+  color: var(--evd-oxblood);
+  margin: 4px 0 0;
+}
+
+/* --- 3. Titre --- */
+
+.evd-title-block {
+  position: relative;
+  margin-top: -36px;
+  padding: 0 28px;
+  text-align: center;
+}
+
+.evd-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--evd-oxblood);
+  margin: 0 0 10px;
+}
+
+.evd-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(48px * var(--a11y-scale));
+  line-height: 1.02;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.evd-refs {
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(17px * var(--a11y-scale));
+  color: rgba(35, 32, 26, 0.7);
+  margin: 10px 0 0;
+}
+
+.evd-rule {
+  display: flex;
+  justify-content: center;
+  margin: 22px 0 0;
+}
+
+.evd-rule svg {
+  overflow: visible;
+}
+
+.evd-rule path.evd-draw {
+  stroke: var(--evd-or);
+  stroke-width: 0.8;
+}
+
+.evd-rule-star {
+  fill: var(--evd-or);
+  transform-origin: 110px 10px;
+  transform: scale(0) rotate(-90deg);
+  transition: transform 900ms var(--evd-ease) 700ms;
+}
+
+.evd-rule.is-in .evd-rule-star {
+  transform: none;
+}
+
+/* --- 4. Repères --- */
+
+.evd-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 30px 22px 0;
+}
+
+.evd-fact {
+  position: relative;
+  padding: 14px 14px 13px;
+  border-radius: 12px;
+  background: var(--evd-carte);
+  border: 1px solid rgba(181, 137, 46, 0.45);
+  box-shadow: inset 0 0 0 3px var(--evd-carte), inset 0 0 0 4px rgba(181, 137, 46, 0.18);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 800ms var(--evd-ease), transform 900ms var(--evd-ease);
+}
+
+.evd-facts.is-in .evd-fact {
+  opacity: 1;
+  transform: none;
+}
+
+.evd-fact dt {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--evd-or);
+  margin-bottom: 6px;
+}
+
+.evd-fact dd {
+  margin: 0;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(17px * var(--a11y-scale));
+  line-height: 1.2;
+}
+
+/* --- 5. Le récit --- */
+
+.evd-story-section {
+  margin-top: 56px;
+}
+
+.evd-story {
+  position: relative;
+}
+
+.evd-thread {
+  position: absolute;
+  left: 4px;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.evd-thread path {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.evd-thread-base {
+  stroke: rgba(181, 137, 46, 0.18);
+  stroke-width: 1;
+}
+
+.evd-thread-line {
+  stroke: var(--evd-or);
+  stroke-width: 1.4;
+}
+
+.evd-node {
+  position: absolute;
+  left: 20px;
+  z-index: 3;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 1;
+  color: rgba(35, 32, 26, 0.3);
+  background: var(--evd-papier);
+  border-radius: 50%;
+  transition: color 400ms ease, transform 500ms var(--evd-ease);
+}
+
+.evd-node.is-reached {
+  color: var(--evd-or);
+  transform: scale(1.35);
+}
+
+.evd-tableau {
+  position: relative;
+  padding: 0 24px 64px 44px;
+}
+
+.evd-tableau-stage {
+  position: relative;
+  height: 300px;
+}
+
+.evd-numeral {
+  position: absolute;
+  top: -18px;
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+  font-size: 150px;
+  line-height: 1;
+  color: rgba(181, 137, 46, 0.13);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.evd-tableau.is-left .evd-numeral {
+  left: -12px;
+}
+
+.evd-tableau.is-right .evd-numeral {
+  right: -8px;
+}
+
+/* Halo : deux dégradés radiaux (pas de filtre de flou, plus économe). */
+.evd-glow {
+  position: absolute;
+  inset: -6% -10%;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 1400ms var(--evd-ease), transform 1600ms var(--evd-ease);
+}
+
+.is-in > .evd-glow {
+  opacity: 1;
+  transform: none;
+}
+
+.evd-layers {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.evd-layer {
+  --evd-layer-opacity: 1;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1200ms var(--evd-ease), transform 1400ms var(--evd-ease);
+}
+
+.evd-enter-left {
+  transform: translateX(-48px);
+}
+
+.evd-enter-right {
+  transform: translateX(48px);
+}
+
+.evd-enter-up {
+  transform: translateY(24px) scale(0.94);
+}
+
+.evd-enter-float {
+  transform: translateY(16px);
+}
+
+.is-in .evd-layer {
+  opacity: var(--evd-layer-opacity);
+  transform: none;
+}
+
+.is-in .evd-enter-float > .evd-art {
+  animation: evd-float 6s ease-in-out 1.4s infinite;
+}
+
+.evd-tableau-text {
+  position: relative;
+  margin-top: 18px;
+  text-align: center;
+}
+
+.evd-place {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--evd-or);
+  margin: 0 0 6px;
+}
+
+.evd-tableau-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(29px * var(--a11y-scale));
+  line-height: 1.1;
+  margin: 0 0 12px;
+}
+
+.evd-quote {
+  margin: 0 0 16px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(17px * var(--a11y-scale));
+  line-height: 1.5;
+  color: rgba(35, 32, 26, 0.86);
+}
+
+.evd-quote-mark {
+  font-family: var(--font-cormorant);
+  font-style: normal;
+  font-size: 30px;
+  line-height: 0;
+  vertical-align: -0.28em;
+  color: var(--evd-or);
+  margin: 0 4px;
+}
+
+.evd-ref-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(107, 30, 35, 0.55);
+  background: none;
+  color: var(--evd-oxblood);
+  font-family: var(--font-inter);
+  font-size: calc(11px * var(--a11y-scale));
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.evd-ref-pill:active {
+  background: rgba(107, 30, 35, 0.08);
+  transform: scale(0.97);
+}
+
+.evd-ref-pill.is-dark {
+  border-color: rgba(240, 213, 142, 0.6);
+  color: var(--evd-or-pale);
+}
+
+/* --- 6. Chant des anges --- */
+
+.evd-chorus {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 64px;
+  padding: 96px 32px 96px 44px;
+  text-align: center;
+  color: #f4eddc;
+  /* Se fond dans le papier en haut et en bas. */
+  background: linear-gradient(
+    to bottom,
+    var(--evd-papier) 0%,
+    var(--evd-nuit) 18%,
+    var(--evd-nuit-2) 58%,
+    var(--evd-nuit) 82%,
+    var(--evd-papier) 100%
+  );
+}
+
+.evd-chorus .evd-stars {
+  inset: 10% 0;
+}
+
+.evd-chorus-angel {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 18px;
+}
+
+.evd-chorus-halo {
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(240, 213, 142, 0.45), rgba(240, 213, 142, 0.12) 55%, transparent);
+  animation: evd-pulse 5s ease-in-out infinite;
+}
+
+.evd-float {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: evd-float 6s ease-in-out infinite;
+}
+
+.evd-chorus-label {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--evd-or-clair);
+  margin: 0 0 14px;
+}
+
+.evd-chorus-quote {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: calc(25px * var(--a11y-scale));
+  line-height: 1.35;
+  margin: 0 0 22px;
+}
+
+.evd-word {
+  opacity: 0.14;
+  transition: opacity 500ms ease;
+}
+
+.evd-word.is-lit {
+  opacity: 1;
+}
+
+/* --- 7. Personnages --- */
+
+.evd-band {
+  margin-top: 8px;
+  padding: 56px 20px 60px;
+  background: var(--evd-bande);
+}
+
+.evd-characters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 30px;
+  column-gap: 12px;
+}
+
+.evd-character {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 900ms var(--evd-ease), transform 1000ms var(--evd-ease);
+}
+
+.evd-character.is-link {
+  cursor: pointer;
+}
+
+.evd-characters.is-in .evd-character {
+  opacity: 1;
+  transform: none;
+}
+
+.evd-medallion {
+  position: relative;
+  width: 118px;
+  height: 118px;
+  margin-bottom: 12px;
+}
+
+.evd-medallion-face {
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, #f7efdc, #e8dcc0);
+}
+
+/* Le point (x, y) % de l'illustration est placé au centre du médaillon. */
+.evd-medallion-face .evd-art {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: auto;
+  max-width: none;
+}
+
+.evd-medallion-ring {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.evd-medallion-ring circle {
+  stroke: var(--evd-or);
+  stroke-width: 1.2;
+  transform: rotate(-90deg);
+  transform-origin: 60px 60px;
+}
+
+.evd-characters.is-in .evd-draw {
+  stroke-dashoffset: 0;
+}
+
+.evd-character-name {
+  font-family: var(--font-cormorant);
+  font-weight: 600;
+  font-size: calc(20px * var(--a11y-scale));
+  line-height: 1.1;
+}
+
+.evd-character-role {
+  margin-top: 3px;
+  font-family: var(--font-inter);
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(35, 32, 26, 0.6);
+}
+
+/* --- 8. Le chemin --- */
+
+.evd-route-section {
+  padding: 60px 22px 0;
+}
+
+.evd-route-frame {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(181, 137, 46, 0.45);
+  background-color: var(--evd-carte);
+  background-image: linear-gradient(rgba(181, 137, 46, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(181, 137, 46, 0.14) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.evd-route-map {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 300px;
+  height: 200px;
+  transform-origin: 0 0;
+}
+
+.evd-route-svg {
+  position: absolute;
+  inset: 0;
+  width: 300px;
+  height: 200px;
+  overflow: visible;
+}
+
+.evd-route-dashed {
+  fill: none;
+  stroke: rgba(107, 30, 35, 0.35);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.evd-route-line {
+  fill: none;
+  stroke: var(--evd-oxblood);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 3200ms ease-in-out 300ms;
+}
+
+.evd-route.is-in .evd-route-line {
+  stroke-dashoffset: 0;
+}
+
+.evd-route-point {
+  fill: var(--evd-carte);
+  stroke: var(--evd-oxblood);
+  stroke-width: 1.4;
+}
+
+.evd-route-point.is-end {
+  fill: var(--evd-oxblood);
+}
+
+.evd-route-walker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 42px;
+  height: 42px;
+  offset-rotate: 0deg;
+  offset-anchor: 50% 85%;
+  offset-distance: 0%;
+  transition: offset-distance 3200ms ease-in-out 300ms;
+}
+
+.evd-route.is-in .evd-route-walker {
+  offset-distance: 100%;
+}
+
+.evd-route-label {
+  position: absolute;
+  margin: 0;
+  transform: translate(-112%, -50%);
+  text-align: right;
+  line-height: 1.1;
+}
+
+.evd-route-label.is-end {
+  transform: translate(-118%, -30%);
+}
+
+.evd-route-label strong {
+  display: block;
+  font-family: var(--font-cormorant);
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.evd-route-label span {
+  font-family: var(--font-inter);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(35, 32, 26, 0.55);
+}
+
+.evd-route-caption {
+  margin: 12px 0 0;
+  text-align: center;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(16px * var(--a11y-scale));
+  color: rgba(35, 32, 26, 0.7);
+}
+
+/* --- 9. La crèche --- */
+
+.evd-scene-section {
+  padding: 64px 22px 0;
+}
+
+.evd-scene {
+  position: relative;
+  height: 300px;
+}
+
+.evd-scene-glow {
+  inset: -4% 6% 0;
+  background: radial-gradient(closest-side, rgba(240, 213, 142, 0.6), rgba(217, 182, 106, 0.18) 60%, transparent);
+}
+
+.evd-scene-text {
+  margin-top: 16px;
+  text-align: center;
+}
+
+/* --- 10. Dans la liturgie --- */
+
+.evd-liturgy-section {
+  padding: 64px 22px 0;
+}
+
+.evd-liturgy {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+.evd-liturgy-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 88px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 800ms var(--evd-ease), transform 900ms var(--evd-ease);
+}
+
+.evd-liturgy.is-in .evd-liturgy-day {
+  opacity: 1;
+  transform: none;
+}
+
+.evd-liturgy-pill {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--evd-carte);
+  border: 1px solid rgba(181, 137, 46, 0.5);
+}
+
+.evd-liturgy-pill strong {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.evd-liturgy-pill span {
+  font-family: var(--font-inter);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(35, 32, 26, 0.6);
+}
+
+.evd-liturgy-day.is-main .evd-liturgy-pill {
+  background: var(--evd-oxblood);
+  border-color: var(--evd-oxblood);
+  box-shadow: 0 8px 18px -8px rgba(107, 30, 35, 0.6);
+}
+
+.evd-liturgy-day.is-main .evd-liturgy-pill strong,
+.evd-liturgy-day.is-main .evd-liturgy-pill span {
+  color: var(--evd-or-pale);
+}
+
+.evd-liturgy-label {
+  margin-top: 10px;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(17px * var(--a11y-scale));
+}
+
+.evd-liturgy-day.is-main .evd-liturgy-label {
+  color: var(--evd-oxblood);
+  font-weight: 600;
+}
+
+/* --- 11. Pied de page --- */
+
+.evd-footer {
+  padding: 64px 28px calc(env(safe-area-inset-bottom, 0px) + 48px);
+  text-align: center;
+  font-family: var(--font-inter);
+  font-size: calc(11px * var(--a11y-scale));
+  letter-spacing: 0.04em;
+  color: rgba(35, 32, 26, 0.55);
+}
+
+.evd-footer p {
+  margin: 6px 0 0;
+}
+
+.evd-footer a {
+  color: var(--evd-oxblood);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.evd-footer-star {
+  display: block;
+  font-size: 16px;
+  color: var(--evd-or);
+  margin-bottom: 10px;
+}
+
+/* --- Animations d'ambiance --- */
+
+@keyframes evd-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.09);
+  }
+}
+
+@keyframes evd-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes evd-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes evd-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* --- Réduire les animations : tout est affiché d'emblée, sans boucle ni
+   parallaxe ; le fil, les tracés et le chant des anges sont complets. --- */
+
+.evd-page.is-reduced *,
+.evd-page.is-reduced *::before,
+.evd-page.is-reduced *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.evd-page.is-reduced .evd-route-walker {
+  offset-distance: 100%;
+}

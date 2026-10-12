@@ -1,0 +1,592 @@
+.ev-content {
+  --background: var(--color-papier);
+}
+
+.ev-page {
+  --ev-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ev-gold: #b5892e;
+  display: flex;
+  flex-direction: column;
+  /* Hauteur de l'écran : la scène prend ce qui reste, pour que la frise
+     reste visible au-dessus de la barre d'onglets. */
+  height: 100%;
+  /* Le contenu s'arrête déjà au-dessus de la barre d'onglets : on ne
+     laisse que la place du dôme de la rosace. */
+  padding: calc(env(safe-area-inset-top, 0px) + 28px) 0 40px;
+  box-sizing: border-box;
+  overflow-x: clip;
+}
+
+/* --- En-tête --- */
+
+.ev-header {
+  flex: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 28px;
+}
+
+.ev-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: var(--tracking-max);
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+  margin: 0 0 6px;
+}
+
+.ev-title {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: calc(44px * var(--a11y-scale));
+  line-height: 1;
+  color: var(--color-encre);
+  margin: 0;
+}
+
+.ev-counter {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: calc(20px * var(--a11y-scale));
+  color: var(--encre-60);
+  margin: 0 0 6px;
+}
+
+.ev-counter-current {
+  color: var(--color-or);
+}
+
+.ev-counter-sep {
+  margin: 0 1px;
+}
+
+/* --- Carrousel --- */
+
+.ev-stage {
+  --ev-s: 1;
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 266px;
+  max-height: 456px;
+  margin-top: 16px;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  cursor: grab;
+  outline: none;
+}
+
+.ev-stage.is-dragging {
+  cursor: grabbing;
+}
+
+.ev-card-slot {
+  position: absolute;
+  top: calc(12px * var(--ev-s));
+  left: 0;
+  width: calc(272px * var(--ev-s));
+  height: calc(404px * var(--ev-s));
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+}
+
+.ev-card-enter {
+  width: 100%;
+  height: 100%;
+}
+
+.ev-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(136px * var(--ev-s)) calc(136px * var(--ev-s)) 16px 16px;
+  border: 1px solid rgba(181, 137, 46, 0.7);
+  box-shadow: 0 18px 32px -14px rgba(35, 32, 26, 0.45), 0 4px 10px rgba(35, 32, 26, 0.12);
+  overflow: hidden;
+  isolation: isolate;
+  box-sizing: border-box;
+}
+
+/* Second liseré, à 7 px du bord. */
+.ev-card::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(181, 137, 46, 0.45);
+  border-radius: calc(136px * var(--ev-s) - 7px) calc(136px * var(--ev-s) - 7px) 10px 10px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Illustration ou chiffre : déborde de la carte pour la parallaxe. */
+.ev-card-art {
+  position: absolute;
+  inset: 0 -40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  will-change: transform;
+}
+
+.ev-card-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+}
+
+.ev-card-rays {
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  width: 640px;
+  height: 640px;
+  margin: -320px 0 0 -320px;
+  background: repeating-conic-gradient(from 0deg, var(--ev-glow) 0deg 4deg, transparent 4deg 22deg);
+  opacity: 0.22;
+  -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 62%);
+  mask-image: radial-gradient(circle, #000 0%, transparent 62%);
+  animation: ev-rotate 40s linear infinite;
+}
+
+.ev-card-glow {
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  width: 300px;
+  height: 300px;
+  margin: -150px 0 0 -150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--ev-glow) 0%, transparent 65%);
+  animation: ev-breathe 6s ease-in-out infinite;
+}
+
+.ev-card-numeral {
+  position: relative;
+  margin-top: calc(108px * var(--ev-s));
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+  font-size: calc(120px * var(--ev-s));
+  line-height: 1;
+  color: var(--ev-ink);
+}
+
+.ev-card-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ev-card-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff8e6;
+  box-shadow: 0 0 4px rgba(255, 248, 230, 0.9);
+  animation: ev-twinkle 3s ease-in-out infinite;
+}
+
+.ev-card-feast {
+  position: absolute;
+  /* Plus bas dans l'arche, là où elle est assez large ; sur une carte
+     réduite, la date passe à la ligne plutôt que d'être coupée. */
+  top: calc(58px * var(--ev-s));
+  left: 50%;
+  z-index: 3;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(204px * var(--ev-s));
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 14px;
+  background: rgba(247, 241, 226, 0.9);
+  font-family: var(--font-inter);
+  font-size: calc(10px * (0.7 + 0.3 * var(--ev-s)));
+  line-height: 1.3;
+  color: #23201a;
+  box-sizing: border-box;
+}
+
+.ev-card-feast-text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.3em;
+  text-align: center;
+}
+
+.ev-card-feast-text > span {
+  white-space: nowrap;
+}
+
+.ev-card-feast-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ev-gold);
+  animation: ev-pulse 2s ease-in-out infinite;
+}
+
+.ev-card-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: calc(72px * var(--ev-s)) 18px calc(30px * var(--ev-s));
+  text-align: center;
+  background: linear-gradient(to bottom, transparent 0%, var(--ev-fade) 58%);
+}
+
+.ev-card-period {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9.5px * (0.6 + 0.4 * var(--ev-s)));
+  letter-spacing: calc(var(--tracking-max) * var(--ev-s));
+  white-space: nowrap;
+  text-transform: uppercase;
+  color: var(--ev-kicker);
+  margin: 0 0 calc(10px * var(--ev-s));
+}
+
+.ev-card-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(31px * var(--ev-s));
+  line-height: 1.08;
+  color: var(--ev-ink);
+  text-wrap: balance;
+  margin: 0;
+}
+
+/* --- Panneau d'info --- */
+
+.ev-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: none;
+  gap: 14px;
+  padding: 0 28px;
+  animation: ev-rise-10 500ms var(--ev-ease) both;
+}
+
+.ev-info-refs {
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(17px * var(--a11y-scale));
+  color: var(--encre-72);
+  text-align: center;
+  margin: 0;
+}
+
+.ev-open,
+.ev-soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-family: var(--font-inter);
+  font-size: calc(14px * var(--a11y-scale));
+  box-sizing: border-box;
+}
+
+.ev-open {
+  border: none;
+  background: var(--color-oxblood);
+  color: #f4eddc;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.ev-open:active {
+  transform: scale(0.97);
+}
+
+.ev-open-sep {
+  width: 1px;
+  height: 16px;
+  background: rgba(244, 237, 220, 0.35);
+}
+
+.ev-open-count {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: calc(17px * var(--a11y-scale));
+  color: #f0d58e;
+}
+
+.ev-soon {
+  border: 1px solid var(--filet-barres);
+  color: var(--encre-72);
+  cursor: default;
+}
+
+/* --- Frise --- */
+
+.ev-frise {
+  flex: none;
+  margin: 26px 34px 0;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ev-frise-ends {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-inter);
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--encre-50);
+  margin-bottom: 14px;
+}
+
+.ev-frise-track {
+  position: relative;
+  height: 32px;
+}
+
+.ev-frise-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 0.5px solid var(--encre-45);
+}
+
+.ev-frise-split {
+  position: absolute;
+  top: 50%;
+  height: 16px;
+  margin-top: -8px;
+  border-left: 0.5px solid var(--encre-60);
+}
+
+.ev-frise-dot {
+  position: absolute;
+  top: 0;
+  width: 28px;
+  height: 32px;
+  margin-left: -14px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.ev-frise-dot::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: var(--encre-42);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.ev-frise-dot.is-active::before {
+  background: var(--color-or);
+  transform: scale(1.25);
+}
+
+/* Le rail occupe toute la frise et glisse de x % de sa largeur : son bord
+   gauche (où sont posés l'anneau et le libellé) arrive sur le point actif. */
+.ev-frise-rail {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: transform 600ms var(--ev-ease);
+}
+
+.ev-frise-ring {
+  position: absolute;
+  left: -13px;
+  top: 50%;
+  width: 26px;
+  height: 26px;
+  margin-top: -13px;
+  border-radius: 50%;
+  border: 1px solid var(--color-or);
+  box-shadow: 0 0 0 4px rgba(181, 137, 46, 0.12);
+  box-sizing: border-box;
+  animation: ev-breathe-ring 3s ease-in-out infinite;
+}
+
+.ev-frise-labels {
+  position: relative;
+  height: 22px;
+  margin-top: 4px;
+}
+
+.ev-frise-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: calc(16px * var(--a11y-scale));
+  color: var(--color-oxblood);
+  transition: transform 600ms var(--ev-ease);
+}
+
+/* --- Entrée de l'écran (première ouverture de la session) --- */
+
+.ev-page.is-entering .ev-enter {
+  animation: ev-rise-14 700ms var(--ev-ease) both;
+}
+
+.ev-card-enter.is-entering {
+  animation: ev-card-in 1200ms var(--ev-ease) both;
+}
+
+/* --- Animations --- */
+
+@keyframes ev-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ev-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes ev-breathe-ring {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.14);
+    opacity: 0.7;
+  }
+}
+
+@keyframes ev-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ev-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+@keyframes ev-rise-10 {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes ev-rise-14 {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes ev-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.94);
+  }
+}
+
+/* « Réduire les animations » (Réglages ou système) : ni entrée, ni
+   rotation, ni respiration, ni scintillement. L'aimantation reste. */
+.ev-page.is-reduced .ev-info,
+.ev-page.is-reduced .ev-enter,
+.ev-page.is-reduced .ev-card-enter,
+.ev-page.is-reduced .ev-card-rays,
+.ev-page.is-reduced .ev-card-glow,
+.ev-page.is-reduced .ev-card-star,
+.ev-page.is-reduced .ev-card-feast-dot,
+.ev-page.is-reduced .ev-frise-ring {
+  animation: none;
+}
+
+.ev-page.is-reduced .ev-card-star {
+  opacity: 0.7;
+}
+
+/* Petits téléphones : en-tête, panneau et frise plus serrés, pour laisser
+   la place à la carte sans faire passer la frise sous la barre d'onglets. */
+@media (max-height: 720px) {
+  .ev-page {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 18px);
+    padding-bottom: 34px;
+  }
+
+  .ev-kicker {
+    margin-bottom: 2px;
+  }
+
+  .ev-title {
+    font-size: calc(36px * var(--a11y-scale));
+  }
+
+  .ev-stage {
+    margin-top: 6px;
+  }
+
+  .ev-info {
+    gap: 8px;
+  }
+
+  .ev-open,
+  .ev-soon {
+    min-height: 42px;
+  }
+
+  .ev-frise {
+    margin-top: 14px;
+  }
+
+  .ev-frise-ends {
+    margin-bottom: 6px;
+  }
+
+  .ev-frise-labels {
+    margin-top: 0;
+  }
+}

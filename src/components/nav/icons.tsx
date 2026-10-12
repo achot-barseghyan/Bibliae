@@ -174,6 +174,24 @@ export const SearchIcon: React.FC<IconProps> = ({ size = 20, className }) => (
   </svg>
 );
 
+/** Loupe avec un « + » : agrandir une image. */
+export const ZoomIcon: React.FC<IconProps> = ({ size = 20, className }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    className={className}
+    aria-hidden="true"
+  >
+    <circle cx="11" cy="11" r="7" />
+    <path d="M20.5 20.5L16 16M11 8v6M8 11h6" />
+  </svg>
+);
+
 interface BookmarkIconProps extends IconProps {
   filled?: boolean;
 }

@@ -18,6 +18,7 @@ import FigureSearch from './FigureSearch';
 import { tapHaptic } from '../../utils/haptics';
 import './FigureDetail.css';
 import WorldButton from '../../components/nav/WorldButton';
+import ZoomableImage from '../../components/ZoomableImage';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
 
@@ -230,9 +231,7 @@ const FigureDetail: React.FC = () => {
         <p className="figure-detail-subtitle">{detail?.alternateNames ?? figure.originalName}</p>
       </div>
 
-      <div className="figure-detail-portrait">
-        <img src={figure.image} alt={figure.name} />
-      </div>
+      <ZoomableImage className="figure-detail-portrait" src={figure.image} alt={figure.name} />
 
       <div className="figure-detail-divider">
         <span className="figure-detail-divider-label">

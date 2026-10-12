@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { IonContent, IonPage } from '@ionic/react';
 import { AnimatePresence } from 'framer-motion';
 import { getBook, getCategory } from '../../data/bible';
@@ -11,7 +11,8 @@ import { useAccessibility } from '../../hooks/useAccessibility';
 import { useAnnotations } from '../../hooks/useAnnotations';
 import { useReadingProgress } from '../../hooks/useReadingProgress';
 import { useWordSelection } from '../../hooks/useWordSelection';
-import type { Annotation, HighlightColor } from '../../services/appDataStore';
+import { setPlanRefRead, type Annotation, type HighlightColor } from '../../services/appDataStore';
+import { getPlanDay } from '../../data/readingPlan';
 import {
   applyVerseStyle,
   chapterNotes as groupChapterNotes,
@@ -91,6 +92,25 @@ function writeHintSeen() {
   }
 }
 
+/** Référence du plan de lecture à cocher au retour (« ?plan=284-1 »), si elle vise bien ce chapitre. */
+function planTargetFrom(search: string, bookId: string, chapter: number) {
+  const match = /^(\d+)-(\d+)$/.exec(new URLSearchParams(search).get('plan') ?? '');
+  if (!match) return null;
+  const day = Number(match[1]);
+  const refIndex = Number(match[2]);
+  const ref = getPlanDay(day)?.refs[refIndex];
+  if (!ref || ref.bookId !== bookId || ref.chapter !== chapter) return null;
+  return { day, refIndex, fromVerse: ref.fromVerse, toVerse: ref.toVerse };
+}
+
+/** Passage à mettre en valeur (« ?v=26-38 » ou « ?v=14 »), venu d'un lien. */
+function focusRangeFrom(search: string) {
+  const match = /^(\d+)(?:-(\d+))?$/.exec(new URLSearchParams(search).get('v') ?? '');
+  if (!match) return null;
+  const from = Number(match[1]);
+  return { from, to: Math.max(from, Number(match[2] ?? from)) };
+}
+
 const NO_NOTES: VerseNote[] = [];
 const NO_ANNOTATIONS: Annotation[] = [];
 
@@ -116,6 +136,9 @@ const BibleChapter: React.FC = () => {
   const { bookId = '', chapter = '' } = useParams<{ bookId: string; chapter: string }>();
   const book = getBook(bookId);
   const chapterNumber = Number(chapter);
+  const { search } = useLocation();
+  const planTarget = useMemo(() => planTargetFrom(search, bookId, chapterNumber), [search, bookId, chapterNumber]);
+  const focusRange = useMemo(() => focusRangeFrom(search), [search]);
   const { verses, isLoading: areVersesLoading } = useChapterVerses(bookId, chapterNumber);
   const { settings } = useAccessibility();
   const { annotations, updateNote } = useAnnotations();
@@ -218,9 +241,84 @@ const BibleChapter: React.FC = () => {
     restoreScrollRef.current();
   }, [verses.length]);
 
+  // --- Passage ouvert depuis un lien (« ?v=26-38 ») : on s'y rend une fois ---
+  const focusScrolledRef = useRef(false);
+  useEffect(() => {
+    if (!focusRange || verses.length === 0 || focusScrolledRef.current) return;
+    let cancelled = false;
+    let timer: number | undefined;
+    (async () => {
+      const scrollEl = await ionContentRef.current?.getScrollElement();
+      const first = versesContainerRef.current?.querySelector(`[data-verse-num="${focusRange.from}"]`);
+      if (cancelled || !scrollEl || !first) return;
+      focusScrolledRef.current = true;
+      // Après la restauration de la position mémorisée, qui se fait au même
+      // moment ; la marge sous l'en-tête collant vient de scroll-margin-top.
+      timer = window.setTimeout(() => (first.closest('.verse-block') ?? first).scrollIntoView({ block: 'start' }), 200);
+    })();
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [focusRange, verses.length]);
+
+  // --- Lecture ouverte depuis le plan (« ?plan=jour-référence ») ---
+  const planTargetRef = useRef(planTarget);
+  planTargetRef.current = planTarget;
+  // Vrai dès que le verset suivant la plage a été visible : le passage est lu.
+  const planPassedRef = useRef(false);
+  const planScrolledRef = useRef(false);
+  const planLastVerse = planTarget ? Math.min(planTarget.toVerse, verses.length) : 0;
+
+  useEffect(() => {
+    if (!planTarget || verses.length === 0) return;
+    let observer: IntersectionObserver | null = null;
+    let cancelled = false;
+
+    (async () => {
+      const scrollEl = await ionContentRef.current?.getScrollElement();
+      const container = versesContainerRef.current;
+      if (cancelled || !scrollEl || !container) return;
+
+      // Ouvre au premier verset de la plage (Luc 1.39-80...), une fois par ouverture.
+      if (!planScrolledRef.current && planTarget.fromVerse > 1) {
+        planScrolledRef.current = true;
+        const first = container.querySelector(`[data-verse-num="${planTarget.fromVerse}"]`);
+        if (first) {
+          const header = scrollEl.querySelector('.bible-header');
+          const offset = (header?.getBoundingClientRect().height ?? 0) + 16;
+          scrollEl.scrollTop +=
+            first.getBoundingClientRect().top - scrollEl.getBoundingClientRect().top - offset;
+        }
+      }
+
+      // Plage qui s'arrête avant la fin du chapitre : lue quand le verset
+      // suivant apparaît. Sinon, c'est le repère de fin de chapitre qui compte.
+      if (planLastVerse >= verses.length) return;
+      const next = container.querySelector(`[data-verse-num="${planLastVerse + 1}"]`);
+      if (!next) return;
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) planPassedRef.current = true;
+        },
+        { root: scrollEl, threshold: 0 }
+      );
+      observer.observe(next);
+    })();
+
+    return () => {
+      cancelled = true;
+      observer?.disconnect();
+    };
+  }, [planTarget, planLastVerse, verses.length]);
+
   useEffect(() => {
     endVisibleRef.current = false;
     scrolledToBottomRef.current = false;
+    planPassedRef.current = false;
+    // Figé à l'ouverture : le pied de page change de chapitre sans le paramètre
+    // `plan`, et le nettoyage doit cocher la référence du chapitre quitté.
+    const planTarget = planTargetRef.current;
     restoreScrollRef.current = () => {};
     if (!book) return;
 
@@ -302,12 +400,18 @@ const BibleChapter: React.FC = () => {
       // l'ouverture) compte comme lu ; sinon il faut avoir réellement scrollé
       // jusqu'en bas. Si le texte n'est pas encore chargé, on ne marque rien.
       const fitsWithoutScrolling = !versesLoadingRef.current && endVisibleRef.current;
-      if (scrolledToBottomRef.current || fitsWithoutScrolling) {
+      const reachedEnd = scrolledToBottomRef.current || fitsWithoutScrolling;
+      if (reachedEnd) {
         const current = activeParcoursRef.current;
         if (current) {
           const { justCompleted } = markRead(current.id, book.id, chapterNumber, 'reading');
           if (justCompleted) setCompletedParcoursId(current.id);
         }
+      }
+      // Ouvert depuis le plan de lecture : la référence se coche si le passage
+      // a été lu jusqu'à son dernier verset (ou jusqu'à la fin du chapitre).
+      if (planTarget && (reachedEnd || planPassedRef.current)) {
+        setPlanRefRead(planTarget.day, planTarget.refIndex, true, 'reading');
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -472,6 +576,7 @@ const BibleChapter: React.FC = () => {
                   selectedRange={selectedRangeByVerse.get(verse.number) ?? null}
                   notes={notesByLastVerse.get(verse.number) ?? NO_NOTES}
                   onOpenNote={openExistingNote}
+                  isFocused={!!focusRange && verse.number >= focusRange.from && verse.number <= focusRange.to}
                 />
               ))}
             </div>

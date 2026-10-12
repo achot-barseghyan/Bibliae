@@ -22,7 +22,7 @@ import './Accueil.css';
 const SEARCH_CHIPS: { label: string; path: string }[] = [
   { label: 'Figures', path: '/compendium/figures' },
   { label: 'Versets', path: '/bible' },
-  { label: 'Lieux', path: '/compendium/lieux' },
+  { label: 'Événements', path: '/compendium/evenements' },
   { label: 'Prières', path: '/prier/prieres' },
   { label: 'Saints', path: '/prier/saints' }
 ];

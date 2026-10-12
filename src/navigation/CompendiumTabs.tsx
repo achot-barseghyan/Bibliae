@@ -2,6 +2,7 @@ import { Navigate, Route } from 'react-router-dom';
 import { IonRouterOutlet, IonTabs } from '@ionic/react';
 import Accueil from '../pages/Accueil';
 import Figures from '../pages/Figures';
+import Evenements from '../pages/Evenements';
 import Lieux from '../pages/Lieux';
 import Frise from '../pages/Frise';
 import Eglise from '../pages/Eglise';
@@ -14,6 +15,8 @@ const CompendiumTabs: React.FC = () => (
       <IonRouterOutlet>
         <Route path="accueil" element={<Accueil />} />
         <Route path="figures" element={<Figures />} />
+        <Route path="evenements" element={<Evenements />} />
+        {/* Hors de la barre d'onglets, mais toujours accessible (annonce d'ouverture, liens). */}
         <Route path="lieux" element={<Lieux />} />
         <Route path="frise" element={<Frise />} />
         <Route path="eglise" element={<Eglise />} />

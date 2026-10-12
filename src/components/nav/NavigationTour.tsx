@@ -5,7 +5,7 @@ const STEPS: TourStep[] = [
   {
     selector: '.app-tab-bar .rosace-bar',
     title: 'Le Compendium',
-    text: "Figures, Lieux, Frise et Église sont les quatre sections du Compendium, l'index de la Bible.",
+    text: "Figures, Événements, Frise et Église sont les quatre sections du Compendium, l'index de la Bible.",
     shape: 'pill',
     padding: 0
   },

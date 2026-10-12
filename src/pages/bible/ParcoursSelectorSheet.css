@@ -96,3 +96,87 @@
   color: var(--color-oxblood);
   cursor: pointer;
 }
+
+/* Intertitres « Parcours » et « Plans de lecture », suivis d'un filet. */
+.parcours-selector-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0 4px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: var(--taille-surtitre);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+.parcours-selector-section::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--filet-sections);
+}
+
+.parcours-selector-plan {
+  color: var(--color-encre);
+}
+
+/* Carré bleu d'encre du plan : contour tant qu'il n'est pas commencé. */
+.parcours-selector-plan-mark {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1.2px var(--color-encre);
+}
+
+.parcours-selector-plan-mark.is-started {
+  background: var(--annot-solid-bleu-encre);
+  box-shadow: none;
+}
+
+.parcours-selector-plan-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.parcours-selector-plan-sub {
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-cartouche);
+  color: var(--encre-60);
+}
+
+.parcours-selector-plan-status {
+  flex: 0 0 auto;
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--encre-60);
+}
+
+/* Marges latérales de toute la feuille (l'en-tête partagé porte déjà les
+   siennes) ; les lignes débordent de 12px pour que leur fond surligné ne
+   colle pas au texte, aligné sur les intertitres. */
+.parcours-selector-sheet {
+  padding: 0 20px calc(env(safe-area-inset-bottom, 0px) + 8px);
+}
+
+.parcours-selector-sheet .verse-sheet-header {
+  padding: 0;
+  margin-bottom: 4px;
+}
+
+.parcours-selector-sheet .parcours-selector-row {
+  width: calc(100% + 24px);
+  margin: 0 -12px;
+  padding: 10px 12px;
+}
+
+.parcours-selector-sheet .parcours-selector-section:first-of-type {
+  margin-top: 0;
+}

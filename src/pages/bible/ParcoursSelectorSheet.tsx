@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useReadingProgress } from '../../hooks/useReadingProgress';
+import { useReadingPlan } from '../../hooks/useReadingPlan';
+import { PLAN_LENGTH, PLAN_TITLE } from '../../data/readingPlan';
 import { useAccessibility } from '../../hooks/useAccessibility';
 import { CloseIcon, ChevronRightIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
@@ -18,6 +20,13 @@ const ParcoursSelectorSheet: React.FC<ParcoursSelectorSheetProps> = ({ onClose }
   const navigate = useNavigate();
   const { settings } = useAccessibility();
   const { parcours, activeParcours, progress, activate } = useReadingProgress();
+  const { pathname } = useLocation();
+  const plan = useReadingPlan();
+  const planStatus = plan.progress.completedAt
+    ? 'Achevé'
+    : plan.isStarted
+      ? `Jour ${plan.progress.currentDay}`
+      : 'Non commencé';
   const transition = settings.reduceMotion ? { duration: 0 } : { duration: 0.26, ease: EASE };
   const visible = parcours.filter((p) => !p.archived);
 
@@ -52,6 +61,7 @@ const ParcoursSelectorSheet: React.FC<ParcoursSelectorSheetProps> = ({ onClose }
           </button>
         </div>
 
+        <p className="parcours-selector-section">Parcours</p>
         <div className="parcours-selector-list">
           {visible.map((p) => {
             const { percent } = progress(p);
@@ -75,6 +85,30 @@ const ParcoursSelectorSheet: React.FC<ParcoursSelectorSheetProps> = ({ onClose }
             );
           })}
         </div>
+
+        <p className="parcours-selector-section">Plans de lecture</p>
+        <button
+          type="button"
+          className="parcours-selector-row parcours-selector-plan"
+          onClick={() => {
+            tapHaptic();
+            // Réaffiche la carte du plan, en tête de la page La Bible.
+            plan.setCardHidden(false);
+            if (!/^\/bible\/?$/.test(pathname)) navigate('/bible');
+            onClose();
+          }}
+        >
+          <span
+            className={`parcours-selector-plan-mark${plan.isStarted ? ' is-started' : ''}`}
+            aria-hidden="true"
+          />
+          <span className="parcours-selector-plan-text">
+            <span className="parcours-selector-name">{PLAN_TITLE}</span>
+            <span className="parcours-selector-plan-sub">{PLAN_LENGTH} jours · trois lectures par jour</span>
+          </span>
+          <span className="parcours-selector-plan-status">{planStatus}</span>
+          <ChevronRightIcon size={14} />
+        </button>
 
         <button
           type="button"

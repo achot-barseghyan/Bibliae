@@ -1,5 +1,5 @@
 import FiguresIcon from '../../assets/icons/fluent_people-community-20-regular.svg?react';
-import LieuxIcon from '../../assets/icons/hugeicons_maps-location-01.svg?react';
+import EvenementsIcon from '../../assets/icons/evenements-star.svg?react';
 import FriseIcon from '../../assets/icons/fluent_timeline-20-regular.svg?react';
 import EgliseIcon from '../../assets/icons/healthicons_church-outline.svg?react';
 
@@ -14,13 +14,13 @@ export interface NavTab {
 /** Les 4 onglets du Compendium, dans l'ordre de la barre. */
 export const COMPENDIUM_TABS: NavTab[] = [
   { path: '/compendium/figures', label: 'Figures', Icon: FiguresIcon, routes: ['/compendium/figures', '/figures'] },
-  { path: '/compendium/lieux', label: 'Lieux', Icon: LieuxIcon, routes: ['/compendium/lieux'] },
+  { path: '/compendium/evenements', label: 'Événements', Icon: EvenementsIcon, routes: ['/compendium/evenements', '/evenements'] },
   { path: '/compendium/frise', label: 'Frise', Icon: FriseIcon, routes: ['/compendium/frise'] },
   {
     path: '/compendium/eglise',
     label: 'Église',
     Icon: EgliseIcon,
-    routes: ['/compendium/eglise', '/parcours', '/paroisses', '/credo', '/catechisme']
+    routes: ['/compendium/eglise', '/parcours', '/paroisses', '/pourquoi-croire', '/saints', '/credo', '/catechisme']
   }
 ];
 

@@ -16,6 +16,8 @@
   --bible-border-soft: var(--filet-tableaux);
   --bible-accent: var(--color-oxblood);
   --bible-empty-cell: var(--color-hors-appareil);
+  /* Fond des cartes posées sur la page (plan de lecture...). */
+  --bible-surface: var(--color-papier-enfonce);
 
   --bible-font: var(--font-cormorant);
 }
@@ -37,6 +39,7 @@
   --bible-border-soft: rgba(74, 55, 40, 0.18);
   --bible-accent: #8b3a1e;
   --bible-empty-cell: rgba(74, 55, 40, 0.12);
+  --bible-surface: #ded0ad;
 }
 
 .bible-world[data-bible-theme='nuit'] {
@@ -48,6 +51,7 @@
   --bible-border-soft: rgba(237, 229, 211, 0.14);
   --bible-accent: #d98a73;
   --bible-empty-cell: rgba(237, 229, 211, 0.1);
+  --bible-surface: rgba(237, 229, 211, 0.07);
 }
 
 .bible-world[data-bible-theme='contraste'] {
@@ -59,4 +63,5 @@
   --bible-border-soft: rgba(0, 0, 0, 0.25);
   --bible-accent: #a3001e;
   --bible-empty-cell: rgba(0, 0, 0, 0.08);
+  --bible-surface: rgba(0, 0, 0, 0.05);
 }

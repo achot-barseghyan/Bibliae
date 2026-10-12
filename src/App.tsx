@@ -9,6 +9,8 @@ import Prier from './pages/Prier';
 import FigureDetail from './pages/figures/FigureDetail';
 import Parcours from './pages/eglise/Parcours';
 import Paroisses from './pages/eglise/Paroisses';
+import PourquoiCroire from './pages/eglise/PourquoiCroire';
+import Saints from './pages/eglise/Saints';
 import CouncilText from './pages/CouncilText';
 import Reglages from './pages/Reglages';
 import APropos from './pages/reglages/APropos';
@@ -16,6 +18,7 @@ import Sources from './pages/reglages/Sources';
 import Contact from './pages/reglages/Contact';
 import Favoris from './pages/Favoris';
 import JourLiturgique, { LiturgieLecture } from './pages/JourLiturgique';
+import EvenementDetail from './pages/evenements/EvenementDetail';
 import Catechisme from './pages/Catechisme';
 import LieuxOpeningNotice from './components/LieuxOpeningNotice';
 
@@ -64,8 +67,11 @@ const App: React.FC = () => (
             <Route path="/rosaire" element={<Rosaire />} />
             <Route path="/prier/*" element={<Prier />} />
             <Route path="/figures/:figureId" element={<FigureDetail />} />
+            <Route path="/evenements/:eventId" element={<EvenementDetail />} />
             <Route path="/parcours" element={<Parcours />} />
             <Route path="/paroisses" element={<Paroisses />} />
+            <Route path="/pourquoi-croire" element={<PourquoiCroire />} />
+            <Route path="/saints" element={<Saints />} />
             <Route path="/credo/:councilId" element={<CouncilText />} />
             <Route path="/reglages" element={<Reglages />} />
             <Route path="/a-propos" element={<APropos />} />

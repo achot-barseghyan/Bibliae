@@ -1,0 +1,809 @@
+/* Plan de lecture « La Bible en 1 an » : carte de la page Bible, sommaire,
+   lecture du jour et Jour 366. Pas d'ombre portée (cadres en inset), rayon 12
+   sur les cartes, 5 sur les boutons ; l'or reste ornemental, les actions sont
+   en oxblood (--bible-accent). */
+
+.plan-content {
+  --background: var(--bible-bg);
+}
+
+/* --- Éléments communs --- */
+
+.plan-kicker {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bible-accent);
+}
+
+.plan-track {
+  flex: 1 1 auto;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--bible-border-soft);
+  overflow: hidden;
+}
+
+.plan-track-fill {
+  display: block;
+  height: 100%;
+  background: var(--annot-solid-bleu-encre);
+}
+
+.plan-count {
+  flex: none;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.06em;
+  color: var(--bible-accent);
+}
+
+.plan-button {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  border: none;
+  border-radius: 5px;
+  background: var(--bible-accent);
+  box-shadow: none;
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: calc(11px * var(--a11y-scale));
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--bible-bg);
+  cursor: pointer;
+}
+
+.plan-button--outline {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--bible-accent);
+  color: var(--bible-accent);
+}
+
+.plan-link {
+  min-height: 44px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  font-family: var(--font-inter);
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--bible-accent);
+  cursor: pointer;
+}
+
+.plan-button:focus-visible,
+.plan-link:focus-visible,
+.plan-card:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: 2px;
+}
+
+/* --- Carte de la page Bible --- */
+
+.plan-card {
+  display: block;
+  width: 100%;
+  margin: 10px 0 4px;
+  padding: 16px 16px 14px;
+  border: none;
+  border-radius: 12px;
+  text-align: left;
+  font: inherit;
+}
+
+/* 2a · Première visite */
+.plan-card--intro {
+  position: relative;
+  padding: 18px 16px 16px;
+  background: var(--bible-surface);
+  box-shadow: inset 0 0 0 1px var(--bible-border);
+}
+
+/* 2b · Plan suivi : même traitement que le bloc Reprendre de « Mes lectures ». */
+.plan-card--active {
+  background: rgba(107, 30, 35, 0.05);
+  background: color-mix(in srgb, var(--bible-accent) 5%, transparent);
+  box-shadow: inset 0 0 0 1px var(--bible-accent);
+  cursor: pointer;
+}
+
+.plan-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.plan-card-plan {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.plan-card-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--annot-solid-bleu-encre);
+}
+
+.plan-card-status {
+  font-family: var(--font-inter);
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.06em;
+  color: var(--bible-muted);
+}
+
+.plan-card-title {
+  margin: 9px 0 0;
+  font-family: var(--bible-font);
+  font-weight: 500;
+  font-size: var(--taille-titre-section);
+  line-height: 1.04;
+  color: var(--bible-text);
+}
+
+.plan-card-text {
+  margin: 8px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(15px * var(--a11y-scale));
+  line-height: 1.42;
+  color: var(--bible-muted);
+}
+
+.plan-card-day {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 0.5px solid var(--bible-border);
+}
+
+.plan-card-day-label {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--bible-muted);
+}
+
+.plan-card-day-refs {
+  margin: 5px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(15px * var(--a11y-scale));
+  line-height: 1.3;
+  color: var(--bible-text);
+}
+
+.plan-card-actions {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.plan-card-refs {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plan-card-ref {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 9px;
+  align-items: center;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(15px * var(--a11y-scale));
+  line-height: 1.2;
+  color: var(--bible-text);
+}
+
+.plan-card-ref.is-read {
+  color: var(--bible-faint);
+}
+
+.plan-card-ref-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--bible-accent);
+}
+
+.plan-card-ref.is-read .plan-card-ref-dot {
+  background: var(--bible-accent);
+}
+
+.plan-card-progress {
+  margin-top: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* --- Sommaire --- */
+
+.plan-body {
+  padding: 0 20px 26px;
+}
+
+.plan-intro {
+  padding-top: 24px;
+}
+
+.plan-intro-title {
+  margin: 11px 0 0;
+  font-family: var(--bible-font);
+  font-weight: 400;
+  font-size: calc(38px * var(--a11y-scale));
+  line-height: 1.02;
+  color: var(--bible-text);
+}
+
+.plan-intro-text {
+  margin: 13px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(16px * var(--a11y-scale));
+  line-height: calc(1.46 * var(--a11y-leading));
+  color: var(--bible-muted);
+}
+
+.plan-intro-progress {
+  margin: 18px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.plan-intro-progress .plan-track {
+  height: 3px;
+}
+
+.plan-section-title {
+  margin: 26px 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.plan-section-title::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: var(--bible-border);
+}
+
+.plan-group-header {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  background: none;
+  border: none;
+  border-bottom: 0.5px solid var(--bible-border-soft);
+  text-align: left;
+  cursor: pointer;
+}
+
+.plan-group-book {
+  font-family: var(--bible-font);
+  font-style: italic;
+  font-size: calc(19px * var(--a11y-scale));
+  color: var(--bible-accent);
+}
+
+.plan-group-range {
+  flex: 1 1 auto;
+  font-family: var(--font-inter);
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.04em;
+  color: var(--bible-faint);
+}
+
+.plan-group-count {
+  font-family: var(--font-inter);
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.06em;
+  color: var(--bible-accent);
+}
+
+.plan-group-count.is-complete {
+  color: var(--color-or);
+}
+
+.plan-group-chevron {
+  flex: none;
+  color: var(--bible-text);
+  transition: transform 160ms ease;
+}
+
+.plan-group-header[aria-expanded='true'] .plan-group-chevron {
+  transform: rotate(180deg);
+}
+
+.plan-day-row {
+  width: calc(100% + 16px);
+  display: grid;
+  grid-template-columns: 38px 1fr 16px;
+  gap: 10px;
+  align-items: center;
+  min-height: 44px;
+  padding: 11px 8px;
+  margin: 0 -8px;
+  background: none;
+  border: none;
+  border-bottom: 0.5px solid var(--bible-border-soft);
+  text-align: left;
+  cursor: pointer;
+}
+
+.plan-day-row.is-selected {
+  background: rgba(107, 30, 35, 0.06);
+  background: color-mix(in srgb, var(--bible-accent) 6%, transparent);
+  box-shadow: inset 2px 0 0 var(--bible-accent);
+}
+
+.plan-day-num {
+  font-family: var(--bible-font);
+  font-size: calc(18px * var(--a11y-scale));
+  color: var(--bible-text);
+}
+
+.plan-day-row.is-done .plan-day-num {
+  color: var(--bible-faint);
+}
+
+.plan-day-row.is-current .plan-day-num {
+  color: var(--bible-accent);
+  font-weight: 600;
+}
+
+.plan-day-row.is-selected .plan-day-num {
+  color: var(--bible-accent);
+}
+
+.plan-day-refs {
+  font-family: var(--font-eb-garamond);
+  font-size: calc(14px * var(--a11y-scale));
+  line-height: 1.3;
+  color: var(--bible-muted);
+}
+
+.plan-day-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-or);
+}
+
+.plan-day-partial {
+  width: 12px;
+  height: 2px;
+  background: var(--bible-accent);
+}
+
+.plan-finale-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 10px;
+  align-items: center;
+  min-height: 44px;
+  padding: 16px 0 4px;
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+.plan-finale-row:not(:disabled) {
+  cursor: pointer;
+}
+
+.plan-finale-num {
+  font-family: var(--bible-font);
+  font-size: calc(18px * var(--a11y-scale));
+  color: var(--color-or);
+}
+
+.plan-finale-label {
+  font-family: var(--bible-font);
+  font-style: italic;
+  font-size: calc(18px * var(--a11y-scale));
+  color: var(--bible-text);
+}
+
+/* --- Lecture du jour --- */
+
+.plan-day-body {
+  padding: 28px 20px 26px;
+}
+
+.plan-day-hero {
+  text-align: center;
+}
+
+.plan-day-title {
+  margin: 10px 0 0;
+  font-family: var(--bible-font);
+  font-weight: 400;
+  font-size: calc(46px * var(--a11y-scale));
+  line-height: 1;
+  color: var(--bible-text);
+}
+
+.plan-day-sub {
+  margin: 8px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(15px * var(--a11y-scale));
+  color: var(--bible-muted);
+}
+
+/* Filet doré radial, comme celui du lecteur. */
+.plan-day-rule {
+  width: 70%;
+  height: 9px;
+  margin: 18px auto 0;
+  background: radial-gradient(50% 100% at 50% 50%, var(--color-or) 0%, transparent 100%);
+}
+
+.plan-day-position {
+  margin: 8px 0 0;
+  font-family: var(--bible-font);
+  font-weight: 300;
+  font-size: calc(14px * var(--a11y-scale));
+  color: var(--bible-faint);
+}
+
+.plan-refs {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 9px;
+}
+
+.plan-ref {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 14px 8px 4px;
+  border-radius: 12px;
+  background: var(--bible-surface);
+  box-shadow: inset 0 0 0 1px var(--bible-border);
+}
+
+.plan-ref.is-read {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--bible-border-soft);
+}
+
+.plan-ref-toggle {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.plan-ref-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1.2px var(--bible-accent);
+  color: var(--bible-bg);
+}
+
+.plan-ref-circle svg {
+  opacity: 0;
+}
+
+.plan-ref.is-read .plan-ref-circle {
+  background: var(--bible-accent);
+}
+
+.plan-ref.is-read .plan-ref-circle svg {
+  opacity: 1;
+}
+
+.plan-ref-main {
+  min-width: 0;
+  padding: 6px 0;
+}
+
+.plan-ref-label {
+  margin: 0;
+  font-family: var(--bible-font);
+  font-weight: 500;
+  font-size: calc(24px * var(--a11y-scale));
+  line-height: 1.05;
+  color: var(--bible-text);
+}
+
+.plan-ref-verses {
+  margin: 4px 0 0;
+  font-family: var(--font-inter);
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bible-muted);
+}
+
+.plan-ref-read {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: var(--font-inter);
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--bible-accent);
+  cursor: pointer;
+}
+
+.plan-ref-toggle:focus-visible,
+.plan-ref-read:focus-visible,
+.plan-group-header:focus-visible,
+.plan-day-row:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: -2px;
+}
+
+.plan-day-toggle {
+  margin-top: 18px;
+}
+
+.plan-day-note {
+  margin: 14px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(14px * var(--a11y-scale));
+  line-height: 1.4;
+  text-align: center;
+  color: var(--bible-muted);
+}
+
+/* --- Jour 366 --- */
+
+.plan-finale {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 28px 30px;
+  text-align: center;
+}
+
+.plan-finale-star {
+  color: var(--color-or);
+}
+
+.plan-finale .plan-kicker {
+  margin-top: 24px;
+}
+
+.plan-finale-title {
+  margin: 12px 0 0;
+  font-family: var(--bible-font);
+  font-weight: 400;
+  font-size: calc(44px * var(--a11y-scale));
+  line-height: 1;
+  color: var(--bible-text);
+}
+
+.plan-finale-text {
+  max-width: 290px;
+  margin: 16px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(17px * var(--a11y-scale));
+  line-height: 1.46;
+  color: var(--bible-muted);
+}
+
+.plan-finale-facts {
+  align-self: stretch;
+  margin: 28px 0 0;
+  border-top: 0.5px solid var(--bible-border);
+}
+
+.plan-finale-fact {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: baseline;
+  padding: 13px 0;
+  border-bottom: 0.5px solid var(--bible-border-soft);
+}
+
+.plan-finale-fact dt {
+  text-align: left;
+  font-family: var(--font-inter);
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--bible-accent);
+}
+
+.plan-finale-fact dd {
+  margin: 0;
+  font-family: var(--bible-font);
+  font-size: calc(18px * var(--a11y-scale));
+  color: var(--bible-text);
+}
+
+.plan-finale-actions {
+  align-self: stretch;
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.plan-finale-warning {
+  margin: 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(15px * var(--a11y-scale));
+  line-height: 1.4;
+  color: var(--bible-muted);
+}
+
+.plan-finale-quote {
+  margin: auto 0 0;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+
+.plan-finale-quote blockquote {
+  margin: 0;
+  font-family: var(--bible-font);
+  font-style: italic;
+  font-weight: 300;
+  font-size: calc(15px * var(--a11y-scale));
+  line-height: 1.45;
+  color: var(--bible-muted);
+}
+
+.plan-finale-quote cite {
+  font-family: var(--font-inter);
+  font-style: normal;
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: var(--tracking-min);
+  text-transform: uppercase;
+  color: var(--bible-accent);
+}
+
+/* La carte 2b est un bouton : ses blocs internes sont des <span>. */
+.plan-card--active .plan-card-title {
+  display: block;
+}
+
+/* Le pied du jour reste en bas de l'écran même quand la page est courte. */
+.plan-day-page {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--rosace-bar-h);
+}
+
+.plan-day-page .plan-day-body {
+  flex: 1 0 auto;
+}
+
+.plan-day-page .bible-chapter-pager {
+  margin-bottom: 0;
+}
+
+.plan-card-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--bible-text);
+  cursor: pointer;
+}
+
+.plan-card-close:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: -4px;
+}
+
+.plan-link--muted {
+  color: var(--bible-muted);
+}
+
+/* Message affiché à la place de la carte masquée (8 s). */
+.plan-notice {
+  margin: 10px 0 4px;
+  padding: 16px 16px 6px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px var(--bible-border);
+}
+
+.plan-notice-body {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.plan-notice-icon {
+  margin-top: 2px;
+  color: var(--color-or);
+}
+
+.plan-notice-text {
+  margin: 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(15px * var(--a11y-scale));
+  line-height: 1.42;
+  color: var(--bible-text);
+}
+
+.plan-notice-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: 22px;
+}
+
+/* Réinitialisation, en pied du sommaire. */
+.plan-reset {
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 0.5px solid var(--bible-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.plan-reset-warning {
+  margin: 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(15px * var(--a11y-scale));
+  line-height: 1.4;
+  text-align: center;
+  color: var(--bible-muted);
+}
+
+.plan-day-summary {
+  margin: 6px auto 0;
+}

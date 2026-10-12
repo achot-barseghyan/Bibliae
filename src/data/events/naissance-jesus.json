@@ -1,0 +1,416 @@
+{
+  "id": "naissance-jesus",
+  "title": "La naissance de Jésus",
+  "kicker": "Évangiles de l'enfance",
+  "refs": "Luc 1 – 2 · Matthieu 1 – 2",
+  "hero": {
+    "asset": "birth_of_jesus/Star_of_Bethlehem.webp",
+    "star": {
+      "x": 50,
+      "y": 33
+    },
+    "warm": {
+      "x": 54,
+      "y": 86
+    }
+  },
+  "facts": [
+    {
+      "label": "Date",
+      "value": "Entre 7 et 4 av. J.-C."
+    },
+    {
+      "label": "Lieu",
+      "value": "Bethléem, en Judée"
+    },
+    {
+      "label": "Règne",
+      "value": "Hérode le Grand · César Auguste"
+    },
+    {
+      "label": "Fête",
+      "value": "Noël, 25 décembre"
+    }
+  ],
+  "tableaux": [
+    {
+      "numeral": "I",
+      "place": "Nazareth",
+      "title": "L'Annonciation",
+      "quote": "Je vous salue, pleine de grâce ; le Seigneur est avec vous.",
+      "ref": {
+        "bookId": "lc",
+        "chapter": 1,
+        "verseStart": 26,
+        "verseEnd": 38
+      },
+      "layers": [
+        {
+          "asset": "birth_of_jesus/Angel_and_Mary.webp",
+          "alt": "L'ange Gabriel salue Marie",
+          "x": 4,
+          "y": 0,
+          "w": 92,
+          "h": 100,
+          "opacity": 1,
+          "enter": "up",
+          "delay": 0
+        }
+      ],
+      "glow": [
+        "rgba(217, 182, 106, 0.55)",
+        "rgba(143, 169, 174, 0.45)"
+      ],
+      "side": "left"
+    },
+    {
+      "numeral": "II",
+      "place": "Nazareth",
+      "title": "Le songe de Joseph",
+      "quote": "Joseph, fils de David, ne crains point de prendre avec toi Marie ton épouse.",
+      "ref": {
+        "bookId": "mt",
+        "chapter": 1,
+        "verseStart": 18,
+        "verseEnd": 25
+      },
+      "layers": [
+        {
+          "asset": "birth_of_jesus/Angel.webp",
+          "alt": "Un ange apparaît en songe",
+          "x": 40,
+          "y": 0,
+          "w": 60,
+          "h": 78,
+          "opacity": 0.55,
+          "enter": "float",
+          "delay": 240
+        },
+        {
+          "asset": "birth_of_jesus/Joseph.webp",
+          "alt": "Joseph",
+          "x": 8,
+          "y": 6,
+          "w": 56,
+          "h": 94,
+          "opacity": 1,
+          "enter": "left",
+          "delay": 0
+        }
+      ],
+      "glow": [
+        "rgba(46, 63, 96, 0.35)",
+        "rgba(240, 213, 142, 0.45)"
+      ],
+      "side": "right"
+    },
+    {
+      "numeral": "III",
+      "place": "La route",
+      "title": "Vers Bethléem",
+      "quote": "Joseph monta de Galilée, de la ville de Nazareth, en Judée, à la ville de David, appelée Bethléem.",
+      "ref": {
+        "bookId": "lc",
+        "chapter": 2,
+        "verseStart": 1,
+        "verseEnd": 5
+      },
+      "layers": [
+        {
+          "asset": "birth_of_jesus/Road_to_Bethlehem.webp",
+          "alt": "Marie et Joseph en route vers Bethléem",
+          "x": 2,
+          "y": 0,
+          "w": 96,
+          "h": 100,
+          "opacity": 1,
+          "enter": "right",
+          "delay": 0
+        }
+      ],
+      "glow": [
+        "rgba(227, 184, 102, 0.5)",
+        "rgba(194, 85, 46, 0.25)"
+      ],
+      "side": "left"
+    },
+    {
+      "numeral": "IV",
+      "place": "Bethléem",
+      "title": "Pas de place",
+      "quote": "Il n'y avait pas de place pour eux dans l'hôtellerie.",
+      "ref": {
+        "bookId": "lc",
+        "chapter": 2,
+        "verseStart": 6,
+        "verseEnd": 7
+      },
+      "layers": [
+        {
+          "asset": "birth_of_jesus/Looking_for_an_Inn.webp",
+          "alt": "Marie et Joseph cherchent une hôtellerie",
+          "x": 4,
+          "y": 0,
+          "w": 92,
+          "h": 100,
+          "opacity": 1,
+          "enter": "up",
+          "delay": 0
+        }
+      ],
+      "glow": [
+        "rgba(201, 154, 91, 0.45)",
+        "rgba(107, 30, 35, 0.2)"
+      ],
+      "side": "right"
+    },
+    {
+      "numeral": "V",
+      "place": "Bethléem",
+      "title": "La Nativité",
+      "quote": "Elle mit au monde son fils premier-né, l'enveloppa de langes et le coucha dans une crèche.",
+      "ref": {
+        "bookId": "lc",
+        "chapter": 2,
+        "verseStart": 6,
+        "verseEnd": 7
+      },
+      "layers": [
+        {
+          "asset": "birth_of_jesus/Birth_of_Jesus.webp",
+          "alt": "Marie et Joseph auprès de l'Enfant dans la crèche",
+          "x": 4,
+          "y": 0,
+          "w": 92,
+          "h": 100,
+          "opacity": 1,
+          "enter": "up",
+          "delay": 0
+        }
+      ],
+      "glow": [
+        "rgba(240, 213, 142, 0.6)",
+        "rgba(143, 169, 174, 0.35)"
+      ],
+      "side": "left"
+    },
+    {
+      "numeral": "VI",
+      "place": "Les champs",
+      "title": "Les bergers",
+      "quote": "Ils s'y rendirent en toute hâte, et trouvèrent Marie, Joseph, et le nouveau-né couché dans la crèche.",
+      "ref": {
+        "bookId": "lc",
+        "chapter": 2,
+        "verseStart": 8,
+        "verseEnd": 20
+      },
+      "layers": [
+        {
+          "asset": "birth_of_jesus/Angel_and_the_Shepherds.webp",
+          "alt": "L'ange apparaît aux bergers",
+          "x": 0,
+          "y": 0,
+          "w": 62,
+          "h": 62,
+          "opacity": 1,
+          "enter": "left",
+          "delay": 0
+        },
+        {
+          "asset": "birth_of_jesus/The_Adoration_of_the_Shepherds.webp",
+          "alt": "Les bergers adorent l'Enfant",
+          "x": 36,
+          "y": 36,
+          "w": 64,
+          "h": 64,
+          "opacity": 1,
+          "enter": "right",
+          "delay": 320
+        }
+      ],
+      "glow": [
+        "rgba(46, 63, 96, 0.3)",
+        "rgba(240, 213, 142, 0.5)"
+      ],
+      "side": "right"
+    },
+    {
+      "numeral": "VII",
+      "place": "Venus d'Orient",
+      "title": "L'étoile et les mages",
+      "quote": "À la vue de l'étoile, ils se réjouirent d'une grande joie.",
+      "ref": {
+        "bookId": "mt",
+        "chapter": 2,
+        "verseStart": 1,
+        "verseEnd": 12
+      },
+      "layers": [
+        {
+          "asset": "birth_of_jesus/Three_Wise_Men1.webp",
+          "alt": "Les mages suivent l'étoile",
+          "x": 4,
+          "y": 0,
+          "w": 92,
+          "h": 100,
+          "opacity": 1,
+          "enter": "right",
+          "delay": 0
+        }
+      ],
+      "glow": [
+        "rgba(46, 63, 96, 0.4)",
+        "rgba(217, 182, 106, 0.45)"
+      ],
+      "side": "left"
+    }
+  ],
+  "chorus": {
+    "label": "Le chant des anges",
+    "quote": "Gloire, dans les hauteurs, à Dieu ! Et, sur la terre, paix aux hommes, objet de la bienveillance divine !",
+    "ref": {
+      "bookId": "lc",
+      "chapter": 2,
+      "verseStart": 14,
+      "verseEnd": 14
+    },
+    "asset": "birth_of_jesus/Angel.webp"
+  },
+  "chorusAfter": 4,
+  "characters": [
+    {
+      "name": "Marie",
+      "role": "Mère de Jésus",
+      "asset": "birth_of_jesus/Mary.webp",
+      "crop": {
+        "x": 49,
+        "y": 13,
+        "scale": 3.2
+      },
+      "personId": "mary"
+    },
+    {
+      "name": "Joseph",
+      "role": "Époux de Marie",
+      "asset": "birth_of_jesus/Joseph.webp",
+      "crop": {
+        "x": 50,
+        "y": 11,
+        "scale": 3.6
+      },
+      "personId": "joseph-epoux-marie"
+    },
+    {
+      "name": "Les bergers",
+      "role": "Premiers témoins",
+      "asset": "birth_of_jesus/Young_Shepherd.webp",
+      "crop": {
+        "x": 52,
+        "y": 11,
+        "scale": 3.4
+      }
+    },
+    {
+      "name": "Les mages",
+      "role": "Venus d'Orient",
+      "asset": "birth_of_jesus/Three_Wise_Men2.webp",
+      "crop": {
+        "x": 50,
+        "y": 26,
+        "scale": 2
+      }
+    }
+  ],
+  "route": {
+    "from": {
+      "name": "Nazareth",
+      "region": "Galilée"
+    },
+    "to": {
+      "name": "Bethléem",
+      "region": "Judée"
+    },
+    "path": "M196 36 C 232 70, 236 104, 214 128 S 166 150, 150 170",
+    "walker": "birth_of_jesus/Donkey.webp",
+    "caption": "Environ 150 km, de la Galilée à la Judée."
+  },
+  "scene": {
+    "title": "La crèche",
+    "subtitle": "le bœuf et l'âne",
+    "layers": [
+      {
+        "asset": "birth_of_jesus/Ox.webp",
+        "alt": "Le bœuf",
+        "x": -6,
+        "y": 0,
+        "w": 54,
+        "h": 70,
+        "opacity": 1,
+        "enter": "left",
+        "delay": 0
+      },
+      {
+        "asset": "birth_of_jesus/Donkey.webp",
+        "alt": "L'âne",
+        "x": 52,
+        "y": 0,
+        "w": 54,
+        "h": 70,
+        "opacity": 1,
+        "enter": "right",
+        "delay": 0,
+        "flip": true
+      },
+      {
+        "asset": "birth_of_jesus/Baby_Jesus.webp",
+        "alt": "L'Enfant Jésus dans la crèche",
+        "x": 20,
+        "y": 40,
+        "w": 60,
+        "h": 60,
+        "opacity": 1,
+        "enter": "up",
+        "delay": 520
+      },
+      {
+        "asset": "birth_of_jesus/Sheep.webp",
+        "alt": "Un agneau",
+        "x": -2,
+        "y": 66,
+        "w": 28,
+        "h": 34,
+        "opacity": 1,
+        "enter": "up",
+        "delay": 760
+      }
+    ],
+    "quote": "Le bœuf connaît son possesseur et l'âne la crèche de son maître.",
+    "ref": {
+      "bookId": "is",
+      "chapter": 1,
+      "verseStart": 3,
+      "verseEnd": 3
+    }
+  },
+  "liturgy": [
+    {
+      "day": 25,
+      "month": 3,
+      "label": "Annonciation",
+      "highlight": false
+    },
+    {
+      "day": 25,
+      "month": 12,
+      "label": "Noël",
+      "highlight": true
+    },
+    {
+      "day": 6,
+      "month": 1,
+      "label": "Épiphanie",
+      "highlight": false
+    }
+  ]
+}

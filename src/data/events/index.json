@@ -1,0 +1,149 @@
+[
+  {
+    "id": "creation",
+    "title": "La Création",
+    "short": "La Création",
+    "refs": "Gn 1 – 2",
+    "period": "Ancien Testament",
+    "order": 1,
+    "timelineX": 4,
+    "feast": null,
+    "tableaux": null,
+    "published": false,
+    "card": {
+      "image": null,
+      "bg": "radial-gradient(120% 90% at 50% 30%, #3A4E6A 0%, #1B2640 100%)",
+      "numeral": "I",
+      "glow": "rgba(240, 213, 142, 0.55)",
+      "ink": "#F4EDDC",
+      "kicker": "#D8B25A",
+      "fade": "#1B2640"
+    }
+  },
+  {
+    "id": "exode",
+    "title": "L'Exode",
+    "short": "L'Exode",
+    "refs": "Ex 1 – 15",
+    "period": "Ancien Testament",
+    "order": 2,
+    "timelineX": 22,
+    "feast": null,
+    "tableaux": null,
+    "published": false,
+    "card": {
+      "image": null,
+      "bg": "linear-gradient(180deg, #EBD8AE 0%, #C99A5B 100%)",
+      "numeral": "II",
+      "glow": "rgba(255, 244, 214, 0.75)",
+      "ink": "#23201A",
+      "kicker": "#6B1E23",
+      "fade": "#C99A5B"
+    }
+  },
+  {
+    "id": "naissance-jesus",
+    "title": "La naissance de Jésus",
+    "short": "La naissance",
+    "refs": "Luc 1 – 2 · Matthieu 1 – 2",
+    "period": "Nouveau Testament",
+    "order": 3,
+    "timelineX": 52,
+    "feast": "noel",
+    "tableaux": 7,
+    "published": true,
+    "card": {
+      "image": "birth_of_jesus/The_Star_and_the_Manger.webp",
+      "bg": "#1B2640",
+      "numeral": "III",
+      "glow": "rgba(240, 213, 142, 0.5)",
+      "ink": "#F4EDDC",
+      "kicker": "#D8B25A",
+      "fade": "#1B2640"
+    }
+  },
+  {
+    "id": "bapteme",
+    "title": "Le baptême au Jourdain",
+    "short": "Le baptême",
+    "refs": "Mt 3 · Mc 1 · Lc 3",
+    "period": "Nouveau Testament",
+    "order": 4,
+    "timelineX": 63,
+    "feast": "bapteme-du-seigneur",
+    "tableaux": null,
+    "published": false,
+    "card": {
+      "image": null,
+      "bg": "linear-gradient(180deg, #DCE6E4 0%, #8FA9AE 100%)",
+      "numeral": "IV",
+      "glow": "rgba(255, 255, 255, 0.8)",
+      "ink": "#1B2640",
+      "kicker": "#1B2640",
+      "fade": "#8FA9AE"
+    }
+  },
+  {
+    "id": "passion",
+    "title": "La Passion",
+    "short": "La Passion",
+    "refs": "Mt 26 – 27 · Jn 18 – 19",
+    "period": "Nouveau Testament",
+    "order": 5,
+    "timelineX": 76,
+    "feast": "vendredi-saint",
+    "tableaux": null,
+    "published": false,
+    "card": {
+      "image": null,
+      "bg": "linear-gradient(180deg, #8A2A2F 0%, #4A1418 100%)",
+      "numeral": "V",
+      "glow": "rgba(240, 213, 142, 0.35)",
+      "ink": "#F0D58E",
+      "kicker": "#F0D58E",
+      "fade": "#4A1418"
+    }
+  },
+  {
+    "id": "resurrection",
+    "title": "La Résurrection",
+    "short": "La Résurrection",
+    "refs": "Mt 28 · Lc 24 · Jn 20",
+    "period": "Nouveau Testament",
+    "order": 6,
+    "timelineX": 86,
+    "feast": "paques",
+    "tableaux": null,
+    "published": false,
+    "card": {
+      "image": null,
+      "bg": "linear-gradient(180deg, #F7E7C2 0%, #E3B866 100%)",
+      "numeral": "VI",
+      "glow": "rgba(255, 250, 235, 0.9)",
+      "ink": "#6B1E23",
+      "kicker": "#6B1E23",
+      "fade": "#E3B866"
+    }
+  },
+  {
+    "id": "pentecote",
+    "title": "La Pentecôte",
+    "short": "La Pentecôte",
+    "refs": "Ac 2",
+    "period": "Nouveau Testament",
+    "order": 7,
+    "timelineX": 96,
+    "feast": "pentecote",
+    "tableaux": null,
+    "published": false,
+    "card": {
+      "image": null,
+      "bg": "linear-gradient(180deg, #C2552E 0%, #6B1E23 100%)",
+      "numeral": "VII",
+      "glow": "rgba(255, 200, 120, 0.55)",
+      "ink": "#F4EDDC",
+      "kicker": "#F0D58E",
+      "fade": "#6B1E23"
+    }
+  }
+]

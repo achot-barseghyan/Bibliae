@@ -37,17 +37,28 @@
   color: var(--bible-muted);
 }
 
+/* Seule la liste défile : la page est une colonne qui remplit l'écran, le
+   corps prend la place restante et s'arrête au-dessus de la barre rosace. */
+.bible-index-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .bible-index-body {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   align-items: stretch;
-  height: calc(100% - 96px);
+  margin-bottom: var(--rosace-bar-h);
 }
 
 .bible-index-list {
   flex: 1 1 auto;
   min-width: 0;
   overflow-y: auto;
-  padding: 8px 0 24px;
+  /* Le fronton de la barre (48px) dépasse au-dessus de --rosace-bar-h. */
+  padding: 8px 0 72px;
 }
 
 .bible-category {
@@ -212,4 +223,9 @@
 .bible-rail-button:focus-visible {
   outline: 2px solid var(--bible-accent);
   outline-offset: -2px;
+}
+
+/* Carte du plan de lecture, au-dessus de la première section. */
+.bible-index-plan {
+  padding: 0 20px;
 }

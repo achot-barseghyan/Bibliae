@@ -5,6 +5,8 @@ import BibleIndex from './bible/BibleIndex';
 import BibleBook from './bible/BibleBook';
 import BibleChapter from './bible/BibleChapter';
 import MesLectures from './bible/MesLectures';
+import PlanSommaire from './bible/PlanSommaire';
+import PlanDay from './bible/PlanDay';
 import './bible/bibleTheme.css';
 
 // BibleReadingPrefsProvider est monté globalement dans App.tsx : la feuille
@@ -19,6 +21,8 @@ const Bible: React.FC = () => {
       <IonRouterOutlet>
         <Route path="" element={<BibleIndex />} />
         <Route path="mes-lectures" element={<MesLectures />} />
+        <Route path="plan" element={<PlanSommaire />} />
+        <Route path="plan/:day" element={<PlanDay />} />
         <Route path=":bookId" element={<BibleBook />} />
         <Route path=":bookId/:chapter" element={<BibleChapter />} />
       </IonRouterOutlet>

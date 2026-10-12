@@ -3,11 +3,13 @@ import { figures } from '../data/figures';
 import { COUNCILS } from '../data/councils';
 import { getPrayer } from '../data/prayers';
 import { findIntercession } from '../data/saints';
+import { EVENTS, eventPath } from '../data/events';
 
 export type BookmarkType =
   | 'verse'
   | 'chapter'
   | 'figure'
+  | 'event'
   | 'council'
   | 'prayer'
   | 'saint'
@@ -64,6 +66,20 @@ function resolveFigure(key: string, id: string): ResolvedBookmark {
     title: figure.name,
     subtitle: 'Figure',
     path: `/figures/${id}`
+  };
+}
+
+function resolveEvent(key: string, id: string): ResolvedBookmark {
+  const event = EVENTS.find((e) => e.id === id);
+  if (!event) {
+    return { key, type: 'unknown', title: key, subtitle: 'Ce favori ne peut plus être retrouvé' };
+  }
+  return {
+    key,
+    type: 'event',
+    title: event.title,
+    subtitle: event.refs,
+    path: eventPath(id)
   };
 }
 
@@ -148,6 +164,8 @@ export function resolveBookmark(key: string): ResolvedBookmark {
       return resolveChapter(key, rest);
     case 'figure':
       return resolveFigure(key, rest);
+    case 'event':
+      return resolveEvent(key, rest);
     case 'council':
       return resolveCouncil(key, rest);
     case 'prayer':
@@ -165,6 +183,7 @@ export const BOOKMARK_TYPE_LABELS: Record<BookmarkType, string> = {
   verse: 'Versets',
   chapter: 'Chapitres',
   figure: 'Figures',
+  event: 'Événements',
   council: 'Conciles',
   prayer: 'Prières',
   saint: 'Saints',
@@ -177,6 +196,7 @@ export const BOOKMARK_TYPE_ORDER: BookmarkType[] = [
   'verse',
   'chapter',
   'figure',
+  'event',
   'prayer',
   'saint',
   'council',

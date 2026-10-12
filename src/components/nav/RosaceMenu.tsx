@@ -49,7 +49,7 @@ interface World {
 }
 
 const worlds: World[] = [
-  { key: 'compendium', label: 'Compendium', subtitle: 'Figures, lieux, frise, Église', path: '/compendium/accueil', Icon: FiguresIcon },
+  { key: 'compendium', label: 'Compendium', subtitle: 'Figures, événements, frise, Église', path: '/compendium/accueil', Icon: FiguresIcon },
   { key: 'bible', label: 'La Bible', subtitle: '73 livres', path: '/bible', Icon: BibleIcon },
   { key: 'rosaire', label: 'Le Rosaire', subtitle: 'Prière du Rosaire', path: '/rosaire', Icon: ChapeletIcon },
   { key: 'prier', label: 'Prier', subtitle: 'Prières et intercession des saints', path: '/prier', Icon: BougieIcon }

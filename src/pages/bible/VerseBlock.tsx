@@ -19,6 +19,8 @@ interface VerseBlockProps {
   /** Notes dont le passage se termine dans ce verset (affichées dessous). */
   notes: VerseNote[];
   onOpenNote: (note: VerseNote) => void;
+  /** Verset du passage visé par un lien (« ?v=26-38 »), mis en valeur. */
+  isFocused?: boolean;
 }
 
 interface Segment {
@@ -97,7 +99,8 @@ const VerseBlock: React.FC<VerseBlockProps> = ({
   annotations,
   selectedRange,
   notes,
-  onOpenNote
+  onOpenNote,
+  isFocused = false
 }) => {
   // Noms des figures bibliques, cliquables vers leur fiche.
   const links = useMemo(
@@ -122,7 +125,7 @@ const VerseBlock: React.FC<VerseBlockProps> = ({
     selectedRange.end >= words[words.length - 1].end;
 
   return (
-    <div className="verse-block">
+    <div className={`verse-block${isFocused ? ' is-focused' : ''}`}>
       <p className="bible-chapter-verse">
         <span
           className={`bible-chapter-verse-number verse-number-target${isWholeVerseSelected ? ' is-selected' : ''}`}

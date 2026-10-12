@@ -3,6 +3,7 @@ import type { MysterySetKey } from '../data/rosary';
 import { MYSTERY_ORDER, mysterySetForToday } from '../data/rosary';
 import type { PrayerLanguage } from '../data/prayers';
 import { BOOKS, booksByTestament } from '../data/bible';
+import { PLAN_DAYS, PLAN_ID, PLAN_LENGTH } from '../data/readingPlan';
 
 export const APP_DATA_VERSION = 3;
 
@@ -103,6 +104,37 @@ export interface ReadingPosition {
   updatedAt: string;
 }
 
+// Plans de lecture datés par numéro de jour (« La Bible en 1 an ») : progression
+// séparée des parcours, sans lien avec les `ChapterRead`. Voir la spec
+// « Plan de lecture ».
+export interface PlanRun {
+  startedAt: string;
+  completedAt: string;
+}
+
+export interface PlanProgress {
+  planId: string;
+  /** null = jamais commencé (ou archivé) : la carte de la page Bible propose de commencer. */
+  startedAt: string | null;
+  completedAt: string | null;
+  /** Premier jour non entièrement lu ; recalculé à chaque écriture. */
+  currentDay: number;
+  /** L'écran « Félicitations » s'affiche une seule fois par achèvement. */
+  celebrated: boolean;
+  /** Carte masquée sur la page Bible ; le plan reste accessible depuis la feuille des parcours. */
+  cardHidden: boolean;
+  /** Plans achevés puis recommencés ou archivés. */
+  history: PlanRun[];
+}
+
+export interface PlanRead {
+  planId: string;
+  day: number;
+  refIndex: number;
+  readAt: string;
+  source: 'reading' | 'manual';
+}
+
 export interface AppData {
   version: 3;
   bookmarks: string[];
@@ -110,6 +142,8 @@ export interface AppData {
   parcours: Parcours[];
   chapterReads: ChapterRead[];
   readingPositions: ReadingPosition[];
+  planProgress: PlanProgress[];
+  planReads: PlanRead[];
   settings: AppDataSettings;
 }
 
@@ -162,6 +196,8 @@ function defaultAppData(): AppData {
     parcours: [defaultParcours()],
     chapterReads: [],
     readingPositions: [],
+    planProgress: [],
+    planReads: [],
     settings: {
       accessibility: { ...defaultAccessibilitySettings },
       bibleReading: { ...defaultBibleReadingPrefs },
@@ -299,6 +335,49 @@ function sanitizeReadingPositions(value: unknown): ReadingPosition[] {
   return value.filter(isReadingPositionShape);
 }
 
+function isPlanProgressShape(value: unknown): value is PlanProgress {
+  if (typeof value !== 'object' || value === null) return false;
+  const v = value as Record<string, unknown>;
+  return (
+    typeof v.planId === 'string' &&
+    (v.startedAt === null || typeof v.startedAt === 'string') &&
+    (v.completedAt === null || typeof v.completedAt === 'string') &&
+    typeof v.currentDay === 'number'
+  );
+}
+
+function sanitizePlanProgress(value: unknown): PlanProgress[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter(isPlanProgressShape).map((p) => ({
+    ...p,
+    celebrated: typeof p.celebrated === 'boolean' ? p.celebrated : p.completedAt !== null,
+    cardHidden: typeof p.cardHidden === 'boolean' ? p.cardHidden : false,
+    history: Array.isArray(p.history)
+      ? p.history.filter(
+          (r): r is PlanRun =>
+            typeof r === 'object' && r !== null && typeof r.startedAt === 'string' && typeof r.completedAt === 'string'
+        )
+      : []
+  }));
+}
+
+function isPlanReadShape(value: unknown): value is PlanRead {
+  if (typeof value !== 'object' || value === null) return false;
+  const v = value as Record<string, unknown>;
+  return (
+    typeof v.planId === 'string' &&
+    typeof v.day === 'number' &&
+    typeof v.refIndex === 'number' &&
+    typeof v.readAt === 'string' &&
+    (v.source === 'reading' || v.source === 'manual')
+  );
+}
+
+function sanitizePlanReads(value: unknown): PlanRead[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter(isPlanReadShape);
+}
+
 // v1 (pré-annotations), v2 (pré-parcours) et v3 sont tous acceptés : un document
 // plus ancien est simplement complété avec les valeurs par défaut au passage
 // dans sanitize().
@@ -315,6 +394,8 @@ function sanitize(value: unknown): AppData {
   const rawParcours = (value as { parcours?: unknown }).parcours;
   const rawChapterReads = (value as { chapterReads?: unknown }).chapterReads;
   const rawReadingPositions = (value as { readingPositions?: unknown }).readingPositions;
+  const rawPlanProgress = (value as { planProgress?: unknown }).planProgress;
+  const rawPlanReads = (value as { planReads?: unknown }).planReads;
   return {
     version: APP_DATA_VERSION,
     bookmarks: Array.from(new Set(value.bookmarks)),
@@ -322,6 +403,8 @@ function sanitize(value: unknown): AppData {
     parcours: sanitizeParcoursList(rawParcours),
     chapterReads: sanitizeChapterReads(rawChapterReads),
     readingPositions: sanitizeReadingPositions(rawReadingPositions),
+    planProgress: sanitizePlanProgress(rawPlanProgress),
+    planReads: sanitizePlanReads(rawPlanReads),
     settings: {
       accessibility: { ...defaultAccessibilitySettings, ...settings.accessibility },
       bibleReading: { ...defaultBibleReadingPrefs, ...settings.bibleReading },
@@ -474,6 +557,28 @@ export function mergeAppData(incoming: AppData): {
     }
   }
 
+  // Plans : lectures fusionnées comme les chapitres (la plus récente l'emporte) ;
+  // la progression importée ne remplace la locale que si celle-ci n'a jamais
+  // démarré.
+  const planReadMap = new Map(cache.planReads.map((r) => [planReadKey(r), r]));
+  for (const incomingRead of sanitized.planReads) {
+    const key = planReadKey(incomingRead);
+    const existing = planReadMap.get(key);
+    if (!existing || incomingRead.readAt > existing.readAt) planReadMap.set(key, incomingRead);
+  }
+  const planProgressMap = new Map(cache.planProgress.map((p) => [p.planId, p]));
+  for (const incomingProgress of sanitized.planProgress) {
+    const existing = planProgressMap.get(incomingProgress.planId);
+    if (!existing || (!existing.startedAt && incomingProgress.startedAt)) {
+      planProgressMap.set(incomingProgress.planId, incomingProgress);
+    }
+  }
+  const planReads = Array.from(planReadMap.values());
+  const planProgress = Array.from(planProgressMap.values()).map((p) => ({
+    ...p,
+    currentDay: computeCurrentDay(planReads, p.planId)
+  }));
+
   cache = {
     version: APP_DATA_VERSION,
     bookmarks: Array.from(merged),
@@ -481,6 +586,8 @@ export function mergeAppData(incoming: AppData): {
     parcours: [...cache.parcours, ...newParcours],
     chapterReads: Array.from(chapterReadMap.values()),
     readingPositions: Array.from(readingPositionMap.values()),
+    planProgress,
+    planReads,
     settings: cache.settings
   };
   persist();
@@ -857,4 +964,144 @@ export function clearReadingPosition(parcoursId: string): void {
     ...prev,
     readingPositions: prev.readingPositions.filter((p) => p.parcoursId !== parcoursId)
   }));
+}
+
+// --- Plan de lecture : sélecteurs purs ---
+
+function planReadKey(r: { planId: string; day: number; refIndex: number }): string {
+  return `${r.planId}:${r.day}:${r.refIndex}`;
+}
+
+function readKeysForPlan(planReads: PlanRead[], planId: string): Set<string> {
+  return new Set(planReads.filter((r) => r.planId === planId).map(planReadKey));
+}
+
+function isDayRead(keys: Set<string>, planId: string, day: number): boolean {
+  const refs = PLAN_DAYS[day - 1]?.refs ?? [];
+  return refs.length > 0 && refs.every((_, refIndex) => keys.has(planReadKey({ planId, day, refIndex })));
+}
+
+/** Premier jour non entièrement lu ; le dernier jour si tout est lu. */
+function computeCurrentDay(planReads: PlanRead[], planId: string): number {
+  const keys = readKeysForPlan(planReads, planId);
+  for (let day = 1; day <= PLAN_LENGTH; day++) {
+    if (!isDayRead(keys, planId, day)) return day;
+  }
+  return PLAN_LENGTH;
+}
+
+function defaultPlanProgress(): PlanProgress {
+  return {
+    planId: PLAN_ID,
+    startedAt: null,
+    completedAt: null,
+    currentDay: 1,
+    celebrated: false,
+    cardHidden: false,
+    history: []
+  };
+}
+
+export function getPlanProgress(data: AppData): PlanProgress {
+  return data.planProgress.find((p) => p.planId === PLAN_ID) ?? defaultPlanProgress();
+}
+
+/** État de chaque jour du plan (index 0 = jour 1) : une case par référence. */
+export function planDayStates(data: AppData): boolean[][] {
+  const keys = readKeysForPlan(data.planReads, PLAN_ID);
+  return PLAN_DAYS.map((d) => d.refs.map((_, refIndex) => keys.has(planReadKey({ planId: PLAN_ID, day: d.n, refIndex }))));
+}
+
+// --- Plan de lecture : mutateurs ---
+
+/** Remplace les lectures du plan et recalcule jour courant et achèvement. */
+function withPlanReads(prev: AppData, planReads: PlanRead[], patch: Partial<PlanProgress> = {}): AppData {
+  const now = new Date().toISOString();
+  const current = { ...getPlanProgress(prev), ...patch };
+  const keys = readKeysForPlan(planReads, PLAN_ID);
+  let allRead = true;
+  for (let day = 1; day <= PLAN_LENGTH && allRead; day++) allRead = isDayRead(keys, PLAN_ID, day);
+  const next: PlanProgress = {
+    ...current,
+    // Une lecture cochée sans avoir appuyé sur « Commencer » démarre le plan.
+    startedAt: current.startedAt ?? (planReads.length > 0 ? now : null),
+    completedAt: allRead ? (current.completedAt ?? now) : null,
+    currentDay: computeCurrentDay(planReads, PLAN_ID)
+  };
+  return {
+    ...prev,
+    planReads,
+    planProgress: [...prev.planProgress.filter((p) => p.planId !== PLAN_ID), next]
+  };
+}
+
+export function startReadingPlan(): void {
+  setAppData((prev) => {
+    if (getPlanProgress(prev).startedAt) return prev;
+    return withPlanReads(prev, prev.planReads, { startedAt: new Date().toISOString() });
+  });
+}
+
+/** Coche ou décoche une référence d'un jour. */
+export function setPlanRefRead(day: number, refIndex: number, read: boolean, source: PlanRead['source']): void {
+  setAppData((prev) => {
+    const key = planReadKey({ planId: PLAN_ID, day, refIndex });
+    const others = prev.planReads.filter((r) => planReadKey(r) !== key);
+    const planReads = read
+      ? [...others, { planId: PLAN_ID, day, refIndex, readAt: new Date().toISOString(), source }]
+      : others;
+    return withPlanReads(prev, planReads);
+  });
+}
+
+/** Coche ou décoche toutes les références d'un jour. */
+export function setPlanDayRead(day: number, read: boolean): void {
+  const refCount = PLAN_DAYS[day - 1]?.refs.length ?? 0;
+  setAppData((prev) => {
+    const others = prev.planReads.filter((r) => !(r.planId === PLAN_ID && r.day === day));
+    if (!read) return withPlanReads(prev, others);
+    const now = new Date().toISOString();
+    // Les références déjà lues gardent leur date et leur source.
+    const kept = prev.planReads.filter((r) => r.planId === PLAN_ID && r.day === day);
+    const keptIndexes = new Set(kept.map((r) => r.refIndex));
+    const added = Array.from({ length: refCount }, (_, refIndex) => refIndex)
+      .filter((refIndex) => !keptIndexes.has(refIndex))
+      .map((refIndex): PlanRead => ({ planId: PLAN_ID, day, refIndex, readAt: now, source: 'manual' }));
+    return withPlanReads(prev, [...others, ...kept, ...added]);
+  });
+}
+
+export function markPlanCelebrated(): void {
+  setAppData((prev) => withPlanReads(prev, prev.planReads, { celebrated: true }));
+}
+
+/** Range l'achèvement courant dans l'historique et efface les lectures. */
+function closePlanRun(prev: AppData, startedAt: string | null): AppData {
+  const current = getPlanProgress(prev);
+  const history =
+    current.startedAt && current.completedAt
+      ? [...current.history, { startedAt: current.startedAt, completedAt: current.completedAt }]
+      : current.history;
+  const planReads = prev.planReads.filter((r) => r.planId !== PLAN_ID);
+  return withPlanReads({ ...prev, planReads }, planReads, {
+    startedAt,
+    completedAt: null,
+    celebrated: false,
+    cardHidden: false,
+    history
+  });
+}
+
+/** Repart du jour 1 en conservant l'historique des plans achevés. */
+export function restartReadingPlan(): void {
+  setAppData((prev) => closePlanRun(prev, new Date().toISOString()));
+}
+
+/** La carte de la page Bible revient à l'état « première visite ». */
+export function archiveReadingPlan(): void {
+  setAppData((prev) => closePlanRun(prev, null));
+}
+
+export function setPlanCardHidden(hidden: boolean): void {
+  setAppData((prev) => withPlanReads(prev, prev.planReads, { cardHidden: hidden }));
 }

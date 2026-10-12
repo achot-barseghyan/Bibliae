@@ -146,7 +146,7 @@
 
 .bible-chapter-verse-number {
   font-family: var(--font-inter);
-  font-size: var(--taille-surtitre);
+  font-size: calc(11px * var(--a11y-scale));
   color: var(--bible-accent);
   vertical-align: super;
   margin-right: 4px;
