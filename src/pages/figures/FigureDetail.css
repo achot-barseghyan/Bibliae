@@ -92,6 +92,23 @@
   object-position: top center;
 }
 
+/* Crédit de l'illustration, sous le portrait. */
+.figure-detail-credit {
+  margin: 8px 28px 0;
+  text-align: right;
+  font-family: var(--font-inter);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--encre-50);
+}
+
+.figure-detail-credit a {
+  color: var(--color-oxblood);
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 2px;
+}
+
 .figure-detail-divider {
   position: relative;
   text-align: center;

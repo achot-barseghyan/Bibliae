@@ -4,9 +4,7 @@ import { ChevronLeftIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
 import './InfoPage.css';
 import WorldButton from '../../components/nav/WorldButton';
-
-/** Portraits des figures et illustrations des événements : crédit demandé par l'artiste. */
-const ARTIST_SHOP_URL = 'https://www.etsy.com/shop/DolceDreamsStudio';
+import { ARTIST_SHOP_URL } from '../../data/credits';
 
 const Sources: React.FC = () => {
   const navigate = useNavigate();

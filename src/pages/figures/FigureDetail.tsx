@@ -19,6 +19,7 @@ import { tapHaptic } from '../../utils/haptics';
 import './FigureDetail.css';
 import WorldButton from '../../components/nav/WorldButton';
 import ZoomableImage from '../../components/ZoomableImage';
+import { ARTIST_NAME, ARTIST_SHOP_URL } from '../../data/credits';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
 
@@ -232,6 +233,12 @@ const FigureDetail: React.FC = () => {
       </div>
 
       <ZoomableImage className="figure-detail-portrait" src={figure.image} alt={figure.name} />
+      <p className="figure-detail-credit">
+        Artwork by{' '}
+        <a href={ARTIST_SHOP_URL} target="_blank" rel="noopener noreferrer">
+          {ARTIST_NAME}
+        </a>
+      </p>
 
       <div className="figure-detail-divider">
         <span className="figure-detail-divider-label">

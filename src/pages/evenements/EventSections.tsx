@@ -14,6 +14,7 @@ import {
 import { getBook } from '../../data/bible';
 import { useElementWidth } from '../../hooks/useElementWidth';
 import { tapHaptic } from '../../utils/haptics';
+import { ARTIST_NAME, ARTIST_SHOP_URL } from '../../data/credits';
 import { contentTop, useParallax, useReveal, useScrollEngine } from './scrollEngine';
 
 // Sections de la fiche événement, dans l'ordre de la page.
@@ -558,8 +559,6 @@ export const Liturgy: React.FC<{ days: EventDetail['liturgy'] }> = ({ days }) =>
 
 // --- 11. Pied de page ---
 
-const ARTIST_SHOP_URL = 'https://www.etsy.com/shop/DolceDreamsStudio';
-
 export const Footer: React.FC = () => (
   <footer className="evd-footer">
     <span className="evd-footer-star" aria-hidden="true">
@@ -568,7 +567,7 @@ export const Footer: React.FC = () => (
     <p>
       Artwork by{' '}
       <a href={ARTIST_SHOP_URL} target="_blank" rel="noopener noreferrer">
-        DolceDreamsStudio
+        {ARTIST_NAME}
       </a>
     </p>
     <p>Citations · Bible Crampon</p>
