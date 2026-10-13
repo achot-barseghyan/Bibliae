@@ -20,6 +20,13 @@
   --bible-surface: var(--color-papier-enfonce);
 
   --bible-font: var(--font-cormorant);
+
+  /* Cartes en relief (reprise de lecture, cases non lues), texte posé sur
+     l'accent (case « en cours ») ou sur l'encre (onglet actif). */
+  --bible-raised: #F4EDDC;
+  --bible-on-accent: #F0D58E;
+  --bible-on-ink: #F0D58E;
+  --bible-gold: var(--color-or);
 }
 
 .bible-world[data-bible-font='garamond'] {
@@ -40,6 +47,8 @@
   --bible-accent: #8b3a1e;
   --bible-empty-cell: rgba(74, 55, 40, 0.12);
   --bible-surface: #ded0ad;
+  --bible-raised: #f3ead3;
+  --bible-gold: #a87c3b;
 }
 
 .bible-world[data-bible-theme='nuit'] {
@@ -52,6 +61,10 @@
   --bible-accent: #d98a73;
   --bible-empty-cell: rgba(237, 229, 211, 0.1);
   --bible-surface: rgba(237, 229, 211, 0.07);
+  --bible-raised: #2a2621;
+  --bible-on-accent: #1e1b17;
+  --bible-on-ink: #6b4f12;
+  --bible-gold: #d9a94a;
 }
 
 .bible-world[data-bible-theme='contraste'] {
@@ -64,4 +77,139 @@
   --bible-accent: #a3001e;
   --bible-empty-cell: rgba(0, 0, 0, 0.08);
   --bible-surface: rgba(0, 0, 0, 0.05);
+  --bible-raised: #ffffff;
+  --bible-gold: #7a5a12;
+}
+
+/* Animations d'ambiance partagées par la liste, le livre et le lecteur
+   (neutralisées par le réglage « Réduire les animations »). */
+@keyframes bible-twinkle {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 1; }
+}
+
+@keyframes bible-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bible-breath {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes bible-shine {
+  0% { transform: translateX(-140%) skewX(-18deg); }
+  55%, 100% { transform: translateX(320%) skewX(-18deg); }
+}
+
+@keyframes bible-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(181, 137, 46, 0.55); }
+  50% { box-shadow: 0 0 0 6px rgba(181, 137, 46, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bible-world * {
+    animation: none !important;
+  }
+}
+
+/* Couronne de rayons dorés (bandeaux et ouverture de chapitre). */
+.bible-rays {
+  position: absolute;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(240, 213, 142, 0.5) 0deg 0.6deg, transparent 0.6deg 7deg);
+  -webkit-mask: radial-gradient(circle closest-side, transparent 0 84%, #000 85% 93%, transparent 94%);
+  mask: radial-gradient(circle closest-side, transparent 0 84%, #000 85% 93%, transparent 94%);
+  animation: bible-spin 100s linear infinite;
+  pointer-events: none;
+}
+
+/* Ciel étoilé des bandeaux de nuit (NightStars). */
+.night-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.night-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff6de;
+  box-shadow: 0 0 6px rgba(255, 236, 190, 0.9);
+}
+
+/* Lien retour doré posé sur un bandeau de nuit. */
+.night-back {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px 0 0;
+  background: none;
+  border: none;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #f0d58e;
+  cursor: pointer;
+}
+
+.night-back:focus-visible {
+  outline: 2px solid #f0d58e;
+  outline-offset: 3px;
+}
+
+/* Bouton doré à reflet des bandeaux de nuit. */
+.gold-cta {
+  position: relative;
+  overflow: hidden;
+  min-height: 48px;
+  padding: 0 24px;
+  border: none;
+  border-radius: 24px;
+  background: #f0d58e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 14px 24px -14px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(10px * var(--a11y-scale));
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #23201a;
+}
+
+.gold-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 34%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: bible-shine 5s ease-in-out infinite;
+}
+
+.gold-cta > * {
+  position: relative;
+}
+
+.gold-cta-arrow {
+  font-family: var(--font-cormorant);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  color: #6b1e23;
+}
+
+.gold-cta:focus-visible {
+  outline: 2px solid #f0d58e;
+  outline-offset: 3px;
 }

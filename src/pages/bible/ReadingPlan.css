@@ -236,493 +236,9 @@
   gap: 10px;
 }
 
-/* --- Sommaire --- */
-
-.plan-body {
-  padding: 0 20px 26px;
-}
-
-.plan-intro {
-  padding-top: 24px;
-}
-
-.plan-intro-title {
-  margin: 11px 0 0;
-  font-family: var(--bible-font);
-  font-weight: 400;
-  font-size: calc(38px * var(--a11y-scale));
-  line-height: 1.02;
-  color: var(--bible-text);
-}
-
-.plan-intro-text {
-  margin: 13px 0 0;
-  font-family: var(--font-eb-garamond);
-  font-size: calc(16px * var(--a11y-scale));
-  line-height: calc(1.46 * var(--a11y-leading));
-  color: var(--bible-muted);
-}
-
-.plan-intro-progress {
-  margin: 18px 0 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.plan-intro-progress .plan-track {
-  height: 3px;
-}
-
-.plan-section-title {
-  margin: 26px 0 4px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.plan-section-title::after {
-  content: '';
-  flex: 1;
-  height: 0.5px;
-  background: var(--bible-border);
-}
-
-.plan-group-header {
-  width: 100%;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  background: none;
-  border: none;
-  border-bottom: 0.5px solid var(--bible-border-soft);
-  text-align: left;
-  cursor: pointer;
-}
-
-.plan-group-book {
-  font-family: var(--bible-font);
-  font-style: italic;
-  font-size: calc(19px * var(--a11y-scale));
-  color: var(--bible-accent);
-}
-
-.plan-group-range {
-  flex: 1 1 auto;
-  font-family: var(--font-inter);
-  font-size: calc(9.5px * var(--a11y-scale));
-  letter-spacing: 0.04em;
-  color: var(--bible-faint);
-}
-
-.plan-group-count {
-  font-family: var(--font-inter);
-  font-size: calc(9.5px * var(--a11y-scale));
-  letter-spacing: 0.06em;
-  color: var(--bible-accent);
-}
-
-.plan-group-count.is-complete {
-  color: var(--color-or);
-}
-
-.plan-group-chevron {
-  flex: none;
-  color: var(--bible-text);
-  transition: transform 160ms ease;
-}
-
-.plan-group-header[aria-expanded='true'] .plan-group-chevron {
-  transform: rotate(180deg);
-}
-
-.plan-day-row {
-  width: calc(100% + 16px);
-  display: grid;
-  grid-template-columns: 38px 1fr 16px;
-  gap: 10px;
-  align-items: center;
-  min-height: 44px;
-  padding: 11px 8px;
-  margin: 0 -8px;
-  background: none;
-  border: none;
-  border-bottom: 0.5px solid var(--bible-border-soft);
-  text-align: left;
-  cursor: pointer;
-}
-
-.plan-day-row.is-selected {
-  background: rgba(107, 30, 35, 0.06);
-  background: color-mix(in srgb, var(--bible-accent) 6%, transparent);
-  box-shadow: inset 2px 0 0 var(--bible-accent);
-}
-
-.plan-day-num {
-  font-family: var(--bible-font);
-  font-size: calc(18px * var(--a11y-scale));
-  color: var(--bible-text);
-}
-
-.plan-day-row.is-done .plan-day-num {
-  color: var(--bible-faint);
-}
-
-.plan-day-row.is-current .plan-day-num {
-  color: var(--bible-accent);
-  font-weight: 600;
-}
-
-.plan-day-row.is-selected .plan-day-num {
-  color: var(--bible-accent);
-}
-
-.plan-day-refs {
-  font-family: var(--font-eb-garamond);
-  font-size: calc(14px * var(--a11y-scale));
-  line-height: 1.3;
-  color: var(--bible-muted);
-}
-
-.plan-day-state {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-or);
-}
-
-.plan-day-partial {
-  width: 12px;
-  height: 2px;
-  background: var(--bible-accent);
-}
-
-.plan-finale-row {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 38px 1fr;
-  gap: 10px;
-  align-items: center;
-  min-height: 44px;
-  padding: 16px 0 4px;
-  background: none;
-  border: none;
-  text-align: left;
-}
-
-.plan-finale-row:not(:disabled) {
-  cursor: pointer;
-}
-
-.plan-finale-num {
-  font-family: var(--bible-font);
-  font-size: calc(18px * var(--a11y-scale));
-  color: var(--color-or);
-}
-
-.plan-finale-label {
-  font-family: var(--bible-font);
-  font-style: italic;
-  font-size: calc(18px * var(--a11y-scale));
-  color: var(--bible-text);
-}
-
-/* --- Lecture du jour --- */
-
-.plan-day-body {
-  padding: 28px 20px 26px;
-}
-
-.plan-day-hero {
-  text-align: center;
-}
-
-.plan-day-title {
-  margin: 10px 0 0;
-  font-family: var(--bible-font);
-  font-weight: 400;
-  font-size: calc(46px * var(--a11y-scale));
-  line-height: 1;
-  color: var(--bible-text);
-}
-
-.plan-day-sub {
-  margin: 8px 0 0;
-  font-family: var(--font-eb-garamond);
-  font-style: italic;
-  font-size: calc(15px * var(--a11y-scale));
-  color: var(--bible-muted);
-}
-
-/* Filet doré radial, comme celui du lecteur. */
-.plan-day-rule {
-  width: 70%;
-  height: 9px;
-  margin: 18px auto 0;
-  background: radial-gradient(50% 100% at 50% 50%, var(--color-or) 0%, transparent 100%);
-}
-
-.plan-day-position {
-  margin: 8px 0 0;
-  font-family: var(--bible-font);
-  font-weight: 300;
-  font-size: calc(14px * var(--a11y-scale));
-  color: var(--bible-faint);
-}
-
-.plan-refs {
-  margin: 20px 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 9px;
-}
-
-.plan-ref {
-  display: grid;
-  grid-template-columns: 44px 1fr auto;
-  gap: 6px;
-  align-items: center;
-  padding: 8px 14px 8px 4px;
-  border-radius: 12px;
-  background: var(--bible-surface);
-  box-shadow: inset 0 0 0 1px var(--bible-border);
-}
-
-.plan-ref.is-read {
-  background: transparent;
-  box-shadow: inset 0 0 0 1px var(--bible-border-soft);
-}
-
-.plan-ref-toggle {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.plan-ref-circle {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 0 0 0 1.2px var(--bible-accent);
-  color: var(--bible-bg);
-}
-
-.plan-ref-circle svg {
-  opacity: 0;
-}
-
-.plan-ref.is-read .plan-ref-circle {
-  background: var(--bible-accent);
-}
-
-.plan-ref.is-read .plan-ref-circle svg {
-  opacity: 1;
-}
-
-.plan-ref-main {
-  min-width: 0;
-  padding: 6px 0;
-}
-
-.plan-ref-label {
-  margin: 0;
-  font-family: var(--bible-font);
-  font-weight: 500;
-  font-size: calc(24px * var(--a11y-scale));
-  line-height: 1.05;
-  color: var(--bible-text);
-}
-
-.plan-ref-verses {
-  margin: 4px 0 0;
-  font-family: var(--font-inter);
-  font-size: calc(9.5px * var(--a11y-scale));
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--bible-muted);
-}
-
-.plan-ref-read {
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 0;
-  background: none;
-  border: none;
-  font-family: var(--font-inter);
-  font-size: calc(9.5px * var(--a11y-scale));
-  letter-spacing: var(--tracking-min);
-  text-transform: uppercase;
-  color: var(--bible-accent);
-  cursor: pointer;
-}
-
-.plan-ref-toggle:focus-visible,
-.plan-ref-read:focus-visible,
-.plan-group-header:focus-visible,
-.plan-day-row:focus-visible {
-  outline: 2px solid var(--bible-accent);
-  outline-offset: -2px;
-}
-
-.plan-day-toggle {
-  margin-top: 18px;
-}
-
-.plan-day-note {
-  margin: 14px 0 0;
-  font-family: var(--font-eb-garamond);
-  font-style: italic;
-  font-size: calc(14px * var(--a11y-scale));
-  line-height: 1.4;
-  text-align: center;
-  color: var(--bible-muted);
-}
-
-/* --- Jour 366 --- */
-
-.plan-finale {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 64px 28px 30px;
-  text-align: center;
-}
-
-.plan-finale-star {
-  color: var(--color-or);
-}
-
-.plan-finale .plan-kicker {
-  margin-top: 24px;
-}
-
-.plan-finale-title {
-  margin: 12px 0 0;
-  font-family: var(--bible-font);
-  font-weight: 400;
-  font-size: calc(44px * var(--a11y-scale));
-  line-height: 1;
-  color: var(--bible-text);
-}
-
-.plan-finale-text {
-  max-width: 290px;
-  margin: 16px 0 0;
-  font-family: var(--font-eb-garamond);
-  font-size: calc(17px * var(--a11y-scale));
-  line-height: 1.46;
-  color: var(--bible-muted);
-}
-
-.plan-finale-facts {
-  align-self: stretch;
-  margin: 28px 0 0;
-  border-top: 0.5px solid var(--bible-border);
-}
-
-.plan-finale-fact {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 14px;
-  align-items: baseline;
-  padding: 13px 0;
-  border-bottom: 0.5px solid var(--bible-border-soft);
-}
-
-.plan-finale-fact dt {
-  text-align: left;
-  font-family: var(--font-inter);
-  font-size: calc(9.5px * var(--a11y-scale));
-  letter-spacing: var(--tracking-min);
-  text-transform: uppercase;
-  color: var(--bible-accent);
-}
-
-.plan-finale-fact dd {
-  margin: 0;
-  font-family: var(--bible-font);
-  font-size: calc(18px * var(--a11y-scale));
-  color: var(--bible-text);
-}
-
-.plan-finale-actions {
-  align-self: stretch;
-  margin-top: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.plan-finale-warning {
-  margin: 0;
-  font-family: var(--font-eb-garamond);
-  font-size: calc(15px * var(--a11y-scale));
-  line-height: 1.4;
-  color: var(--bible-muted);
-}
-
-.plan-finale-quote {
-  margin: auto 0 0;
-  padding-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
-}
-
-.plan-finale-quote blockquote {
-  margin: 0;
-  font-family: var(--bible-font);
-  font-style: italic;
-  font-weight: 300;
-  font-size: calc(15px * var(--a11y-scale));
-  line-height: 1.45;
-  color: var(--bible-muted);
-}
-
-.plan-finale-quote cite {
-  font-family: var(--font-inter);
-  font-style: normal;
-  font-size: calc(9.5px * var(--a11y-scale));
-  letter-spacing: var(--tracking-min);
-  text-transform: uppercase;
-  color: var(--bible-accent);
-}
-
 /* La carte 2b est un bouton : ses blocs internes sont des <span>. */
 .plan-card--active .plan-card-title {
   display: block;
-}
-
-/* Le pied du jour reste en bas de l'écran même quand la page est courte. */
-.plan-day-page {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: var(--rosace-bar-h);
-}
-
-.plan-day-page .plan-day-body {
-  flex: 1 0 auto;
-}
-
-.plan-day-page .bible-chapter-pager {
-  margin-bottom: 0;
 }
 
 .plan-card-close {
@@ -784,11 +300,462 @@
   margin-left: 22px;
 }
 
+/* --- Bandeau de nuit commun au sommaire et au jour --- */
+
+.plan-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0f1526 0%, #1b2640 60%, #24406b 100%);
+  padding: calc(env(safe-area-inset-top, 0px) + 18px) 24px 34px;
+}
+
+.plan-hero-inner {
+  position: relative;
+}
+
+.plan-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.plan-hero-tag {
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.7);
+}
+
+.plan-hero-kicker {
+  margin: 18px 0 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #d9b66a;
+}
+
+.plan-hero-title {
+  margin: 10px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: calc(44px * var(--a11y-scale));
+  line-height: 1;
+  color: #f4eddc;
+}
+
+.plan-hero-text {
+  margin: 12px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(16px * var(--a11y-scale));
+  line-height: 1.44;
+  color: rgba(244, 237, 220, 0.8);
+  text-wrap: pretty;
+}
+
+.plan-hero-cta {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+}
+
+/* --- Cadran des 365 jours (sommaire) --- */
+
+.plan-dial {
+  position: relative;
+  margin: 28px auto 0;
+  width: 216px;
+  height: 216px;
+}
+
+.plan-dial-glow {
+  position: absolute;
+  inset: -26px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 213, 142, 0.26), transparent 64%);
+  animation: bible-breath 6s ease-in-out infinite;
+}
+
+/* Une graduation par jour (360° / 365 ≈ 0,9863°). */
+.plan-dial-ticks {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(244, 237, 220, 0.22) 0deg 0.45deg, transparent 0.45deg 0.9863deg);
+  -webkit-mask: radial-gradient(circle closest-side, transparent 0 84%, #000 85% 98%, transparent 99%);
+  mask: radial-gradient(circle closest-side, transparent 0 84%, #000 85% 98%, transparent 99%);
+}
+
+.plan-dial-ticks--gold {
+  background: repeating-conic-gradient(#f0d58e 0deg 0.5deg, transparent 0.5deg 0.9863deg);
+}
+
+.plan-dial-fill {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: conic-gradient(#000 0deg 0deg, transparent 0deg);
+  mask-image: conic-gradient(#000 0deg 0deg, transparent 0deg);
+}
+
+.plan-dial-mark {
+  position: absolute;
+  inset: 0;
+}
+
+.plan-dial-mark span {
+  position: absolute;
+  left: 50%;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: #f4eddc;
+  box-shadow: 0 0 12px rgba(240, 213, 142, 1);
+}
+
+.plan-dial-inner {
+  position: absolute;
+  inset: 34px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(240, 213, 142, 0.5) 0deg 0.6deg, transparent 0.6deg 6.92deg);
+  -webkit-mask: radial-gradient(circle closest-side, transparent 0 90%, #000 91% 98%, transparent 99%);
+  mask: radial-gradient(circle closest-side, transparent 0 90%, #000 91% 98%, transparent 99%);
+  animation: bible-spin 120s linear infinite reverse;
+}
+
+.plan-dial-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.plan-dial-label {
+  font-family: var(--font-inter);
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.7);
+}
+
+.plan-dial-day {
+  margin-top: 4px;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 1;
+  color: #f4eddc;
+}
+
+.plan-dial-count {
+  margin-top: 6px;
+  white-space: nowrap;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(244, 237, 220, 0.72);
+}
+
+/* --- Sommaire --- */
+
+.plan-sommaire {
+  padding: 28px 18px 24px;
+}
+
+.plan-rule-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px;
+}
+
+.plan-rule-title {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bible-accent);
+}
+
+.plan-rule-line {
+  flex: 1;
+  height: 0.5px;
+  background: var(--bible-border);
+}
+
+.plan-rule-aside {
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-size: 9.5px;
+  color: var(--bible-muted);
+}
+
+.plan-groups {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plan-group {
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 0.5px var(--bible-border);
+  overflow: hidden;
+  transition:
+    background 400ms,
+    box-shadow 400ms;
+}
+
+.plan-group.is-open {
+  background: var(--bible-raised);
+  box-shadow:
+    inset 0 0 0 1px rgba(181, 137, 46, 0.6),
+    0 14px 24px -18px rgba(35, 32, 26, 0.6);
+}
+
+.plan-group-header {
+  display: block;
+  width: 100%;
+  padding: 13px 14px 12px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.plan-group-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 18px;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.plan-group-title {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+
+.plan-group-book {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: calc(20px * var(--a11y-scale));
+  line-height: 1.1;
+  color: var(--bible-accent);
+}
+
+.plan-group-range {
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-size: 9.5px;
+  color: var(--bible-faint);
+}
+
+.plan-group-count {
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 10px;
+  color: var(--bible-accent);
+}
+
+.plan-group-count.is-complete {
+  color: var(--bible-gold);
+}
+
+.plan-group-chevron {
+  justify-self: end;
+  color: var(--bible-accent);
+  transition: transform 300ms;
+}
+
+.plan-group-header[aria-expanded='true'] .plan-group-chevron {
+  transform: rotate(180deg);
+}
+
+/* Un trait par jour du groupe : or si lu, demi-or si commencé, oxblood pour aujourd'hui. */
+.plan-group-ticks {
+  margin-top: 10px;
+  height: 12px;
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.plan-group-tick {
+  flex: 1;
+  min-width: 0;
+  height: 7px;
+  border-radius: 1px;
+  background: var(--bible-border-soft);
+}
+
+.plan-group-tick.is-done {
+  background: var(--bible-gold);
+}
+
+.plan-group-tick.is-partial {
+  background: rgba(181, 137, 46, 0.5);
+}
+
+.plan-group-tick.is-current {
+  height: 12px;
+  background: var(--bible-accent);
+}
+
+.plan-group-days {
+  padding: 0 6px 8px;
+  border-top: 0.5px solid var(--bible-border-soft);
+}
+
+.plan-day-row {
+  width: 100%;
+  margin-top: 2px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 16px;
+  gap: 8px;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  transition: background 300ms;
+}
+
+.plan-day-row.is-current {
+  background: rgba(107, 30, 35, 0.08);
+}
+
+.plan-day-num {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--bible-text);
+}
+
+.plan-day-row.is-done .plan-day-num {
+  color: var(--bible-faint);
+}
+
+.plan-day-row.is-current .plan-day-num {
+  font-weight: 600;
+  color: var(--bible-accent);
+}
+
+.plan-day-refs {
+  font-family: var(--font-eb-garamond);
+  font-size: calc(14px * var(--a11y-scale));
+  line-height: 1.3;
+  color: var(--bible-text);
+}
+
+.plan-day-row.is-done .plan-day-refs {
+  color: var(--bible-muted);
+}
+
+.plan-day-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bible-gold);
+}
+
+.plan-day-partial {
+  width: 12px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--bible-accent);
+}
+
+.plan-finale-row {
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 16px;
+  background: none;
+  box-shadow: inset 0 0 0 0.5px rgba(181, 137, 46, 0.7);
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 8px;
+  align-items: center;
+  text-align: left;
+}
+
+.plan-finale-row:not(:disabled) {
+  cursor: pointer;
+}
+
+.plan-finale-row:disabled {
+  opacity: 0.6;
+}
+
+.plan-finale-num {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--bible-gold);
+}
+
+.plan-finale-label {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: calc(19px * var(--a11y-scale));
+  color: var(--bible-text);
+}
+
+/* Boutons pilule clairs (marquer le jour, réinitialiser). */
+.plan-pill {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 25px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--bible-accent);
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(10px * var(--a11y-scale));
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bible-accent);
+  cursor: pointer;
+  transition:
+    background 450ms,
+    box-shadow 450ms,
+    color 450ms;
+}
+
+.plan-pill--accent {
+  background: var(--bible-accent);
+  box-shadow: 0 14px 24px -14px rgba(107, 30, 35, 0.8);
+  color: var(--bible-bg);
+}
+
+.plan-pill:focus-visible,
+.plan-group-header:focus-visible,
+.plan-day-row:focus-visible,
+.plan-finale-row:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: 2px;
+}
+
 /* Réinitialisation, en pied du sommaire. */
 .plan-reset {
-  margin-top: 24px;
-  padding-top: 12px;
-  border-top: 0.5px solid var(--bible-border);
+  margin-top: 26px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -798,12 +765,774 @@
 .plan-reset-warning {
   margin: 0;
   font-family: var(--font-eb-garamond);
+  font-style: italic;
   font-size: calc(15px * var(--a11y-scale));
   line-height: 1.4;
   text-align: center;
   color: var(--bible-muted);
 }
 
+/* --- Lecture du jour --- */
+
+/* Le pied du jour reste en bas de l'écran même quand la page est courte. */
+.plan-day-page {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--rosace-bar-h);
+}
+
+.plan-day-page .bible-chapter-pager {
+  margin-bottom: 0;
+  margin-top: auto;
+}
+
+.plan-hero--day {
+  padding-bottom: 70px;
+  background: linear-gradient(180deg, #0f1526 0%, #1b2640 70%, #24406b 100%);
+}
+
+.plan-day-top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.plan-day-top-title {
+  text-align: center;
+  white-space: nowrap;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 19px;
+  color: #f4eddc;
+}
+
+.plan-day-hero {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.plan-day-hero .plan-hero-kicker {
+  margin: 0;
+  letter-spacing: 0.24em;
+}
+
+.plan-day-ring {
+  position: relative;
+  margin: 16px auto 0;
+  width: 176px;
+  height: 176px;
+}
+
+.plan-day-ring-glow {
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 213, 142, 0.28), transparent 64%);
+  animation: bible-breath 5s ease-in-out infinite;
+}
+
+.plan-day-ring-rays {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(240, 213, 142, 0.5) 0deg 0.6deg, transparent 0.6deg 7.5deg);
+  -webkit-mask: radial-gradient(circle closest-side, transparent 0 92%, #000 93% 99%, transparent 100%);
+  mask: radial-gradient(circle closest-side, transparent 0 92%, #000 93% 99%, transparent 100%);
+  animation: bible-spin 90s linear infinite;
+}
+
+.plan-day-arcs {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.plan-day-arc {
+  fill: none;
+  stroke: rgba(244, 237, 220, 0.2);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition:
+    stroke 500ms,
+    stroke-width 500ms;
+}
+
+.plan-day-arc.is-read {
+  stroke: #f0d58e;
+  stroke-width: 3.5;
+  filter: drop-shadow(0 0 6px rgba(240, 213, 142, 0.8));
+}
+
+.plan-day-ring-center {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.plan-day-ring-num {
+  margin-top: 2px;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 1;
+  color: #f4eddc;
+}
+
+.plan-day-line {
+  margin: 14px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(16px * var(--a11y-scale));
+  color: rgba(244, 237, 220, 0.78);
+}
+
+/* Cartes des lectures, à cheval sur le bandeau. */
+.plan-day-body {
+  position: relative;
+  z-index: 2;
+  margin-top: -40px;
+  padding: 0 18px 28px;
+}
+
+.plan-refs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.plan-ref {
+  min-height: 76px;
+  padding: 0 10px 0 6px;
+  border-radius: 18px;
+  background: var(--bible-raised);
+  box-shadow:
+    0 18px 30px -22px rgba(15, 21, 38, 0.6),
+    inset 0 0 0 0.5px var(--bible-border);
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  transition:
+    background 450ms,
+    box-shadow 450ms;
+}
+
+.plan-ref.is-read {
+  background: var(--bible-surface);
+  box-shadow:
+    0 18px 30px -22px rgba(15, 21, 38, 0.6),
+    inset 0 0 0 1px rgba(181, 137, 46, 0.7);
+}
+
+.plan-ref-toggle {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.plan-ref-circle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.2px var(--bible-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bible-on-accent);
+  transition:
+    background 400ms,
+    box-shadow 400ms,
+    transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.plan-ref-circle svg {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.plan-ref.is-read .plan-ref-circle {
+  background: var(--bible-accent);
+  box-shadow: 0 0 0 4px rgba(107, 30, 35, 0.12);
+  transform: scale(1.06);
+}
+
+.plan-ref.is-read .plan-ref-circle svg {
+  opacity: 1;
+}
+
+.plan-ref-main {
+  min-width: 0;
+  padding: 12px 0;
+}
+
+.plan-ref-part {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bible-gold);
+}
+
+.plan-ref-label {
+  margin: 4px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(25px * var(--a11y-scale));
+  line-height: 1;
+  color: var(--bible-text);
+  transition: color 400ms;
+}
+
+.plan-ref.is-read .plan-ref-label {
+  color: var(--bible-muted);
+}
+
+.plan-ref-verses {
+  margin: 4px 0 0;
+  font-family: var(--font-inter);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bible-faint);
+}
+
+.plan-ref-read {
+  min-height: 44px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: none;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bible-accent);
+  cursor: pointer;
+}
+
+.plan-ref-toggle:focus-visible,
+.plan-ref-read:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: -2px;
+  border-radius: 10px;
+}
+
+.plan-day-toggle {
+  margin-top: 10px;
+}
+
+.plan-day-note {
+  margin: 8px 0 0;
+  text-align: center;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(14.5px * var(--a11y-scale));
+  color: var(--bible-muted);
+}
+
+/* --- Jour 366 : toujours de nuit --- */
+
+.plan-finale-content {
+  --background: #0f1526;
+}
+
+.plan-finale {
+  position: relative;
+  min-height: 100%;
+  padding: calc(env(safe-area-inset-top, 0px) + 70px) 28px calc(var(--rosace-bar-h) + 30px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: radial-gradient(120% 70% at 50% 22%, #2a3a5e 0%, #141c30 55%, #0f1526 100%);
+}
+
+.plan-finale-back {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  left: 20px;
+}
+
+.plan-finale-emblem {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plan-finale-emblem svg {
+  position: relative;
+}
+
+.plan-finale-emblem-rays {
+  position: absolute;
+  inset: -60px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(240, 213, 142, 0.18) 5deg,
+    transparent 10deg,
+    transparent 30deg,
+    rgba(240, 213, 142, 0.12) 35deg,
+    transparent 40deg,
+    transparent 60deg,
+    rgba(240, 213, 142, 0.18) 65deg,
+    transparent 70deg,
+    transparent 90deg
+  );
+  -webkit-mask: radial-gradient(circle, #000 30%, transparent 70%);
+  mask: radial-gradient(circle, #000 30%, transparent 70%);
+  animation: bible-spin 40s linear infinite;
+}
+
+.plan-finale-emblem-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 213, 142, 0.45), transparent 66%);
+  animation: bible-breath 4s ease-in-out infinite;
+}
+
+.plan-finale-kicker {
+  letter-spacing: 0.24em;
+}
+
+.plan-finale-title {
+  margin: 12px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: calc(50px * var(--a11y-scale));
+  line-height: 1;
+  color: #f4eddc;
+}
+
+.plan-finale-text {
+  margin: 14px 0 0;
+  max-width: 290px;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(17px * var(--a11y-scale));
+  line-height: 1.46;
+  color: rgba(244, 237, 220, 0.8);
+  text-wrap: pretty;
+}
+
+.plan-finale-facts {
+  margin: 26px 0 0;
+  align-self: stretch;
+  border-top: 0.5px solid rgba(240, 213, 142, 0.4);
+}
+
+.plan-finale-fact {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: baseline;
+  padding: 13px 2px;
+  border-bottom: 0.5px solid rgba(240, 213, 142, 0.22);
+}
+
+.plan-finale-fact dt {
+  text-align: left;
+  font-family: var(--font-inter);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d9b66a;
+}
+
+.plan-finale-fact dd {
+  margin: 0;
+  font-family: var(--font-cormorant);
+  font-size: calc(19px * var(--a11y-scale));
+  color: #f4eddc;
+}
+
+.plan-finale-actions {
+  margin-top: 24px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.plan-finale-actions .gold-cta {
+  min-height: 50px;
+  border-radius: 25px;
+}
+
+.plan-finale-outline {
+  min-height: 50px;
+  border: none;
+  border-radius: 25px;
+  background: none;
+  box-shadow: inset 0 0 0 1px rgba(240, 213, 142, 0.7);
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(10px * var(--a11y-scale));
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f0d58e;
+  cursor: pointer;
+}
+
+.plan-finale-outline:focus-visible {
+  outline: 2px solid #f0d58e;
+  outline-offset: 3px;
+}
+
+.plan-finale-warning {
+  margin: 0 0 4px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(15px * var(--a11y-scale));
+  line-height: 1.4;
+  color: rgba(244, 237, 220, 0.8);
+}
+
+.plan-finale-quote {
+  margin: auto 0 0;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.plan-finale-quote blockquote {
+  margin: 0;
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-weight: 300;
+  font-size: calc(16px * var(--a11y-scale));
+  line-height: 1.45;
+  color: rgba(244, 237, 220, 0.75);
+}
+
+.plan-finale-quote cite {
+  font-family: var(--font-inter);
+  font-style: normal;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f0d58e;
+}
+
+/* --- Carte du plan, habillage « nuit étoilée » (comme le bandeau de la
+   page Bible) : toujours sombre, quel que soit le thème de lecture. --- */
+.plan-card--intro,
+.plan-card--active {
+  position: relative;
+  overflow: hidden;
+  margin: 18px 0 4px;
+  padding: 18px 18px 18px;
+  border-radius: 18px;
+  background: linear-gradient(160deg, #1f2c4a 0%, #16203a 55%, #0f1526 100%);
+  box-shadow:
+    0 18px 30px -18px rgba(15, 21, 38, 0.75),
+    inset 0 0 0 0.5px rgba(240, 213, 142, 0.18);
+}
+
+.plan-card-glow {
+  position: absolute;
+  right: -60px;
+  top: -70px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 213, 142, 0.14), transparent 65%);
+  pointer-events: none;
+}
+
+.plan-card--intro .plan-kicker,
+.plan-card--active .plan-kicker {
+  position: relative;
+  color: #d9b66a;
+}
+
+.plan-card--intro .plan-card-close {
+  color: rgba(244, 237, 220, 0.7);
+}
+
+.plan-card--intro .plan-card-close:focus-visible,
+.plan-card--active:focus-visible,
+.plan-card-cta:focus-visible,
+.plan-card-link:focus-visible {
+  outline: 2px solid #f0d58e;
+  outline-offset: 2px;
+}
+
+.plan-card-head {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+}
+
+.plan-card--intro .plan-card-title,
+.plan-card--active .plan-card-title {
+  margin: 8px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: calc(32px * var(--a11y-scale));
+  line-height: 1.05;
+  color: #f4eddc;
+}
+
+.plan-card--intro .plan-card-text {
+  margin: 8px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(15.5px * var(--a11y-scale));
+  line-height: 1.42;
+  color: rgba(244, 237, 220, 0.78);
+}
+
+.plan-card-days {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.plan-card-days-value {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1;
+  color: #f0d58e;
+}
+
+.plan-card-days-unit {
+  margin-top: 2px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 7.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.6);
+}
+
+.plan-card--intro .plan-card-day {
+  position: relative;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 0.5px solid rgba(240, 213, 142, 0.28);
+}
+
+.plan-card--intro .plan-card-day-label {
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #d9b66a;
+}
+
+.plan-card-chips {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.plan-card-chip {
+  padding: 6px 13px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 0.5px rgba(244, 237, 220, 0.45);
+  font-family: var(--font-eb-garamond);
+  font-size: calc(15px * var(--a11y-scale));
+  line-height: 1.2;
+  color: #f4eddc;
+}
+
+.plan-card--intro .plan-card-actions {
+  position: relative;
+  margin-top: 18px;
+  gap: 14px;
+}
+
+.plan-card-cta {
+  position: relative;
+  overflow: hidden;
+  min-height: 52px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 26px;
+  background: #f0d58e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 14px 24px -14px rgba(0, 0, 0, 0.6);
+}
+
+.plan-card-cta-shine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 34%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: bible-shine 5s ease-in-out infinite;
+}
+
+.plan-card-cta-label {
+  position: relative;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(10.5px * var(--a11y-scale));
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #23201a;
+}
+
+.plan-card-cta-arrow {
+  position: relative;
+  font-family: var(--font-cormorant);
+  font-size: 22px;
+  line-height: 1;
+  color: #6b1e23;
+}
+
+.plan-card-link {
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #f4eddc;
+}
+
+/* Plan suivi : même coque sombre, lectures du jour et progression en or. */
+.plan-card--active .plan-card-top,
+.plan-card--active .plan-card-refs,
+.plan-card--active .plan-card-progress {
+  position: relative;
+}
+
+.plan-card--active .plan-card-dot {
+  background: #f0d58e;
+}
+
+.plan-card--active .plan-card-status {
+  color: rgba(244, 237, 220, 0.66);
+}
+
+.plan-card--active .plan-card-ref {
+  color: #f4eddc;
+}
+
+.plan-card--active .plan-card-ref.is-read {
+  color: rgba(244, 237, 220, 0.5);
+}
+
+.plan-card--active .plan-card-ref-dot {
+  box-shadow: inset 0 0 0 1px #f0d58e;
+}
+
+.plan-card--active .plan-card-ref.is-read .plan-card-ref-dot {
+  background: #f0d58e;
+}
+
+.plan-card--active .plan-track {
+  background: rgba(244, 237, 220, 0.16);
+}
+
+.plan-card--active .plan-track-fill {
+  background: #f0d58e;
+}
+
+.plan-card--active .plan-count {
+  color: #f0d58e;
+}
+
+/* --- Feuille « Suivre le plan dans son propre parcours ? » --- */
+.plan-start-sheet {
+  padding: 0 22px calc(env(safe-area-inset-bottom, 0px) + 22px);
+  border: none;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0 -24px 40px -20px rgba(15, 21, 38, 0.6);
+}
+
+.plan-start-kicker {
+  margin: 8px 0 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+.plan-start-title {
+  margin: 8px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(26px * var(--a11y-scale));
+  line-height: 1.1;
+  color: var(--color-encre);
+}
+
+.plan-start-text {
+  margin: 10px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(16px * var(--a11y-scale));
+  line-height: 1.42;
+  color: var(--encre-72);
+}
+
+.plan-start-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.plan-start-actions .gold-cta {
+  min-height: 50px;
+  border-radius: 25px;
+}
+
+.plan-start-sheet .plan-pill {
+  box-shadow: inset 0 0 0 1px var(--color-oxblood);
+  color: var(--color-oxblood);
+}
+
+/* Plan en cours : lecture du jour déjà faite, pastille dorée cochée. */
+.plan-card-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.plan-card-chip.is-read {
+  background: rgba(240, 213, 142, 0.16);
+  box-shadow: inset 0 0 0 0.5px #f0d58e;
+  color: #f0d58e;
+}
+
+/* Lien vers le sommaire, sous la note du jour (quand on n'en vient pas). */
 .plan-day-summary {
-  margin: 6px auto 0;
+  margin: 4px auto 0;
+  font-weight: 600;
 }

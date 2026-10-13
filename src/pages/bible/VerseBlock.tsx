@@ -1,8 +1,9 @@
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import type { Annotation, HighlightColor } from '../../services/appDataStore';
 import { charStyles, type VerseNote, type WordSpan } from '../../services/verseAnnotations';
 import { findFigureMentions } from '../../data/figureMentions';
-import { NoteIcon } from '../../components/nav/icons';
+import { ChevronDownIcon } from '../../components/nav/icons';
+import { highlightColorInfo } from '../../services/annotationColors';
 import '../../components/annotate/highlightColors.css';
 import './VerseBlock.css';
 
@@ -21,6 +22,8 @@ interface VerseBlockProps {
   onOpenNote: (note: VerseNote) => void;
   /** Verset du passage visé par un lien (« ?v=26-38 »), mis en valeur. */
   isFocused?: boolean;
+  /** Notes en carte dépliée (extrait, date, « Lire la note ») plutôt qu'en bandeau d'une ligne. */
+  notesExpanded?: boolean;
 }
 
 interface Segment {
@@ -100,7 +103,8 @@ const VerseBlock: React.FC<VerseBlockProps> = ({
   selectedRange,
   notes,
   onOpenNote,
-  isFocused = false
+  isFocused = false,
+  notesExpanded = false
 }) => {
   // Noms des figures bibliques, cliquables vers leur fiche.
   const links = useMemo(
@@ -160,12 +164,104 @@ const VerseBlock: React.FC<VerseBlockProps> = ({
         })}
       </p>
 
-      {notes.map((note) => (
-        <button key={note.key} type="button" className="verse-note-card" onClick={() => onOpenNote(note)}>
-          <NoteIcon size={13} className="verse-note-card-icon" />
-          <span className="verse-note-card-text">{note.text}</span>
-        </button>
-      ))}
+      {notes.map((note) => {
+        // Couleur de la note : le surlignage là où finit son passage, dans ce verset.
+        const last = note.ranges[note.ranges.length - 1];
+        const color = last ? charStyles(annotations, verseText.length).highlight[last.start] : null;
+        return (
+          <InlineNote key={note.key} note={note} color={color} expanded={notesExpanded} onOpen={() => onOpenNote(note)} />
+        );
+      })}
+    </div>
+  );
+};
+
+/** Fleuron des notes ; le sélecteur de variante texte évite tout rendu en émoji. */
+const FLEURON = '❦︎';
+/** Au-delà, l'extrait de la carte dépliée est coupé et « Lire la note » apparaît. */
+const EXCERPT_CHARS = 110;
+
+/** « 14 oct. », avec l'année si elle n'est pas l'année en cours. */
+function shortNoteDate(iso: string): string {
+  const date = new Date(iso);
+  const sameYear = date.getFullYear() === new Date().getFullYear();
+  return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', ...(sameYear ? {} : { year: 'numeric' }) });
+}
+
+interface InlineNoteProps {
+  note: VerseNote;
+  color: HighlightColor | null;
+  expanded: boolean;
+  onOpen: () => void;
+}
+
+/**
+ * Note sous son verset, en trois états : bandeau d'une ligne teinté de son
+ * surlignage, carte (titre, date, durée, extrait de deux lignes, « Lire la
+ * note »), puis carte au texte complet. Toucher le bandeau ouvre la carte ;
+ * « Déplier » / « Replier » de l'en-tête règle l'état de toutes les notes.
+ * Toucher le texte ouvre la feuille de la note (relecture, modification).
+ */
+const InlineNote: React.FC<InlineNoteProps> = ({ note, color, expanded, onOpen }) => {
+  const [view, setView] = useState<'strip' | 'card' | 'full'>(expanded ? 'card' : 'strip');
+  // Le bouton de l'en-tête reprend la main sur toutes les notes.
+  const [lastExpanded, setLastExpanded] = useState(expanded);
+  if (lastExpanded !== expanded) {
+    setLastExpanded(expanded);
+    setView(expanded ? 'card' : 'strip');
+  }
+
+  const style = (color ? { '--note-tint': highlightColorInfo(color).hex } : undefined) as React.CSSProperties | undefined;
+
+  if (view === 'strip') {
+    return (
+      <button
+        type="button"
+        className={`verse-note-strip${color ? ' is-tinted' : ''}`}
+        style={style}
+        onClick={() => setView('card')}
+        aria-expanded={false}
+      >
+        <span className="verse-note-fleuron" aria-hidden="true">
+          {FLEURON}
+        </span>
+        <span className="verse-note-strip-text">{note.text}</span>
+      </button>
+    );
+  }
+
+  const words = note.text.trim().split(/\s+/).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  const isLong = note.text.length > EXCERPT_CHARS;
+  const isFull = view === 'full' || !isLong;
+
+  return (
+    <div className={`verse-note-card${color ? ' is-tinted' : ''}`} style={style}>
+      <div className="verse-note-card-head">
+        <span className="verse-note-card-kicker">
+          <span className="verse-note-fleuron" aria-hidden="true">
+            {FLEURON}
+          </span>
+          Ma note · {shortNoteDate(note.updatedAt)}
+        </span>
+        <span className="verse-note-card-time">{minutes} min de lecture</span>
+      </div>
+      <button type="button" className="verse-note-card-body" onClick={onOpen} aria-label="Ouvrir la note">
+        <span className={`verse-note-card-text${isFull ? '' : ' is-clamped'}`}>{note.text}</span>
+      </button>
+      <button
+        type="button"
+        className={`verse-note-card-more${view === 'full' ? ' is-open' : ''}`}
+        aria-expanded={view === 'full'}
+        onClick={() => {
+          if (view === 'full') setView(expanded ? 'card' : 'strip');
+          else if (isLong) setView('full');
+          else onOpen();
+        }}
+      >
+        {view === 'full' ? 'Réduire' : 'Lire la note'}
+        <ChevronDownIcon size={10} />
+      </button>
     </div>
   );
 };

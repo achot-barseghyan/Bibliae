@@ -1,0 +1,125 @@
+/* Éléments communs du monde Prier : bandeaux sombres, barre du haut,
+   grand chiffre romain en filigrane, intertitres. Les bandeaux restent
+   sombres quel que soit le thème ; le reste suit les couleurs de l'app. */
+
+.prier-page {
+  --background: var(--color-papier);
+}
+
+.prier-hero {
+  position: relative;
+  overflow: hidden;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 24px 30px;
+}
+
+.prier-hero-inner {
+  position: relative;
+}
+
+.prier-hero-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.prier-hero-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.prier-hero-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  box-shadow: inset 0 0 0 0.5px rgba(240, 213, 142, 0.6);
+  color: #f0d58e;
+  cursor: pointer;
+}
+
+.prier-hero-icon:focus-visible {
+  outline: 2px solid #f0d58e;
+  outline-offset: 2px;
+}
+
+/* Grand chiffre romain en contour doré. */
+.prier-hero-numeral {
+  position: absolute;
+  right: -12px;
+  top: calc(env(safe-area-inset-top, 0px) + 10px);
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+  font-size: 200px;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(240, 213, 142, 0.3);
+  pointer-events: none;
+}
+
+.prier-hero-kicker {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #d9b66a;
+}
+
+.prier-hero-title {
+  position: relative;
+  margin: 18px 0 0;
+  max-width: 300px;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: calc(38px * var(--a11y-scale));
+  line-height: 1.03;
+  color: #f4eddc;
+}
+
+.prier-hero-text {
+  position: relative;
+  margin: 12px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(16px * var(--a11y-scale));
+  line-height: 1.44;
+  color: rgba(244, 237, 220, 0.8);
+  text-wrap: pretty;
+}
+
+/* Fleurons et étoiles décoratifs (✦ ❧) : variante texte, jamais d'émoji. */
+.prier-glyph {
+  font-family: var(--font-cormorant);
+  font-style: normal;
+  color: var(--color-or);
+}
+
+.prier-chevron {
+  flex: none;
+  color: var(--color-oxblood);
+}
+
+.prier-not-found {
+  margin: 40px 24px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--encre-60);
+}
+
+/* Préférence système « Réduire les animations » (le réglage de l'app est déjà
+   appliqué globalement via html[data-reduce-motion]). */
+@media (prefers-reduced-motion: reduce) {
+  .prier-page * {
+    animation: none !important;
+  }
+}

@@ -2,230 +2,628 @@
   --background: var(--bible-bg);
 }
 
-.bible-tabs {
+/* --- Bandeau de nuit : titre, statistiques et rangée des 73 dos --- */
+.bible-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0f1526 0%, #1b2640 65%, #2a2238 100%);
+  padding: calc(env(safe-area-inset-top, 0px) + 30px) 24px 72px;
+}
+
+.bible-hero-halo {
+  position: absolute;
+  right: -90px;
+  top: -70px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(240, 213, 142, 0.4) 0deg 0.6deg, transparent 0.6deg 7.5deg);
+  -webkit-mask: radial-gradient(circle, transparent 0 60%, #000 61% 70%, transparent 71%);
+  mask: radial-gradient(circle, transparent 0 60%, #000 61% 70%, transparent 71%);
+  animation: bible-spin 120s linear infinite;
+  pointer-events: none;
+}
+
+.bible-hero-inner {
+  position: relative;
+}
+
+.bible-hero-top {
   display: flex;
-  gap: 24px;
-  padding: 14px 20px 0;
-  border-bottom: 1px solid var(--bible-border);
+  align-items: center;
+  justify-content: space-between;
 }
 
-.bible-tab {
-  padding: 0 0 12px;
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  font-family: var(--bible-font);
-  font-weight: 400;
-  font-size: var(--taille-titre-section);
-  color: var(--bible-muted);
-  cursor: pointer;
-  min-height: 44px;
-}
-
-.bible-tab-count {
-  font-family: var(--font-inter);
-  font-size: var(--taille-cartouche);
-  color: var(--bible-faint);
-}
-
-.bible-tab.is-active {
-  color: var(--bible-text);
-  border-bottom-color: var(--bible-accent);
-}
-
-.bible-tab.is-active .bible-tab-count {
-  color: var(--bible-muted);
-}
-
-/* Seule la liste défile : la page est une colonne qui remplit l'écran, le
-   corps prend la place restante et s'arrête au-dessus de la barre rosace. */
-.bible-index-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.bible-index-body {
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  align-items: stretch;
-  margin-bottom: var(--rosace-bar-h);
-}
-
-.bible-index-list {
-  flex: 1 1 auto;
-  min-width: 0;
-  overflow-y: auto;
-  /* Le fronton de la barre (48px) dépasse au-dessus de --rosace-bar-h. */
-  padding: 8px 0 72px;
-}
-
-.bible-category {
-  padding: 0 20px;
-}
-
-.bible-category-heading {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  padding: 18px 0 8px;
-}
-
-.bible-category-name {
-  font-family: var(--bible-font);
-  font-style: italic;
-  font-weight: 400;
-  font-size: var(--taille-valeur);
-  color: var(--bible-accent);
-}
-
-.bible-category-count {
-  font-family: var(--font-inter);
-  font-size: var(--taille-cartouche);
-  color: var(--bible-faint);
-}
-
-.bible-category-percent {
-  margin-left: auto;
+.bible-hero-kicker {
   font-family: var(--font-inter);
   font-weight: 600;
-  font-size: var(--taille-cartouche);
-  color: var(--bible-accent);
-}
-
-.bible-book-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  width: 100%;
-  min-height: 44px;
-  padding: 12px 0;
-  background: none;
-  border: none;
-  border-top: 1px solid var(--bible-border-soft);
-  cursor: pointer;
-  text-align: left;
-}
-
-.bible-category > .bible-book-row:first-of-type {
-  border-top: none;
-}
-
-.bible-book-abbr {
-  flex: 0 0 32px;
-  font-family: var(--font-inter);
   font-size: var(--taille-surtitre);
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--bible-faint);
+  color: #d9b66a;
 }
 
-.bible-book-main {
-  flex: 1 1 auto;
-  min-width: 0;
+.bible-hero-actions {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.bible-book-name {
-  font-family: var(--bible-font);
-  font-weight: 400;
-  font-size: var(--taille-verset);
-  color: var(--bible-text);
-}
-
-.bible-book-progress-row {
-  display: flex;
-  align-items: center;
   gap: 8px;
 }
 
-.bible-book-progress-row-track {
-  flex: 0 0 auto;
-  width: 88px;
-  height: 2.5px;
-  background: var(--bible-border);
-}
-
-.bible-book-progress-row-fill {
-  display: block;
-  height: 100%;
-  background: var(--annot-solid-oxblood);
-}
-
-.bible-book-progress-row-fill--or {
-  background: var(--annot-solid-or);
-}
-
-.bible-book-progress-row-fill--olive {
-  background: var(--annot-solid-olive);
-}
-
-.bible-book-progress-row-fill--bleu-encre {
-  background: var(--annot-solid-bleu-encre);
-}
-
-.bible-book-progress-row-fill--sanguine {
-  background: var(--annot-solid-sanguine);
-}
-
-.bible-book-progress-row-label {
-  font-family: var(--font-eb-garamond);
-  font-size: var(--taille-surtitre);
-  color: var(--bible-faint);
-}
-
-.bible-book-chapters {
-  flex: 0 0 auto;
-  font-family: var(--font-inter);
-  font-size: var(--taille-valeur);
-  color: var(--bible-faint);
-}
-
-.bible-book-row-check {
-  flex: 0 0 auto;
-  color: var(--color-or);
-}
-
-.bible-rail {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  border-left: 1px solid var(--bible-border);
-}
-
-.bible-rail-button {
-  flex: 1 1 0;
-  min-width: 32px;
+.bible-hero-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 4px;
-  background: var(--bible-border-soft);
+  background: none;
   border: none;
-  border-bottom: 1px solid var(--bible-border);
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-family: var(--font-inter);
-  font-size: var(--taille-surtitre);
-  letter-spacing: var(--tracking-min);
-  text-transform: uppercase;
-  color: var(--bible-muted);
+  box-shadow: inset 0 0 0 0.5px rgba(240, 213, 142, 0.6);
+  color: #f0d58e;
   cursor: pointer;
 }
 
-.bible-rail-button:last-child {
-  border-bottom: none;
+.bible-hero-icon:focus-visible {
+  outline: 2px solid #f0d58e;
+  outline-offset: 2px;
 }
 
-.bible-rail-button:focus-visible {
+.bible-hero-title {
+  margin: 22px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: calc(56px * var(--a11y-scale));
+  line-height: 1;
+  color: #f4eddc;
+}
+
+.bible-hero-subtitle {
+  margin: 10px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(17px * var(--a11y-scale));
+  line-height: 1.4;
+  color: rgba(244, 237, 220, 0.78);
+}
+
+.bible-hero-stats {
+  margin: 12px 0 0;
+  font-family: var(--font-inter);
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.66);
+}
+
+.bible-shelf {
+  position: relative;
+  margin-top: 30px;
+}
+
+.bible-shelf-spines {
+  height: 84px;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5px;
+}
+
+.bible-shelf-spine {
+  flex: 1;
+  min-width: 0;
+  border-radius: 1.5px 1.5px 0 0;
+  opacity: 0.38;
+  transform-origin: 50% 100%;
+  cursor: pointer;
+  transition: opacity 500ms, box-shadow 400ms;
+}
+
+.bible-shelf-spine.is-lit {
+  opacity: 1;
+}
+
+.bible-shelf-spine.is-current {
+  box-shadow: 0 0 10px rgba(240, 213, 142, 0.95);
+}
+
+.bible-shelf-floor {
+  height: 0.5px;
+  background: rgba(240, 213, 142, 0.7);
+}
+
+.bible-shelf-split {
+  position: absolute;
+  left: var(--bible-split);
+  bottom: -6px;
+  width: 0.5px;
+  height: 96px;
+  background: rgba(240, 213, 142, 0.5);
+}
+
+.bible-shelf-labels {
+  position: relative;
+  margin-top: 9px;
+  height: 12px;
+  font-family: var(--font-inter);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.62);
+}
+
+.bible-shelf-labels-new {
+  position: absolute;
+  left: var(--bible-split);
+  padding-left: 6px;
+}
+
+/* --- Carte de reprise du parcours actif, à cheval sur le bandeau --- */
+.bible-resume-wrap {
+  position: relative;
+  z-index: 2;
+  margin-top: -34px;
+  padding: 0 18px;
+}
+
+.bible-resume {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--bible-raised);
+  box-shadow:
+    0 22px 36px -20px rgba(15, 21, 38, 0.75),
+    inset 0 0 0 1px rgba(181, 137, 46, 0.7);
+}
+
+.bible-resume-shine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, rgba(181, 137, 46, 0.14), transparent);
+  animation: bible-shine 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.bible-resume-main {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  /* Place libre en haut pour le bouton « Parcours actif », posé par-dessus. */
+  padding: 34px 18px 16px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bible-resume-main:focus-visible,
+.bible-resume-switch:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: -2px;
+  border-radius: 18px;
+}
+
+.bible-resume-ring {
+  position: relative;
+  width: 62px;
+  height: 62px;
+}
+
+.bible-resume-ring svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.bible-resume-ring-track {
+  fill: none;
+  stroke: var(--bible-border-soft);
+  stroke-width: 2;
+}
+
+.bible-resume-ring-fill {
+  fill: none;
+  stroke: var(--bible-gold);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.bible-resume-percent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: baseline;
+  padding-top: 20px;
+  justify-content: center;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 1;
+  color: var(--bible-text);
+}
+
+.bible-resume-percent-sign {
+  font-family: var(--font-inter);
+  font-size: 8px;
+  color: var(--bible-muted);
+}
+
+.bible-resume-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.bible-resume-name {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(22px * var(--a11y-scale));
+  line-height: 1.04;
+  color: var(--bible-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bible-resume-detail {
+  font-family: var(--font-eb-garamond);
+  font-size: calc(14px * var(--a11y-scale));
+  color: var(--bible-muted);
+}
+
+.bible-resume-go {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--bible-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-cormorant);
+  font-size: 19px;
+  color: var(--bible-on-ink);
+}
+
+.bible-resume-switch {
+  position: absolute;
+  top: 6px;
+  left: 90px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 30px;
+  padding: 0 4px;
+  background: none;
+  border: none;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(8.5px * var(--a11y-scale));
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bible-accent);
+  cursor: pointer;
+}
+
+/* --- Sélecteur à trois positions : Ancien / Psaumes / Nouveau --- */
+.bible-index-tabs {
+  padding: 26px 18px 0;
+}
+
+.bible-index-tabs--alone {
+  padding-top: 18px;
+}
+
+.bible-pill {
+  position: relative;
+  height: 58px;
+  border-radius: 29px;
+  background: var(--bible-border-soft);
+  box-shadow: inset 0 0 0 0.5px var(--bible-border);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 4px;
+}
+
+.bible-pill-thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 3);
+  border-radius: 25px;
+  background: var(--bible-text);
+  transition: transform 550ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.bible-pill-tab {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.bible-pill-tab:focus-visible {
   outline: 2px solid var(--bible-accent);
   outline-offset: -2px;
 }
 
-/* Carte du plan de lecture, au-dessus de la première section. */
+.bible-pill-label {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bible-muted);
+  transition: color 400ms;
+}
+
+.bible-pill-count {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--bible-gold);
+  transition: color 400ms;
+}
+
+.bible-pill-tab.is-active .bible-pill-label {
+  color: var(--bible-bg);
+}
+
+.bible-pill-tab.is-active .bible-pill-count {
+  color: var(--bible-on-ink);
+}
+
+/* Plan de lecture, juste sous la carte du parcours actif (même gouttière). */
 .bible-index-plan {
-  padding: 0 20px;
+  padding: 0 18px;
+}
+
+/* --- Sections et livres --- */
+.bible-index-list {
+  padding: 4px 0 24px;
+}
+
+.bible-section {
+  padding: 30px 24px 0;
+}
+
+.bible-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bible-section-numeral {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--bible-gold);
+}
+
+.bible-section-name {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-weight: 400;
+  font-size: calc(21px * var(--a11y-scale));
+  color: var(--bible-accent);
+}
+
+.bible-section-count {
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-size: 10px;
+  color: var(--bible-faint);
+}
+
+.bible-section-rule {
+  flex: 1;
+  height: 0.5px;
+  background: var(--bible-border);
+}
+
+.bible-section-percent {
+  flex: none;
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  color: var(--bible-accent);
+}
+
+.bible-section-books {
+  margin-top: 4px;
+}
+
+.bible-book-row {
+  width: calc(100% + 20px);
+  margin: 0 -10px;
+  padding: 12px 10px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  transition: background 400ms;
+}
+
+.bible-book-row.is-current {
+  background: rgba(181, 137, 46, 0.16);
+}
+
+.bible-book-row:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: -2px;
+}
+
+.bible-book-abbr {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: var(--bible-faint);
+}
+
+.bible-book-main {
+  min-width: 0;
+}
+
+.bible-book-name {
+  display: block;
+  font-family: var(--bible-font);
+  font-weight: 400;
+  font-size: calc(22px * var(--a11y-scale));
+  line-height: 1.06;
+  color: var(--bible-text);
+}
+
+.bible-book-progress {
+  margin-top: 7px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.bible-book-progress-track {
+  width: 88px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--bible-border-soft);
+  overflow: hidden;
+}
+
+.bible-book-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--bible-gold);
+  transform-origin: 0 50%;
+}
+
+.bible-book-progress-label {
+  font-family: var(--font-inter);
+  font-size: 9.5px;
+  color: var(--bible-muted);
+}
+
+.bible-book-progress-label.is-complete {
+  color: var(--bible-accent);
+}
+
+.bible-book-chapters {
+  font-family: var(--font-cormorant);
+  font-size: 20px;
+  color: var(--bible-faint);
+}
+
+.bible-book-check {
+  color: var(--bible-gold);
+}
+
+/* --- Psautier : grille des 150 psaumes, par livre ---
+   Cases et légende partagées avec la page d'un livre (BibleBook.css) ;
+   seule la grille passe à 7 colonnes, plus serrées. */
+.bible-chapter-grid.bible-psalm-grid {
+  margin-top: 12px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.bible-psalm-grid .bible-chapter-cell {
+  border-radius: 9px;
+  font-size: calc(16px * var(--a11y-scale));
+}
+
+.bible-psalm-legend {
+  padding: 4px 24px 0;
+}
+
+@media (hover: hover) {
+
+  .bible-book-row:hover {
+    background: var(--bible-border-soft);
+  }
+}
+
+/* Plan en cours en tête : le parcours actif passe dans cette pastille. */
+.bible-resume-parcours {
+  margin: 10px auto 0;
+  max-width: 100%;
+  min-height: 40px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: 20px;
+  background: var(--bible-border-soft);
+  box-shadow: inset 0 0 0 0.5px var(--bible-border);
+  color: var(--bible-muted);
+  cursor: pointer;
+}
+
+.bible-resume-parcours .parcours-selector-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.bible-resume-parcours-label {
+  flex: none;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bible-faint);
+}
+
+.bible-resume-parcours-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(16px * var(--a11y-scale));
+  color: var(--bible-text);
+}
+
+.bible-resume-parcours-percent {
+  flex: none;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 10px;
+  color: var(--bible-accent);
+}
+
+.bible-resume-parcours:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: 2px;
+}
+
+/* Carte de nuit du plan à la place de la carte du parcours. */
+.bible-resume-wrap--plan .plan-card {
+  margin: 0;
 }

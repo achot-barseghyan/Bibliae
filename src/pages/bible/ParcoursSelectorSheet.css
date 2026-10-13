@@ -1,42 +1,74 @@
-.parcours-selector-title {
+/* Feuille du bandeau « Parcours actif » : parcours en cartes avec leur
+   progression, puis le plan « La Bible en 1 an » en carte de nuit. */
+
+.parcours-selector-sheet {
+  padding: 0 20px calc(env(safe-area-inset-bottom, 0px) + 20px);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  border: none;
+  box-shadow: 0 -24px 40px -20px rgba(15, 21, 38, 0.6);
+  overflow-y: auto;
+}
+
+/* Intertitres « Parcours » et « Plans de lecture », suivis d'un filet. */
+.parcours-selector-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 10px;
   font-family: var(--font-inter);
-  font-weight: 700;
-  font-size: var(--taille-valeur);
+  font-weight: 600;
+  font-size: calc(9px * var(--a11y-scale));
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
   color: var(--color-oxblood);
-  margin: 0;
+}
+
+.parcours-selector-section::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: var(--filet-barres);
+}
+
+.parcours-selector-sheet .parcours-selector-section:first-of-type {
+  margin-top: 8px;
 }
 
 .parcours-selector-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 6px;
 }
 
 .parcours-selector-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: block;
   width: 100%;
-  min-height: 48px;
-  padding: 10px 4px;
-  background: none;
+  padding: 12px 14px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  border-radius: 14px;
+  background: transparent;
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres);
   text-align: left;
+  cursor: pointer;
 }
 
 .parcours-selector-row.is-active {
-  background: var(--color-cartouche-genealogie);
+  background: var(--color-rosaire);
+  box-shadow: inset 0 0 0 1px rgba(181, 137, 46, 0.7);
+}
+
+.parcours-selector-row-line {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto;
+  gap: 11px;
+  align-items: center;
 }
 
 .parcours-selector-dot {
-  flex: 0 0 auto;
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: 3px;
   background: var(--annot-solid-oxblood);
 }
 
@@ -57,126 +89,170 @@
 }
 
 .parcours-selector-name {
-  flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: var(--font-cormorant);
-  font-size: var(--taille-valeur);
+  font-weight: 500;
+  font-size: calc(20px * var(--a11y-scale));
+  line-height: 1.05;
   color: var(--color-encre);
 }
 
 .parcours-selector-percent {
-  flex: 0 0 auto;
+  white-space: nowrap;
   font-family: var(--font-inter);
-  font-size: var(--taille-cartouche);
+  font-weight: 500;
+  font-size: calc(10.5px * var(--a11y-scale));
   color: var(--color-oxblood);
+}
+
+.parcours-selector-track {
+  display: block;
+  margin: 9px 0 0 21px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--filet-tableaux);
+  overflow: hidden;
+}
+
+.parcours-selector-fill {
+  display: block;
+  width: auto;
+  height: 100%;
+  border-radius: 0;
+}
+
+/* --- Plan de lecture : carte de nuit --- */
+.parcours-selector-plan {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 64px;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #2e4a72, #1b2640);
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto 8px;
+  gap: 12px;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+}
+
+.parcours-selector-plan-ring {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+
+.parcours-selector-plan-ring svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.parcours-selector-plan-ring-track {
+  fill: none;
+  stroke: rgba(244, 237, 220, 0.18);
+  stroke-width: 2;
+}
+
+.parcours-selector-plan-ring-fill {
+  fill: none;
+  stroke: #f0d58e;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.parcours-selector-plan-pulse {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #f0d58e;
+  animation: parcours-plan-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes parcours-plan-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.4; }
+}
+
+.parcours-selector-plan-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.parcours-selector-plan-name {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(20px * var(--a11y-scale));
+  line-height: 1.05;
+  color: #f4eddc;
+}
+
+.parcours-selector-plan-sub {
+  font-family: var(--font-eb-garamond);
+  font-size: calc(14px * var(--a11y-scale));
+  color: rgba(244, 237, 220, 0.72);
+}
+
+.parcours-selector-plan-status {
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f0d58e;
+}
+
+.parcours-selector-plan-chevron {
+  color: #f0d58e;
 }
 
 .parcours-selector-footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
-  min-height: 48px;
-  margin-top: 8px;
-  padding-top: 12px;
-  border-top: 1px solid var(--filet-barres);
+  min-height: 44px;
+  margin-top: 18px;
+  padding: 0;
+  border: none;
   background: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
   font-family: var(--font-inter);
-  font-weight: 500;
-  font-size: var(--taille-cartouche);
-  letter-spacing: var(--tracking-min);
+  font-weight: 600;
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-oxblood);
   cursor: pointer;
 }
 
-/* Intertitres « Parcours » et « Plans de lecture », suivis d'un filet. */
-.parcours-selector-section {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 14px 0 4px;
-  font-family: var(--font-inter);
-  font-weight: 600;
-  font-size: var(--taille-surtitre);
-  letter-spacing: var(--tracking-min);
-  text-transform: uppercase;
-  color: var(--color-oxblood);
+.parcours-selector-footer-arrow {
+  font-family: var(--font-cormorant);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
-.parcours-selector-section::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--filet-sections);
+.parcours-selector-row:focus-visible,
+.parcours-selector-footer:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
 }
 
-.parcours-selector-plan {
-  color: var(--color-encre);
-}
-
-/* Carré bleu d'encre du plan : contour tant qu'il n'est pas commencé. */
-.parcours-selector-plan-mark {
-  flex: 0 0 auto;
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 1.2px var(--color-encre);
-}
-
-.parcours-selector-plan-mark.is-started {
-  background: var(--annot-solid-bleu-encre);
-  box-shadow: none;
-}
-
-.parcours-selector-plan-text {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.parcours-selector-plan-sub {
-  font-family: var(--font-eb-garamond);
-  font-size: var(--taille-cartouche);
-  color: var(--encre-60);
-}
-
-.parcours-selector-plan-status {
-  flex: 0 0 auto;
-  font-family: var(--font-inter);
-  font-size: var(--taille-surtitre);
-  letter-spacing: var(--tracking-min);
-  text-transform: uppercase;
-  color: var(--encre-60);
-}
-
-/* Marges latérales de toute la feuille (l'en-tête partagé porte déjà les
-   siennes) ; les lignes débordent de 12px pour que leur fond surligné ne
-   colle pas au texte, aligné sur les intertitres. */
-.parcours-selector-sheet {
-  padding: 0 20px calc(env(safe-area-inset-bottom, 0px) + 8px);
-}
-
-.parcours-selector-sheet .verse-sheet-header {
-  padding: 0;
-  margin-bottom: 4px;
-}
-
-.parcours-selector-sheet .parcours-selector-row {
-  width: calc(100% + 24px);
-  margin: 0 -12px;
-  padding: 10px 12px;
-}
-
-.parcours-selector-sheet .parcours-selector-section:first-of-type {
-  margin-top: 0;
+.parcours-selector-plan:focus-visible {
+  outline: 2px solid #f0d58e;
+  outline-offset: 2px;
 }

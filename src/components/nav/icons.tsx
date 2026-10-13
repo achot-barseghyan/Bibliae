@@ -19,6 +19,29 @@ export const CrossIcon: React.FC<IconProps> = ({ size = 22, className }) => (
   </svg>
 );
 
+interface LatinCrossIconProps extends IconProps {
+  /** Contour seul (filigranes), au lieu de la croix pleine. */
+  outline?: boolean;
+}
+
+/** Croix latine à empattements, dessinée en SVG : le caractère ✝ s'affiche
+ * en émoji violet sur iOS. `size` fixe la hauteur. */
+export const LatinCrossIcon: React.FC<LatinCrossIconProps> = ({ size = 20, className, outline = false }) => (
+  <svg
+    width={(size * 18) / 26}
+    height={size}
+    viewBox="0 0 18 26"
+    fill={outline ? 'none' : 'currentColor'}
+    stroke={outline ? 'currentColor' : 'none'}
+    strokeWidth={outline ? 1 : undefined}
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden="true"
+  >
+    <path vectorEffect="non-scaling-stroke" d="M7.9 1.6 L7.6 0.6 H10.4 L10.1 1.6 V7.2 H15.8 L16.8 6.9 V9.7 L15.8 9.4 H10.1 V24.4 L10.4 25.4 H7.6 L7.9 24.4 V9.4 H2.2 L1.2 9.7 V6.9 L2.2 7.2 H7.9 Z" />
+  </svg>
+);
+
 export const RosaireIcon: React.FC<IconProps> = ({ size = 20, className }) => (
   <svg
     width={size}

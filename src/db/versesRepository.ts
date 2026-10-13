@@ -1,6 +1,6 @@
 import { Capacitor } from '@capacitor/core';
 import type { SQLiteDBConnection } from '@capacitor-community/sqlite';
-import { BOOKS } from '../data/bible';
+import { bookIdForNumero, numeroForBookId } from './bibleBookOrder';
 import { getDatabase } from './sqlite';
 import { getWebBible, webChapterVerses, webSearchVerses } from './bibleWebStore';
 
@@ -59,17 +59,6 @@ export interface VerseSearchResult {
   chapter: number;
   verse: number;
   text: string;
-}
-
-// Le JSON Crampon numérote ses 73 livres dans le même ordre que BOOKS
-// (data/bible.ts), donc numero (1-based) et l'index du tableau coïncident.
-function bookIdForNumero(numero: number): string | undefined {
-  return BOOKS[numero - 1]?.id;
-}
-
-function numeroForBookId(bookId: string): number | undefined {
-  const index = BOOKS.findIndex((b) => b.id === bookId.toLowerCase());
-  return index === -1 ? undefined : index + 1;
 }
 
 async function seedIfEmpty(db: SQLiteDBConnection): Promise<void> {

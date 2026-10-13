@@ -5,6 +5,8 @@ import { PLAN_LENGTH, PLAN_TITLE, getPlanDay, planDayLabel, planRefLabel } from 
 import { useReadingPlan } from '../../hooks/useReadingPlan';
 import { useReadingProgress } from '../../hooks/useReadingProgress';
 import { tapHaptic } from '../../utils/haptics';
+import { usePlanStart } from './usePlanStart';
+import { FROM_BIBLE } from './usePlanBack';
 import './ReadingPlan.css';
 
 /** Le message « Plan masqué » disparaît seul après ce délai. */
@@ -13,8 +15,9 @@ const NOTICE_DURATION_MS = 8000;
 /** Carte du plan « La Bible en 1 an », en tête de la liste des livres. */
 const PlanCard: React.FC = () => {
   const navigate = useNavigate();
-  const { progress, isStarted, doneCount, readsFor, start, setCardHidden } = useReadingPlan();
+  const { progress, isStarted, doneCount, readsFor, setCardHidden } = useReadingPlan();
   const { activeParcours } = useReadingProgress();
+  const { begin, prompt } = usePlanStart();
   // Message affiché à la place de la carte juste après l'avoir masquée.
   const [isNoticeVisible, setIsNoticeVisible] = useState(false);
 
@@ -58,101 +61,154 @@ const PlanCard: React.FC = () => {
   if (!isStarted) {
     const firstDay = getPlanDay(1);
     return (
-      <section className="plan-card plan-card--intro" aria-label={`Plan de lecture ${PLAN_TITLE}`}>
-        <button
-          type="button"
-          className="plan-card-close"
-          aria-label="Masquer le plan"
-          onClick={() => {
-            tapHaptic();
-            setCardHidden(true);
-            setIsNoticeVisible(true);
-          }}
-        >
-          <CloseIcon size={16} />
-        </button>
-        <p className="plan-kicker">Plan de lecture</p>
-        <h2 className="plan-card-title">{PLAN_TITLE}</h2>
-        <p className="plan-card-text">
-          Trois lectures par jour pendant 365 jours, de la Genèse à l'Apocalypse.
-        </p>
-        {firstDay && (
-          <div className="plan-card-day">
-            <p className="plan-card-day-label">Jour 1</p>
-            <p className="plan-card-day-refs">{planDayLabel(firstDay)}</p>
+      <>
+        <section className="plan-card plan-card--intro" aria-label={`Plan de lecture ${PLAN_TITLE}`}>
+          <button
+            type="button"
+            className="plan-card-close"
+            aria-label="Masquer le plan"
+            onClick={() => {
+              tapHaptic();
+              setCardHidden(true);
+              setIsNoticeVisible(true);
+            }}
+          >
+            <CloseIcon size={16} />
+          </button>
+          <span className="plan-card-glow" aria-hidden="true" />
+          <p className="plan-kicker">Plan de lecture</p>
+          <div className="plan-card-head">
+            <div>
+              <h2 className="plan-card-title">{PLAN_TITLE}</h2>
+              <p className="plan-card-text">
+                Trois lectures par jour pendant {PLAN_LENGTH} jours, de la Genèse à l'Apocalypse.
+              </p>
+            </div>
+            <span className="plan-card-days" aria-hidden="true">
+              <span className="plan-card-days-value">{PLAN_LENGTH}</span>
+              <span className="plan-card-days-unit">jours</span>
+            </span>
           </div>
-        )}
-        <div className="plan-card-actions">
-          <button
-            type="button"
-            className="plan-button"
-            onClick={() => {
-              tapHaptic();
-              start();
-              navigate('/bible/plan/1');
-            }}
-          >
-            Commencer le plan
-          </button>
-          <button
-            type="button"
-            className="plan-link"
-            onClick={() => {
-              tapHaptic();
-              navigate('/bible/plan');
-            }}
-          >
-            Sommaire
-          </button>
-        </div>
-      </section>
+          {firstDay && (
+            <div className="plan-card-day">
+              <p className="plan-card-day-label">Jour 1</p>
+              <ul className="plan-card-chips" aria-label={planDayLabel(firstDay)}>
+                {firstDay.refs.map((ref, i) => (
+                  <li key={i} className="plan-card-chip">
+                    {planRefLabel(ref)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div className="plan-card-actions">
+            <button
+              type="button"
+              className="plan-card-cta"
+              onClick={() => {
+                tapHaptic();
+                begin('/bible/plan/1', FROM_BIBLE);
+              }}
+            >
+              <span className="plan-card-cta-shine" aria-hidden="true" />
+              <span className="plan-card-cta-label">Commencer le plan</span>
+              <span className="plan-card-cta-arrow" aria-hidden="true">
+                →
+              </span>
+            </button>
+            <button
+              type="button"
+              className="plan-link plan-card-link"
+              onClick={() => {
+                tapHaptic();
+                navigate('/bible/plan');
+              }}
+            >
+              Sommaire
+            </button>
+          </div>
+        </section>
+        {prompt}
+      </>
     );
   }
 
-  const day = getPlanDay(progress.currentDay);
-  const reads = readsFor(progress.currentDay);
+  // Plan en cours : même carte de nuit, avec les lectures du jour.
+  const current = progress.currentDay;
+  const day = getPlanDay(current);
+  const reads = readsFor(current);
   const readCount = reads.filter(Boolean).length;
+  const allRead = reads.length > 0 && readCount === reads.length;
 
   return (
-    <button
-      type="button"
-      className="plan-card plan-card--active"
-      onClick={() => {
-        tapHaptic();
-        navigate(`/bible/plan/${progress.currentDay}`);
-      }}
-    >
-      <span className="plan-card-top">
-        <span className="plan-card-plan">
-          <span className="plan-card-dot" aria-hidden="true" />
-          <span className="plan-kicker">Plan · {PLAN_TITLE}</span>
+    <section className="plan-card plan-card--intro plan-card--running" aria-label={`Plan de lecture ${PLAN_TITLE}`}>
+      <span className="plan-card-glow" aria-hidden="true" />
+      <p className="plan-kicker">Plan de lecture</p>
+      <div className="plan-card-head">
+        <div>
+          <h2 className="plan-card-title">{PLAN_TITLE}</h2>
+          <p className="plan-card-text">
+            {allRead
+              ? 'Lectures du jour terminées.'
+              : `${readCount} lecture${readCount > 1 ? 's' : ''} sur ${reads.length} aujourd'hui.`}{' '}
+            {doneCount} / {PLAN_LENGTH} jours lus.
+          </p>
+        </div>
+        <span className="plan-card-days" aria-hidden="true">
+          <span className="plan-card-days-value">{current}</span>
+          <span className="plan-card-days-unit">sur {PLAN_LENGTH}</span>
         </span>
-        <span className="plan-card-status">
-          {readCount} / {reads.length} lu
-        </span>
-      </span>
-      <span className="plan-card-title">
-        Jour {progress.currentDay}
-      </span>
-      <span className="plan-card-refs">
-        {day?.refs.map((ref, i) => (
-          <span key={i} className={`plan-card-ref${reads[i] ? ' is-read' : ''}`}>
-            <span className="plan-card-ref-dot" aria-hidden="true" />
-            <span>
-              {planRefLabel(ref)}
-            </span>
+      </div>
+      {day && (
+        <div className="plan-card-day">
+          <p className="plan-card-day-label">Jour {current}</p>
+          <ul className="plan-card-chips" aria-label={planDayLabel(day)}>
+            {day.refs.map((ref, i) => (
+              <li key={i} className={`plan-card-chip${reads[i] ? ' is-read' : ''}`}>
+                {reads[i] && (
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-label="lu" role="img">
+                    <path
+                      d="M1.2 6.4l3.2 3.2 6.4-7.2"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
+                {planRefLabel(ref)}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <div className="plan-card-actions">
+        <button
+          type="button"
+          className="plan-card-cta"
+          onClick={() => {
+            tapHaptic();
+            navigate(`/bible/plan/${current}`, { state: FROM_BIBLE });
+          }}
+        >
+          <span className="plan-card-cta-shine" aria-hidden="true" />
+          <span className="plan-card-cta-label">Continuer · Jour {current}</span>
+          <span className="plan-card-cta-arrow" aria-hidden="true">
+            →
           </span>
-        ))}
-      </span>
-      <span className="plan-card-progress">
-        <span className="plan-track" aria-hidden="true">
-          <span className="plan-track-fill" style={{ width: `${(doneCount / PLAN_LENGTH) * 100}%` }} />
-        </span>
-        <span className="plan-count">
-          {doneCount} / {PLAN_LENGTH}
-        </span>
-      </span>
-    </button>
+        </button>
+        <button
+          type="button"
+          className="plan-link plan-card-link"
+          onClick={() => {
+            tapHaptic();
+            navigate('/bible/plan');
+          }}
+        >
+          Sommaire
+        </button>
+      </div>
+    </section>
   );
 };
 

@@ -4,12 +4,14 @@ import { useReadingProgress } from '../../hooks/useReadingProgress';
 import { useReadingPlan } from '../../hooks/useReadingPlan';
 import { PLAN_LENGTH, PLAN_TITLE } from '../../data/readingPlan';
 import { useAccessibility } from '../../hooks/useAccessibility';
-import { CloseIcon, ChevronRightIcon } from '../../components/nav/icons';
+import { FROM_BIBLE } from './usePlanBack';
+import { ChevronRightIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
 import '../figures/VersePreviewSheet.css';
 import './ParcoursSelectorSheet.css';
 
 const EASE = [0.22, 0.8, 0.28, 1] as const;
+const MINI_RING_C = 113.1;
 
 interface ParcoursSelectorSheetProps {
   onClose: () => void;
@@ -54,13 +56,6 @@ const ParcoursSelectorSheet: React.FC<ParcoursSelectorSheetProps> = ({ onClose }
       >
         <div className="verse-sheet-handle" aria-hidden="true" />
 
-        <div className="verse-sheet-header">
-          <p className="parcours-selector-title">Parcours de lecture</p>
-          <button type="button" className="verse-sheet-close" onClick={onClose} aria-label="Fermer">
-            <CloseIcon size={18} />
-          </button>
-        </div>
-
         <p className="parcours-selector-section">Parcours</p>
         <div className="parcours-selector-list">
           {visible.map((p) => {
@@ -78,9 +73,17 @@ const ParcoursSelectorSheet: React.FC<ParcoursSelectorSheetProps> = ({ onClose }
                 }}
                 aria-pressed={isActive}
               >
-                <span className={`parcours-selector-dot parcours-selector-dot--${p.color}`} aria-hidden="true" />
-                <span className="parcours-selector-name">{p.name}</span>
-                <span className="parcours-selector-percent">{percent}%</span>
+                <span className="parcours-selector-row-line">
+                  <span className={`parcours-selector-dot parcours-selector-dot--${p.color}`} aria-hidden="true" />
+                  <span className="parcours-selector-name">{p.name}</span>
+                  <span className="parcours-selector-percent">{percent} %</span>
+                </span>
+                <span className="parcours-selector-track" aria-hidden="true">
+                  <span
+                    className={`parcours-selector-fill parcours-selector-dot--${p.color}`}
+                    style={{ width: `${percent}%` }}
+                  />
+                </span>
               </button>
             );
           })}
@@ -89,25 +92,45 @@ const ParcoursSelectorSheet: React.FC<ParcoursSelectorSheetProps> = ({ onClose }
         <p className="parcours-selector-section">Plans de lecture</p>
         <button
           type="button"
-          className="parcours-selector-row parcours-selector-plan"
+          className="parcours-selector-plan"
           onClick={() => {
             tapHaptic();
             // Réaffiche la carte du plan, en tête de la page La Bible.
             plan.setCardHidden(false);
-            if (!/^\/bible\/?$/.test(pathname)) navigate('/bible');
+            if (plan.progress.completedAt) {
+              navigate('/bible/plan');
+            } else if (plan.isStarted) {
+              // Plan en cours : directement au jour à lire.
+              // Le bouton retour du jour nomme la page quittée quand on la connaît.
+              navigate(`/bible/plan/${plan.progress.currentDay}`, {
+                state: /^\/bible\/?$/.test(pathname) ? FROM_BIBLE : undefined
+              });
+            } else if (!/^\/bible\/?$/.test(pathname)) {
+              navigate('/bible');
+            }
             onClose();
           }}
         >
-          <span
-            className={`parcours-selector-plan-mark${plan.isStarted ? ' is-started' : ''}`}
-            aria-hidden="true"
-          />
+          <span className="parcours-selector-plan-ring" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 44 44">
+              <circle cx="22" cy="22" r="18" className="parcours-selector-plan-ring-track" />
+              <circle
+                cx="22"
+                cy="22"
+                r="18"
+                className="parcours-selector-plan-ring-fill"
+                strokeDasharray={MINI_RING_C}
+                strokeDashoffset={MINI_RING_C * (1 - plan.doneCount / PLAN_LENGTH)}
+              />
+            </svg>
+            {plan.isStarted && !plan.progress.completedAt && <span className="parcours-selector-plan-pulse" />}
+          </span>
           <span className="parcours-selector-plan-text">
-            <span className="parcours-selector-name">{PLAN_TITLE}</span>
+            <span className="parcours-selector-plan-name">{PLAN_TITLE}</span>
             <span className="parcours-selector-plan-sub">{PLAN_LENGTH} jours · trois lectures par jour</span>
           </span>
           <span className="parcours-selector-plan-status">{planStatus}</span>
-          <ChevronRightIcon size={14} />
+          <ChevronRightIcon size={12} className="parcours-selector-plan-chevron" />
         </button>
 
         <button
@@ -120,7 +143,9 @@ const ParcoursSelectorSheet: React.FC<ParcoursSelectorSheetProps> = ({ onClose }
           }}
         >
           Voir mes lectures
-          <ChevronRightIcon size={16} />
+          <span className="parcours-selector-footer-arrow" aria-hidden="true">
+            →
+          </span>
         </button>
       </motion.div>
     </motion.div>

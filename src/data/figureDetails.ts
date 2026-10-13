@@ -24,6 +24,19 @@ export interface ScriptureRef {
 export interface TimelineEntry {
   dateLabel: string;
   text: string;
+  /** Lieu de l'étape (id dans `places`), pour le retrouver dans la section Lieux. */
+  placeId?: string;
+}
+
+/** Lieu de vie d'une figure, dans l'ordre de son parcours. */
+export interface FigurePlace {
+  id: string;
+  name: string;
+  region: string;
+  /** Moment de la vie lié au lieu : « Naissance », « Ministère »… */
+  role: string;
+  lat: number;
+  lng: number;
 }
 
 export interface RelatedFigure {
@@ -44,6 +57,7 @@ export interface FigureDetail {
   timeline?: TimelineEntry[];
   regionLabel?: string;
   locationsSummary?: string;
+  places?: FigurePlace[];
   churchTeaching?: ChurchTeaching;
   relatedFigures?: RelatedFigure[];
 }
@@ -105,18 +119,38 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: 'Entre 7 et 4 av. J.-C.', text: "Naissance à Bethléem sous le règne d'Hérode le Grand." },
-      { dateLabel: "Vers l'an 12", text: 'Jésus au Temple de Jérusalem parmi les docteurs de la Loi.' },
+      {
+        dateLabel: 'Entre 7 et 4 av. J.-C.',
+        text: "Naissance à Bethléem sous le règne d'Hérode le Grand.",
+        placeId: 'bethleem'
+      },
+      {
+        dateLabel: "Vers l'an 12",
+        text: 'Jésus au Temple de Jérusalem parmi les docteurs de la Loi.',
+        placeId: 'jerusalem'
+      },
       {
         dateLabel: "Vers l'an 28",
-        text: 'Baptême au Jourdain par Jean-Baptiste ; début de la vie publique.'
+        text: 'Baptême au Jourdain par Jean-Baptiste ; début de la vie publique.',
+        placeId: 'jourdain'
       },
-      { dateLabel: '28 – 30', text: 'Prédication en Galilée, appel des douze apôtres, guérisons et miracles.' },
-      { dateLabel: "An 30 ou 33", text: 'Passion, crucifixion et résurrection à Jérusalem.' }
+      {
+        dateLabel: '28 – 30',
+        text: 'Prédication en Galilée, appel des douze apôtres, guérisons et miracles.',
+        placeId: 'galilee'
+      },
+      { dateLabel: "An 30 ou 33", text: 'Passion, crucifixion et résurrection à Jérusalem.', placeId: 'jerusalem' }
     ],
     regionLabel: 'Galilée & Judée',
     locationsSummary:
       'Naissance à Bethléem, enfance à Nazareth, ministère public autour du lac de Galilée, mort et résurrection à Jérusalem.',
+    places: [
+      { id: 'bethleem', name: 'Bethléem', region: 'Judée', role: 'Naissance', lat: 31.7054, lng: 35.2024 },
+      { id: 'nazareth', name: 'Nazareth', region: 'Galilée', role: 'Enfance', lat: 32.7021, lng: 35.2978 },
+      { id: 'galilee', name: 'Lac de Galilée', region: 'Galilée', role: 'Ministère', lat: 32.8, lng: 35.59 },
+      { id: 'jourdain', name: 'Jourdain', region: 'Judée', role: 'Baptême', lat: 31.837, lng: 35.547 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Passion', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: "Le concile de Nicée (325) puis celui de Chalcédoine (451) confessent le Christ vrai Dieu et vrai homme, une seule personne en deux natures. Cette formulation demeure la référence commune des Églises catholique, orthodoxe et protestantes.",
       councilIds: ['nicee-325', 'chalcedoine-451']
@@ -170,17 +204,24 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: '1er siècle av. J.-C.', text: 'Naissance à Nazareth (tradition liturgique : 8 septembre).' },
-      { dateLabel: 'Fiançailles', text: "Annonciation de l'ange Gabriel, conception virginale de Jésus." },
-      { dateLabel: 'Visitation', text: 'Rencontre avec Élisabeth, chant du Magnificat.' },
-      { dateLabel: 'Entre 7 et 4 av. J.-C.', text: 'Naissance de Jésus à Bethléem.' },
-      { dateLabel: 'Vie publique de Jésus', text: 'Présente aux noces de Cana.' },
-      { dateLabel: "An 30 ou 33", text: 'Présente au pied de la croix, confiée au disciple Jean.' },
-      { dateLabel: "Après l'Ascension", text: 'Prie avec les apôtres à Jérusalem avant la Pentecôte.' }
+      { dateLabel: '1er siècle av. J.-C.', text: 'Naissance à Nazareth (tradition liturgique : 8 septembre).', placeId: 'nazareth' },
+      { dateLabel: 'Fiançailles', text: "Annonciation de l'ange Gabriel, conception virginale de Jésus.", placeId: 'nazareth' },
+      { dateLabel: 'Visitation', text: 'Rencontre avec Élisabeth, chant du Magnificat.', placeId: 'ain-karim' },
+      { dateLabel: 'Entre 7 et 4 av. J.-C.', text: 'Naissance de Jésus à Bethléem.', placeId: 'bethleem' },
+      { dateLabel: 'Vie publique de Jésus', text: 'Présente aux noces de Cana.', placeId: 'cana' },
+      { dateLabel: "An 30 ou 33", text: 'Présente au pied de la croix, confiée au disciple Jean.', placeId: 'jerusalem' },
+      { dateLabel: "Après l'Ascension", text: 'Prie avec les apôtres à Jérusalem avant la Pentecôte.', placeId: 'jerusalem' }
     ],
     regionLabel: 'Nazareth, Bethléem, Jérusalem',
     locationsSummary:
       "Vit à Nazareth en Galilée, se rend à Bethléem pour la naissance de Jésus, puis à Jérusalem où elle l'accompagne jusqu'à la croix.",
+    places: [
+      { id: 'nazareth', name: 'Nazareth', region: 'Galilée', role: 'Annonciation', lat: 32.7021, lng: 35.2978 },
+      { id: 'ain-karim', name: 'Aïn Karim', region: 'Judée', role: 'Visitation', lat: 31.7656, lng: 35.1623 },
+      { id: 'bethleem', name: 'Bethléem', region: 'Judée', role: 'Nativité', lat: 31.7054, lng: 35.2024 },
+      { id: 'cana', name: 'Cana', region: 'Galilée', role: 'Noces', lat: 32.7468, lng: 35.3394 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Passion', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: "Le concile d'Éphèse (431) a défini que Marie est véritablement Theotokos, « Mère de Dieu », puisqu'elle a enfanté celui qui est vrai Dieu et vrai homme dès sa conception. L'Église catholique lui reconnaît en outre les dogmes de l'Immaculée Conception (1854) et de l'Assomption (1950), et la vénère comme modèle de foi (Catéchisme § 963-975).",
       councilIds: ['ephese-431']
@@ -237,16 +278,22 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: "Vers l'an 28", text: 'Appel au bord du lac de Galilée, avec André.' },
-      { dateLabel: 'Vie publique', text: 'Confession de foi à Césarée de Philippe, promesse des clés du royaume.' },
-      { dateLabel: "An 30 ou 33", text: 'Triple reniement de Jésus la nuit de son arrestation.' },
-      { dateLabel: 'Pâques', text: 'Triple mission de « paître les brebis » du Christ ressuscité.' },
-      { dateLabel: "An 30 ou 33", text: 'Discours de la Pentecôte, environ trois mille personnes baptisées.' },
-      { dateLabel: '64 – 67', text: 'Martyre à Rome sous Néron, selon la tradition ancienne.' }
+      { dateLabel: "Vers l'an 28", text: 'Appel au bord du lac de Galilée, avec André.', placeId: 'lac-galilee' },
+      { dateLabel: 'Vie publique', text: 'Confession de foi à Césarée de Philippe, promesse des clés du royaume.', placeId: 'cesaree-philippe' },
+      { dateLabel: "An 30 ou 33", text: 'Triple reniement de Jésus la nuit de son arrestation.', placeId: 'jerusalem' },
+      { dateLabel: 'Pâques', text: 'Triple mission de « paître les brebis » du Christ ressuscité.', placeId: 'lac-galilee' },
+      { dateLabel: "An 30 ou 33", text: 'Discours de la Pentecôte, environ trois mille personnes baptisées.', placeId: 'jerusalem' },
+      { dateLabel: '64 – 67', text: 'Martyre à Rome sous Néron, selon la tradition ancienne.', placeId: 'rome' }
     ],
     regionLabel: 'Galilée, Jérusalem, Rome',
     locationsSummary:
       "Pêcheur à Capharnaüm, il devient chef de la communauté de Jérusalem puis, selon la tradition, évêque de Rome, où il est martyrisé.",
+    places: [
+      { id: 'lac-galilee', name: 'Lac de Galilée', region: 'Galilée', role: 'Appel', lat: 32.8, lng: 35.59 },
+      { id: 'cesaree-philippe', name: 'Césarée de Philippe', region: 'Gaulanitide', role: 'Confession', lat: 33.2486, lng: 35.6943 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Pentecôte', lat: 31.7683, lng: 35.2137 },
+      { id: 'rome', name: 'Rome', region: 'Italie', role: 'Martyre', lat: 41.8925, lng: 12.4853 }
+    ],
     churchTeaching: {
       text: "L'Église catholique voit en Pierre le premier des apôtres et le premier évêque de Rome, fondement visible de l'unité de l'Église, dont les papes se succèdent comme successeurs (Catéchisme § 880-882). Le concile Vatican I (1870) a défini la primauté et l'infaillibilité du successeur de Pierre dans l'exercice de sa charge de pasteur suprême.",
       councilIds: ['vatican-1-1870']
@@ -299,18 +346,28 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: 'Jeunesse', text: 'Formation pharisienne à Jérusalem auprès de Gamaliel.' },
-      { dateLabel: '34 – 36', text: 'Persécution des chrétiens, puis conversion sur le chemin de Damas.' },
-      { dateLabel: '46 – 48', text: 'Premier voyage missionnaire, avec Barnabas, à Chypre et en Asie Mineure.' },
-      { dateLabel: '49', text: "Concile de Jérusalem sur l'admission des non-Juifs dans l'Église." },
-      { dateLabel: '49 – 52', text: 'Deuxième voyage missionnaire, jusqu\'en Grèce (Corinthe, Athènes).' },
-      { dateLabel: '53 – 57', text: 'Troisième voyage, séjour prolongé à Éphèse.' },
-      { dateLabel: '60 – 62', text: 'Arrêté à Jérusalem, transféré à Rome après avoir fait appel à César.' },
-      { dateLabel: '64 – 67', text: 'Martyre à Rome sous Néron, selon la tradition ancienne.' }
+      { dateLabel: 'Jeunesse', text: 'Formation pharisienne à Jérusalem auprès de Gamaliel.', placeId: 'jerusalem' },
+      { dateLabel: '34 – 36', text: 'Persécution des chrétiens, puis conversion sur le chemin de Damas.', placeId: 'damas' },
+      { dateLabel: '46 – 48', text: 'Premier voyage missionnaire, avec Barnabas, à Chypre et en Asie Mineure.', placeId: 'chypre' },
+      { dateLabel: '49', text: "Concile de Jérusalem sur l'admission des non-Juifs dans l'Église.", placeId: 'jerusalem' },
+      { dateLabel: '49 – 52', text: 'Deuxième voyage missionnaire, jusqu\'en Grèce (Corinthe, Athènes).', placeId: 'corinthe' },
+      { dateLabel: '53 – 57', text: 'Troisième voyage, séjour prolongé à Éphèse.', placeId: 'ephese' },
+      { dateLabel: '60 – 62', text: 'Arrêté à Jérusalem, transféré à Rome après avoir fait appel à César.', placeId: 'jerusalem' },
+      { dateLabel: '64 – 67', text: 'Martyre à Rome sous Néron, selon la tradition ancienne.', placeId: 'rome' }
     ],
     regionLabel: 'Tarse, Jérusalem, Asie Mineure, Grèce, Rome',
     locationsSummary:
       "Né à Tarse de Cilicie, formé à Jérusalem, il parcourt l'Asie Mineure et la Grèce lors de trois voyages missionnaires avant d'être martyrisé à Rome.",
+    places: [
+      { id: 'tarse', name: 'Tarse', region: 'Cilicie', role: 'Naissance', lat: 36.9177, lng: 34.8928 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Formation', lat: 31.7683, lng: 35.2137 },
+      { id: 'damas', name: 'Damas', region: 'Syrie', role: 'Conversion', lat: 33.5138, lng: 36.2765 },
+      { id: 'chypre', name: 'Salamine', region: 'Chypre', role: 'Mission', lat: 35.1847, lng: 33.9006 },
+      { id: 'athenes', name: 'Athènes', region: 'Achaïe', role: 'Aréopage', lat: 37.9715, lng: 23.7257 },
+      { id: 'corinthe', name: 'Corinthe', region: 'Achaïe', role: 'Mission', lat: 37.9056, lng: 22.8789 },
+      { id: 'ephese', name: 'Éphèse', region: 'Asie', role: 'Mission', lat: 37.9411, lng: 27.3419 },
+      { id: 'rome', name: 'Rome', region: 'Italie', role: 'Martyre', lat: 41.8925, lng: 12.4853 }
+    ],
     churchTeaching: {
       text: "L'Église honore en Paul l'« apôtre des nations », dont la théologie de la justification par la foi structure une grande partie de l'enseignement du Nouveau Testament (Catéchisme § 1987-1995). Il est fêté conjointement avec Pierre le 29 juin, les deux étant regardés comme les fondateurs, par leur prédication et leur martyre, de l'Église de Rome.",
       councilIds: []
@@ -364,15 +421,21 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: 'Vers 6 av. J.-C.', text: 'Naissance à Zacharie et Élisabeth, six mois avant Jésus.' },
-      { dateLabel: 'Vie publique', text: 'Prédication et baptême de conversion dans le désert de Judée.' },
-      { dateLabel: "Vers l'an 28", text: 'Baptême de Jésus au Jourdain.' },
-      { dateLabel: 'Emprisonnement', text: "Arrêté pour avoir dénoncé le mariage d'Hérode Antipas." },
-      { dateLabel: '29 – 30', text: "Décapité lors d'un banquet d'Hérode." }
+      { dateLabel: 'Vers 6 av. J.-C.', text: 'Naissance à Zacharie et Élisabeth, six mois avant Jésus.', placeId: 'ain-karim' },
+      { dateLabel: 'Vie publique', text: 'Prédication et baptême de conversion dans le désert de Judée.', placeId: 'desert-judee' },
+      { dateLabel: "Vers l'an 28", text: 'Baptême de Jésus au Jourdain.', placeId: 'jourdain' },
+      { dateLabel: 'Emprisonnement', text: "Arrêté pour avoir dénoncé le mariage d'Hérode Antipas.", placeId: 'macheronte' },
+      { dateLabel: '29 – 30', text: "Décapité lors d'un banquet d'Hérode.", placeId: 'macheronte' }
     ],
     regionLabel: 'Désert de Judée, vallée du Jourdain',
     locationsSummary:
       "Naît près de Jérusalem, prêche et baptise dans le désert de Judée et la vallée du Jourdain ; emprisonné puis exécuté à la forteresse de Machéronte.",
+    places: [
+      { id: 'ain-karim', name: 'Aïn Karim', region: 'Judée', role: 'Naissance', lat: 31.7656, lng: 35.1623 },
+      { id: 'desert-judee', name: 'Désert de Judée', region: 'Judée', role: 'Prédication', lat: 31.62, lng: 35.32 },
+      { id: 'jourdain', name: 'Jourdain', region: 'Vallée du Jourdain', role: 'Baptême', lat: 31.837, lng: 35.547 },
+      { id: 'macheronte', name: 'Machéronte', region: 'Pérée', role: 'Martyre', lat: 31.5603, lng: 35.6253 }
+    ],
     churchTeaching: {
       text: "L'Église reconnaît en Jean-Baptiste le dernier des prophètes de l'Ancienne Alliance et le précurseur direct du Christ, appelé à « préparer le chemin du Seigneur » (Catéchisme § 523). Sa naissance et son martyre sont célébrés comme deux fêtes liturgiques distinctes.",
       councilIds: []
@@ -425,16 +488,22 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: "Vers l'an 28", text: 'Appel au bord du lac de Galilée, avec Jacques son frère.' },
+      { dateLabel: "Vers l'an 28", text: 'Appel au bord du lac de Galilée, avec Jacques son frère.', placeId: 'lac-galilee' },
       { dateLabel: 'Vie publique', text: 'Témoin privilégié de la Transfiguration et de Gethsémani.' },
-      { dateLabel: "An 30 ou 33", text: 'Présent au pied de la croix, reçoit la garde de Marie.' },
-      { dateLabel: 'Pâques', text: 'Court au tombeau vide avec Pierre.' },
-      { dateLabel: 'Église primitive', text: 'Ministère à Jérusalem aux côtés de Pierre.' },
-      { dateLabel: 'Tradition', text: "Exil sur l'île de Patmos, puis mort à Éphèse." }
+      { dateLabel: "An 30 ou 33", text: 'Présent au pied de la croix, reçoit la garde de Marie.', placeId: 'jerusalem' },
+      { dateLabel: 'Pâques', text: 'Court au tombeau vide avec Pierre.', placeId: 'jerusalem' },
+      { dateLabel: 'Église primitive', text: 'Ministère à Jérusalem aux côtés de Pierre.', placeId: 'jerusalem' },
+      { dateLabel: 'Tradition', text: "Exil sur l'île de Patmos, puis mort à Éphèse.", placeId: 'patmos' }
     ],
     regionLabel: 'Galilée, Jérusalem, Éphèse, Patmos',
     locationsSummary:
       "Pêcheur en Galilée, présent à Jérusalem durant la vie de Jésus et les débuts de l'Église, associé par la tradition à Éphèse et à l'île de Patmos.",
+    places: [
+      { id: 'lac-galilee', name: 'Lac de Galilée', region: 'Galilée', role: 'Appel', lat: 32.8, lng: 35.59 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Croix', lat: 31.7683, lng: 35.2137 },
+      { id: 'patmos', name: 'Patmos', region: 'Mer Égée', role: 'Exil', lat: 37.3225, lng: 26.5449 },
+      { id: 'ephese', name: 'Éphèse', region: 'Asie', role: 'Mort', lat: 37.9411, lng: 27.3419 }
+    ],
     churchTeaching: {
       text: "La tradition patristique reconnaît en Jean l'auteur du quatrième Évangile, dont le prologue proclame la divinité du Verbe fait chair (Jn 1, 1.14), texte central de la christologie affirmée aux conciles de Nicée et de Chalcédoine.",
       councilIds: ['nicee-325', 'chalcedoine-451']
@@ -485,13 +554,16 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: 'Vers 34', text: 'Institué diacre par les apôtres à Jérusalem.' },
-      { dateLabel: 'Ministère', text: 'Débats avec les membres des synagogues, accusations de blasphème.' },
-      { dateLabel: 'Procès', text: "Discours devant le Sanhédrin retraçant l'histoire du salut." },
-      { dateLabel: 'Vers 35', text: 'Lapidation hors de Jérusalem, sous les yeux de Saul.' }
+      { dateLabel: 'Vers 34', text: 'Institué diacre par les apôtres à Jérusalem.', placeId: 'jerusalem' },
+      { dateLabel: 'Ministère', text: 'Débats avec les membres des synagogues, accusations de blasphème.', placeId: 'jerusalem' },
+      { dateLabel: 'Procès', text: "Discours devant le Sanhédrin retraçant l'histoire du salut.", placeId: 'jerusalem' },
+      { dateLabel: 'Vers 35', text: 'Lapidation hors de Jérusalem, sous les yeux de Saul.', placeId: 'jerusalem' }
     ],
     regionLabel: 'Jérusalem',
     locationsSummary: "Sert la communauté chrétienne de Jérusalem et y est lapidé, hors des murs de la ville, vers l'an 35.",
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Martyre', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: "L'Église reconnaît en Étienne le premier martyr chrétien, le « protomartyr », dont la mort en pardonnant à ses bourreaux devient le modèle du martyre chrétien (Catéchisme § 2473). Sa fête suit immédiatement celle de Noël, le 26 décembre.",
       councilIds: []
@@ -539,15 +611,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: 'Avant sa rencontre avec Jésus', text: 'Vie à Magdala, décrite comme tourmentée par « sept démons ».' },
+      { dateLabel: 'Avant sa rencontre avec Jésus', text: 'Vie à Magdala, décrite comme tourmentée par « sept démons ».', placeId: 'magdala' },
       { dateLabel: 'Vie publique de Jésus', text: 'Guérie par Jésus, elle le suit avec d\'autres femmes disciples.' },
-      { dateLabel: "An 30 ou 33", text: 'Présente au pied de la croix lors de la crucifixion.' },
-      { dateLabel: 'Matin de Pâques', text: 'Se rend au tombeau vide, puis reçoit la première apparition du Christ ressuscité.' },
-      { dateLabel: 'Après Pâques', text: 'Envoyée annoncer la résurrection aux apôtres.' }
+      { dateLabel: "An 30 ou 33", text: 'Présente au pied de la croix lors de la crucifixion.', placeId: 'jerusalem' },
+      { dateLabel: 'Matin de Pâques', text: 'Se rend au tombeau vide, puis reçoit la première apparition du Christ ressuscité.', placeId: 'jerusalem' },
+      { dateLabel: 'Après Pâques', text: 'Envoyée annoncer la résurrection aux apôtres.', placeId: 'jerusalem' }
     ],
     regionLabel: 'Magdala, Galilée · Jérusalem',
     locationsSummary:
       "Originaire de Magdala, sur le lac de Galilée, elle suit Jésus jusqu'à Jérusalem, où elle est témoin de la crucifixion et de la résurrection.",
+    places: [
+      { id: 'magdala', name: 'Magdala', region: 'Galilée', role: 'Origine', lat: 32.8247, lng: 35.5155 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Résurrection', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: "En 2016, le pape François a élevé sa mémoire liturgique du 22 juillet au rang de fête, au même titre que celle des apôtres, en raison de sa mission de première témoin de la résurrection. L'Église la reconnaît comme « apôtre des apôtres », titre déjà employé par des Pères de l'Église comme saint Thomas d'Aquin.",
       councilIds: []
@@ -654,13 +730,16 @@ export const figureDetails: Record<string, FigureDetail> = {
     timeline: [
       { dateLabel: 'Avant le déluge', text: 'Décrit comme juste et marchant avec Dieu, reçoit l\'ordre de construire l\'arche.' },
       { dateLabel: '40 jours et 40 nuits', text: 'Le déluge submerge la terre ; Noé, sa famille et les animaux sont préservés.' },
-      { dateLabel: "Après plus d'un an", text: "Les eaux se retirent ; l'arche s'échoue sur les monts d'Ararat." },
-      { dateLabel: "À la sortie de l'arche", text: "Alliance de Dieu avec Noé, scellée par l'arc-en-ciel." },
+      { dateLabel: "Après plus d'un an", text: "Les eaux se retirent ; l'arche s'échoue sur les monts d'Ararat.", placeId: 'ararat' },
+      { dateLabel: "À la sortie de l'arche", text: "Alliance de Dieu avec Noé, scellée par l'arc-en-ciel.", placeId: 'ararat' },
       { dateLabel: 'Fin de vie', text: 'Mort de Noé à 950 ans.' }
     ],
     regionLabel: "Mésopotamie biblique · monts d'Ararat",
     locationsSummary:
       "L'arche s'échoue traditionnellement sur les « monts d'Ararat » (Gn 8, 4), une région montagneuse souvent située en Arménie actuelle.",
+    places: [
+      { id: 'ararat', name: 'Monts d\'Ararat', region: 'Arménie', role: 'Arche', lat: 39.7016, lng: 44.2983 }
+    ],
     churchTeaching: {
       text: "Le Catéchisme voit dans l'alliance avec Noé la première étape des alliances divines avec l'humanité, valable « aussi longtemps que durera le monde » (§ 56-58). L'Église lit l'arche comme une figure de l'Église et le déluge comme une préfiguration du baptême (§ 1219).",
       councilIds: []
@@ -709,15 +788,21 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: '1900 av. J.-C.', text: "Appel de Dieu à Ur puis à Harân ; départ pour Canaan." },
+      { dateLabel: '1900 av. J.-C.', text: "Appel de Dieu à Ur puis à Harân ; départ pour Canaan.", placeId: 'haran' },
       { dateLabel: '1900 av. J.-C.', text: 'Alliance avec Dieu, promesse d\'une descendance, changement de nom en Abraham.' },
       { dateLabel: '1890 av. J.-C.', text: "Naissance d'Ismaël, fils d'Agar." },
       { dateLabel: '1875 av. J.-C.', text: 'Naissance d\'Isaac, fils promis, né de Sara.' },
-      { dateLabel: '1850 av. J.-C.', text: "Épreuve du sacrifice d'Isaac sur le mont Moriah." },
-      { dateLabel: '175 ans', text: 'Mort, enterré à Makpéla, près d\'Hébron.' }
+      { dateLabel: '1850 av. J.-C.', text: "Épreuve du sacrifice d'Isaac sur le mont Moriah.", placeId: 'moriah' },
+      { dateLabel: '175 ans', text: 'Mort, enterré à Makpéla, près d\'Hébron.', placeId: 'hebron' }
     ],
     regionLabel: 'Ur, Harân, Canaan (Israël actuel)',
     locationsSummary: "Né à Ur en Chaldée, passé par Harân, installé à Canaan ; enterré dans la grotte de Makpéla, à Hébron.",
+    places: [
+      { id: 'ur', name: 'Ur', region: 'Chaldée', role: 'Origine', lat: 30.9627, lng: 46.1031 },
+      { id: 'haran', name: 'Harân', region: 'Mésopotamie', role: 'Appel', lat: 36.865, lng: 39.0317 },
+      { id: 'moriah', name: 'Mont Moriah', region: 'Canaan', role: 'Sacrifice', lat: 31.7781, lng: 35.2354 },
+      { id: 'hebron', name: 'Hébron', region: 'Canaan', role: 'Sépulture', lat: 31.5246, lng: 35.1107 }
+    ],
     churchTeaching: {
       text: "L'Église reconnaît en Abraham le « père de tous les croyants » (Rm 4, 11), modèle de la foi qui se fie à la promesse de Dieu sans en voir l'accomplissement (Catéchisme § 145-147). Juifs, chrétiens et musulmans se reconnaissent tous trois comme héritiers de sa foi (§ 841).",
       councilIds: []
@@ -768,14 +853,20 @@ export const figureDetails: Record<string, FigureDetail> = {
     ],
     timeline: [
       { dateLabel: '1850 av. J.-C.', text: 'Naissance à Abraham et Sara, accomplissement de la promesse.' },
-      { dateLabel: 'Enfance', text: 'Épreuve du sacrifice sur le mont Moriah.' },
+      { dateLabel: 'Enfance', text: 'Épreuve du sacrifice sur le mont Moriah.', placeId: 'moriah' },
       { dateLabel: '1810 av. J.-C.', text: 'Mariage avec Rébecca, choisie au puits de Nahor.' },
       { dateLabel: '1800 av. J.-C.', text: 'Naissance des jumeaux Ésaü et Jacob, après vingt ans sans enfant.' },
       { dateLabel: 'Vieillesse', text: 'Bénédiction donnée à Jacob à la place d\'Ésaü.' },
-      { dateLabel: '180 ans', text: 'Mort, enterré à Hébron par ses fils.' }
+      { dateLabel: '180 ans', text: 'Mort, enterré à Hébron par ses fils.', placeId: 'hebron' }
     ],
     regionLabel: 'Canaan (Beer-Sheva, Hébron, Guérar)',
     locationsSummary: "Vit dans le Néguev et le sud de Canaan, entre Beer-Sheva, Guérar et Hébron, où il est enterré.",
+    places: [
+      { id: 'moriah', name: 'Mont Moriah', region: 'Canaan', role: 'Sacrifice', lat: 31.7781, lng: 35.2354 },
+      { id: 'guerar', name: 'Guérar', region: 'Néguev', role: 'Séjour', lat: 31.382, lng: 34.606 },
+      { id: 'beer-sheva', name: 'Beer-Sheva', region: 'Néguev', role: 'Puits', lat: 31.2447, lng: 34.8407 },
+      { id: 'hebron', name: 'Hébron', region: 'Canaan', role: 'Sépulture', lat: 31.5246, lng: 35.1107 }
+    ],
     churchTeaching: {
       text: "Le Catéchisme relie l'épreuve du sacrifice d'Isaac à la foi d'Abraham et y voit une préfiguration du sacrifice du Fils unique par le Père (§ 2572). Isaac est compté, avec Abraham et Jacob, parmi les patriarches dont Dieu se déclare le Dieu (Ex 3, 6 ; Mt 22, 32).",
       councilIds: []
@@ -826,13 +917,21 @@ export const figureDetails: Record<string, FigureDetail> = {
     timeline: [
       { dateLabel: '1800 av. J.-C.', text: "Naissance, jumeau cadet d'Ésaü." },
       { dateLabel: 'Jeunesse', text: "Achat du droit d'aînesse, puis bénédiction obtenue par ruse." },
-      { dateLabel: '1790 av. J.-C.', text: 'Fuite à Harân, quatorze ans de service chez Laban pour Léa et Rachel.' },
-      { dateLabel: '1770 av. J.-C.', text: "Lutte avec l'ange au gué du Yabboq, changement de nom en Israël." },
-      { dateLabel: 'Retour', text: 'Réconciliation avec Ésaü, installation à Canaan.' },
-      { dateLabel: '147 ans', text: 'Mort en Égypte, où Joseph l\'avait fait venir.' }
+      { dateLabel: '1790 av. J.-C.', text: 'Fuite à Harân, quatorze ans de service chez Laban pour Léa et Rachel.', placeId: 'haran' },
+      { dateLabel: '1770 av. J.-C.', text: "Lutte avec l'ange au gué du Yabboq, changement de nom en Israël.", placeId: 'penuel' },
+      { dateLabel: 'Retour', text: 'Réconciliation avec Ésaü, installation à Canaan.', placeId: 'sichem' },
+      { dateLabel: '147 ans', text: 'Mort en Égypte, où Joseph l\'avait fait venir.', placeId: 'goshen' }
     ],
     regionLabel: 'Canaan, Harân (Mésopotamie), Égypte',
     locationsSummary: "Né à Canaan, passe une longue période à Harân chez Laban, puis termine sa vie en Égypte auprès de Joseph.",
+    places: [
+      { id: 'beer-sheva', name: 'Beer-Sheva', region: 'Néguev', role: 'Départ', lat: 31.2447, lng: 34.8407 },
+      { id: 'bethel', name: 'Béthel', region: 'Canaan', role: 'Songe', lat: 31.93, lng: 35.221 },
+      { id: 'haran', name: 'Harân', region: 'Mésopotamie', role: 'Exil', lat: 36.865, lng: 39.0317 },
+      { id: 'penuel', name: 'Penuel', region: 'Galaad', role: 'Lutte', lat: 32.183, lng: 35.69 },
+      { id: 'sichem', name: 'Sichem', region: 'Canaan', role: 'Retour', lat: 32.2137, lng: 35.2817 },
+      { id: 'goshen', name: 'Goshen', region: 'Égypte', role: 'Mort', lat: 30.55, lng: 31.95 }
+    ],
     churchTeaching: {
       text: "Le nom donné à Jacob, Israël, devient celui du peuple élu tout entier (Catéchisme § 205). L'Église voit dans sa lutte avec l'ange une image de la prière comme combat spirituel avec Dieu (§ 2573).",
       councilIds: []
@@ -881,15 +980,21 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: '1750 av. J.-C.', text: 'Vendu par ses frères, emmené en Égypte comme esclave.' },
-      { dateLabel: 'Égypte, jeunesse', text: 'Emprisonné après une fausse accusation dans la maison de Potiphar.' },
-      { dateLabel: '1730 av. J.-C.', text: "Interprète les songes de Pharaon, nommé gouverneur d'Égypte." },
-      { dateLabel: 'Sept années de famine', text: 'Retrouvailles avec ses frères venus acheter du blé, réconciliation.' },
-      { dateLabel: 'Fin de vie', text: 'Installation de toute la famille de Jacob en Égypte, dans la région de Goshen.' },
-      { dateLabel: '110 ans', text: 'Mort en Égypte.' }
+      { dateLabel: '1750 av. J.-C.', text: 'Vendu par ses frères, emmené en Égypte comme esclave.', placeId: 'dothan' },
+      { dateLabel: 'Égypte, jeunesse', text: 'Emprisonné après une fausse accusation dans la maison de Potiphar.', placeId: 'egypte' },
+      { dateLabel: '1730 av. J.-C.', text: "Interprète les songes de Pharaon, nommé gouverneur d'Égypte.", placeId: 'egypte' },
+      { dateLabel: 'Sept années de famine', text: 'Retrouvailles avec ses frères venus acheter du blé, réconciliation.', placeId: 'egypte' },
+      { dateLabel: 'Fin de vie', text: 'Installation de toute la famille de Jacob en Égypte, dans la région de Goshen.', placeId: 'goshen' },
+      { dateLabel: '110 ans', text: 'Mort en Égypte.', placeId: 'egypte' }
     ],
     regionLabel: 'Canaan puis Égypte',
     locationsSummary: "Né à Harân, grandit à Canaan (Hébron), vendu et établi en Égypte où il devient gouverneur.",
+    places: [
+      { id: 'hebron', name: 'Hébron', region: 'Canaan', role: 'Jeunesse', lat: 31.5246, lng: 35.1107 },
+      { id: 'dothan', name: 'Dothan', region: 'Canaan', role: 'Vendu', lat: 32.4167, lng: 35.2333 },
+      { id: 'egypte', name: 'Égypte', region: 'Delta du Nil', role: 'Gouverneur', lat: 30.8, lng: 31.8 },
+      { id: 'goshen', name: 'Goshen', region: 'Égypte', role: 'Famille', lat: 30.55, lng: 31.95 }
+    ],
     churchTeaching: {
       text: "Le Catéchisme cite Joseph comme l'un des exemples bibliques où Dieu tire le bien du mal commis par les hommes, selon sa propre parole : « Dieu l'a pensé en bien » (§ 312). La tradition chrétienne y voit aussi une préfiguration du Christ trahi par les siens puis devenu source de salut pour eux.",
       councilIds: []
@@ -941,17 +1046,25 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: '1250 av. J.-C.', text: 'Naissance en Égypte, sauvé des eaux par la fille de Pharaon.' },
-      { dateLabel: 'Jeunesse', text: 'Fuite à Madiân après avoir tué un Égyptien.' },
-      { dateLabel: '1250 av. J.-C.', text: "Appel de Dieu au buisson ardent près de l'Horeb." },
-      { dateLabel: 'Exode', text: "Dix plaies d'Égypte, sortie du peuple hébreu, traversée de la mer Rouge." },
-      { dateLabel: 'Mont Sinaï', text: 'Réception des dix commandements et de la Loi.' },
-      { dateLabel: '40 ans', text: "Traversée du désert jusqu'aux frontières de Canaan." },
-      { dateLabel: '120 ans', text: 'Mort sur le mont Nébo, en vue de la terre promise.' }
+      { dateLabel: '1250 av. J.-C.', text: 'Naissance en Égypte, sauvé des eaux par la fille de Pharaon.', placeId: 'egypte' },
+      { dateLabel: 'Jeunesse', text: 'Fuite à Madiân après avoir tué un Égyptien.', placeId: 'madian' },
+      { dateLabel: '1250 av. J.-C.', text: "Appel de Dieu au buisson ardent près de l'Horeb.", placeId: 'sinai' },
+      { dateLabel: 'Exode', text: "Dix plaies d'Égypte, sortie du peuple hébreu, traversée de la mer Rouge.", placeId: 'mer-rouge' },
+      { dateLabel: 'Mont Sinaï', text: 'Réception des dix commandements et de la Loi.', placeId: 'sinai' },
+      { dateLabel: '40 ans', text: "Traversée du désert jusqu'aux frontières de Canaan.", placeId: 'cades' },
+      { dateLabel: '120 ans', text: 'Mort sur le mont Nébo, en vue de la terre promise.', placeId: 'nebo' }
     ],
     regionLabel: 'Égypte, Sinaï, désert du Néguev',
     locationsSummary:
       "Né en Égypte, exilé à Madiân, il conduit le peuple hébreu d'Égypte au mont Sinaï puis à travers le désert jusqu'au mont Nébo.",
+    places: [
+      { id: 'egypte', name: 'Égypte', region: 'Delta du Nil', role: 'Naissance', lat: 30.8, lng: 31.8 },
+      { id: 'madian', name: 'Madiân', region: 'Arabie', role: 'Exil', lat: 28.48, lng: 35 },
+      { id: 'sinai', name: 'Mont Sinaï', region: 'Sinaï', role: 'Loi', lat: 28.5394, lng: 33.975 },
+      { id: 'mer-rouge', name: 'Mer Rouge', region: 'Égypte', role: 'Traversée', lat: 29.95, lng: 32.55 },
+      { id: 'cades', name: 'Cadès', region: 'Désert de Cîn', role: 'Désert', lat: 30.6167, lng: 34.4167 },
+      { id: 'nebo', name: 'Mont Nébo', region: 'Moab', role: 'Mort', lat: 31.768, lng: 35.7256 }
+    ],
     churchTeaching: {
       text: "Le Catéchisme présente Moïse comme le médiateur de l'Alliance du Sinaï et le premier grand intercesseur biblique (§ 2574-2577), et voit dans l'Exode une préfiguration de la libération opérée par le Christ (§ 1094).",
       councilIds: []
@@ -1002,17 +1115,23 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: '1040 av. J.-C.', text: 'Naissance à Bethléem, plus jeune fils de Jessé.' },
-      { dateLabel: '1025 av. J.-C.', text: 'Onction secrète par le prophète Samuel.' },
-      { dateLabel: 'Jeunesse', text: 'Victoire sur Goliath.' },
-      { dateLabel: '1010 av. J.-C.', text: 'Sacré roi sur Juda à Hébron après la mort de Saül.' },
-      { dateLabel: '1003 av. J.-C.', text: 'Sacré roi sur tout Israël ; prise de Jérusalem, nouvelle capitale.' },
-      { dateLabel: '1000 av. J.-C.', text: "Promesse d'une dynastie éternelle par l'oracle de Nathan." },
-      { dateLabel: '970 av. J.-C.', text: 'Mort, succession de Salomon.' }
+      { dateLabel: '1040 av. J.-C.', text: 'Naissance à Bethléem, plus jeune fils de Jessé.', placeId: 'bethleem' },
+      { dateLabel: '1025 av. J.-C.', text: 'Onction secrète par le prophète Samuel.', placeId: 'bethleem' },
+      { dateLabel: 'Jeunesse', text: 'Victoire sur Goliath.', placeId: 'ela' },
+      { dateLabel: '1010 av. J.-C.', text: 'Sacré roi sur Juda à Hébron après la mort de Saül.', placeId: 'hebron' },
+      { dateLabel: '1003 av. J.-C.', text: 'Sacré roi sur tout Israël ; prise de Jérusalem, nouvelle capitale.', placeId: 'jerusalem' },
+      { dateLabel: '1000 av. J.-C.', text: "Promesse d'une dynastie éternelle par l'oracle de Nathan.", placeId: 'jerusalem' },
+      { dateLabel: '970 av. J.-C.', text: 'Mort, succession de Salomon.', placeId: 'jerusalem' }
     ],
     regionLabel: 'Bethléem, Hébron, Jérusalem',
     locationsSummary:
       "Né à Bethléem, chef de guerre dans le désert de Judée, roi d'abord à Hébron puis à Jérusalem, qu'il fait capitale du royaume.",
+    places: [
+      { id: 'bethleem', name: 'Bethléem', region: 'Judée', role: 'Naissance', lat: 31.7054, lng: 35.2024 },
+      { id: 'ela', name: 'Vallée d\'Éla', region: 'Juda', role: 'Goliath', lat: 31.696, lng: 34.963 },
+      { id: 'hebron', name: 'Hébron', region: 'Canaan', role: 'Roi de Juda', lat: 31.5246, lng: 35.1107 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Capitale', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: "La promesse d'une dynastie davidique éternelle est lue par l'Église comme s'accomplissant dans le Christ, appelé « fils de David » dans les Évangiles (Mt 1, 1 ; 21, 9). Le Catéchisme rattache l'espérance messianique à cette lignée royale (§ 709).",
       councilIds: []
@@ -1064,16 +1183,20 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: '970 av. J.-C.', text: 'Accession au trône après David, préféré à Adonias.' },
-      { dateLabel: 'Début du règne', text: 'Songe à Gabaon, demande de la sagesse.' },
-      { dateLabel: '966-959 av. J.-C.', text: 'Construction du premier Temple de Jérusalem.' },
-      { dateLabel: 'Règne', text: 'Visite de la reine de Saba.' },
-      { dateLabel: 'Fin de règne', text: 'Dérive idolâtre liée à ses épouses étrangères.' },
-      { dateLabel: '931 av. J.-C.', text: 'Mort ; division du royaume sous son fils Roboam.' }
+      { dateLabel: '970 av. J.-C.', text: 'Accession au trône après David, préféré à Adonias.', placeId: 'jerusalem' },
+      { dateLabel: 'Début du règne', text: 'Songe à Gabaon, demande de la sagesse.', placeId: 'gabaon' },
+      { dateLabel: '966-959 av. J.-C.', text: 'Construction du premier Temple de Jérusalem.', placeId: 'jerusalem' },
+      { dateLabel: 'Règne', text: 'Visite de la reine de Saba.', placeId: 'jerusalem' },
+      { dateLabel: 'Fin de règne', text: 'Dérive idolâtre liée à ses épouses étrangères.', placeId: 'jerusalem' },
+      { dateLabel: '931 av. J.-C.', text: 'Mort ; division du royaume sous son fils Roboam.', placeId: 'jerusalem' }
     ],
     regionLabel: 'Jérusalem',
     locationsSummary:
       "Règne depuis Jérusalem, où il fait bâtir le premier Temple ; reçoit la visite de la reine de Saba, venue d'Arabie.",
+    places: [
+      { id: 'gabaon', name: 'Gabaon', region: 'Benjamin', role: 'Songe', lat: 31.8467, lng: 35.1856 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Temple', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: "Le Catéchisme voit dans la sagesse demandée par Salomon un modèle de prière juste, qui cherche d'abord le règne et la justice de Dieu (§ 2578). Le Temple qu'il édifie annonce, pour la tradition chrétienne, le corps du Christ comme nouveau Temple (Jn 2, 19-21).",
       councilIds: []
@@ -1116,13 +1239,16 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: '740 av. J.-C.', text: "Vision inaugurale au Temple, année de la mort d'Ozias, appel prophétique." },
-      { dateLabel: 'Sous Achaz', text: "Annonce du signe de l'Emmanuel." },
-      { dateLabel: '701 av. J.-C.', text: 'Soutien au roi Ézéchias lors du siège assyrien de Jérusalem.' },
-      { dateLabel: 'Oracles', text: 'Annonce des chants du Serviteur souffrant.' }
+      { dateLabel: '740 av. J.-C.', text: "Vision inaugurale au Temple, année de la mort d'Ozias, appel prophétique.", placeId: 'jerusalem' },
+      { dateLabel: 'Sous Achaz', text: "Annonce du signe de l'Emmanuel.", placeId: 'jerusalem' },
+      { dateLabel: '701 av. J.-C.', text: 'Soutien au roi Ézéchias lors du siège assyrien de Jérusalem.', placeId: 'jerusalem' },
+      { dateLabel: 'Oracles', text: 'Annonce des chants du Serviteur souffrant.', placeId: 'jerusalem' }
     ],
     regionLabel: 'Jérusalem, royaume de Juda',
     locationsSummary: "Exerce son ministère à Jérusalem, dans le royaume de Juda, sous la menace de l'empire assyrien.",
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Ministère', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: "Le Catéchisme cite abondamment Isaïe parmi les prophètes dont les oracles préparent la venue du Messie, en particulier l'annonce de l'Emmanuel (§ 712) et les chants du Serviteur souffrant, relus à la lumière de la passion du Christ (§ 713).",
       councilIds: []
@@ -1169,16 +1295,23 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: '870 av. J.-C.', text: 'Annonce d\'une sécheresse au roi Achab.' },
-      { dateLabel: 'Famine', text: 'Miracles chez la veuve de Sarepta.' },
-      { dateLabel: '860 av. J.-C.', text: 'Défi des prophètes de Baal au mont Carmel.' },
-      { dateLabel: 'Fuite', text: 'Rencontre de Dieu dans le murmure au mont Horeb.' },
+      { dateLabel: '870 av. J.-C.', text: 'Annonce d\'une sécheresse au roi Achab.', placeId: 'samarie' },
+      { dateLabel: 'Famine', text: 'Miracles chez la veuve de Sarepta.', placeId: 'sarepta' },
+      { dateLabel: '860 av. J.-C.', text: 'Défi des prophètes de Baal au mont Carmel.', placeId: 'carmel' },
+      { dateLabel: 'Fuite', text: 'Rencontre de Dieu dans le murmure au mont Horeb.', placeId: 'sinai' },
       { dateLabel: 'Fin de ministère', text: 'Désignation d\'Élisée comme successeur.' },
-      { dateLabel: '850 av. J.-C.', text: 'Enlèvement au ciel dans un char de feu.' }
+      { dateLabel: '850 av. J.-C.', text: 'Enlèvement au ciel dans un char de feu.', placeId: 'jourdain' }
     ],
     regionLabel: "Royaume d'Israël (Nord), mont Carmel, mont Horeb",
     locationsSummary:
       "Ministère dans le royaume du Nord, entre Sarepta (Phénicie), le mont Carmel et le désert jusqu'au mont Horeb (Sinaï).",
+    places: [
+      { id: 'samarie', name: 'Samarie', region: 'Royaume d\'Israël', role: 'Annonce', lat: 32.276, lng: 35.195 },
+      { id: 'sarepta', name: 'Sarepta', region: 'Phénicie', role: 'Veuve', lat: 33.46, lng: 35.295 },
+      { id: 'carmel', name: 'Mont Carmel', region: 'Israël', role: 'Défi', lat: 32.729, lng: 35.049 },
+      { id: 'sinai', name: 'Mont Sinaï', region: 'Sinaï', role: 'Murmure', lat: 28.5394, lng: 33.975 },
+      { id: 'jourdain', name: 'Jourdain', region: 'Vallée du Jourdain', role: 'Enlèvement', lat: 31.837, lng: 35.547 }
+    ],
     churchTeaching: {
       text: "Le Catéchisme présente Élie comme le père des prophètes et un modèle d'intercession, à l'origine de la spiritualité de l'ordre du Carmel (§ 2583). Sa présence aux côtés de Moïse lors de la Transfiguration signifie que la Loi et les Prophètes témoignent du Christ (§ 554).",
       councilIds: []
@@ -1225,14 +1358,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ]
     ],
     timeline: [
-      { dateLabel: '605 av. J.-C.', text: 'Déportation à Babylone après la première prise de Jérusalem.' },
-      { dateLabel: 'Cour de Babylone', text: 'Interprétation du songe de la statue aux pieds d\'argile.' },
-      { dateLabel: 'Sous Balthazar', text: 'Lecture de l\'inscription annonçant la chute de Babylone.' },
-      { dateLabel: 'Sous Darius le Mède', text: 'Épisode de la fosse aux lions.' },
-      { dateLabel: 'Visions', text: 'Vision du « Fils d\'homme » venant sur les nuées.' }
+      { dateLabel: '605 av. J.-C.', text: 'Déportation à Babylone après la première prise de Jérusalem.', placeId: 'babylone' },
+      { dateLabel: 'Cour de Babylone', text: 'Interprétation du songe de la statue aux pieds d\'argile.', placeId: 'babylone' },
+      { dateLabel: 'Sous Balthazar', text: 'Lecture de l\'inscription annonçant la chute de Babylone.', placeId: 'babylone' },
+      { dateLabel: 'Sous Darius le Mède', text: 'Épisode de la fosse aux lions.', placeId: 'babylone' },
+      { dateLabel: 'Visions', text: 'Vision du « Fils d\'homme » venant sur les nuées.', placeId: 'babylone' }
     ],
     regionLabel: 'Babylone (Mésopotamie)',
     locationsSummary: "Déporté de Jérusalem à Babylone, où il sert à la cour des rois babyloniens puis perses pendant tout l'Exil.",
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Origine', lat: 31.7683, lng: 35.2137 },
+      { id: 'babylone', name: 'Babylone', region: 'Mésopotamie', role: 'Exil', lat: 32.5363, lng: 44.4209 }
+    ],
     churchTeaching: {
       text: "Le Catéchisme s'appuie sur la vision du « Fils d'homme » en Dn 7 pour éclairer le titre que Jésus se donne dans les Évangiles (§ 664).",
       councilIds: []
@@ -1333,15 +1470,21 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '1900 av. J.-C.', text: 'Quitte Ur puis Harân avec Abram, en direction de Canaan.' },
-      { dateLabel: 'Égypte', text: 'Présentée comme sœur d\'Abram, prise puis rendue par Pharaon.' },
+      { dateLabel: '1900 av. J.-C.', text: 'Quitte Ur puis Harân avec Abram, en direction de Canaan.', placeId: 'haran' },
+      { dateLabel: 'Égypte', text: 'Présentée comme sœur d\'Abram, prise puis rendue par Pharaon.', placeId: 'egypte' },
       { dateLabel: '1900 av. J.-C.', text: 'Donne sa servante Agar à Abraham pour obtenir une descendance.' },
       { dateLabel: '1900 av. J.-C.', text: 'Alliance de Dieu avec Abraham ; son nom devient Sara.' },
       { dateLabel: '1875 av. J.-C.', text: 'Naissance d\'Isaac dans sa vieillesse.' },
-      { dateLabel: '127 ans', text: 'Mort à Hébron ; enterrée dans la grotte de Makpéla.' },
+      { dateLabel: '127 ans', text: 'Mort à Hébron ; enterrée dans la grotte de Makpéla.', placeId: 'hebron' },
     ],
     regionLabel: 'Ur, Harân, Canaan (Égypte, Guérar)',
     locationsSummary: 'Quitte Ur puis Harân avec Abraham, séjourne en Égypte, s\'installe à Canaan ; meurt et est enterrée à Hébron.',
+    places: [
+      { id: 'ur', name: 'Ur', region: 'Chaldée', role: 'Origine', lat: 30.9627, lng: 46.1031 },
+      { id: 'haran', name: 'Harân', region: 'Mésopotamie', role: 'Départ', lat: 36.865, lng: 39.0317 },
+      { id: 'egypte', name: 'Égypte', region: 'Delta du Nil', role: 'Séjour', lat: 30.8, lng: 31.8 },
+      { id: 'hebron', name: 'Hébron', region: 'Canaan', role: 'Sépulture', lat: 31.5246, lng: 35.1107 }
+    ],
     churchTeaching: {
       text: 'Le Catéchisme cite Sara parmi les femmes stériles de l\'Ancien Testament par lesquelles Dieu suscite une maternité contraire à toute attente, préparant la mission de Marie (§ 489). L\'épître aux Hébreux la propose en modèle de foi, capable de concevoir alors qu\'elle était hors d\'âge.',
       councilIds: []
@@ -1385,14 +1528,19 @@ export const figureDetails: Record<string, FigureDetail> = {
     ],
     timeline: [
       { dateLabel: '1890 av. J.-C.', text: 'Servante égyptienne donnée par Sara à Abraham comme épouse secondaire.' },
-      { dateLabel: '1890 av. J.-C.', text: 'Conçoit Ismaël ; fuit au désert après les tensions avec Sara.' },
-      { dateLabel: '1890 av. J.-C.', text: 'Rencontre l\'ange de YHWH près d\'une source.' },
+      { dateLabel: '1890 av. J.-C.', text: 'Conçoit Ismaël ; fuit au désert après les tensions avec Sara.', placeId: 'chour' },
+      { dateLabel: '1890 av. J.-C.', text: 'Rencontre l\'ange de YHWH près d\'une source.', placeId: 'chour' },
       { dateLabel: '1889 av. J.-C.', text: 'Naissance d\'Ismaël.' },
-      { dateLabel: 'Après la naissance d\'Isaac', text: 'Chassée avec Ismaël dans le désert de Beer-Sheva.' },
-      { dateLabel: 'Désert de Parân', text: 'S\'installe avec Ismaël, secouru par Dieu près d\'un puits.' },
+      { dateLabel: 'Après la naissance d\'Isaac', text: 'Chassée avec Ismaël dans le désert de Beer-Sheva.', placeId: 'beer-sheva' },
+      { dateLabel: 'Désert de Parân', text: 'S\'installe avec Ismaël, secouru par Dieu près d\'un puits.', placeId: 'paran' },
     ],
     regionLabel: 'Égypte, désert de Chour, Beer-Sheva, désert de Parân',
     locationsSummary: 'Servante égyptienne d\'Abraham et Sara, elle fuit dans le désert de Chour puis s\'installe avec Ismaël dans le désert de Parân, au sud de Canaan.',
+    places: [
+      { id: 'chour', name: 'Désert de Chour', region: 'Sinaï', role: 'Source', lat: 30.85, lng: 33.3 },
+      { id: 'beer-sheva', name: 'Beer-Sheva', region: 'Néguev', role: 'Exil', lat: 31.2447, lng: 34.8407 },
+      { id: 'paran', name: 'Désert de Parân', region: 'Sinaï', role: 'Installation', lat: 30.3, lng: 34.6 }
+    ],
     churchTeaching: {
       text: 'Dans l\'épître aux Galates, saint Paul relit l\'histoire d\'Agar et de Sara comme une allégorie des deux alliances, l\'esclave figurant l\'ancienne alliance selon la chair et Sara la liberté promise par la foi (Ga 4, 21-31). Le récit garde aussi la mémoire d\'un Dieu qui entend la détresse de la mère et de l\'enfant abandonnés au désert.',
       councilIds: []
@@ -1437,14 +1585,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '1900 av. J.-C.', text: 'Quitte Ur puis Harân avec son oncle Abram.' },
-      { dateLabel: 'Canaan', text: 'Se sépare d\'Abram, choisit la plaine fertile du Jourdain, s\'installe près de Sodome.' },
+      { dateLabel: '1900 av. J.-C.', text: 'Quitte Ur puis Harân avec son oncle Abram.', placeId: 'haran' },
+      { dateLabel: 'Canaan', text: 'Se sépare d\'Abram, choisit la plaine fertile du Jourdain, s\'installe près de Sodome.', placeId: 'bethel' },
       { dateLabel: 'Guerre des rois', text: 'Capturé lors d\'un raid, délivré par Abram.' },
       { dateLabel: 'Destruction de Sodome', text: 'Averti par deux anges, fuit avec sa famille ; sa femme est changée en statue de sel.' },
       { dateLabel: 'Après la destruction', text: 'Se réfugie dans une grotte avec ses deux filles.' },
     ],
     regionLabel: 'Plaine du Jourdain, Sodome, région de la mer Morte',
     locationsSummary: 'S\'installe près de Sodome, dans la plaine fertile du Jourdain, avant de fuir vers les collines surplombant la mer Morte lors de la destruction de la ville.',
+    places: [
+      { id: 'ur', name: 'Ur', region: 'Chaldée', role: 'Origine', lat: 30.9627, lng: 46.1031 },
+      { id: 'haran', name: 'Harân', region: 'Mésopotamie', role: 'Départ', lat: 36.865, lng: 39.0317 },
+      { id: 'bethel', name: 'Béthel', region: 'Canaan', role: 'Séparation', lat: 31.93, lng: 35.221 }
+    ],
     churchTeaching: {
       text: 'La deuxième épître de Pierre présente Lot comme un « juste », affligé par la conduite dissolue des habitants de Sodome, exemple que Dieu sait délivrer les siens de l\'épreuve (2 P 2, 7-9). L\'épisode de sa femme changée en statue de sel devient dans l\'Évangile un avertissement à ne pas se retourner vers ce que l\'on quitte (Lc 17, 32).',
       councilIds: []
@@ -1488,14 +1641,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '1850 av. J.-C.', text: 'Rencontre au puits le serviteur d\'Abraham venu chercher une épouse pour Isaac.' },
+      { dateLabel: '1850 av. J.-C.', text: 'Rencontre au puits le serviteur d\'Abraham venu chercher une épouse pour Isaac.', placeId: 'haran' },
       { dateLabel: '1850 av. J.-C.', text: 'Épouse Isaac à Canaan.' },
       { dateLabel: 'Vingt ans de stérilité', text: 'Isaac intercède pour elle ; elle conçoit des jumeaux.' },
       { dateLabel: '1800 av. J.-C.', text: 'Naissance d\'Ésaü puis de Jacob.' },
-      { dateLabel: 'Vieillesse d\'Isaac', text: 'Aide Jacob à obtenir par ruse la bénédiction destinée à Ésaü.' },
+      { dateLabel: 'Vieillesse d\'Isaac', text: 'Aide Jacob à obtenir par ruse la bénédiction destinée à Ésaü.', placeId: 'beer-sheva' },
     ],
     regionLabel: 'Harân (Mésopotamie), Canaan',
     locationsSummary: 'Originaire de Harân, en Mésopotamie, elle rejoint Canaan pour épouser Isaac et y vit le reste de sa vie, entre Beer-Lahaï-Roï et Hébron.',
+    places: [
+      { id: 'haran', name: 'Harân', region: 'Mésopotamie', role: 'Origine', lat: 36.865, lng: 39.0317 },
+      { id: 'beer-sheva', name: 'Beer-Sheva', region: 'Néguev', role: 'Bénédiction', lat: 31.2447, lng: 34.8407 },
+      { id: 'hebron', name: 'Hébron', region: 'Canaan', role: 'Sépulture', lat: 31.5246, lng: 35.1107 }
+    ],
     churchTeaching: {
       text: 'Saint Paul cite l\'oracle reçu par Rébecca avant la naissance de ses fils — « l\'aîné servira le cadet » — comme signe que l\'élection divine ne dépend pas des œuvres mais de l\'appel de Dieu (Rm 9, 10-13). Le Catéchisme range Rébecca, avec Sara et Rachel, parmi les femmes stériles de l\'Ancien Testament qui préparent la maternité de Marie (§ 489).',
       councilIds: []
@@ -1540,14 +1698,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '1800 av. J.-C.', text: 'Fille aînée de Laban, substituée à sa sœur Rachel lors de la nuit de noces de Jacob.' },
-      { dateLabel: '1800 av. J.-C.', text: 'Épouse Jacob, qui devra encore servir sept ans pour Rachel.' },
-      { dateLabel: 'Après son mariage', text: 'Donne naissance à Ruben, Siméon, Lévi et Juda.' },
-      { dateLabel: 'Plus tard', text: 'Donne naissance à Issachar, Zabulon et à une fille, Dina.' },
-      { dateLabel: 'Fin de vie', text: 'Meurt avant Jacob et est enterrée dans la grotte de Makpéla, à Hébron.' },
+      { dateLabel: '1800 av. J.-C.', text: 'Fille aînée de Laban, substituée à sa sœur Rachel lors de la nuit de noces de Jacob.', placeId: 'haran' },
+      { dateLabel: '1800 av. J.-C.', text: 'Épouse Jacob, qui devra encore servir sept ans pour Rachel.', placeId: 'haran' },
+      { dateLabel: 'Après son mariage', text: 'Donne naissance à Ruben, Siméon, Lévi et Juda.', placeId: 'haran' },
+      { dateLabel: 'Plus tard', text: 'Donne naissance à Issachar, Zabulon et à une fille, Dina.', placeId: 'haran' },
+      { dateLabel: 'Fin de vie', text: 'Meurt avant Jacob et est enterrée dans la grotte de Makpéla, à Hébron.', placeId: 'hebron' },
     ],
     regionLabel: 'Harân (Mésopotamie), Canaan',
     locationsSummary: 'Originaire de Harân, elle s\'installe à Canaan avec Jacob et est enterrée dans la grotte de Makpéla, à Hébron.',
+    places: [
+      { id: 'haran', name: 'Harân', region: 'Mésopotamie', role: 'Mariage', lat: 36.865, lng: 39.0317 },
+      { id: 'hebron', name: 'Hébron', region: 'Canaan', role: 'Sépulture', lat: 31.5246, lng: 35.1107 }
+    ],
     churchTeaching: {
       text: 'Le livre de Ruth évoque Léa et Rachel comme les deux femmes qui, ensemble, « ont bâti la maison d\'Israël » (Rt 4, 11), reconnaissant leur rôle commun de mères des douze tribus. Par son fils Lévi naît la tribu sacerdotale, et par Juda la lignée royale et messianique dont le Christ descend selon la chair.',
       councilIds: []
@@ -1590,14 +1752,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '1790 av. J.-C.', text: 'Rencontre Jacob au puits, près de Harân.' },
-      { dateLabel: '1790-1776 av. J.-C.', text: 'Jacob travaille quatorze ans pour l\'épouser, après avoir d\'abord reçu Léa par tromperie.' },
-      { dateLabel: 'Après une longue stérilité', text: 'Donne naissance à Joseph.' },
-      { dateLabel: '1770 av. J.-C.', text: 'Quitte Harân avec Jacob pour retourner à Canaan.' },
-      { dateLabel: 'Route de Bethléem', text: 'Meurt en donnant naissance à Benjamin.' },
+      { dateLabel: '1790 av. J.-C.', text: 'Rencontre Jacob au puits, près de Harân.', placeId: 'haran' },
+      { dateLabel: '1790-1776 av. J.-C.', text: 'Jacob travaille quatorze ans pour l\'épouser, après avoir d\'abord reçu Léa par tromperie.', placeId: 'haran' },
+      { dateLabel: 'Après une longue stérilité', text: 'Donne naissance à Joseph.', placeId: 'haran' },
+      { dateLabel: '1770 av. J.-C.', text: 'Quitte Harân avec Jacob pour retourner à Canaan.', placeId: 'haran' },
+      { dateLabel: 'Route de Bethléem', text: 'Meurt en donnant naissance à Benjamin.', placeId: 'tombe-rachel' },
     ],
     regionLabel: 'Harân (Mésopotamie), route de Bethléem',
     locationsSummary: 'Originaire de Harân, elle rejoint Canaan avec Jacob et meurt en chemin, près de Bethléem, où sa tombe est encore signalée par la tradition.',
+    places: [
+      { id: 'haran', name: 'Harân', region: 'Mésopotamie', role: 'Rencontre', lat: 36.865, lng: 39.0317 },
+      { id: 'tombe-rachel', name: 'Tombeau de Rachel', region: 'Route de Bethléem', role: 'Mort', lat: 31.7193, lng: 35.2023 }
+    ],
     churchTeaching: {
       text: 'L\'évangile de Matthieu applique à Rachel l\'oracle de Jérémie sur « Rachel qui pleure ses enfants » pour évoquer le massacre des saints Innocents ordonné par Hérode (Mt 2, 17-18), faisant de sa douleur de mère une figure de la souffrance devant l\'innocence persécutée.',
       councilIds: []
@@ -1694,8 +1860,8 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '1700 av. J.-C.', text: 'Épouse Er, fils aîné de Juda, qui meurt sans postérité.' },
-      { dateLabel: '1700 av. J.-C.', text: 'Épouse ensuite Onân, frère d\'Er, par la loi du lévirat ; il meurt à son tour.' },
+      { dateLabel: '1700 av. J.-C.', text: 'Épouse Er, fils aîné de Juda, qui meurt sans postérité.', placeId: 'adoullam' },
+      { dateLabel: '1700 av. J.-C.', text: 'Épouse ensuite Onân, frère d\'Er, par la loi du lévirat ; il meurt à son tour.', placeId: 'adoullam' },
       { dateLabel: 'Attente', text: 'Juda tarde à lui donner son plus jeune fils Shéla.' },
       { dateLabel: 'Ruse', text: 'Déguisée, elle se fait engager par Juda lui-même sur le chemin de Timna.' },
       { dateLabel: 'Naissance', text: 'Met au monde des jumeaux, Pérès et Zérah.' },
@@ -1703,6 +1869,9 @@ export const figureDetails: Record<string, FigureDetail> = {
     ],
     regionLabel: 'Canaan, région de Timna et Kezib',
     locationsSummary: 'Vit dans la famille de Juda, dans le sud de Canaan, entre Adoullam, Timna et Kezib.',
+    places: [
+      { id: 'adoullam', name: 'Adoullam', region: 'Juda', role: 'Famille de Juda', lat: 31.655, lng: 34.96 }
+    ],
     churchTeaching: {
       text: 'Tamar figure, avec Rahab, Ruth et Bethsabée, parmi les rares femmes de l\'Ancien Testament expressément nommées dans la généalogie de Jésus selon Matthieu (Mt 1, 3), signe que l\'histoire du salut inclut des parcours humains marqués par l\'irrégularité et que Dieu conduit son dessein par des voies inattendues.',
       councilIds: []
@@ -1749,15 +1918,21 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '1250 av. J.-C.', text: 'Porte-parole de Moïse devant Pharaon, accomplit des signes avec son bâton.' },
-      { dateLabel: 'Exode', text: 'Traverse la mer Rouge et le désert avec le peuple hébreu.' },
-      { dateLabel: 'Mont Sinaï', text: 'Cède à la pression du peuple et fabrique le veau d\'or en l\'absence de Moïse.' },
-      { dateLabel: 'Mont Sinaï', text: 'Consacré premier grand prêtre d\'Israël avec ses fils.' },
+      { dateLabel: '1250 av. J.-C.', text: 'Porte-parole de Moïse devant Pharaon, accomplit des signes avec son bâton.', placeId: 'egypte' },
+      { dateLabel: 'Exode', text: 'Traverse la mer Rouge et le désert avec le peuple hébreu.', placeId: 'mer-rouge' },
+      { dateLabel: 'Mont Sinaï', text: 'Cède à la pression du peuple et fabrique le veau d\'or en l\'absence de Moïse.', placeId: 'sinai' },
+      { dateLabel: 'Mont Sinaï', text: 'Consacré premier grand prêtre d\'Israël avec ses fils.', placeId: 'sinai' },
       { dateLabel: 'Désert', text: 'Conteste un temps l\'autorité de Moïse aux côtés de Miriam.' },
-      { dateLabel: '123 ans', text: 'Meurt sur le mont Hor ; sa charge sacerdotale passe à son fils Éléazar.' },
+      { dateLabel: '123 ans', text: 'Meurt sur le mont Hor ; sa charge sacerdotale passe à son fils Éléazar.', placeId: 'hor' },
     ],
     regionLabel: 'Égypte, mont Sinaï, désert, mont Hor',
     locationsSummary: 'Né en Égypte, accompagne Moïse à travers le désert jusqu\'au Sinaï, où il devient grand prêtre ; meurt sur le mont Hor, aux confins d\'Édom.',
+    places: [
+      { id: 'egypte', name: 'Égypte', region: 'Delta du Nil', role: 'Porte-parole', lat: 30.8, lng: 31.8 },
+      { id: 'mer-rouge', name: 'Mer Rouge', region: 'Égypte', role: 'Traversée', lat: 29.95, lng: 32.55 },
+      { id: 'sinai', name: 'Mont Sinaï', region: 'Sinaï', role: 'Grand prêtre', lat: 28.5394, lng: 33.975 },
+      { id: 'hor', name: 'Mont Hor', region: 'Édom', role: 'Mort', lat: 30.3167, lng: 35.4069 }
+    ],
     churchTeaching: {
       text: 'Le Catéchisme voit dans le sacerdoce lévitique institué avec Aaron une préfiguration imparfaite et provisoire du sacerdoce unique du Christ, seul grand prêtre selon l\'ordre nouveau annoncé par l\'épître aux Hébreux (§ 1541, 1544). L\'épisode du veau d\'or rappelle aussi la fragilité du meilleur des hommes face à la pression du nombre.',
       councilIds: []
@@ -1799,13 +1974,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '1250 av. J.-C.', text: 'Veille sur son frère Moïse enfant, déposé dans un panier sur le Nil.' },
-      { dateLabel: 'Traversée de la mer Rouge', text: 'Conduit les femmes dans un chant et une danse de victoire, en tant que prophétesse.' },
+      { dateLabel: '1250 av. J.-C.', text: 'Veille sur son frère Moïse enfant, déposé dans un panier sur le Nil.', placeId: 'egypte' },
+      { dateLabel: 'Traversée de la mer Rouge', text: 'Conduit les femmes dans un chant et une danse de victoire, en tant que prophétesse.', placeId: 'mer-rouge' },
       { dateLabel: 'Désert', text: 'Conteste avec Aaron l\'autorité de Moïse ; frappée d\'une maladie de peau puis guérie.' },
-      { dateLabel: '1250 av. J.-C.', text: 'Meurt à Cadès, dans le désert de Cîn.' },
+      { dateLabel: '1250 av. J.-C.', text: 'Meurt à Cadès, dans le désert de Cîn.', placeId: 'cades' },
     ],
     regionLabel: 'Égypte, mer Rouge, désert de Cîn (Cadès)',
     locationsSummary: 'Née en Égypte, traverse la mer Rouge avec le peuple hébreu et meurt à Cadès, dans le désert de Cîn, où elle est enterrée.',
+    places: [
+      { id: 'egypte', name: 'Égypte', region: 'Delta du Nil', role: 'Nil', lat: 30.8, lng: 31.8 },
+      { id: 'mer-rouge', name: 'Mer Rouge', region: 'Égypte', role: 'Cantique', lat: 29.95, lng: 32.55 },
+      { id: 'cades', name: 'Cadès', region: 'Désert de Cîn', role: 'Mort', lat: 30.6167, lng: 34.4167 }
+    ],
     churchTeaching: {
       text: 'Miriam est la première femme de la Bible à recevoir le titre de prophétesse (Ex 15, 20) ; son chant après la traversée de la mer Rouge, l\'un des plus anciens fragments poétiques bibliques, annonce le cantique de Moïse. La tradition retient d\'elle à la fois ce rôle de conductrice de la louange et l\'épisode de sa contestation, invitation à l\'humilité devant l\'autorité que Dieu établit.',
       councilIds: []
@@ -1845,13 +2025,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Madiân', text: 'Rencontre Moïse en fuite d\'Égypte, au puits.' },
-      { dateLabel: 'Madiân', text: 'Épouse Moïse, donnée en mariage par son père Jéthro.' },
+      { dateLabel: 'Madiân', text: 'Rencontre Moïse en fuite d\'Égypte, au puits.', placeId: 'madian' },
+      { dateLabel: 'Madiân', text: 'Épouse Moïse, donnée en mariage par son père Jéthro.', placeId: 'madian' },
       { dateLabel: 'Retour vers l\'Égypte', text: 'Circoncit leur fils et touche les pieds de Moïse, évitant un danger mortel.' },
-      { dateLabel: 'Désert du Sinaï', text: 'Ramenée à Moïse par Jéthro avec leurs deux fils.' },
+      { dateLabel: 'Désert du Sinaï', text: 'Ramenée à Moïse par Jéthro avec leurs deux fils.', placeId: 'sinai' },
     ],
     regionLabel: 'Madiân, désert du Sinaï',
     locationsSummary: 'Originaire de Madiân, à l\'est du golfe d\'Aqaba, elle rejoint Moïse en Égypte puis le retrouve au désert, près de la montagne de Dieu.',
+    places: [
+      { id: 'madian', name: 'Madiân', region: 'Arabie', role: 'Rencontre', lat: 28.48, lng: 35 },
+      { id: 'sinai', name: 'Mont Sinaï', region: 'Sinaï', role: 'Retrouvailles', lat: 28.5394, lng: 33.975 }
+    ],
     churchTeaching: {
       text: 'L\'épisode où Séphora circoncit son fils pour détourner un danger mortel pesant sur Moïse (Ex 4, 24-26) reste l\'un des passages les plus discutés du Pentateuque ; la tradition juive et chrétienne y lit généralement un rappel de l\'exigence absolue de l\'alliance et du signe de la circoncision, que Moïse lui-même, pourtant appelé par Dieu, ne pouvait négliger.',
       councilIds: []
@@ -1895,15 +2079,21 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '1250 av. J.-C.', text: 'L\'un des douze espions envoyés reconnaître Canaan ; avec Caleb, seul à rapporter un avis favorable.' },
+      { dateLabel: '1250 av. J.-C.', text: 'L\'un des douze espions envoyés reconnaître Canaan ; avec Caleb, seul à rapporter un avis favorable.', placeId: 'cades' },
       { dateLabel: 'Désert', text: 'Désigné par Moïse comme son successeur, rempli de l\'esprit par l\'imposition des mains.' },
       { dateLabel: 'Mort de Moïse', text: 'Prend la tête du peuple d\'Israël.' },
-      { dateLabel: 'Passage du Jourdain', text: 'Fait traverser le fleuve à sec au peuple, en vue de Jéricho.' },
-      { dateLabel: 'Conquête de Canaan', text: 'Dirige la prise de Jéricho et la campagne de conquête du pays.' },
-      { dateLabel: '110 ans', text: 'Réunit le peuple à Sichem pour renouveler l\'alliance avant de mourir.' },
+      { dateLabel: 'Passage du Jourdain', text: 'Fait traverser le fleuve à sec au peuple, en vue de Jéricho.', placeId: 'jourdain' },
+      { dateLabel: 'Conquête de Canaan', text: 'Dirige la prise de Jéricho et la campagne de conquête du pays.', placeId: 'jericho' },
+      { dateLabel: '110 ans', text: 'Réunit le peuple à Sichem pour renouveler l\'alliance avant de mourir.', placeId: 'sichem' },
     ],
     regionLabel: 'Désert du Sinaï, Jourdain, Canaan (Jéricho, Sichem)',
     locationsSummary: 'Traverse le désert avec Moïse, franchit le Jourdain à la tête d\'Israël et conduit la conquête de Canaan, de Jéricho à Sichem.',
+    places: [
+      { id: 'cades', name: 'Cadès', region: 'Désert de Cîn', role: 'Espions', lat: 30.6167, lng: 34.4167 },
+      { id: 'jourdain', name: 'Jourdain', region: 'Vallée du Jourdain', role: 'Passage', lat: 31.837, lng: 35.547 },
+      { id: 'jericho', name: 'Jéricho', region: 'Vallée du Jourdain', role: 'Conquête', lat: 31.871, lng: 35.444 },
+      { id: 'sichem', name: 'Sichem', region: 'Canaan', role: 'Alliance', lat: 32.2137, lng: 35.2817 }
+    ],
     churchTeaching: {
       text: 'Le nom de Josué, identique en hébreu à celui de Jésus (Yehoshua, « YHWH sauve »), a été lu par la tradition chrétienne comme une préfiguration : de même que Josué fait entrer le peuple dans la terre promise, le Christ conduit les croyants dans le repos définitif de Dieu (cf. He 4, 8-10).',
       councilIds: []
@@ -1946,14 +2136,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '1250 av. J.-C.', text: 'Envoyé espionner Canaan avec Josué et dix autres chefs.' },
-      { dateLabel: 'Désert', text: 'Seul avec Josué à exhorter le peuple à la confiance, contre l\'avis de la majorité.' },
-      { dateLabel: 'Promesse divine', text: 'Reçoit l\'assurance d\'entrer dans la terre promise, seul avec Josué de sa génération.' },
-      { dateLabel: '85 ans', text: 'Reçoit en partage et conquiert la région d\'Hébron.' },
+      { dateLabel: '1250 av. J.-C.', text: 'Envoyé espionner Canaan avec Josué et dix autres chefs.', placeId: 'cades' },
+      { dateLabel: 'Désert', text: 'Seul avec Josué à exhorter le peuple à la confiance, contre l\'avis de la majorité.', placeId: 'cades' },
+      { dateLabel: 'Promesse divine', text: 'Reçoit l\'assurance d\'entrer dans la terre promise, seul avec Josué de sa génération.', placeId: 'cades' },
+      { dateLabel: '85 ans', text: 'Reçoit en partage et conquiert la région d\'Hébron.', placeId: 'hebron' },
       { dateLabel: 'Après la conquête', text: 'Donne sa fille Akhsa en mariage à Otniel, vainqueur de Kiryat-Séfer.' },
     ],
     regionLabel: 'Désert du Sinaï, région d\'Hébron (Canaan)',
     locationsSummary: 'Traverse le désert avec Israël puis reçoit en héritage la région montagneuse d\'Hébron, dans le sud de Canaan, qu\'il conquiert à 85 ans.',
+    places: [
+      { id: 'cades', name: 'Cadès', region: 'Désert de Cîn', role: 'Espions', lat: 30.6167, lng: 34.4167 },
+      { id: 'hebron', name: 'Hébron', region: 'Canaan', role: 'Héritage', lat: 31.5246, lng: 35.1107 }
+    ],
     churchTeaching: {
       text: 'Caleb, avec Josué, incarne dans la tradition biblique la fidélité de ceux qui, contre l\'avis du plus grand nombre, gardent confiance dans la promesse de Dieu ; le texte souligne à plusieurs reprises qu\'il « suivit pleinement le Seigneur » (Nb 14, 24 ; Jos 14, 8-9), formule reprise comme modèle de persévérance dans la foi.',
       councilIds: []
@@ -1996,14 +2190,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1140 av. J.-C.', text: 'Prêtre et juge établi au sanctuaire de Silo.' },
-      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Accueille la prière d\'Anne et bénit sa demande d\'un fils.' },
-      { dateLabel: 'Enfance de Samuel', text: 'Forme Samuel au service du sanctuaire, l\'aide à reconnaître l\'appel de Dieu.' },
-      { dateLabel: 'Fin de vie', text: 'Corruption persistante de ses fils Hophni et Phinéas malgré ses remontrances.' },
-      { dateLabel: '1100 av. J.-C.', text: 'Mort à Silo à l\'annonce de la prise de l\'arche et de la mort de ses fils.' },
+      { dateLabel: 'Vers 1140 av. J.-C.', text: 'Prêtre et juge établi au sanctuaire de Silo.', placeId: 'silo' },
+      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Accueille la prière d\'Anne et bénit sa demande d\'un fils.', placeId: 'silo' },
+      { dateLabel: 'Enfance de Samuel', text: 'Forme Samuel au service du sanctuaire, l\'aide à reconnaître l\'appel de Dieu.', placeId: 'silo' },
+      { dateLabel: 'Fin de vie', text: 'Corruption persistante de ses fils Hophni et Phinéas malgré ses remontrances.', placeId: 'silo' },
+      { dateLabel: '1100 av. J.-C.', text: 'Mort à Silo à l\'annonce de la prise de l\'arche et de la mort de ses fils.', placeId: 'silo' },
     ],
     regionLabel: 'Silo, en Éphraïm',
     locationsSummary: 'Exerce toute sa vie au sanctuaire de Silo, en Éphraïm, où est conservée l\'arche d\'alliance avant sa capture par les Philistins.',
+    places: [
+      { id: 'silo', name: 'Silo', region: 'Éphraïm', role: 'Sanctuaire', lat: 32.0553, lng: 35.2896 }
+    ],
     churchTeaching: {
       text: 'La figure d\'Éli, prêtre pieux mais père incapable de corriger ses fils, est traditionnellement lue comme un avertissement sur la responsabilité de la transmission de la foi : la piété personnelle ne dispense pas de l\'exigence éducative envers ceux dont on a la charge.',
       councilIds: []
@@ -2045,14 +2242,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1090 av. J.-C.', text: 'Prière et vœu au sanctuaire de Silo, en présence du prêtre Éli.' },
-      { dateLabel: 'Vers 1085 av. J.-C.', text: 'Naissance de Samuel, réponse à sa prière.' },
-      { dateLabel: 'Après le sevrage', text: 'Consacre Samuel au service de Dieu à Silo.' },
-      { dateLabel: 'Même occasion', text: 'Chante le cantique de louange (1S 2).' },
-      { dateLabel: 'Suite de sa vie', text: 'Donne naissance à trois autres fils et deux filles.' },
+      { dateLabel: 'Vers 1090 av. J.-C.', text: 'Prière et vœu au sanctuaire de Silo, en présence du prêtre Éli.', placeId: 'silo' },
+      { dateLabel: 'Vers 1085 av. J.-C.', text: 'Naissance de Samuel, réponse à sa prière.', placeId: 'rama' },
+      { dateLabel: 'Après le sevrage', text: 'Consacre Samuel au service de Dieu à Silo.', placeId: 'silo' },
+      { dateLabel: 'Même occasion', text: 'Chante le cantique de louange (1S 2).', placeId: 'silo' },
+      { dateLabel: 'Suite de sa vie', text: 'Donne naissance à trois autres fils et deux filles.', placeId: 'rama' },
     ],
     regionLabel: 'Rama, en Éphraïm',
     locationsSummary: 'Vit à Rama, en Éphraïm, et se rend en pèlerinage annuel au sanctuaire de Silo où elle prie, puis consacre son fils Samuel.',
+    places: [
+      { id: 'rama', name: 'Rama', region: 'Benjamin', role: 'Foyer', lat: 31.8506, lng: 35.2306 },
+      { id: 'silo', name: 'Silo', region: 'Éphraïm', role: 'Prière', lat: 32.0553, lng: 35.2896 }
+    ],
     churchTeaching: {
       text: 'L\'Église voit traditionnellement dans le cantique d\'Anne une préfiguration du Magnificat de Marie (Lc 1, 46-55), et en elle un modèle de prière confiante, persévérante et féconde malgré l\'épreuve de la stérilité.',
       councilIds: []
@@ -2104,12 +2305,15 @@ export const figureDetails: Record<string, FigureDetail> = {
       { dateLabel: 'Vers 1150 av. J.-C.', text: 'Appel de l\'ange du Seigneur, alors qu\'il bat le blé en cachette.' },
       { dateLabel: 'Même période', text: 'Destruction de l\'autel de Baal de son père, surnommé Yerouba\'al.' },
       { dateLabel: 'Avant la bataille', text: 'Double signe de la toison demandé et accordé.' },
-      { dateLabel: 'Vers 1150 av. J.-C.', text: 'Réduction de l\'armée à trois cents hommes ; déroute du camp madianite.' },
+      { dateLabel: 'Vers 1150 av. J.-C.', text: 'Réduction de l\'armée à trois cents hommes ; déroute du camp madianite.', placeId: 'harod' },
       { dateLabel: 'Après la victoire', text: 'Refuse la royauté héréditaire offerte par le peuple.' },
       { dateLabel: 'Fin de vie', text: 'Fabrique un éphod d\'or qui devient objet d\'idolâtrie pour Israël.' },
     ],
     regionLabel: 'Ophra, terre de Manassé',
     locationsSummary: 'Originaire d\'Ophra, en territoire de Manassé, il combat les Madianites dans la vallée de Yizréel avant de rentrer dans sa ville natale.',
+    places: [
+      { id: 'harod', name: 'Source de Harod', region: 'Yizréel', role: 'Bataille', lat: 32.55, lng: 35.357 }
+    ],
     churchTeaching: {
       text: 'L\'épître aux Hébreux cite Gédéon parmi les témoins de la foi (He 11, 32) : sa victoire remportée par une poignée d\'hommes est lue comme un exemple biblique où la force de Dieu se manifeste dans la faiblesse humaine plutôt que dans la puissance du nombre.',
       councilIds: []
@@ -2154,14 +2358,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1150 av. J.-C.', text: 'Juge et prophétesse d\'Israël, siégeant entre Rama et Béthel.' },
+      { dateLabel: 'Vers 1150 av. J.-C.', text: 'Juge et prophétesse d\'Israël, siégeant entre Rama et Béthel.', placeId: 'rama' },
       { dateLabel: 'Même période', text: 'Convocation de Baraq pour affronter l\'armée cananéenne de Sisera.' },
-      { dateLabel: 'Bataille du Tabor', text: 'Déroute de l\'armée de Sisera face aux troupes israélites.' },
+      { dateLabel: 'Bataille du Tabor', text: 'Déroute de l\'armée de Sisera face aux troupes israélites.', placeId: 'thabor' },
       { dateLabel: 'Après la bataille', text: 'Mort de Sisera, tué par Yaël sous sa tente.' },
       { dateLabel: 'Vers 1150 av. J.-C.', text: 'Chant du cantique de Débora célébrant la victoire.' },
     ],
     regionLabel: 'Mont Éphraïm, mont Tabor',
     locationsSummary: 'Juge Israël dans le mont Éphraïm, entre Rama et Béthel, et conduit la bataille contre l\'armée cananéenne près du mont Tabor.',
+    places: [
+      { id: 'rama', name: 'Rama', region: 'Benjamin', role: 'Juge', lat: 31.8506, lng: 35.2306 },
+      { id: 'thabor', name: 'Mont Thabor', region: 'Galilée', role: 'Bataille', lat: 32.6869, lng: 35.3906 }
+    ],
     churchTeaching: {
       text: 'Figure rare de femme investie d\'une autorité à la fois prophétique, judiciaire et militaire, Débora est traditionnellement présentée comme un exemple de la manière dont Dieu suscite, en des temps de crise, des instruments inattendus pour sauver son peuple.',
       councilIds: []
@@ -2208,15 +2416,21 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1120 av. J.-C.', text: 'Naissance annoncée par l\'ange, consécration naziréenne.' },
+      { dateLabel: 'Vers 1120 av. J.-C.', text: 'Naissance annoncée par l\'ange, consécration naziréenne.', placeId: 'tsorea' },
       { dateLabel: 'Jeunesse', text: 'Force donnée par l\'Esprit du Seigneur ; combat contre un lion à mains nues.' },
-      { dateLabel: 'Mariage à Timna', text: 'Énigme posée au banquet, tensions avec les Philistins.' },
-      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Liaison avec Delila, trahison, cheveux coupés, capture et cécité.' },
-      { dateLabel: 'Emprisonnement', text: 'Repousse des cheveux à Gaza.' },
-      { dateLabel: 'Fin de vie', text: 'Mort au temple de Dagon en abattant les colonnes de l\'édifice.' },
+      { dateLabel: 'Mariage à Timna', text: 'Énigme posée au banquet, tensions avec les Philistins.', placeId: 'timna' },
+      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Liaison avec Delila, trahison, cheveux coupés, capture et cécité.', placeId: 'sorek' },
+      { dateLabel: 'Emprisonnement', text: 'Repousse des cheveux à Gaza.', placeId: 'gaza' },
+      { dateLabel: 'Fin de vie', text: 'Mort au temple de Dagon en abattant les colonnes de l\'édifice.', placeId: 'gaza' },
     ],
     regionLabel: 'Sorée, Timna, Gaza (frontière israélo-philistine)',
     locationsSummary: 'Né près de Çoréa, en territoire de Dan, il vit et combat à la frontière avec les Philistins, entre Timna, la vallée de Sorek et Gaza, où il meurt.',
+    places: [
+      { id: 'tsorea', name: 'Çoréa', region: 'Dan', role: 'Naissance', lat: 31.775, lng: 34.989 },
+      { id: 'timna', name: 'Timna', region: 'Philistie', role: 'Mariage', lat: 31.7847, lng: 34.9122 },
+      { id: 'sorek', name: 'Vallée de Sorek', region: 'Dan', role: 'Delila', lat: 31.76, lng: 34.96 },
+      { id: 'gaza', name: 'Gaza', region: 'Philistie', role: 'Mort', lat: 31.5017, lng: 34.4668 }
+    ],
     churchTeaching: {
       text: 'Juge marqué par des faiblesses personnelles, Samson est néanmoins compté par l\'épître aux Hébreux parmi les témoins de la foi (He 11, 32), illustration du thème biblique selon lequel Dieu accomplit ses desseins de délivrance à travers des instruments imparfaits.',
       councilIds: []
@@ -2255,13 +2469,16 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Liaison avec Samson dans la vallée de Sorek.' },
-      { dateLabel: 'Même période', text: 'Approchée par les chefs philistins, qui lui promettent de l\'argent.' },
-      { dateLabel: 'Trois tentatives', text: 'Samson lui donne trois fausses réponses sur l\'origine de sa force.' },
-      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Révélation du secret, cheveux coupés, capture de Samson.' },
+      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Liaison avec Samson dans la vallée de Sorek.', placeId: 'sorek' },
+      { dateLabel: 'Même période', text: 'Approchée par les chefs philistins, qui lui promettent de l\'argent.', placeId: 'sorek' },
+      { dateLabel: 'Trois tentatives', text: 'Samson lui donne trois fausses réponses sur l\'origine de sa force.', placeId: 'sorek' },
+      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Révélation du secret, cheveux coupés, capture de Samson.', placeId: 'sorek' },
     ],
     regionLabel: 'Vallée de Sorek',
     locationsSummary: 'Vit dans la vallée de Sorek, zone frontalière entre le territoire de Dan et la Philistie, où se noue et se dénoue sa liaison avec Samson.',
+    places: [
+      { id: 'sorek', name: 'Vallée de Sorek', region: 'Dan', role: 'Trahison', lat: 31.76, lng: 34.96 }
+    ],
     churchTeaching: {
       text: 'La tradition retient de Delila la figure d\'une trahison consommée pour de l\'argent, et voit dans son récit un avertissement classique sur le risque de compromettre, par faiblesse ou complaisance, une vocation ou un engagement consacré à Dieu.',
       councilIds: []
@@ -2344,15 +2561,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Mariage à Mahlôn, fils de Noémi, exilés israélites à Moab.' },
-      { dateLabel: 'Veuvage', text: 'Choisit de suivre Noémi à Bethléem plutôt que de rester à Moab.' },
-      { dateLabel: 'Retour à Bethléem', text: 'Glane dans les champs de Booz, parent d\'Elimélek.' },
-      { dateLabel: 'Aire de battage', text: 'Se présente à Booz comme parente à racheter.' },
-      { dateLabel: 'Mariage', text: 'Épouse Booz ; naissance d\'Obed.' },
+      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Mariage à Mahlôn, fils de Noémi, exilés israélites à Moab.', placeId: 'moab' },
+      { dateLabel: 'Veuvage', text: 'Choisit de suivre Noémi à Bethléem plutôt que de rester à Moab.', placeId: 'moab' },
+      { dateLabel: 'Retour à Bethléem', text: 'Glane dans les champs de Booz, parent d\'Elimélek.', placeId: 'bethleem' },
+      { dateLabel: 'Aire de battage', text: 'Se présente à Booz comme parente à racheter.', placeId: 'bethleem' },
+      { dateLabel: 'Mariage', text: 'Épouse Booz ; naissance d\'Obed.', placeId: 'bethleem' },
       { dateLabel: 'Postérité', text: 'Devient l\'arrière-grand-mère de David, ancêtre du Christ.' },
     ],
     regionLabel: 'Moab puis Bethléem de Juda',
     locationsSummary: 'Originaire de Moab, elle s\'installe à Bethléem de Juda avec sa belle-mère Noémi, où elle glane puis se marie avec Booz.',
+    places: [
+      { id: 'moab', name: 'Moab', region: 'Moab', role: 'Origine', lat: 31.45, lng: 35.8 },
+      { id: 'bethleem', name: 'Bethléem', region: 'Judée', role: 'Glanage', lat: 31.7054, lng: 35.2024 }
+    ],
     churchTeaching: {
       text: 'Ruth, femme étrangère intégrée au peuple d\'Israël et devenue ancêtre de David puis du Christ, est une figure patristique classique de l\'universalité du salut : l\'Évangile de Matthieu la compte, avec Rahab, Tamar et Bethsabée, parmi les femmes de la généalogie de Jésus, préfigurant l\'appel des nations.',
       councilIds: []
@@ -2397,15 +2618,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1110 av. J.-C.', text: 'Exil à Moab avec Elimélek et leurs deux fils, fuyant la famine.' },
-      { dateLabel: 'À Moab', text: 'Mort d\'Elimélek et de ses deux fils ; Noémi reste seule avec ses belles-filles.' },
+      { dateLabel: 'Vers 1110 av. J.-C.', text: 'Exil à Moab avec Elimélek et leurs deux fils, fuyant la famine.', placeId: 'moab' },
+      { dateLabel: 'À Moab', text: 'Mort d\'Elimélek et de ses deux fils ; Noémi reste seule avec ses belles-filles.', placeId: 'moab' },
       { dateLabel: 'Retour à Bethléem', text: 'Presse Ruth et Orpa de rester à Moab ; Ruth choisit de la suivre.' },
-      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Se fait appeler Mara, « amère », en signe de son deuil.' },
-      { dateLabel: 'À Bethléem', text: 'Organise le mariage de Ruth avec Booz.' },
-      { dateLabel: 'Suite de sa vie', text: 'Nourrice d\'Obed, futur grand-père de David.' },
+      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Se fait appeler Mara, « amère », en signe de son deuil.', placeId: 'bethleem' },
+      { dateLabel: 'À Bethléem', text: 'Organise le mariage de Ruth avec Booz.', placeId: 'bethleem' },
+      { dateLabel: 'Suite de sa vie', text: 'Nourrice d\'Obed, futur grand-père de David.', placeId: 'bethleem' },
     ],
     regionLabel: 'Moab puis Bethléem de Juda',
     locationsSummary: 'Exilée à Moab avec sa famille, elle revient veuve à Bethléem de Juda, accompagnée de sa belle-fille Ruth.',
+    places: [
+      { id: 'moab', name: 'Moab', region: 'Moab', role: 'Exil', lat: 31.45, lng: 35.8 },
+      { id: 'bethleem', name: 'Bethléem', region: 'Judée', role: 'Retour', lat: 31.7054, lng: 35.2024 }
+    ],
     churchTeaching: {
       text: 'Le parcours de Noémi, marqué par le deuil puis la restauration de l\'espérance grâce à la fidélité de Ruth, illustre la providence divine agissant à travers la loyauté familiale ordinaire, thème classique de la lecture chrétienne du livre de Ruth.',
       councilIds: []
@@ -2449,14 +2674,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Rencontre Ruth glanant dans ses champs à Bethléem.' },
-      { dateLabel: 'Même période', text: 'Fait preuve de bienveillance envers elle malgré son statut d\'étrangère.' },
-      { dateLabel: 'Aire de battage', text: 'Accueille la démarche de Ruth et évoque son devoir de rédempteur.' },
-      { dateLabel: 'Porte de la ville', text: 'Rachat formel du bien d\'Elimélek devant les anciens, mariage avec Ruth.' },
-      { dateLabel: 'Naissance d\'Obed', text: 'Devient l\'ancêtre du roi David, puis, selon Matthieu, du Christ.' },
+      { dateLabel: 'Vers 1100 av. J.-C.', text: 'Rencontre Ruth glanant dans ses champs à Bethléem.', placeId: 'bethleem' },
+      { dateLabel: 'Même période', text: 'Fait preuve de bienveillance envers elle malgré son statut d\'étrangère.', placeId: 'bethleem' },
+      { dateLabel: 'Aire de battage', text: 'Accueille la démarche de Ruth et évoque son devoir de rédempteur.', placeId: 'bethleem' },
+      { dateLabel: 'Porte de la ville', text: 'Rachat formel du bien d\'Elimélek devant les anciens, mariage avec Ruth.', placeId: 'bethleem' },
+      { dateLabel: 'Naissance d\'Obed', text: 'Devient l\'ancêtre du roi David, puis, selon Matthieu, du Christ.', placeId: 'bethleem' },
     ],
     regionLabel: 'Bethléem de Juda',
     locationsSummary: 'Propriétaire terrien établi à Bethléem de Juda, où se déroule toute son histoire avec Ruth et Noémi.',
+    places: [
+      { id: 'bethleem', name: 'Bethléem', region: 'Judée', role: 'Rachat', lat: 31.7054, lng: 35.2024 }
+    ],
     churchTeaching: {
       text: 'Booz, qui exerce le rôle du « goël », le parent rédempteur chargé de racheter la terre et la descendance d\'un proche défunt, est lu par la tradition chrétienne comme une figure annonçant le Christ rédempteur, qui prend sur lui la condition de l\'humanité pour la racheter.',
       councilIds: []
@@ -2502,13 +2730,16 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1250 av. J.-C.', text: 'Cache les espions de Josué à Jéricho, convient d\'un signe de reconnaissance.' },
-      { dateLabel: 'Chute de Jéricho', text: 'Épargnée avec sa famille lors de la prise de la ville.' },
+      { dateLabel: 'Vers 1250 av. J.-C.', text: 'Cache les espions de Josué à Jéricho, convient d\'un signe de reconnaissance.', placeId: 'jericho' },
+      { dateLabel: 'Chute de Jéricho', text: 'Épargnée avec sa famille lors de la prise de la ville.', placeId: 'jericho' },
       { dateLabel: 'Après la conquête', text: 'S\'établit parmi le peuple d\'Israël.' },
       { dateLabel: 'Postérité', text: 'Devient, selon Matthieu, l\'ancêtre de Booz, de David et du Christ.' },
     ],
     regionLabel: 'Jéricho',
     locationsSummary: 'Vit à Jéricho, ville cananéenne conquise par Josué au début de l\'installation d\'Israël en Canaan.',
+    places: [
+      { id: 'jericho', name: 'Jéricho', region: 'Vallée du Jourdain', role: 'Espions', lat: 31.871, lng: 35.444 }
+    ],
     churchTeaching: {
       text: 'Femme étrangère de condition modeste intégrée au peuple d\'Israël et devenue ancêtre du Christ, Rahab est une figure patristique du salut offert au-delà des frontières ethniques et d\'une foi vérifiée par des actes concrets, comme le souligne l\'épître de Jacques.',
       councilIds: []
@@ -2555,15 +2786,20 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1080 av. J.-C.', text: 'Consacré à Dieu par Anne, élevé au sanctuaire de Silo.' },
-      { dateLabel: 'Enfance', text: 'Appel nocturne de Dieu, inauguration de sa vocation prophétique.' },
-      { dateLabel: 'Vers 1050 av. J.-C.', text: 'Juge Israël ; le peuple réclame un roi.' },
+      { dateLabel: 'Vers 1080 av. J.-C.', text: 'Consacré à Dieu par Anne, élevé au sanctuaire de Silo.', placeId: 'silo' },
+      { dateLabel: 'Enfance', text: 'Appel nocturne de Dieu, inauguration de sa vocation prophétique.', placeId: 'silo' },
+      { dateLabel: 'Vers 1050 av. J.-C.', text: 'Juge Israël ; le peuple réclame un roi.', placeId: 'rama' },
       { dateLabel: 'Vers 1050 av. J.-C.', text: 'Onction de Saül comme premier roi d\'Israël.' },
-      { dateLabel: 'Après la faute de Saül', text: 'Annonce du rejet de la royauté de Saül ; onction secrète de David.' },
-      { dateLabel: 'Fin de vie', text: 'Mort à Rama, pleuré par tout Israël.' },
+      { dateLabel: 'Après la faute de Saül', text: 'Annonce du rejet de la royauté de Saül ; onction secrète de David.', placeId: 'bethleem' },
+      { dateLabel: 'Fin de vie', text: 'Mort à Rama, pleuré par tout Israël.', placeId: 'rama' },
     ],
     regionLabel: 'Silo, Rama, Guilgal',
     locationsSummary: 'Formé à Silo, il exerce son ministère de juge et de prophète à travers le pays, entre Rama, Béthel, Guilgal et Mitspa.',
+    places: [
+      { id: 'silo', name: 'Silo', region: 'Éphraïm', role: 'Enfance', lat: 32.0553, lng: 35.2896 },
+      { id: 'rama', name: 'Rama', region: 'Benjamin', role: 'Juge', lat: 31.8506, lng: 35.2306 },
+      { id: 'bethleem', name: 'Bethléem', region: 'Judée', role: 'Onction de David', lat: 31.7054, lng: 35.2024 }
+    ],
     churchTeaching: {
       text: 'La réponse de Samuel à l\'appel nocturne de Dieu, « Parle, Seigneur, ton serviteur écoute » (1S 3, 9), est un modèle classique de docilité à la vocation divine ; sa figure marque la transition, voulue par Dieu à contrecœur, entre les juges charismatiques et la monarchie d\'Israël.',
       councilIds: []
@@ -2613,15 +2849,21 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1050 av. J.-C.', text: 'Onction secrète par Samuel, puis désignation publique à Mitspa.' },
+      { dateLabel: 'Vers 1050 av. J.-C.', text: 'Onction secrète par Samuel, puis désignation publique à Mitspa.', placeId: 'mitspa' },
       { dateLabel: 'Début du règne', text: 'Délivrance de Yabesh de Galaad, confirmation de la royauté.' },
-      { dateLabel: 'Désobéissances', text: 'Sacrifice illégitime, puis désobéissance lors de la guerre contre Amalec.' },
+      { dateLabel: 'Désobéissances', text: 'Sacrifice illégitime, puis désobéissance lors de la guerre contre Amalec.', placeId: 'gilgal' },
       { dateLabel: 'Rejet', text: 'Samuel lui annonce le rejet de sa royauté par Dieu.' },
-      { dateLabel: 'Fin de règne', text: 'Jalousie et persécution de David, tourments intérieurs.' },
-      { dateLabel: '1010 av. J.-C.', text: 'Défaite et mort face aux Philistins sur le mont Guilboa.' },
+      { dateLabel: 'Fin de règne', text: 'Jalousie et persécution de David, tourments intérieurs.', placeId: 'guibea' },
+      { dateLabel: '1010 av. J.-C.', text: 'Défaite et mort face aux Philistins sur le mont Guilboa.', placeId: 'guilboa' },
     ],
     regionLabel: 'Guibéa de Benjamin, mont Guilboa',
     locationsSummary: 'Règne depuis Guibéa, en territoire de Benjamin, et meurt sur le mont Guilboa, en Galilée, après une défaite contre les Philistins.',
+    places: [
+      { id: 'mitspa', name: 'Mitspa', region: 'Benjamin', role: 'Désignation', lat: 31.8853, lng: 35.2167 },
+      { id: 'guibea', name: 'Guibéa', region: 'Benjamin', role: 'Capitale', lat: 31.8236, lng: 35.2311 },
+      { id: 'gilgal', name: 'Guilgal', region: 'Vallée du Jourdain', role: 'Désobéissance', lat: 31.862, lng: 35.495 },
+      { id: 'guilboa', name: 'Mont Guilboa', region: 'Yizréel', role: 'Mort', lat: 32.4567, lng: 35.4103 }
+    ],
     churchTeaching: {
       text: 'Saül est souvent lu comme une figure de la liberté humaine confrontée à la grâce : élu et doué, il perd sa royauté non par une force extérieure mais par sa propre désobéissance et sa jalousie, illustration biblique de ce que la fidélité, et non la seule élection, soutient une vocation.',
       councilIds: []
@@ -2668,14 +2910,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1030 av. J.-C.', text: 'Attaque audacieuse contre une garnison philistine avec son écuyer.' },
+      { dateLabel: 'Vers 1030 av. J.-C.', text: 'Attaque audacieuse contre une garnison philistine avec son écuyer.', placeId: 'guibea' },
       { dateLabel: 'Après le combat contre Goliath', text: 'Alliance d\'amitié avec David, don de ses armes.' },
-      { dateLabel: 'Persécution de David', text: 'Protège David à plusieurs reprises face à la jalousie de Saül.' },
+      { dateLabel: 'Persécution de David', text: 'Protège David à plusieurs reprises face à la jalousie de Saül.', placeId: 'guibea' },
       { dateLabel: 'Séparation', text: 'Serment de fidélité envers leurs descendances respectives.' },
-      { dateLabel: '1010 av. J.-C.', text: 'Mort aux côtés de son père au mont Guilboa.' },
+      { dateLabel: '1010 av. J.-C.', text: 'Mort aux côtés de son père au mont Guilboa.', placeId: 'guilboa' },
     ],
     regionLabel: 'Guibéa de Benjamin, mont Guilboa',
     locationsSummary: 'Combat aux côtés de son père Saül à Guibéa de Benjamin et meurt avec lui sur le mont Guilboa, en Galilée.',
+    places: [
+      { id: 'guibea', name: 'Guibéa', region: 'Benjamin', role: 'Combats', lat: 31.8236, lng: 35.2311 },
+      { id: 'guilboa', name: 'Mont Guilboa', region: 'Yizréel', role: 'Mort', lat: 32.4567, lng: 35.4103 }
+    ],
     churchTeaching: {
       text: 'L\'alliance de Jonathan et David est traditionnellement lue comme un modèle biblique d\'amitié fidèle et désintéressée : héritier légitime du trône, Jonathan renonce à sa propre prétention par loyauté envers le choix de Dieu porté sur David.',
       councilIds: []
@@ -2720,14 +2966,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1010 av. J.-C.', text: 'Mariée à Nabal, riche propriétaire du Carmel de Juda.' },
-      { dateLabel: 'Même période', text: 'Insulte de Nabal aux hommes de David, colère de David.' },
+      { dateLabel: 'Vers 1010 av. J.-C.', text: 'Mariée à Nabal, riche propriétaire du Carmel de Juda.', placeId: 'carmel-juda' },
+      { dateLabel: 'Même période', text: 'Insulte de Nabal aux hommes de David, colère de David.', placeId: 'carmel-juda' },
       { dateLabel: 'Vers 1010 av. J.-C.', text: 'Intercession auprès de David, apaisement de sa colère.' },
-      { dateLabel: 'Dix jours plus tard', text: 'Mort de Nabal.' },
-      { dateLabel: 'Après le veuvage', text: 'Mariage avec David ; naissance de leur fils Kiléab à Hébron.' },
+      { dateLabel: 'Dix jours plus tard', text: 'Mort de Nabal.', placeId: 'carmel-juda' },
+      { dateLabel: 'Après le veuvage', text: 'Mariage avec David ; naissance de leur fils Kiléab à Hébron.', placeId: 'hebron' },
     ],
     regionLabel: 'Carmel et Maon, désert de Juda',
     locationsSummary: 'Vit d\'abord au Carmel de Juda, dans le désert au sud d\'Hébron, puis rejoint David lors de sa fuite face à Saül.',
+    places: [
+      { id: 'carmel-juda', name: 'Carmel de Juda', region: 'Désert de Juda', role: 'Foyer', lat: 31.425, lng: 35.133 },
+      { id: 'hebron', name: 'Hébron', region: 'Canaan', role: 'Mariage', lat: 31.5246, lng: 35.1107 }
+    ],
     churchTeaching: {
       text: 'Abigaïl est traditionnellement retenue comme un modèle de prudence et d\'art de la paix : par son humilité et son discernement, elle évite un bain de sang et détourne David d\'un acte de vengeance qu\'il aurait pu regretter.',
       councilIds: []
@@ -2771,14 +3021,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 1000 av. J.-C.', text: 'Vue par David depuis le toit du palais ; union et grossesse.' },
-      { dateLabel: 'Même période', text: 'Mort d\'Urie organisée par David, puis mariage.' },
-      { dateLabel: 'Après la naissance', text: 'Dénonciation par le prophète Nathan, repentir de David, mort du premier enfant.' },
-      { dateLabel: 'Vers 990 av. J.-C.', text: 'Naissance de Salomon.' },
-      { dateLabel: 'Fin du règne de David', text: 'Intervention décisive pour assurer la succession de Salomon.' },
+      { dateLabel: 'Vers 1000 av. J.-C.', text: 'Vue par David depuis le toit du palais ; union et grossesse.', placeId: 'jerusalem' },
+      { dateLabel: 'Même période', text: 'Mort d\'Urie organisée par David, puis mariage.', placeId: 'jerusalem' },
+      { dateLabel: 'Après la naissance', text: 'Dénonciation par le prophète Nathan, repentir de David, mort du premier enfant.', placeId: 'jerusalem' },
+      { dateLabel: 'Vers 990 av. J.-C.', text: 'Naissance de Salomon.', placeId: 'jerusalem' },
+      { dateLabel: 'Fin du règne de David', text: 'Intervention décisive pour assurer la succession de Salomon.', placeId: 'jerusalem' },
     ],
     regionLabel: 'Jérusalem',
     locationsSummary: 'Vit à Jérusalem, où se noue son union avec David puis, plus tard, son intervention en faveur de l\'accession de Salomon au trône.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Cour royale', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'L\'histoire de Bethsabée, marquée par la faute de David et la dénonciation prophétique de Nathan, est lue par la tradition comme un exemple de la dénonciation biblique de l\'abus de pouvoir et du repentir qui s\'ensuit ; l\'évangile de Matthieu la mentionne, comme « la femme d\'Urie », parmi les ancêtres de Jésus.',
       councilIds: []
@@ -2818,14 +3071,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '870 av. J.-C.', text: 'Accession au trône de Juda après son père Asa.' },
+      { dateLabel: '870 av. J.-C.', text: 'Accession au trône de Juda après son père Asa.', placeId: 'jerusalem' },
       { dateLabel: 'Début du règne', text: 'Envoi de lévites enseigner la Loi dans les villes de Juda.' },
       { dateLabel: 'Vers 853 av. J.-C.', text: 'Alliance avec Achab, bataille de Ramoth de Galaad.' },
-      { dateLabel: 'Vers 850 av. J.-C.', text: 'Prière publique face à la coalition moabite et ammonite.' },
-      { dateLabel: '848 av. J.-C.', text: 'Mort ; succession de son fils Joram.' },
+      { dateLabel: 'Vers 850 av. J.-C.', text: 'Prière publique face à la coalition moabite et ammonite.', placeId: 'jerusalem' },
+      { dateLabel: '848 av. J.-C.', text: 'Mort ; succession de son fils Joram.', placeId: 'jerusalem' },
     ],
     regionLabel: 'Jérusalem, royaume de Juda',
     locationsSummary: 'Règne depuis Jérusalem sur le royaume de Juda, dont il réforme le culte et qu\'il défend face aux coalitions ennemies venues de l\'est du Jourdain.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Règne', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'La prière publique de Josaphat face à une coalition ennemie écrasante, « nous ne savons que faire, mais nos yeux sont tournés vers toi » (2Ch 20, 12), est un modèle biblique classique de prière d\'abandon confiant devant l\'impuissance humaine.',
       councilIds: []
@@ -2869,15 +3125,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '715 av. J.-C.', text: 'Accession au trône de Juda après son père Achaz.' },
-      { dateLabel: 'Début du règne', text: 'Réforme religieuse, purification du Temple, destruction du serpent d\'airain.' },
-      { dateLabel: '701 av. J.-C.', text: 'Siège assyrien de Jérusalem par Sennachérib, prière et délivrance.' },
-      { dateLabel: 'Vers 701 av. J.-C.', text: 'Maladie grave, prière et quinze années de vie supplémentaires accordées.' },
-      { dateLabel: 'Règne', text: 'Construction du tunnel amenant l\'eau de la source de Guihôn dans la ville.' },
-      { dateLabel: '686 av. J.-C.', text: 'Mort ; succession de son fils Manassé.' },
+      { dateLabel: '715 av. J.-C.', text: 'Accession au trône de Juda après son père Achaz.', placeId: 'jerusalem' },
+      { dateLabel: 'Début du règne', text: 'Réforme religieuse, purification du Temple, destruction du serpent d\'airain.', placeId: 'jerusalem' },
+      { dateLabel: '701 av. J.-C.', text: 'Siège assyrien de Jérusalem par Sennachérib, prière et délivrance.', placeId: 'jerusalem' },
+      { dateLabel: 'Vers 701 av. J.-C.', text: 'Maladie grave, prière et quinze années de vie supplémentaires accordées.', placeId: 'jerusalem' },
+      { dateLabel: 'Règne', text: 'Construction du tunnel amenant l\'eau de la source de Guihôn dans la ville.', placeId: 'jerusalem' },
+      { dateLabel: '686 av. J.-C.', text: 'Mort ; succession de son fils Manassé.', placeId: 'jerusalem' },
     ],
     regionLabel: 'Jérusalem, royaume de Juda',
     locationsSummary: 'Règne depuis Jérusalem, qu\'il fortifie et approvisionne en eau face à la menace assyrienne dominant tout le Proche-Orient.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Règne', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'Ézéchias, aux côtés de Josias, demeure pour la tradition catholique le modèle du roi réformateur qui purifie le culte et ramène le peuple à la fidélité de l\'alliance ; sa prière lors de la maladie (2R 20) est citée comme exemple de supplication humble exaucée par Dieu.',
       councilIds: []
@@ -2922,14 +3181,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '640 av. J.-C.', text: 'Accession au trône de Juda à l\'âge de huit ans.' },
-      { dateLabel: '622 av. J.-C.', text: 'Découverte du livre de la Loi lors de la restauration du Temple.' },
-      { dateLabel: 'Même année', text: 'Consultation de la prophétesse Houlda, renouvellement de l\'alliance.' },
-      { dateLabel: '622 av. J.-C.', text: 'Vaste réforme religieuse, célébration d\'une Pâque exceptionnelle.' },
-      { dateLabel: '609 av. J.-C.', text: 'Mort au combat contre le pharaon Nékao à Meguiddo.' },
+      { dateLabel: '640 av. J.-C.', text: 'Accession au trône de Juda à l\'âge de huit ans.', placeId: 'jerusalem' },
+      { dateLabel: '622 av. J.-C.', text: 'Découverte du livre de la Loi lors de la restauration du Temple.', placeId: 'jerusalem' },
+      { dateLabel: 'Même année', text: 'Consultation de la prophétesse Houlda, renouvellement de l\'alliance.', placeId: 'jerusalem' },
+      { dateLabel: '622 av. J.-C.', text: 'Vaste réforme religieuse, célébration d\'une Pâque exceptionnelle.', placeId: 'jerusalem' },
+      { dateLabel: '609 av. J.-C.', text: 'Mort au combat contre le pharaon Nékao à Meguiddo.', placeId: 'meguiddo' },
     ],
     regionLabel: 'Jérusalem, royaume de Juda',
     locationsSummary: 'Règne depuis Jérusalem sur le royaume de Juda et meurt à Meguiddo, dans la plaine de Yizréel, en affrontant l\'armée égyptienne.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Règne', lat: 31.7683, lng: 35.2137 },
+      { id: 'meguiddo', name: 'Meguiddo', region: 'Yizréel', role: 'Mort', lat: 32.5847, lng: 35.1847 }
+    ],
     churchTeaching: {
       text: 'Josias incarne pour la tradition catholique le roi converti par la redécouverte de la Parole de Dieu, dont la réforme religieuse naît directement de l\'écoute et de l\'accueil des Écritures, souvent cité aux côtés d\'Ézéchias comme modèle de fidélité réformatrice.',
       councilIds: []
@@ -2971,14 +3234,18 @@ export const figureDetails: Record<string, FigureDetail> = {
     ],
     timeline: [
       { dateLabel: 'Vers 850 av. J.-C.', text: 'Appelé par Élie, qui lui jette son manteau à Abel-Mehola.' },
-      { dateLabel: 'Fin du ministère d\'Élie', text: 'Reçoit une double part de l\'esprit d\'Élie au bord du Jourdain.' },
-      { dateLabel: 'Ministère', text: 'Multiplie l\'huile d\'une veuve, héberge la Sunamite et ressuscite son fils.' },
-      { dateLabel: 'Ministère', text: 'Guérit de la lèpre le général syrien Naaman.' },
+      { dateLabel: 'Fin du ministère d\'Élie', text: 'Reçoit une double part de l\'esprit d\'Élie au bord du Jourdain.', placeId: 'jourdain' },
+      { dateLabel: 'Ministère', text: 'Multiplie l\'huile d\'une veuve, héberge la Sunamite et ressuscite son fils.', placeId: 'shunem' },
+      { dateLabel: 'Ministère', text: 'Guérit de la lèpre le général syrien Naaman.', placeId: 'jourdain' },
       { dateLabel: 'Vers 841 av. J.-C.', text: 'Fait oindre en secret Jéhu comme roi d\'Israël.' },
       { dateLabel: 'Vers 800 av. J.-C.', text: 'Mort ; un mort ramené à la vie au contact de ses ossements (2R 13, 21).' },
     ],
     regionLabel: 'Royaume d\'Israël (Nord), vallée du Jourdain',
     locationsSummary: 'Ministère itinérant dans le royaume du Nord, entre le Jourdain, le mont Carmel, Samarie et jusqu\'à Damas.',
+    places: [
+      { id: 'jourdain', name: 'Jourdain', region: 'Vallée du Jourdain', role: 'Double part', lat: 31.837, lng: 35.547 },
+      { id: 'shunem', name: 'Shunem', region: 'Yizréel', role: 'Sunamite', lat: 32.6061, lng: 35.3328 }
+    ],
     churchTeaching: {
       text: 'La tradition chrétienne lit les miracles d\'Élisée, notamment la guérison de Naaman rappelée par Jésus lui-même (Lc 4, 27), comme une annonce de la miséricorde de Dieu offerte au-delà des seules frontières d\'Israël, et comme préfigurant les guérisons accomplies par le Christ.',
       councilIds: []
@@ -3019,15 +3286,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 850 av. J.-C.', text: 'Accueille et loge régulièrement le prophète Élisée à Shunem.' },
-      { dateLabel: 'Récompense', text: 'Annonce de la naissance d\'un fils, malgré l\'âge avancé de son mari.' },
-      { dateLabel: 'Quelques années plus tard', text: 'Mort subite de l\'enfant ; elle se rend en hâte au mont Carmel auprès d\'Élisée.' },
-      { dateLabel: 'Miracle', text: 'L\'enfant est ramené à la vie par le prophète.' },
+      { dateLabel: 'Vers 850 av. J.-C.', text: 'Accueille et loge régulièrement le prophète Élisée à Shunem.', placeId: 'shunem' },
+      { dateLabel: 'Récompense', text: 'Annonce de la naissance d\'un fils, malgré l\'âge avancé de son mari.', placeId: 'shunem' },
+      { dateLabel: 'Quelques années plus tard', text: 'Mort subite de l\'enfant ; elle se rend en hâte au mont Carmel auprès d\'Élisée.', placeId: 'carmel' },
+      { dateLabel: 'Miracle', text: 'L\'enfant est ramené à la vie par le prophète.', placeId: 'shunem' },
       { dateLabel: 'Sept années de famine', text: 'Exil chez les Philistins sur l\'avis d\'Élisée, puis retour à Shunem.' },
-      { dateLabel: 'Retour', text: 'Restitution de sa maison et de ses terres par le roi d\'Israël.' },
+      { dateLabel: 'Retour', text: 'Restitution de sa maison et de ses terres par le roi d\'Israël.', placeId: 'shunem' },
     ],
     regionLabel: 'Shunem, en Issachar (vallée de Jizréel)',
     locationsSummary: 'Vit à Shunem, dans la plaine de Jizréel ; se déplace jusqu\'au mont Carmel pour trouver Élisée, puis s\'exile temporairement au pays des Philistins.',
+    places: [
+      { id: 'shunem', name: 'Shunem', region: 'Yizréel', role: 'Foyer', lat: 32.6061, lng: 35.3328 },
+      { id: 'carmel', name: 'Mont Carmel', region: 'Israël', role: 'Supplication', lat: 32.729, lng: 35.049 }
+    ],
     churchTeaching: {
       text: 'Le texte ne lui donne pas de nom propre, mais retient son hospitalité désintéressée envers l\'homme de Dieu. La tradition chrétienne rapproche le rappel à la vie de son fils des résurrections opérées plus tard par le Christ, comme celle de la fille de Jaïre.',
       councilIds: []
@@ -3069,14 +3340,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Appel', text: 'Envoyé prêcher à Ninive, il fuit à Tarsis par bateau.' },
+      { dateLabel: 'Appel', text: 'Envoyé prêcher à Ninive, il fuit à Tarsis par bateau.', placeId: 'jaffa' },
       { dateLabel: 'En mer', text: 'Tempête, il est jeté à la mer et englouti par un grand poisson.' },
       { dateLabel: 'Trois jours', text: 'Prière depuis les entrailles du poisson, puis rejeté sur le rivage.' },
-      { dateLabel: 'À Ninive', text: 'Proclamation du châtiment ; conversion et jeûne de toute la ville.' },
-      { dateLabel: 'Épilogue', text: 'Colère de Jonas devant la miséricorde de Dieu envers Ninive.' },
+      { dateLabel: 'À Ninive', text: 'Proclamation du châtiment ; conversion et jeûne de toute la ville.', placeId: 'ninive' },
+      { dateLabel: 'Épilogue', text: 'Colère de Jonas devant la miséricorde de Dieu envers Ninive.', placeId: 'ninive' },
     ],
     regionLabel: 'Galilée, Jaffa, Ninive (Mésopotamie)',
     locationsSummary: 'Originaire de Galilée, il fuit par mer depuis le port de Jaffa avant d\'accomplir sa mission dans la lointaine Ninive, en Assyrie.',
+    places: [
+      { id: 'gath-hepher', name: 'Gath-Hépher', region: 'Galilée', role: 'Origine', lat: 32.74, lng: 35.326 },
+      { id: 'jaffa', name: 'Jaffa', region: 'Côte de Saron', role: 'Fuite', lat: 32.0543, lng: 34.752 },
+      { id: 'ninive', name: 'Ninive', region: 'Assyrie', role: 'Mission', lat: 36.3593, lng: 43.1529 }
+    ],
     churchTeaching: {
       text: 'Jésus reprend l\'épisode du grand poisson comme « signe de Jonas » : de même que Jonas est resté trois jours dans le poisson, le Fils de l\'homme restera trois jours dans la terre avant sa résurrection (Mt 12, 39-41). Le Catéchisme lit ce signe comme une annonce de la Pâque du Christ.',
       councilIds: []
@@ -3118,14 +3394,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 760 av. J.-C.', text: 'Appel divin alors qu\'il est berger à Teqoa, en Juda.' },
-      { dateLabel: 'Ministère', text: 'Prédication au sanctuaire royal de Béthel, dans le royaume du Nord.' },
-      { dateLabel: 'Ministère', text: 'Dénonciation des injustices sociales et du culte hypocrite.' },
-      { dateLabel: 'Confrontation', text: 'Expulsé de Béthel par le prêtre Amatsia.' },
+      { dateLabel: 'Vers 760 av. J.-C.', text: 'Appel divin alors qu\'il est berger à Teqoa, en Juda.', placeId: 'teqoa' },
+      { dateLabel: 'Ministère', text: 'Prédication au sanctuaire royal de Béthel, dans le royaume du Nord.', placeId: 'bethel' },
+      { dateLabel: 'Ministère', text: 'Dénonciation des injustices sociales et du culte hypocrite.', placeId: 'bethel' },
+      { dateLabel: 'Confrontation', text: 'Expulsé de Béthel par le prêtre Amatsia.', placeId: 'bethel' },
       { dateLabel: 'Oracle final', text: 'Annonce du relèvement futur de la « hutte de David ».' },
     ],
     regionLabel: 'Teqoa (Juda) et Béthel (royaume du Nord)',
     locationsSummary: 'Originaire de Teqoa, dans le sud de Juda, il exerce son ministère plus au nord, au sanctuaire royal de Béthel, dans le royaume d\'Israël.',
+    places: [
+      { id: 'teqoa', name: 'Teqoa', region: 'Juda', role: 'Berger', lat: 31.635, lng: 35.215 },
+      { id: 'bethel', name: 'Béthel', region: 'Canaan', role: 'Prédication', lat: 31.93, lng: 35.221 }
+    ],
     churchTeaching: {
       text: 'L\'Église voit dans les oracles d\'Amos un appel permanent à la justice envers les pauvres et à l\'authenticité du culte, thème que reprend l\'enseignement social de l\'Église sur la destination universelle des biens.',
       councilIds: []
@@ -3170,10 +3450,13 @@ export const figureDetails: Record<string, FigureDetail> = {
       { dateLabel: 'Rupture', text: 'Infidélité de Gomer, séparation du couple.' },
       { dateLabel: 'Ministère', text: 'Ordre de racheter Gomer, image de la fidélité de Dieu.' },
       { dateLabel: 'Prédication', text: 'Dénonciation de l\'idolâtrie et des alliances politiques du royaume du Nord.' },
-      { dateLabel: '722 av. J.-C.', text: 'Chute de Samarie, peu après la fin de son ministère.' },
+      { dateLabel: '722 av. J.-C.', text: 'Chute de Samarie, peu après la fin de son ministère.', placeId: 'samarie' },
     ],
     regionLabel: 'Royaume d\'Israël (Nord)',
     locationsSummary: 'Exerce l\'ensemble de son ministère dans le royaume du Nord, dans les décennies précédant sa chute face à l\'Assyrie en 722 av. J.-C.',
+    places: [
+      { id: 'samarie', name: 'Samarie', region: 'Royaume d\'Israël', role: 'Royaume du Nord', lat: 32.276, lng: 35.195 }
+    ],
     churchTeaching: {
       text: 'Le Catéchisme cite Osée pour illustrer un amour de Dieu pour son peuple plus fort que l\'infidélité, semblable à celui d\'un époux ou d\'un père (§ 219). L\'union brisée puis restaurée d\'Osée et de Gomer préfigure, dans la lecture chrétienne, l\'alliance nuptiale entre le Christ et l\'Église.',
       councilIds: []
@@ -3213,13 +3496,16 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 622 av. J.-C.', text: 'Découverte du livre de la Loi dans le Temple sous Josias.' },
-      { dateLabel: 'Consultation', text: 'La délégation royale s\'adresse à la prophétesse Houlda à Jérusalem.' },
-      { dateLabel: 'Oracle', text: 'Authentification du livre et annonce du jugement, atténué pour Josias.' },
-      { dateLabel: 'Réforme', text: 'Renouvellement de l\'alliance et purification du culte par Josias.' },
+      { dateLabel: 'Vers 622 av. J.-C.', text: 'Découverte du livre de la Loi dans le Temple sous Josias.', placeId: 'jerusalem' },
+      { dateLabel: 'Consultation', text: 'La délégation royale s\'adresse à la prophétesse Houlda à Jérusalem.', placeId: 'jerusalem' },
+      { dateLabel: 'Oracle', text: 'Authentification du livre et annonce du jugement, atténué pour Josias.', placeId: 'jerusalem' },
+      { dateLabel: 'Réforme', text: 'Renouvellement de l\'alliance et purification du culte par Josias.', placeId: 'jerusalem' },
     ],
     regionLabel: 'Jérusalem',
     locationsSummary: 'Vit et exerce son ministère prophétique à Jérusalem, dans le « Deuxième Quartier » de la ville, sous le règne de Josias.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Oracle', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'La tradition biblique retient en Houlda l\'une des rares femmes explicitement désignées comme prophétesses de l\'Ancienne Alliance, dont la parole fait autorité pour authentifier la Loi retrouvée et orienter la réforme religieuse du roi Josias.',
       councilIds: []
@@ -3262,14 +3548,19 @@ export const figureDetails: Record<string, FigureDetail> = {
     ],
     timeline: [
       { dateLabel: '627 av. J.-C.', text: 'Appel prophétique sous le roi Josias.' },
-      { dateLabel: 'Sous Joaquim', text: 'Dénonciations répétées, persécutions, dictée de ses oracles au scribe Baruch.' },
-      { dateLabel: 'Sous Sédécias', text: 'Emprisonné et jeté dans une citerne pour avoir prêché la soumission à Babylone.' },
-      { dateLabel: '587 av. J.-C.', text: 'Chute de Jérusalem et destruction du Temple par Nabuchodonosor.' },
-      { dateLabel: 'Après 587', text: 'Emmené de force en Égypte par des fugitifs judéens.' },
-      { dateLabel: 'Vers 580 av. J.-C.', text: 'Mort en Égypte, selon la tradition.' },
+      { dateLabel: 'Sous Joaquim', text: 'Dénonciations répétées, persécutions, dictée de ses oracles au scribe Baruch.', placeId: 'jerusalem' },
+      { dateLabel: 'Sous Sédécias', text: 'Emprisonné et jeté dans une citerne pour avoir prêché la soumission à Babylone.', placeId: 'jerusalem' },
+      { dateLabel: '587 av. J.-C.', text: 'Chute de Jérusalem et destruction du Temple par Nabuchodonosor.', placeId: 'jerusalem' },
+      { dateLabel: 'Après 587', text: 'Emmené de force en Égypte par des fugitifs judéens.', placeId: 'taphnes' },
+      { dateLabel: 'Vers 580 av. J.-C.', text: 'Mort en Égypte, selon la tradition.', placeId: 'taphnes' },
     ],
     regionLabel: 'Anatoth, Jérusalem, puis Égypte',
     locationsSummary: 'Né à Anatoth près de Jérusalem, exerce son ministère dans la ville jusqu\'à sa chute, avant d\'être emmené contre son gré en Égypte.',
+    places: [
+      { id: 'anatoth', name: 'Anatoth', region: 'Benjamin', role: 'Origine', lat: 31.813, lng: 35.262 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Ministère', lat: 31.7683, lng: 35.2137 },
+      { id: 'taphnes', name: 'Taphnès', region: 'Égypte', role: 'Exil', lat: 30.8617, lng: 32.1708 }
+    ],
     churchTeaching: {
       text: 'Le Catéchisme voit dans l\'annonce de la « nouvelle alliance » de Jérémie (31, 31-34) une prophétie qui s\'accomplit dans le Christ et dans le don de l\'Esprit inscrivant la loi de Dieu au cœur des croyants (§ 715, § 1965).',
       councilIds: []
@@ -3312,15 +3603,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '605 av. J.-C.', text: 'Première prise de Jérusalem ; déportation de jeunes nobles, dont Daniel.' },
-      { dateLabel: '597 av. J.-C.', text: 'Seconde déportation, du roi Joïakîn et de son entourage.' },
-      { dateLabel: '587 av. J.-C.', text: 'Prise finale de Jérusalem, destruction du Temple, déportation massive.' },
-      { dateLabel: 'Cour de Babylone', text: 'Songe de la statue aux pieds d\'argile, interprété par Daniel.' },
-      { dateLabel: 'Selon Daniel 4', text: 'Sept années de folie en punition de son orgueil, puis rétablissement.' },
-      { dateLabel: '562 av. J.-C.', text: 'Mort à Babylone après un règne de plus de quarante ans.' },
+      { dateLabel: '605 av. J.-C.', text: 'Première prise de Jérusalem ; déportation de jeunes nobles, dont Daniel.', placeId: 'jerusalem' },
+      { dateLabel: '597 av. J.-C.', text: 'Seconde déportation, du roi Joïakîn et de son entourage.', placeId: 'jerusalem' },
+      { dateLabel: '587 av. J.-C.', text: 'Prise finale de Jérusalem, destruction du Temple, déportation massive.', placeId: 'jerusalem' },
+      { dateLabel: 'Cour de Babylone', text: 'Songe de la statue aux pieds d\'argile, interprété par Daniel.', placeId: 'babylone' },
+      { dateLabel: 'Selon Daniel 4', text: 'Sept années de folie en punition de son orgueil, puis rétablissement.', placeId: 'babylone' },
+      { dateLabel: '562 av. J.-C.', text: 'Mort à Babylone après un règne de plus de quarante ans.', placeId: 'babylone' },
     ],
     regionLabel: 'Babylone (Mésopotamie)',
     locationsSummary: 'Règne depuis Babylone, d\'où il mène plusieurs campagnes contre Jérusalem et le royaume de Juda, aboutissant à la destruction du Temple et à l\'Exil.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Conquête', lat: 31.7683, lng: 35.2137 },
+      { id: 'babylone', name: 'Babylone', region: 'Mésopotamie', role: 'Capitale', lat: 32.5363, lng: 44.4209 }
+    ],
     churchTeaching: {
       text: 'Roi païen, Nabuchodonosor est néanmoins présenté par les prophètes comme un instrument que Dieu utilise pour châtier l\'infidélité de son peuple (Jr 25, 9). Sa folie et son rétablissement en Daniel 4 illustrent, pour la tradition chrétienne, la souveraineté de Dieu sur les puissants de ce monde, thème repris dans le Magnificat (Lc 1, 52).',
       councilIds: []
@@ -3361,15 +3656,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '597 av. J.-C.', text: 'Déporté à Babylone avec le roi Joïakîn.' },
-      { dateLabel: '593 av. J.-C.', text: 'Vision inaugurale du char divin au bord du fleuve Kebar, début du ministère.' },
-      { dateLabel: 'Avant 587', text: 'Gestes symboliques annonçant le siège et la chute de Jérusalem.' },
-      { dateLabel: '587 av. J.-C.', text: 'Nouvelle de la destruction de Jérusalem et du Temple.' },
-      { dateLabel: 'Après 587', text: 'Vision de la vallée des ossements desséchés, message d\'espérance.' },
-      { dateLabel: '571 av. J.-C. environ', text: 'Dernières visions datées, dont le nouveau Temple (Éz 40-48).' },
+      { dateLabel: '597 av. J.-C.', text: 'Déporté à Babylone avec le roi Joïakîn.', placeId: 'kebar' },
+      { dateLabel: '593 av. J.-C.', text: 'Vision inaugurale du char divin au bord du fleuve Kebar, début du ministère.', placeId: 'kebar' },
+      { dateLabel: 'Avant 587', text: 'Gestes symboliques annonçant le siège et la chute de Jérusalem.', placeId: 'kebar' },
+      { dateLabel: '587 av. J.-C.', text: 'Nouvelle de la destruction de Jérusalem et du Temple.', placeId: 'kebar' },
+      { dateLabel: 'Après 587', text: 'Vision de la vallée des ossements desséchés, message d\'espérance.', placeId: 'kebar' },
+      { dateLabel: '571 av. J.-C. environ', text: 'Dernières visions datées, dont le nouveau Temple (Éz 40-48).', placeId: 'kebar' },
     ],
     regionLabel: 'Babylonie, bord du fleuve Kebar',
     locationsSummary: 'Exerce tout son ministère parmi les exilés judéens installés le long du fleuve Kebar, en Babylonie.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Origine', lat: 31.7683, lng: 35.2137 },
+      { id: 'kebar', name: 'Fleuve Kebar', region: 'Babylonie', role: 'Exil', lat: 32.127, lng: 45.231 }
+    ],
     churchTeaching: {
       text: 'Le Catéchisme s\'appuie sur l\'annonce d\'Ézéchiel d\'un « cœur nouveau » et d\'un « esprit nouveau » donnés par Dieu (Éz 36, 26-27) pour éclairer la grâce baptismale qui transforme intérieurement le croyant (§ 715).',
       councilIds: []
@@ -3410,14 +3709,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '559 av. J.-C.', text: 'Accède au trône de Perse.' },
-      { dateLabel: '539 av. J.-C.', text: 'Prend Babylone, met fin à l\'empire néo-babylonien.' },
+      { dateLabel: '559 av. J.-C.', text: 'Accède au trône de Perse.', placeId: 'pasargades' },
+      { dateLabel: '539 av. J.-C.', text: 'Prend Babylone, met fin à l\'empire néo-babylonien.', placeId: 'babylone' },
       { dateLabel: '538 av. J.-C.', text: 'Édit autorisant le retour des Juifs et la reconstruction du Temple.' },
       { dateLabel: 'Suite de l\'édit', text: 'Restitution des objets sacrés du Temple emportés par Nabuchodonosor.' },
       { dateLabel: '530 av. J.-C.', text: 'Mort de Cyrus, dont l\'empire se poursuit sous ses successeurs.' },
     ],
     regionLabel: 'Empire perse achéménide, Babylone',
     locationsSummary: 'Règne depuis la Perse, s\'empare de Babylone puis autorise, par édit, le retour des exilés juifs à Jérusalem.',
+    places: [
+      { id: 'pasargades', name: 'Pasargades', region: 'Perse', role: 'Capitale', lat: 30.194, lng: 53.167 },
+      { id: 'babylone', name: 'Babylone', region: 'Mésopotamie', role: 'Conquête', lat: 32.5363, lng: 44.4209 }
+    ],
     churchTeaching: {
       text: 'La tradition chrétienne voit en Cyrus, roi païen agissant sans le savoir comme instrument de la providence divine (Is 45, 1.4), un signe que Dieu conduit l\'histoire des nations, même par des dirigeants qui ne le connaissent pas, au service de son dessein de salut.',
       councilIds: []
@@ -3460,14 +3763,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '520 av. J.-C.', text: 'Début du ministère, la deuxième année de Darius Ier.' },
-      { dateLabel: '520 av. J.-C.', text: 'Série de huit visions nocturnes encourageant la reconstruction du Temple.' },
-      { dateLabel: '516 av. J.-C.', text: 'Achèvement du second Temple, auquel il a œuvré avec Aggée.' },
-      { dateLabel: 'Oracles finaux', text: 'Annonce d\'un roi humble entrant à Jérusalem monté sur un âne.' },
-      { dateLabel: 'Oracles finaux', text: 'Évocation des trente pièces d\'argent et d\'un berger transpercé.' },
+      { dateLabel: '520 av. J.-C.', text: 'Début du ministère, la deuxième année de Darius Ier.', placeId: 'jerusalem' },
+      { dateLabel: '520 av. J.-C.', text: 'Série de huit visions nocturnes encourageant la reconstruction du Temple.', placeId: 'jerusalem' },
+      { dateLabel: '516 av. J.-C.', text: 'Achèvement du second Temple, auquel il a œuvré avec Aggée.', placeId: 'jerusalem' },
+      { dateLabel: 'Oracles finaux', text: 'Annonce d\'un roi humble entrant à Jérusalem monté sur un âne.', placeId: 'jerusalem' },
+      { dateLabel: 'Oracles finaux', text: 'Évocation des trente pièces d\'argent et d\'un berger transpercé.', placeId: 'jerusalem' },
     ],
     regionLabel: 'Jérusalem, sous domination perse',
     locationsSummary: 'Exerce son ministère à Jérusalem, parmi la communauté juive revenue d\'exil et engagée dans la reconstruction du Temple.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Ministère', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'Le Catéchisme cite l\'entrée du roi humble annoncée par Zacharie (9, 9) comme l\'une des prophéties accomplies lors de l\'entrée de Jésus à Jérusalem le dimanche des Rameaux (§ 559).',
       councilIds: []
@@ -3503,13 +3809,16 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 483 av. J.-C.', text: 'Banquet donné par le roi Assuérus à Suse, capitale perse.' },
-      { dateLabel: 'Septième jour', text: 'Refus de Vasthi de paraître devant l\'assemblée royale.' },
-      { dateLabel: 'Conseil royal', text: 'Décision de la répudier, sur avis des conseillers du roi.' },
-      { dateLabel: 'Suite', text: 'Édit royal lançant la recherche d\'une nouvelle reine.' },
+      { dateLabel: 'Vers 483 av. J.-C.', text: 'Banquet donné par le roi Assuérus à Suse, capitale perse.', placeId: 'suse' },
+      { dateLabel: 'Septième jour', text: 'Refus de Vasthi de paraître devant l\'assemblée royale.', placeId: 'suse' },
+      { dateLabel: 'Conseil royal', text: 'Décision de la répudier, sur avis des conseillers du roi.', placeId: 'suse' },
+      { dateLabel: 'Suite', text: 'Édit royal lançant la recherche d\'une nouvelle reine.', placeId: 'suse' },
     ],
     regionLabel: 'Suse, capitale de l\'empire perse',
     locationsSummary: 'Reine à la cour perse de Suse, elle disparaît du récit après sa répudiation, laissant place à Esther.',
+    places: [
+      { id: 'suse', name: 'Suse', region: 'Perse', role: 'Cour royale', lat: 32.1894, lng: 48.2575 }
+    ],
     churchTeaching: {
       text: 'Le texte biblique ne juge pas explicitement le geste de Vasthi ; certains commentateurs, juifs comme chrétiens, y ont vu un acte de dignité refusant d\'être exhibée, quand d\'autres l\'ont lu simplement comme le ressort narratif introduisant l\'élévation d\'Esther.',
       councilIds: []
@@ -3551,15 +3860,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 479 av. J.-C.', text: 'Choisie comme nouvelle reine par Assuérus, sans révéler son origine juive.' },
-      { dateLabel: 'Vers 474 av. J.-C.', text: 'Aman obtient un décret d\'extermination des Juifs de l\'empire.' },
-      { dateLabel: 'Intervention', text: 'Jeûne du peuple, puis Esther se présente devant le roi sans y être appelée.' },
-      { dateLabel: 'Banquet', text: 'Dénonciation du complot d\'Aman, qui est exécuté.' },
-      { dateLabel: 'Suite', text: 'Nouvel édit permettant aux Juifs de se défendre.' },
-      { dateLabel: 'Institution', text: 'Établissement de la fête de Pourim en mémoire de la délivrance.' },
+      { dateLabel: 'Vers 479 av. J.-C.', text: 'Choisie comme nouvelle reine par Assuérus, sans révéler son origine juive.', placeId: 'suse' },
+      { dateLabel: 'Vers 474 av. J.-C.', text: 'Aman obtient un décret d\'extermination des Juifs de l\'empire.', placeId: 'suse' },
+      { dateLabel: 'Intervention', text: 'Jeûne du peuple, puis Esther se présente devant le roi sans y être appelée.', placeId: 'suse' },
+      { dateLabel: 'Banquet', text: 'Dénonciation du complot d\'Aman, qui est exécuté.', placeId: 'suse' },
+      { dateLabel: 'Suite', text: 'Nouvel édit permettant aux Juifs de se défendre.', placeId: 'suse' },
+      { dateLabel: 'Institution', text: 'Établissement de la fête de Pourim en mémoire de la délivrance.', placeId: 'suse' },
     ],
     regionLabel: 'Suse, capitale de l\'empire perse',
     locationsSummary: 'Vit à la cour royale de Suse, capitale de l\'empire perse, où elle devient reine et intervient pour sauver son peuple.',
+    places: [
+      { id: 'suse', name: 'Suse', region: 'Perse', role: 'Cour royale', lat: 32.1894, lng: 48.2575 }
+    ],
     churchTeaching: {
       text: 'La tradition chrétienne voit en Esther, comme en Judith, une figure de femme priante qui intercède au péril de sa vie pour le salut de son peuple, un type d\'intercession que l\'Église relit à la lumière du rôle de Marie dans l\'histoire du salut.',
       councilIds: []
@@ -3601,15 +3913,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '445 av. J.-C.', text: 'Obtient d\'Artaxerxès la permission de se rendre à Jérusalem.' },
-      { dateLabel: '445 av. J.-C.', text: 'Inspection nocturne des murailles en ruines, lancement du chantier.' },
-      { dateLabel: 'Chantier', text: 'Reconstruction organisée par familles, malgré l\'opposition de voisins hostiles.' },
-      { dateLabel: '445 av. J.-C.', text: 'Achèvement de la muraille en cinquante-deux jours.' },
-      { dateLabel: 'Gouvernorat', text: 'Lecture publique de la Loi par Esdras, renouvellement de l\'alliance.' },
-      { dateLabel: 'Fin de mission', text: 'Réformes sociales et religieuses comme gouverneur de Juda.' },
+      { dateLabel: '445 av. J.-C.', text: 'Obtient d\'Artaxerxès la permission de se rendre à Jérusalem.', placeId: 'suse' },
+      { dateLabel: '445 av. J.-C.', text: 'Inspection nocturne des murailles en ruines, lancement du chantier.', placeId: 'jerusalem' },
+      { dateLabel: 'Chantier', text: 'Reconstruction organisée par familles, malgré l\'opposition de voisins hostiles.', placeId: 'jerusalem' },
+      { dateLabel: '445 av. J.-C.', text: 'Achèvement de la muraille en cinquante-deux jours.', placeId: 'jerusalem' },
+      { dateLabel: 'Gouvernorat', text: 'Lecture publique de la Loi par Esdras, renouvellement de l\'alliance.', placeId: 'jerusalem' },
+      { dateLabel: 'Fin de mission', text: 'Réformes sociales et religieuses comme gouverneur de Juda.', placeId: 'jerusalem' },
     ],
     regionLabel: 'Jérusalem, sous domination perse',
     locationsSummary: 'Quitte la cour perse de Suse pour Jérusalem, où il dirige la reconstruction des murailles avant d\'y exercer la charge de gouverneur.',
+    places: [
+      { id: 'suse', name: 'Suse', region: 'Perse', role: 'Cour perse', lat: 32.1894, lng: 48.2575 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Murailles', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'La tradition chrétienne lit dans l\'œuvre de Néhémie, reconstructeur des murs de la cité sainte, une figure du rassemblement et de la restauration du peuple de Dieu, complémentaire de la restauration religieuse conduite par Esdras.',
       councilIds: []
@@ -3653,15 +3969,21 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Fiançailles', text: 'Songe de l\'ange révélant l\'origine divine de l\'enfant que porte Marie.' },
-      { dateLabel: 'Recensement', text: 'Voyage à Bethléem avec Marie ; naissance de Jésus.' },
-      { dateLabel: 'Peu après la naissance', text: 'Présentation de l\'enfant au Temple de Jérusalem.' },
-      { dateLabel: 'Menace d\'Hérode', text: 'Fuite en Égypte avertie par un songe, puis retour à Nazareth.' },
-      { dateLabel: 'Vers l\'an 12', text: 'Dernière mention biblique : Jésus retrouvé au Temple parmi les docteurs.' },
+      { dateLabel: 'Fiançailles', text: 'Songe de l\'ange révélant l\'origine divine de l\'enfant que porte Marie.', placeId: 'nazareth' },
+      { dateLabel: 'Recensement', text: 'Voyage à Bethléem avec Marie ; naissance de Jésus.', placeId: 'bethleem' },
+      { dateLabel: 'Peu après la naissance', text: 'Présentation de l\'enfant au Temple de Jérusalem.', placeId: 'jerusalem' },
+      { dateLabel: 'Menace d\'Hérode', text: 'Fuite en Égypte avertie par un songe, puis retour à Nazareth.', placeId: 'egypte' },
+      { dateLabel: 'Vers l\'an 12', text: 'Dernière mention biblique : Jésus retrouvé au Temple parmi les docteurs.', placeId: 'jerusalem' },
       { dateLabel: 'Tradition', text: 'Mort présumée avant le début du ministère public de Jésus, non racontée dans les Évangiles.' },
     ],
     regionLabel: 'Nazareth, Bethléem, Égypte',
     locationsSummary: 'Artisan établi à Nazareth, il se rend à Bethléem pour le recensement, fuit en Égypte pour protéger l\'enfant Jésus, puis revient s\'installer en Galilée.',
+    places: [
+      { id: 'nazareth', name: 'Nazareth', region: 'Galilée', role: 'Foyer', lat: 32.7021, lng: 35.2978 },
+      { id: 'bethleem', name: 'Bethléem', region: 'Judée', role: 'Nativité', lat: 31.7054, lng: 35.2024 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Présentation', lat: 31.7683, lng: 35.2137 },
+      { id: 'egypte', name: 'Égypte', region: 'Delta du Nil', role: 'Fuite', lat: 30.8, lng: 31.8 }
+    ],
     churchTeaching: {
       text: 'L\'Évangile de Matthieu qualifie Joseph d\'« homme juste » (Mt 1, 19). L\'Église catholique le vénère comme protecteur de la Sainte Famille et, depuis 1870, patron de l\'Église universelle ; le pape François lui a consacré une année spéciale en 2020-2021 (lettre Patris corde).',
       councilIds: []
@@ -3703,14 +4025,18 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Avant l\'annonce', text: 'Épouse de Zacharie, décrite comme juste, mais stérile jusqu\'à un âge avancé.' },
-      { dateLabel: 'Annonce à Zacharie', text: 'L\'ange Gabriel annonce au Temple la naissance d\'un fils, Jean.' },
-      { dateLabel: 'Sixième mois de grossesse', text: 'Visite de Marie ; l\'enfant tressaille en elle, elle chante la foi de Marie.' },
-      { dateLabel: 'Naissance', text: 'Mise au monde de Jean ; insiste pour lui donner ce nom malgré l\'usage.' },
-      { dateLabel: 'Après la naissance', text: 'Zacharie retrouve la parole et entonne à son tour un cantique de louange (Benedictus).' },
+      { dateLabel: 'Avant l\'annonce', text: 'Épouse de Zacharie, décrite comme juste, mais stérile jusqu\'à un âge avancé.', placeId: 'ain-karim' },
+      { dateLabel: 'Annonce à Zacharie', text: 'L\'ange Gabriel annonce au Temple la naissance d\'un fils, Jean.', placeId: 'jerusalem' },
+      { dateLabel: 'Sixième mois de grossesse', text: 'Visite de Marie ; l\'enfant tressaille en elle, elle chante la foi de Marie.', placeId: 'ain-karim' },
+      { dateLabel: 'Naissance', text: 'Mise au monde de Jean ; insiste pour lui donner ce nom malgré l\'usage.', placeId: 'ain-karim' },
+      { dateLabel: 'Après la naissance', text: 'Zacharie retrouve la parole et entonne à son tour un cantique de louange (Benedictus).', placeId: 'ain-karim' },
     ],
     regionLabel: 'Région montagneuse de Judée',
     locationsSummary: 'Vit avec Zacharie dans « une ville de la montagne de Juda » (Lc 1, 39), où elle accueille la visite de Marie et met au monde Jean.',
+    places: [
+      { id: 'ain-karim', name: 'Aïn Karim', region: 'Judée', role: 'Foyer', lat: 31.7656, lng: 35.1623 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Annonce', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'L\'Église voit en Élisabeth un modèle de foi : la première, avant même sa naissance, à reconnaître par l\'Esprit Saint la présence du Sauveur porté par Marie (Catéchisme § 717, 523). Sa salutation à Marie, « Tu es bénie entre toutes les femmes », est reprise dans la prière du Je vous salue Marie.',
       councilIds: []
@@ -3747,13 +4073,16 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Jeunesse', text: 'Mariage, puis veuvage après sept années de vie conjugale.' },
-      { dateLabel: 'Longue viduité', text: 'Reste attachée au Temple de Jérusalem, dans le jeûne et la prière, jusqu\'à quatre-vingt-quatre ans.' },
-      { dateLabel: 'Présentation de Jésus au Temple', text: 'Survient au moment où Marie et Joseph présentent l\'enfant ; rend grâce à Dieu.' },
-      { dateLabel: 'Après la rencontre', text: 'Parle de l\'enfant à tous ceux qui attendent la délivrance de Jérusalem.' },
+      { dateLabel: 'Jeunesse', text: 'Mariage, puis veuvage après sept années de vie conjugale.', placeId: 'jerusalem' },
+      { dateLabel: 'Longue viduité', text: 'Reste attachée au Temple de Jérusalem, dans le jeûne et la prière, jusqu\'à quatre-vingt-quatre ans.', placeId: 'jerusalem' },
+      { dateLabel: 'Présentation de Jésus au Temple', text: 'Survient au moment où Marie et Joseph présentent l\'enfant ; rend grâce à Dieu.', placeId: 'jerusalem' },
+      { dateLabel: 'Après la rencontre', text: 'Parle de l\'enfant à tous ceux qui attendent la délivrance de Jérusalem.', placeId: 'jerusalem' },
     ],
     regionLabel: 'Jérusalem (Temple)',
     locationsSummary: 'Vit dans l\'enceinte du Temple de Jérusalem, où elle rencontre l\'enfant Jésus lors de sa présentation.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Temple', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'Avec le vieillard Siméon, Anne représente le « reste fidèle » d\'Israël qui attend et reconnaît le Messie dès sa présentation au Temple (Catéchisme § 711, 672). Elle est un modèle de prière assidue et de vie consacrée dans l\'attente de Dieu.',
       councilIds: []
@@ -3797,15 +4126,22 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Avant sa rencontre avec Jésus', text: 'Disciple de Jean-Baptiste au bord du Jourdain.' },
-      { dateLabel: 'Vers l\'an 28', text: 'Premier appelé, selon Jean ; conduit son frère Simon à Jésus.' },
-      { dateLabel: 'Vie publique', text: 'Appel formel au bord du lac de Galilée, avec Pierre.' },
+      { dateLabel: 'Avant sa rencontre avec Jésus', text: 'Disciple de Jean-Baptiste au bord du Jourdain.', placeId: 'jourdain' },
+      { dateLabel: 'Vers l\'an 28', text: 'Premier appelé, selon Jean ; conduit son frère Simon à Jésus.', placeId: 'jourdain' },
+      { dateLabel: 'Vie publique', text: 'Appel formel au bord du lac de Galilée, avec Pierre.', placeId: 'lac-galilee' },
       { dateLabel: 'Multiplication des pains', text: 'Signale à Jésus le jeune garçon aux cinq pains et deux poissons.' },
-      { dateLabel: 'Fin du ministère de Jésus', text: 'Sert d\'intermédiaire à des Grecs voulant rencontrer Jésus.' },
-      { dateLabel: 'Tradition', text: 'Mission en Asie Mineure et en Grèce ; martyre à Patras.' },
+      { dateLabel: 'Fin du ministère de Jésus', text: 'Sert d\'intermédiaire à des Grecs voulant rencontrer Jésus.', placeId: 'jerusalem' },
+      { dateLabel: 'Tradition', text: 'Mission en Asie Mineure et en Grèce ; martyre à Patras.', placeId: 'patras' },
     ],
     regionLabel: 'Bethsaïde, Galilée · tradition : Grèce (Achaïe)',
     locationsSummary: 'Pêcheur à Bethsaïde puis sur le lac de Galilée ; selon la tradition ancienne, il prêche en Asie Mineure et en Grèce, où il meurt martyr à Patras.',
+    places: [
+      { id: 'bethsaide', name: 'Bethsaïde', region: 'Galilée', role: 'Origine', lat: 32.91, lng: 35.631 },
+      { id: 'jourdain', name: 'Jourdain', region: 'Vallée du Jourdain', role: 'Disciple de Jean', lat: 31.837, lng: 35.547 },
+      { id: 'lac-galilee', name: 'Lac de Galilée', region: 'Galilée', role: 'Appel', lat: 32.8, lng: 35.59 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Ministère', lat: 31.7683, lng: 35.2137 },
+      { id: 'patras', name: 'Patras', region: 'Achaïe', role: 'Martyre', lat: 38.2466, lng: 21.7346 }
+    ],
     churchTeaching: {
       text: 'La tradition patristique surnomme André le « protoclite », premier appelé des apôtres, en écho au récit de Jean. Il est le saint patron de plusieurs Églises et nations, notamment en lien avec son tombeau traditionnel de Patras.',
       councilIds: []
@@ -3850,14 +4186,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers l\'an 28', text: 'Appel au bord du lac de Galilée, avec son frère Jean.' },
+      { dateLabel: 'Vers l\'an 28', text: 'Appel au bord du lac de Galilée, avec son frère Jean.', placeId: 'lac-galilee' },
       { dateLabel: 'Vie publique', text: 'Témoin, avec Pierre et Jean, de la Transfiguration de Jésus.' },
       { dateLabel: 'Vie publique', text: 'Sa mère demande pour lui et son frère les premières places dans le royaume.' },
-      { dateLabel: 'Vers 44', text: 'Décapité sur ordre d\'Hérode Agrippa Ier, premier apôtre martyr.' },
-      { dateLabel: 'Tradition médiévale', text: 'Ses reliques auraient été transférées à Compostelle, en Espagne.' },
+      { dateLabel: 'Vers 44', text: 'Décapité sur ordre d\'Hérode Agrippa Ier, premier apôtre martyr.', placeId: 'jerusalem' },
+      { dateLabel: 'Tradition médiévale', text: 'Ses reliques auraient été transférées à Compostelle, en Espagne.', placeId: 'compostelle' },
     ],
     regionLabel: 'Galilée, Jérusalem · tradition : Compostelle',
     locationsSummary: 'Pêcheur en Galilée, témoin privilégié du ministère de Jésus, martyrisé à Jérusalem ; une tradition médiévale situe ses reliques à Compostelle, en Espagne.',
+    places: [
+      { id: 'lac-galilee', name: 'Lac de Galilée', region: 'Galilée', role: 'Appel', lat: 32.8, lng: 35.59 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Martyre', lat: 31.7683, lng: 35.2137 },
+      { id: 'compostelle', name: 'Compostelle', region: 'Galice', role: 'Reliques', lat: 42.8806, lng: -8.5446 }
+    ],
     churchTeaching: {
       text: 'Les Actes des Apôtres rapportent explicitement le martyre de Jacques (Ac 12, 1-2), fait unique parmi les Douze à être narré dans le Nouveau Testament lui-même. Son tombeau présumé de Compostelle est, depuis le Moyen Âge, l\'un des plus grands lieux de pèlerinage de la chrétienté.',
       councilIds: []
@@ -3901,14 +4242,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers l\'an 28', text: 'Appel direct par Jésus ; conduit Nathanaël jusqu\'à lui.' },
+      { dateLabel: 'Vers l\'an 28', text: 'Appel direct par Jésus ; conduit Nathanaël jusqu\'à lui.', placeId: 'bethsaide' },
       { dateLabel: 'Multiplication des pains', text: 'Mis à l\'épreuve par Jésus sur la question de nourrir la foule.' },
-      { dateLabel: 'Fin du ministère de Jésus', text: 'Sert d\'intermédiaire à des Grecs voulant rencontrer Jésus.' },
-      { dateLabel: 'Dernière Cène', text: 'Demande à Jésus de montrer le Père.' },
-      { dateLabel: 'Tradition', text: 'Mission en Asie Mineure ; martyre à Hiérapolis, en Phrygie.' },
+      { dateLabel: 'Fin du ministère de Jésus', text: 'Sert d\'intermédiaire à des Grecs voulant rencontrer Jésus.', placeId: 'jerusalem' },
+      { dateLabel: 'Dernière Cène', text: 'Demande à Jésus de montrer le Père.', placeId: 'jerusalem' },
+      { dateLabel: 'Tradition', text: 'Mission en Asie Mineure ; martyre à Hiérapolis, en Phrygie.', placeId: 'hierapolis' },
     ],
     regionLabel: 'Bethsaïde, Galilée · tradition : Phrygie (Hiérapolis)',
     locationsSummary: 'Originaire de Bethsaïde comme Pierre et André ; selon la tradition ancienne, il prêche puis meurt martyr à Hiérapolis, en Asie Mineure.',
+    places: [
+      { id: 'bethsaide', name: 'Bethsaïde', region: 'Galilée', role: 'Origine', lat: 32.91, lng: 35.631 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Cène', lat: 31.7683, lng: 35.2137 },
+      { id: 'hierapolis', name: 'Hiérapolis', region: 'Phrygie', role: 'Martyre', lat: 37.9258, lng: 29.1258 }
+    ],
     churchTeaching: {
       text: 'La demande de Philippe à la Cène, « Montre-nous le Père », et la réponse de Jésus sont citées par le Catéchisme pour exposer la révélation du Père par le Fils (§ 516).',
       councilIds: []
@@ -3951,11 +4297,15 @@ export const figureDetails: Record<string, FigureDetail> = {
       { dateLabel: 'Vers l\'an 28', text: 'Conduit par Philippe à Jésus, d\'abord sceptique.' },
       { dateLabel: 'Vers l\'an 28', text: 'Confession de foi : « Tu es le Fils de Dieu, tu es le roi d\'Israël. »' },
       { dateLabel: 'Vie publique', text: 'Nommé Barthélemy dans les listes des Douze, toujours aux côtés de Philippe.' },
-      { dateLabel: 'Après la résurrection', text: 'Témoin, sous le nom de Nathanaël, d\'une apparition du Christ ressuscité au bord du lac.' },
+      { dateLabel: 'Après la résurrection', text: 'Témoin, sous le nom de Nathanaël, d\'une apparition du Christ ressuscité au bord du lac.', placeId: 'lac-galilee' },
       { dateLabel: 'Tradition', text: 'Mission en Arménie et martyre, selon des sources tardives.' },
     ],
     regionLabel: 'Cana de Galilée · tradition : Arménie',
     locationsSummary: 'Originaire de Cana, en Galilée ; selon une tradition ancienne, non attestée par les Évangiles, il porte l\'Évangile jusqu\'en Arménie, où il meurt martyr.',
+    places: [
+      { id: 'cana', name: 'Cana', region: 'Galilée', role: 'Origine', lat: 32.7468, lng: 35.3394 },
+      { id: 'lac-galilee', name: 'Lac de Galilée', region: 'Galilée', role: 'Apparition', lat: 32.8, lng: 35.59 }
+    ],
     churchTeaching: {
       text: 'La confession de Nathanaël, « Tu es le Fils de Dieu, tu es le roi d\'Israël », est l\'une des premières reconnaissances explicites de la messianité de Jésus dans l\'évangile de Jean.',
       councilIds: []
@@ -3997,14 +4347,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Avant son appel', text: 'Collecteur d\'impôts (publicain) à Capharnaüm, au service de Rome.' },
-      { dateLabel: 'Vers l\'an 28', text: 'Appelé par Jésus : « Suis-moi ».' },
-      { dateLabel: 'Après son appel', text: 'Offre un banquet réunissant Jésus, publicains et pécheurs.' },
+      { dateLabel: 'Avant son appel', text: 'Collecteur d\'impôts (publicain) à Capharnaüm, au service de Rome.', placeId: 'capharnaum' },
+      { dateLabel: 'Vers l\'an 28', text: 'Appelé par Jésus : « Suis-moi ».', placeId: 'capharnaum' },
+      { dateLabel: 'Après son appel', text: 'Offre un banquet réunissant Jésus, publicains et pécheurs.', placeId: 'capharnaum' },
       { dateLabel: 'Vie publique', text: 'Nommé parmi les Douze, sous le nom de « Matthieu le publicain ».' },
       { dateLabel: 'Tradition, IIe siècle', text: 'Attribution traditionnelle du premier Évangile canonique.' },
     ],
     regionLabel: 'Capharnaüm, Galilée',
     locationsSummary: 'Collecteur d\'impôts à Capharnaüm avant son appel ; selon la tradition, il prêche ensuite hors de Palestine, notamment en Éthiopie ou en Perse selon les sources anciennes.',
+    places: [
+      { id: 'capharnaum', name: 'Capharnaüm', region: 'Galilée', role: 'Appel', lat: 32.8807, lng: 35.575 }
+    ],
     churchTeaching: {
       text: 'L\'Église a toujours associé au nom de Matthieu le premier Évangile canonique, attribution traditionnelle remontant aux Pères du IIe siècle, aujourd\'hui discutée par l\'exégèse moderne quant à son auteur exact et sa date de rédaction finale.',
       councilIds: []
@@ -4047,13 +4400,17 @@ export const figureDetails: Record<string, FigureDetail> = {
     ],
     timeline: [
       { dateLabel: 'Mort de Lazare', text: 'Propose aux disciples d\'aller mourir avec Jésus en Judée.' },
-      { dateLabel: 'Dernière Cène', text: 'Demande à Jésus le chemin qui mène au Père.' },
-      { dateLabel: 'Matin de Pâques', text: 'Absent lors de la première apparition du Christ ressuscité.' },
-      { dateLabel: 'Huit jours après Pâques', text: 'Touche les plaies du Christ et confesse : « Mon Seigneur et mon Dieu ! »' },
-      { dateLabel: 'Tradition', text: 'Mission en Parthie puis en Inde, où il meurt martyr.' },
+      { dateLabel: 'Dernière Cène', text: 'Demande à Jésus le chemin qui mène au Père.', placeId: 'jerusalem' },
+      { dateLabel: 'Matin de Pâques', text: 'Absent lors de la première apparition du Christ ressuscité.', placeId: 'jerusalem' },
+      { dateLabel: 'Huit jours après Pâques', text: 'Touche les plaies du Christ et confesse : « Mon Seigneur et mon Dieu ! »', placeId: 'jerusalem' },
+      { dateLabel: 'Tradition', text: 'Mission en Parthie puis en Inde, où il meurt martyr.', placeId: 'mylapore' },
     ],
     regionLabel: 'Galilée, Judée · tradition : Inde (Kerala)',
     locationsSummary: 'Disciple présent en Judée durant le ministère de Jésus ; selon une tradition ancienne, il évangélise ensuite la Parthie puis l\'Inde.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Apparitions', lat: 31.7683, lng: 35.2137 },
+      { id: 'mylapore', name: 'Mylapore', region: 'Inde', role: 'Martyre', lat: 13.0339, lng: 80.2697 }
+    ],
     churchTeaching: {
       text: 'La confession de Thomas, « Mon Seigneur et mon Dieu ! », est citée par le Catéchisme comme l\'une des affirmations les plus claires de la divinité de Jésus dans le Nouveau Testament (§ 448).',
       councilIds: []
@@ -4094,11 +4451,14 @@ export const figureDetails: Record<string, FigureDetail> = {
     timeline: [
       { dateLabel: 'Vers l\'an 28', text: 'Choisi par Jésus parmi les Douze, sans épisode biographique propre rapporté.' },
       { dateLabel: 'Vie publique', text: 'Cité dans les quatre listes évangéliques et dans les Actes.' },
-      { dateLabel: 'Après l\'Ascension', text: 'Présent parmi les apôtres réunis à Jérusalem avant la Pentecôte.' },
+      { dateLabel: 'Après l\'Ascension', text: 'Présent parmi les apôtres réunis à Jérusalem avant la Pentecôte.', placeId: 'jerusalem' },
       { dateLabel: 'Tradition', text: 'Ministère et martyre attribués, selon des sources tardives, en Judée ou en Perse.' },
     ],
     regionLabel: 'Galilée, Judée (peu documenté)',
     locationsSummary: 'Les Évangiles ne rapportent aucun épisode qui lui soit propre en dehors des listes des Douze ; la tradition, incertaine, situe un ministère et un martyre en Judée ou en Perse.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Église naissante', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'L\'Église le compte parmi les Douze fondements de la nouvelle Jérusalem énumérés dans l\'Apocalypse (Ap 21, 14), sans disposer d\'un enseignement doctrinal spécifique attaché à sa personne.',
       councilIds: []
@@ -4140,13 +4500,16 @@ export const figureDetails: Record<string, FigureDetail> = {
     ],
     timeline: [
       { dateLabel: 'Vers l\'an 28', text: 'Choisi par Jésus parmi les Douze, nommé Thaddée ou Jude selon les évangélistes.' },
-      { dateLabel: 'Dernière Cène', text: 'Interroge Jésus sur la raison de ne pas se manifester au monde entier.' },
-      { dateLabel: 'Après l\'Ascension', text: 'Compté parmi les apôtres réunis à Jérusalem avant la Pentecôte.' },
+      { dateLabel: 'Dernière Cène', text: 'Interroge Jésus sur la raison de ne pas se manifester au monde entier.', placeId: 'jerusalem' },
+      { dateLabel: 'Après l\'Ascension', text: 'Compté parmi les apôtres réunis à Jérusalem avant la Pentecôte.', placeId: 'jerusalem' },
       { dateLabel: 'Tradition', text: 'Mission conjointe avec Simon le Zélote en Mésopotamie ou en Arménie.' },
       { dateLabel: 'Tradition', text: 'Martyre attribué, selon des sources tardives et peu certaines.' },
     ],
     regionLabel: 'Galilée, Judée · tradition : Mésopotamie, Arménie',
     locationsSummary: 'Mentionné seulement dans les listes des Douze et lors d\'un bref échange à la dernière Cène ; la tradition situe une mission conjointe avec Simon le Zélote en Mésopotamie ou en Arménie.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Cène', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'La question posée par Jude (non l\'Iscariote) à la dernière Cène permet à Jésus d\'enseigner que Dieu se révèle à qui l\'aime et garde sa parole, plutôt qu\'au monde par une manifestation spectaculaire (Jn 14, 21-24).',
       councilIds: []
@@ -4185,11 +4548,14 @@ export const figureDetails: Record<string, FigureDetail> = {
     timeline: [
       { dateLabel: 'Vers l\'an 28', text: 'Appelé par Jésus à faire partie des Douze apôtres.' },
       { dateLabel: 'Vie publique', text: 'Cité dans les listes des Douze données par Matthieu, Marc, Luc et les Actes.' },
-      { dateLabel: 'Après la Pentecôte', text: 'Présent à Jérusalem parmi les apôtres dans l\'attente de l\'Esprit Saint (Ac 1, 13).' },
+      { dateLabel: 'Après la Pentecôte', text: 'Présent à Jérusalem parmi les apôtres dans l\'attente de l\'Esprit Saint (Ac 1, 13).', placeId: 'jerusalem' },
       { dateLabel: 'Tradition', text: 'Traditions tardives et divergentes situent sa prédication et son martyre en Perse, en Égypte ou ailleurs, sans attestation fiable.' },
     ],
     regionLabel: 'Galilée, Judée',
     locationsSummary: 'Connu seulement par les listes des Douze apôtres, sans lieu d\'origine ni d\'activité précisé dans le texte biblique.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Pentecôte', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'L\'Église honore en Simon le Zélote l\'un des Douze fondateurs du collège apostolique, dont le nom figure dans chacune des quatre listes néotestamentaires malgré l\'absence de récit qui lui soit propre (Catéchisme § 551).',
       councilIds: []
@@ -4231,13 +4597,16 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Rencontre nocturne', text: 'Vient trouver Jésus de nuit, dialogue sur la nouvelle naissance (Jn 3, 1-21).' },
-      { dateLabel: 'Fête des Tentes', text: 'Prend la défense de Jésus devant le Sanhédrin (Jn 7, 50-51).' },
-      { dateLabel: 'Après la crucifixion', text: 'Apporte myrrhe et aloès, aide Joseph d\'Arimathée à ensevelir Jésus (Jn 19, 39-42).' },
+      { dateLabel: 'Rencontre nocturne', text: 'Vient trouver Jésus de nuit, dialogue sur la nouvelle naissance (Jn 3, 1-21).', placeId: 'jerusalem' },
+      { dateLabel: 'Fête des Tentes', text: 'Prend la défense de Jésus devant le Sanhédrin (Jn 7, 50-51).', placeId: 'jerusalem' },
+      { dateLabel: 'Après la crucifixion', text: 'Apporte myrrhe et aloès, aide Joseph d\'Arimathée à ensevelir Jésus (Jn 19, 39-42).', placeId: 'jerusalem' },
       { dateLabel: 'Tradition', text: 'Vénéré comme saint ; des récits apocryphes tardifs, non bibliques, lui prêtent un baptême et des persécutions.' },
     ],
     regionLabel: 'Jérusalem',
     locationsSummary: 'Membre du Sanhédrin à Jérusalem, où il rencontre Jésus de nuit puis participe à son ensevelissement.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Sanhédrin', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'Le dialogue de Jésus avec Nicodème sur la nécessité de « naître de nouveau, de l\'eau et de l\'Esprit » (Jn 3, 5) est une référence majeure de la théologie du baptême dans la tradition catholique (Catéchisme § 1215).',
       councilIds: []
@@ -4281,14 +4650,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vie à Béthanie', text: 'Ami de Jésus, habite avec ses sœurs Marthe et Marie près de Jérusalem.' },
-      { dateLabel: 'Maladie et mort', text: 'Tombe malade et meurt pendant que Jésus tarde à venir (Jn 11, 1-16).' },
-      { dateLabel: 'Résurrection', text: 'Jésus le rappelle à la vie après quatre jours au tombeau (Jn 11, 38-44).' },
+      { dateLabel: 'Vie à Béthanie', text: 'Ami de Jésus, habite avec ses sœurs Marthe et Marie près de Jérusalem.', placeId: 'bethanie' },
+      { dateLabel: 'Maladie et mort', text: 'Tombe malade et meurt pendant que Jésus tarde à venir (Jn 11, 1-16).', placeId: 'bethanie' },
+      { dateLabel: 'Résurrection', text: 'Jésus le rappelle à la vie après quatre jours au tombeau (Jn 11, 38-44).', placeId: 'bethanie' },
       { dateLabel: 'Conséquence', text: 'Ce miracle pousse le Sanhédrin à décider la mort de Jésus (Jn 11, 45-53).' },
-      { dateLabel: 'Six jours avant la Pâque', text: 'Présent à un repas donné en l\'honneur de Jésus à Béthanie (Jn 12, 1-2).' },
+      { dateLabel: 'Six jours avant la Pâque', text: 'Présent à un repas donné en l\'honneur de Jésus à Béthanie (Jn 12, 1-2).', placeId: 'bethanie' },
     ],
     regionLabel: 'Béthanie, près de Jérusalem',
     locationsSummary: 'Vit à Béthanie, village situé sur le versant oriental du mont des Oliviers, à environ trois kilomètres de Jérusalem.',
+    places: [
+      { id: 'bethanie', name: 'Béthanie', region: 'Judée', role: 'Résurrection', lat: 31.7709, lng: 35.261 }
+    ],
     churchTeaching: {
       text: 'L\'épisode de la résurrection de Lazare, dernier et plus grand des « signes » rapportés par l\'évangile de Jean, annonce la propre résurrection du Christ et fonde la parole « Je suis la résurrection et la vie » (Jn 11, 25), reprise par la liturgie des funérailles chrétiennes (Catéchisme § 994).',
       councilIds: []
@@ -4330,14 +4702,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Accueil à Béthanie', text: 'Reçoit Jésus dans sa maison, affairée au service (Lc 10, 38-42).' },
-      { dateLabel: 'Maladie de Lazare', text: 'Envoie prévenir Jésus avec Marie lors de la maladie de leur frère (Jn 11, 3).' },
-      { dateLabel: 'Rencontre avec Jésus', text: 'Va à sa rencontre et confesse sa foi en lui comme Christ, Fils de Dieu (Jn 11, 20-27).' },
-      { dateLabel: 'Résurrection de Lazare', text: 'Témoin du miracle accompli par Jésus sur son frère (Jn 11, 38-44).' },
-      { dateLabel: 'Repas à Béthanie', text: 'Sert lors du dîner donné en l\'honneur de Jésus, six jours avant la Pâque (Jn 12, 1-2).' },
+      { dateLabel: 'Accueil à Béthanie', text: 'Reçoit Jésus dans sa maison, affairée au service (Lc 10, 38-42).', placeId: 'bethanie' },
+      { dateLabel: 'Maladie de Lazare', text: 'Envoie prévenir Jésus avec Marie lors de la maladie de leur frère (Jn 11, 3).', placeId: 'bethanie' },
+      { dateLabel: 'Rencontre avec Jésus', text: 'Va à sa rencontre et confesse sa foi en lui comme Christ, Fils de Dieu (Jn 11, 20-27).', placeId: 'bethanie' },
+      { dateLabel: 'Résurrection de Lazare', text: 'Témoin du miracle accompli par Jésus sur son frère (Jn 11, 38-44).', placeId: 'bethanie' },
+      { dateLabel: 'Repas à Béthanie', text: 'Sert lors du dîner donné en l\'honneur de Jésus, six jours avant la Pâque (Jn 12, 1-2).', placeId: 'bethanie' },
     ],
     regionLabel: 'Béthanie, près de Jérusalem',
     locationsSummary: 'Vit à Béthanie avec son frère Lazare et sa sœur Marie, où elle reçoit Jésus à plusieurs reprises.',
+    places: [
+      { id: 'bethanie', name: 'Béthanie', region: 'Judée', role: 'Accueil', lat: 31.7709, lng: 35.261 }
+    ],
     churchTeaching: {
       text: 'La scène de Béthanie, où Marthe s\'affaire au service tandis que Marie écoute la parole de Jésus, a nourri la réflexion chrétienne sur l\'articulation entre vie active et vie contemplative, sans que l\'une soit dépréciée au profit de l\'autre (Catéchisme § 2571, à propos de la prière de Marthe et Marie).',
       councilIds: []
@@ -4379,14 +4754,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Accueil à Béthanie', text: 'Assise aux pieds de Jésus, elle écoute son enseignement (Lc 10, 39).' },
-      { dateLabel: 'Maladie de Lazare', text: 'Envoie prévenir Jésus avec Marthe (Jn 11, 3).' },
-      { dateLabel: 'Mort de Lazare', text: 'Se prosterne en larmes devant Jésus (Jn 11, 28-32).' },
-      { dateLabel: 'Résurrection de Lazare', text: 'Témoin du miracle accompli par Jésus sur son frère.' },
-      { dateLabel: 'Six jours avant la Pâque', text: 'Oint les pieds de Jésus d\'un parfum de nard à Béthanie (Jn 12, 1-8).' },
+      { dateLabel: 'Accueil à Béthanie', text: 'Assise aux pieds de Jésus, elle écoute son enseignement (Lc 10, 39).', placeId: 'bethanie' },
+      { dateLabel: 'Maladie de Lazare', text: 'Envoie prévenir Jésus avec Marthe (Jn 11, 3).', placeId: 'bethanie' },
+      { dateLabel: 'Mort de Lazare', text: 'Se prosterne en larmes devant Jésus (Jn 11, 28-32).', placeId: 'bethanie' },
+      { dateLabel: 'Résurrection de Lazare', text: 'Témoin du miracle accompli par Jésus sur son frère.', placeId: 'bethanie' },
+      { dateLabel: 'Six jours avant la Pâque', text: 'Oint les pieds de Jésus d\'un parfum de nard à Béthanie (Jn 12, 1-8).', placeId: 'bethanie' },
     ],
     regionLabel: 'Béthanie, près de Jérusalem',
     locationsSummary: 'Vit à Béthanie avec sa sœur Marthe et son frère Lazare, où elle reçoit Jésus et l\'oint de parfum avant sa Passion.',
+    places: [
+      { id: 'bethanie', name: 'Béthanie', region: 'Judée', role: 'Onction', lat: 31.7709, lng: 35.261 }
+    ],
     churchTeaching: {
       text: 'Depuis la réforme du calendrier liturgique de 1969, l\'Église catholique distingue clairement Marie de Béthanie, sœur de Marthe et de Lazare, de Marie-Madeleine et de la pécheresse anonyme de Luc 7, trois figures longtemps confondues en Occident depuis saint Grégoire le Grand.',
       councilIds: []
@@ -4427,14 +4805,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'À Jéricho', text: 'Chef des collecteurs d\'impôts, homme riche mais de petite taille.' },
-      { dateLabel: 'Rencontre', text: 'Monte sur un sycomore pour apercevoir Jésus passant dans la foule (Lc 19, 1-4).' },
-      { dateLabel: 'Repas', text: 'Jésus s\'invite chez lui malgré les murmures de la foule (Lc 19, 5-7).' },
-      { dateLabel: 'Conversion', text: 'Promet de restituer au quadruple le bien mal acquis et de donner aux pauvres (Lc 19, 8).' },
-      { dateLabel: 'Parole de Jésus', text: 'Reçoit l\'annonce que « le salut est arrivé pour cette maison » (Lc 19, 9-10).' },
+      { dateLabel: 'À Jéricho', text: 'Chef des collecteurs d\'impôts, homme riche mais de petite taille.', placeId: 'jericho' },
+      { dateLabel: 'Rencontre', text: 'Monte sur un sycomore pour apercevoir Jésus passant dans la foule (Lc 19, 1-4).', placeId: 'jericho' },
+      { dateLabel: 'Repas', text: 'Jésus s\'invite chez lui malgré les murmures de la foule (Lc 19, 5-7).', placeId: 'jericho' },
+      { dateLabel: 'Conversion', text: 'Promet de restituer au quadruple le bien mal acquis et de donner aux pauvres (Lc 19, 8).', placeId: 'jericho' },
+      { dateLabel: 'Parole de Jésus', text: 'Reçoit l\'annonce que « le salut est arrivé pour cette maison » (Lc 19, 9-10).', placeId: 'jericho' },
     ],
     regionLabel: 'Jéricho',
     locationsSummary: 'Chef des publicains à Jéricho, ville où Jésus le rencontre alors qu\'il monte vers Jérusalem.',
+    places: [
+      { id: 'jericho', name: 'Jéricho', region: 'Vallée du Jourdain', role: 'Conversion', lat: 31.871, lng: 35.444 }
+    ],
     churchTeaching: {
       text: 'Le récit de Zachée illustre la miséricorde de Jésus envers les pécheurs publics et la conversion comme restitution concrète, Jésus rappelant que « le Fils de l\'homme est venu chercher et sauver ce qui était perdu » (Lc 19, 10 ; Catéchisme § 1443).',
       councilIds: []
@@ -4470,12 +4851,16 @@ export const figureDetails: Record<string, FigureDetail> = {
     ],
     timeline: [
       { dateLabel: 'Vie publique de Jésus', text: 'Disciple guérie par Jésus, l\'accompagne avec d\'autres femmes (Lc 8, 1-3).' },
-      { dateLabel: 'Statut social', text: 'Épouse de Chouza, intendant d\'Hérode Antipas.' },
-      { dateLabel: 'Matin de Pâques', text: 'Présente parmi les femmes qui découvrent le tombeau vide (Lc 24, 1-10).' },
-      { dateLabel: 'Après la résurrection', text: 'Rapporte aux apôtres les paroles des anges annonçant la résurrection.' },
+      { dateLabel: 'Statut social', text: 'Épouse de Chouza, intendant d\'Hérode Antipas.', placeId: 'tiberiade' },
+      { dateLabel: 'Matin de Pâques', text: 'Présente parmi les femmes qui découvrent le tombeau vide (Lc 24, 1-10).', placeId: 'jerusalem' },
+      { dateLabel: 'Après la résurrection', text: 'Rapporte aux apôtres les paroles des anges annonçant la résurrection.', placeId: 'jerusalem' },
     ],
     regionLabel: 'Galilée, Jérusalem',
     locationsSummary: 'Associée à la cour d\'Hérode Antipas en Galilée, elle suit Jésus jusqu\'à Jérusalem où elle est témoin du tombeau vide.',
+    places: [
+      { id: 'tiberiade', name: 'Tibériade', region: 'Galilée', role: 'Cour d\'Hérode', lat: 32.7959, lng: 35.53 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Tombeau vide', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'Jeanne compte parmi les femmes que la tradition regarde comme premiers témoins de la résurrection, leur présence au tombeau étant relevée par Luc malgré la faible valeur accordée au témoignage féminin dans la société juive du 1er siècle.',
       councilIds: []
@@ -4512,12 +4897,15 @@ export const figureDetails: Record<string, FigureDetail> = {
     ],
     timeline: [
       { dateLabel: 'Vie publique de Jésus', text: 'Suit Jésus en Galilée avec d\'autres femmes, subvenant à ses besoins (Mc 15, 41).' },
-      { dateLabel: 'Crucifixion', text: 'Témoin à distance de la mort de Jésus (Mc 15, 40).' },
-      { dateLabel: 'Après le sabbat', text: 'Achète des aromates pour embaumer le corps de Jésus (Mc 16, 1).' },
-      { dateLabel: 'Matin de Pâques', text: 'Se rend au tombeau vide, reçoit l\'annonce de la résurrection (Mc 16, 2-8).' },
+      { dateLabel: 'Crucifixion', text: 'Témoin à distance de la mort de Jésus (Mc 15, 40).', placeId: 'jerusalem' },
+      { dateLabel: 'Après le sabbat', text: 'Achète des aromates pour embaumer le corps de Jésus (Mc 16, 1).', placeId: 'jerusalem' },
+      { dateLabel: 'Matin de Pâques', text: 'Se rend au tombeau vide, reçoit l\'annonce de la résurrection (Mc 16, 2-8).', placeId: 'jerusalem' },
     ],
     regionLabel: 'Galilée, Jérusalem',
     locationsSummary: 'Suit Jésus depuis la Galilée jusqu\'à Jérusalem, où elle est témoin de la crucifixion et se rend au tombeau vide.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Tombeau vide', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'Salomé fait partie du groupe des saintes femmes que la tradition liturgique orientale nomme « myrophores », porteuses d\'aromates, honorées comme premiers témoins du tombeau vide.',
       councilIds: []
@@ -4594,14 +4982,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers midi', text: 'Rencontre Jésus fatigué par le voyage, assis au puits de Jacob près de Sychar (Jn 4, 5-7).' },
-      { dateLabel: 'Dialogue', text: 'Échange avec Jésus sur l\'eau vive et le culte « en esprit et en vérité » (Jn 4, 10-24).' },
-      { dateLabel: 'Révélation', text: 'Jésus se déclare le Messie devant elle (Jn 4, 25-26).' },
-      { dateLabel: 'Témoignage', text: 'Retourne à la ville et amène des Samaritains à Jésus (Jn 4, 28-30.39).' },
+      { dateLabel: 'Vers midi', text: 'Rencontre Jésus fatigué par le voyage, assis au puits de Jacob près de Sychar (Jn 4, 5-7).', placeId: 'sychar' },
+      { dateLabel: 'Dialogue', text: 'Échange avec Jésus sur l\'eau vive et le culte « en esprit et en vérité » (Jn 4, 10-24).', placeId: 'sychar' },
+      { dateLabel: 'Révélation', text: 'Jésus se déclare le Messie devant elle (Jn 4, 25-26).', placeId: 'sychar' },
+      { dateLabel: 'Témoignage', text: 'Retourne à la ville et amène des Samaritains à Jésus (Jn 4, 28-30.39).', placeId: 'sychar' },
       { dateLabel: 'Selon la tradition tardive', text: 'Nommée « Photine » et vénérée comme sainte dans les traditions orthodoxe et byzantine, sans fondement dans le texte biblique lui-même.' },
     ],
     regionLabel: 'Samarie (Sychar, puits de Jacob)',
     locationsSummary: 'Rencontre Jésus au puits de Jacob, près de Sychar en Samarie, sur la route entre la Judée et la Galilée.',
+    places: [
+      { id: 'sychar', name: 'Puits de Jacob', region: 'Samarie', role: 'Rencontre', lat: 32.2097, lng: 35.2853 }
+    ],
     churchTeaching: {
       text: 'Le dialogue de Jésus avec la Samaritaine au puits de Jacob, dans lequel il se révèle comme la source de « l\'eau vive » et annonce un culte « en esprit et en vérité », est un texte majeur de la catéchèse baptismale, notamment lu lors des scrutins du catéchuménat (Catéchisme § 2560).',
       councilIds: []
@@ -4639,13 +5030,16 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Après l\'Ascension', text: 'Pierre propose de compléter le collège des Douze en choisissant un témoin de tout le ministère de Jésus.' },
-      { dateLabel: 'Avant la Pentecôte', text: 'Deux candidats sont présentés : Joseph Barsabbas et Matthias.' },
-      { dateLabel: 'Avant la Pentecôte', text: 'Après la prière, le sort désigne Matthias, qui est associé aux onze apôtres.' },
+      { dateLabel: 'Après l\'Ascension', text: 'Pierre propose de compléter le collège des Douze en choisissant un témoin de tout le ministère de Jésus.', placeId: 'jerusalem' },
+      { dateLabel: 'Avant la Pentecôte', text: 'Deux candidats sont présentés : Joseph Barsabbas et Matthias.', placeId: 'jerusalem' },
+      { dateLabel: 'Avant la Pentecôte', text: 'Après la prière, le sort désigne Matthias, qui est associé aux onze apôtres.', placeId: 'jerusalem' },
       { dateLabel: 'Tradition', text: 'Des traditions anciennes et incertaines situent sa prédication ultérieure en Cappadoce ou en Éthiopie.' },
     ],
     regionLabel: 'Jérusalem',
     locationsSummary: 'Élu à Jérusalem pour compléter le collège apostolique ; la tradition, incertaine, situe sa prédication ultérieure en Cappadoce ou en Éthiopie.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Élection', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'L\'Église voit dans l\'élection de Matthias par tirage au sort, précédée de prière, le souci de la communauté primitive de conserver au collège apostolique le nombre symbolique de Douze, en écho aux douze tribus d\'Israël.',
       councilIds: []
@@ -4689,15 +5083,20 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Église primitive, Jérusalem', text: 'Vend un champ et en remet le prix aux apôtres ; reçoit le surnom de Barnabas.' },
-      { dateLabel: 'Après la conversion de Saul', text: 'Introduit Saul, encore redouté, auprès des apôtres de Jérusalem.' },
-      { dateLabel: 'Vers 43-45', text: 'Envoyé à Antioche, il va chercher Saul à Tarse pour l\'associer à son ministère.' },
-      { dateLabel: '46-48', text: 'Premier voyage missionnaire avec Saul/Paul, à Chypre puis en Asie Mineure.' },
-      { dateLabel: '49', text: 'Participe au concile de Jérusalem sur l\'admission des non-Juifs.' },
-      { dateLabel: 'Vers 50', text: 'Se sépare de Paul au sujet de Jean-Marc et repart évangéliser Chypre.' },
+      { dateLabel: 'Église primitive, Jérusalem', text: 'Vend un champ et en remet le prix aux apôtres ; reçoit le surnom de Barnabas.', placeId: 'jerusalem' },
+      { dateLabel: 'Après la conversion de Saul', text: 'Introduit Saul, encore redouté, auprès des apôtres de Jérusalem.', placeId: 'jerusalem' },
+      { dateLabel: 'Vers 43-45', text: 'Envoyé à Antioche, il va chercher Saul à Tarse pour l\'associer à son ministère.', placeId: 'antioche' },
+      { dateLabel: '46-48', text: 'Premier voyage missionnaire avec Saul/Paul, à Chypre puis en Asie Mineure.', placeId: 'chypre' },
+      { dateLabel: '49', text: 'Participe au concile de Jérusalem sur l\'admission des non-Juifs.', placeId: 'jerusalem' },
+      { dateLabel: 'Vers 50', text: 'Se sépare de Paul au sujet de Jean-Marc et repart évangéliser Chypre.', placeId: 'chypre' },
     ],
     regionLabel: 'Chypre, Antioche, Asie Mineure',
     locationsSummary: 'Lévite chypriote installé à Jérusalem, il fonde avec Paul la mission d\'Antioche puis évangélise Chypre et l\'Asie Mineure lors du premier voyage missionnaire.',
+    places: [
+      { id: 'chypre', name: 'Salamine', region: 'Chypre', role: 'Origine', lat: 35.1847, lng: 33.9006 },
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Église', lat: 31.7683, lng: 35.2137 },
+      { id: 'antioche', name: 'Antioche', region: 'Syrie', role: 'Mission', lat: 36.2021, lng: 36.1606 }
+    ],
     churchTeaching: {
       text: 'Bien qu\'il ne fasse pas partie des Douze, Barnabas est appelé « apôtre » par les Actes (Ac 14, 14) en raison de sa mission ; l\'Église voit en lui le modèle du médiateur généreux, qui fait confiance aux nouveaux convertis comme Saul et pardonne aux défaillants comme Jean-Marc.',
       councilIds: []
@@ -4740,14 +5139,21 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: '49', text: 'Choisi avec Jude Barsabbas pour porter à Antioche la décision du concile de Jérusalem.' },
-      { dateLabel: '49-50', text: 'Choisi par Paul comme compagnon pour le deuxième voyage missionnaire, après la séparation d\'avec Barnabas.' },
-      { dateLabel: 'Vers 50', text: 'Emprisonné avec Paul à Philippes ; tous deux chantent des hymnes avant un tremblement de terre.' },
-      { dateLabel: '50-52', text: 'Accompagne Paul à Thessalonique, Bérée et Corinthe.' },
-      { dateLabel: 'Vers 51', text: 'Co-expéditeur, sous le nom de Silvanus, des lettres aux Thessaloniciens.' },
+      { dateLabel: '49', text: 'Choisi avec Jude Barsabbas pour porter à Antioche la décision du concile de Jérusalem.', placeId: 'antioche' },
+      { dateLabel: '49-50', text: 'Choisi par Paul comme compagnon pour le deuxième voyage missionnaire, après la séparation d\'avec Barnabas.', placeId: 'antioche' },
+      { dateLabel: 'Vers 50', text: 'Emprisonné avec Paul à Philippes ; tous deux chantent des hymnes avant un tremblement de terre.', placeId: 'philippes' },
+      { dateLabel: '50-52', text: 'Accompagne Paul à Thessalonique, Bérée et Corinthe.', placeId: 'thessalonique' },
+      { dateLabel: 'Vers 51', text: 'Co-expéditeur, sous le nom de Silvanus, des lettres aux Thessaloniciens.', placeId: 'corinthe' },
     ],
     regionLabel: 'Jérusalem, Antioche, Asie Mineure, Grèce',
     locationsSummary: 'Envoyé de Jérusalem à Antioche, il accompagne Paul à travers l\'Asie Mineure jusqu\'en Grèce, notamment à Philippes, Thessalonique et Corinthe.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Concile', lat: 31.7683, lng: 35.2137 },
+      { id: 'antioche', name: 'Antioche', region: 'Syrie', role: 'Envoi', lat: 36.2021, lng: 36.1606 },
+      { id: 'philippes', name: 'Philippes', region: 'Macédoine', role: 'Prison', lat: 41.0136, lng: 24.2864 },
+      { id: 'thessalonique', name: 'Thessalonique', region: 'Macédoine', role: 'Mission', lat: 40.6401, lng: 22.9444 },
+      { id: 'corinthe', name: 'Corinthe', region: 'Achaïe', role: 'Mission', lat: 37.9056, lng: 22.8789 }
+    ],
     churchTeaching: {
       text: 'Silas illustre, aux côtés de Paul, le témoignage rendu dans l\'épreuve : sa prière et ses chants en prison à Philippes sont devenus, dans la tradition chrétienne, une image classique de la joie qui traverse la persécution.',
       councilIds: []
@@ -4792,14 +5198,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Enfance à Lystres', text: 'Reçoit de sa mère Eunice et de sa grand-mère Loïs les fondements de la foi juive.' },
-      { dateLabel: '49-50', text: 'Rencontré par Paul à Lystres, il est circoncis et devient son compagnon de mission.' },
-      { dateLabel: '50-52', text: 'Envoyé en mission de confiance à Thessalonique puis à Corinthe.' },
-      { dateLabel: 'Vers 54-57', text: 'Collaborateur de Paul à Éphèse et co-expéditeur de plusieurs épîtres.' },
-      { dateLabel: 'Vers 63-65', text: 'Laissé responsable de la communauté d\'Éphèse, reçoit les deux épîtres pastorales de Paul.' },
+      { dateLabel: 'Enfance à Lystres', text: 'Reçoit de sa mère Eunice et de sa grand-mère Loïs les fondements de la foi juive.', placeId: 'lystres' },
+      { dateLabel: '49-50', text: 'Rencontré par Paul à Lystres, il est circoncis et devient son compagnon de mission.', placeId: 'lystres' },
+      { dateLabel: '50-52', text: 'Envoyé en mission de confiance à Thessalonique puis à Corinthe.', placeId: 'thessalonique' },
+      { dateLabel: 'Vers 54-57', text: 'Collaborateur de Paul à Éphèse et co-expéditeur de plusieurs épîtres.', placeId: 'ephese' },
+      { dateLabel: 'Vers 63-65', text: 'Laissé responsable de la communauté d\'Éphèse, reçoit les deux épîtres pastorales de Paul.', placeId: 'ephese' },
     ],
     regionLabel: 'Lystres, Asie Mineure, Macédoine, Éphèse',
     locationsSummary: 'Né à Lystres en Lycaonie, il accompagne Paul à travers l\'Asie Mineure et la Grèce avant d\'être chargé de la communauté d\'Éphèse.',
+    places: [
+      { id: 'lystres', name: 'Lystres', region: 'Lycaonie', role: 'Origine', lat: 37.5781, lng: 32.4536 },
+      { id: 'thessalonique', name: 'Thessalonique', region: 'Macédoine', role: 'Mission', lat: 40.6401, lng: 22.9444 },
+      { id: 'ephese', name: 'Éphèse', region: 'Asie', role: 'Communauté', lat: 37.9411, lng: 27.3419 }
+    ],
     churchTeaching: {
       text: 'Les deux épîtres à Timothée, dites « pastorales », fondent une part importante de l\'enseignement de l\'Église sur les qualités requises des responsables de communauté et sur la transmission fidèle de la doctrine reçue des apôtres.',
       councilIds: []
@@ -4841,14 +5252,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Tradition', text: 'Originaire d\'Antioche de Syrie, selon la tradition ancienne ; formé comme médecin.' },
-      { dateLabel: 'Selon les récits « nous » des Actes', text: 'Accompagne Paul lors de certains voyages missionnaires, notamment en Macédoine.' },
+      { dateLabel: 'Tradition', text: 'Originaire d\'Antioche de Syrie, selon la tradition ancienne ; formé comme médecin.', placeId: 'antioche' },
+      { dateLabel: 'Selon les récits « nous » des Actes', text: 'Accompagne Paul lors de certains voyages missionnaires, notamment en Macédoine.', placeId: 'philippes' },
       { dateLabel: 'Vers 60-62', text: 'Présent auprès de Paul lors d\'une captivité, mentionné dans les épîtres aux Colossiens et à Philémon.' },
-      { dateLabel: 'Vers 64-67', text: 'Seul compagnon resté avec Paul lors de son dernier emprisonnement à Rome, selon 2 Tm 4, 11.' },
+      { dateLabel: 'Vers 64-67', text: 'Seul compagnon resté avec Paul lors de son dernier emprisonnement à Rome, selon 2 Tm 4, 11.', placeId: 'rome' },
       { dateLabel: 'Tradition, fin du 1er siècle', text: 'Attribution traditionnelle, ancienne, de la rédaction du troisième Évangile et des Actes des Apôtres.' },
     ],
     regionLabel: 'Antioche (tradition), Asie Mineure, Grèce, Rome',
     locationsSummary: 'Selon la tradition originaire d\'Antioche de Syrie, il accompagne Paul dans plusieurs de ses voyages et reste auprès de lui jusqu\'à son dernier emprisonnement à Rome.',
+    places: [
+      { id: 'antioche', name: 'Antioche', region: 'Syrie', role: 'Origine', lat: 36.2021, lng: 36.1606 },
+      { id: 'philippes', name: 'Philippes', region: 'Macédoine', role: 'Macédoine', lat: 41.0136, lng: 24.2864 },
+      { id: 'rome', name: 'Rome', region: 'Italie', role: 'Captivité de Paul', lat: 41.8925, lng: 12.4853 }
+    ],
     churchTeaching: {
       text: 'L\'Église reconnaît de longue date en Luc l\'auteur du troisième Évangile et des Actes des Apôtres, traditionnellement présenté comme le seul auteur non-juif du Nouveau Testament ; son Évangile est particulièrement associé à la miséricorde divine et à l\'attention portée aux pauvres et aux femmes.',
       councilIds: []
@@ -4891,14 +5307,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 52-54', text: 'Arrive à Éphèse, où il enseigne avec ferveur mais ne connaît que le baptême de Jean.' },
-      { dateLabel: 'Vers 52-54', text: 'Instruit plus exactement par Priscille et Aquila.' },
-      { dateLabel: 'Vers 54', text: 'Passe en Achaïe et rend un grand service aux croyants de Corinthe.' },
-      { dateLabel: 'Vers 55', text: 'Devient, malgré lui, un point de ralliement de divisions dans l\'Église de Corinthe.' },
+      { dateLabel: 'Vers 52-54', text: 'Arrive à Éphèse, où il enseigne avec ferveur mais ne connaît que le baptême de Jean.', placeId: 'ephese' },
+      { dateLabel: 'Vers 52-54', text: 'Instruit plus exactement par Priscille et Aquila.', placeId: 'ephese' },
+      { dateLabel: 'Vers 54', text: 'Passe en Achaïe et rend un grand service aux croyants de Corinthe.', placeId: 'corinthe' },
+      { dateLabel: 'Vers 55', text: 'Devient, malgré lui, un point de ralliement de divisions dans l\'Église de Corinthe.', placeId: 'corinthe' },
       { dateLabel: 'Épître à Tite', text: 'Paul demande qu\'on pourvoie à son voyage.' },
     ],
     regionLabel: 'Alexandrie, Éphèse, Corinthe',
     locationsSummary: 'Formé à Alexandrie, il prêche à Éphèse puis à Corinthe, où son éloquence suscite à la fois de nombreuses conversions et des rivalités entre disciples.',
+    places: [
+      { id: 'alexandrie', name: 'Alexandrie', region: 'Égypte', role: 'Formation', lat: 31.2001, lng: 29.9187 },
+      { id: 'ephese', name: 'Éphèse', region: 'Asie', role: 'Enseignement', lat: 37.9411, lng: 27.3419 },
+      { id: 'corinthe', name: 'Corinthe', region: 'Achaïe', role: 'Ministère', lat: 37.9056, lng: 22.8789 }
+    ],
     churchTeaching: {
       text: 'L\'image paulinienne de la complémentarité des ministères, « Paul a planté, Apollos a arrosé, Dieu a fait croître », sert dans l\'enseignement de l\'Église à rappeler que la fécondité de l\'annonce de l\'Évangile revient à Dieu seul, au-delà des dons et des personnalités des prédicateurs.',
       councilIds: []
@@ -4940,14 +5361,19 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 49', text: 'Chassés de Rome par l\'édit de Claude, elle et Aquila s\'installent à Corinthe.' },
-      { dateLabel: 'Vers 50-52', text: 'Accueillent Paul et travaillent avec lui comme fabricants de tentes.' },
-      { dateLabel: 'Vers 52', text: 'Suivent Paul à Éphèse.' },
-      { dateLabel: 'Vers 52-54', text: 'Instruisent Apollos plus exactement dans la foi.' },
+      { dateLabel: 'Vers 49', text: 'Chassés de Rome par l\'édit de Claude, elle et Aquila s\'installent à Corinthe.', placeId: 'corinthe' },
+      { dateLabel: 'Vers 50-52', text: 'Accueillent Paul et travaillent avec lui comme fabricants de tentes.', placeId: 'corinthe' },
+      { dateLabel: 'Vers 52', text: 'Suivent Paul à Éphèse.', placeId: 'ephese' },
+      { dateLabel: 'Vers 52-54', text: 'Instruisent Apollos plus exactement dans la foi.', placeId: 'ephese' },
       { dateLabel: 'Épître aux Romains', text: 'Salués par Paul comme collaborateurs ayant risqué leur vie pour lui.' },
     ],
     regionLabel: 'Rome, Corinthe, Éphèse',
     locationsSummary: 'Chassés de Rome, Priscille et Aquila s\'installent à Corinthe où ils rencontrent Paul, puis le suivent à Éphèse, où ils accueillent une Église dans leur maison.',
+    places: [
+      { id: 'rome', name: 'Rome', region: 'Italie', role: 'Expulsion', lat: 41.8925, lng: 12.4853 },
+      { id: 'corinthe', name: 'Corinthe', region: 'Achaïe', role: 'Atelier', lat: 37.9056, lng: 22.8789 },
+      { id: 'ephese', name: 'Éphèse', region: 'Asie', role: 'Église', lat: 37.9411, lng: 27.3419 }
+    ],
     churchTeaching: {
       text: 'Priscille, toujours nommée avec Aquila, illustre dans le Nouveau Testament le rôle actif de couples chrétiens dans l\'enseignement et l\'hospitalité missionnaire, et la place que pouvait tenir une femme dans l\'instruction de la foi au sein de l\'Église primitive.',
       councilIds: []
@@ -4981,13 +5407,17 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 50', text: 'Rencontre Paul au bord d\'une rivière, près de Philippes, lors d\'un jour de sabbat.' },
-      { dateLabel: 'Vers 50', text: 'Reçoit le baptême avec toute sa maison.' },
-      { dateLabel: 'Vers 50', text: 'Accueille Paul et ses compagnons chez elle.' },
-      { dateLabel: 'Après la prison de Philippes', text: 'Paul et Silas, libérés, reviennent l\'encourager chez elle.' },
+      { dateLabel: 'Vers 50', text: 'Rencontre Paul au bord d\'une rivière, près de Philippes, lors d\'un jour de sabbat.', placeId: 'philippes' },
+      { dateLabel: 'Vers 50', text: 'Reçoit le baptême avec toute sa maison.', placeId: 'philippes' },
+      { dateLabel: 'Vers 50', text: 'Accueille Paul et ses compagnons chez elle.', placeId: 'philippes' },
+      { dateLabel: 'Après la prison de Philippes', text: 'Paul et Silas, libérés, reviennent l\'encourager chez elle.', placeId: 'philippes' },
     ],
     regionLabel: 'Thyatire (Asie Mineure), Philippes (Macédoine)',
     locationsSummary: 'Originaire de Thyatire, établie comme marchande de pourpre à Philippes, où elle devient la première convertie connue de Paul en Europe.',
+    places: [
+      { id: 'thyatire', name: 'Thyatire', region: 'Lydie', role: 'Origine', lat: 38.9214, lng: 27.8394 },
+      { id: 'philippes', name: 'Philippes', region: 'Macédoine', role: 'Baptême', lat: 41.0136, lng: 24.2864 }
+    ],
     churchTeaching: {
       text: 'Lydie est traditionnellement regardée comme la première chrétienne convertie sur le sol européen ; son hospitalité envers Paul et sa maison illustre, pour l\'Église, le lien entre l\'accueil de la Parole et l\'accueil fraternel qu\'elle suscite.',
       councilIds: []
@@ -5019,11 +5449,15 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 55-57', text: 'Sert comme diaconesse de l\'Église de Cenchrées, port de Corinthe.' },
-      { dateLabel: 'Vers 57', text: 'Recommandée par Paul aux chrétiens de Rome, probablement porteuse de l\'épître.' },
+      { dateLabel: 'Vers 55-57', text: 'Sert comme diaconesse de l\'Église de Cenchrées, port de Corinthe.', placeId: 'cenchrees' },
+      { dateLabel: 'Vers 57', text: 'Recommandée par Paul aux chrétiens de Rome, probablement porteuse de l\'épître.', placeId: 'rome' },
     ],
     regionLabel: 'Cenchrées (port de Corinthe)',
     locationsSummary: 'Sert l\'Église de Cenchrées, port oriental de Corinthe, et se rend à Rome, probablement chargée de porter l\'épître de Paul aux Romains.',
+    places: [
+      { id: 'cenchrees', name: 'Cenchrées', region: 'Achaïe', role: 'Diaconesse', lat: 37.8836, lng: 22.9928 },
+      { id: 'rome', name: 'Rome', region: 'Italie', role: 'Épître', lat: 41.8925, lng: 12.4853 }
+    ],
     churchTeaching: {
       text: 'Le titre de diakonos donné à Phoebé par Paul est l\'un des textes du Nouveau Testament les plus discutés sur le ministère des femmes dans l\'Église primitive ; l\'Église catholique y reconnaît le témoignage d\'un service ecclésial reconnu et loué par l\'apôtre, sans y voir l\'équivalent du diaconat sacramentel institué plus tard.',
       councilIds: []
@@ -5050,10 +5484,13 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 51', text: 'Convertie à Athènes après le discours de Paul devant l\'Aréopage.' },
+      { dateLabel: 'Vers 51', text: 'Convertie à Athènes après le discours de Paul devant l\'Aréopage.', placeId: 'athenes' },
     ],
     regionLabel: 'Athènes',
     locationsSummary: 'Convertie à Athènes, à la suite du discours de Paul devant l\'Aréopage.',
+    places: [
+      { id: 'athenes', name: 'Athènes', region: 'Achaïe', role: 'Conversion', lat: 37.9715, lng: 23.7257 }
+    ],
     churchTeaching: {
       text: 'Damaris n\'est mentionnée qu\'une fois dans le Nouveau Testament ; sa conversion, avec celle de Denys l\'Aréopagite, atteste que la prédication de Paul à Athènes, malgré un succès limité, produisit quelques fruits durables au cœur même du monde intellectuel grec.',
       councilIds: []
@@ -5082,11 +5519,14 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Avant sa rencontre avec Paul', text: 'Transmet à son fils Timothée la foi juive reçue de sa propre mère Loïs.' },
-      { dateLabel: 'Vers 49-50', text: 'Désignée dans les Actes comme mère juive croyante de Timothée, épouse d\'un père grec de Lystres.' },
+      { dateLabel: 'Avant sa rencontre avec Paul', text: 'Transmet à son fils Timothée la foi juive reçue de sa propre mère Loïs.', placeId: 'lystres' },
+      { dateLabel: 'Vers 49-50', text: 'Désignée dans les Actes comme mère juive croyante de Timothée, épouse d\'un père grec de Lystres.', placeId: 'lystres' },
     ],
     regionLabel: 'Lystres (Lycaonie, Asie Mineure)',
     locationsSummary: 'Vit à Lystres, en Lycaonie, où elle transmet sa foi juive à son fils Timothée avant qu\'il ne rejoigne Paul.',
+    places: [
+      { id: 'lystres', name: 'Lystres', region: 'Lycaonie', role: 'Foyer', lat: 37.5781, lng: 32.4536 }
+    ],
     churchTeaching: {
       text: 'Eunice, associée à sa mère Loïs, est citée par Paul comme modèle de la transmission familiale de la foi, reçue avant d\'être personnellement assumée par Timothée.',
       councilIds: []
@@ -5113,10 +5553,13 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 60', text: 'Accueille une Église dans sa maison, dans la région du Lycus, près de Laodicée.' },
+      { dateLabel: 'Vers 60', text: 'Accueille une Église dans sa maison, dans la région du Lycus, près de Laodicée.', placeId: 'laodicee' },
     ],
     regionLabel: 'Région du Lycus (Laodicée, Asie Mineure)',
     locationsSummary: 'Associée à la région du Lycus, près de Laodicée et Colosses, où une communauté chrétienne se réunit dans sa maison.',
+    places: [
+      { id: 'laodicee', name: 'Laodicée', region: 'Phrygie', role: 'Église', lat: 37.8357, lng: 29.1076 }
+    ],
     churchTeaching: {
       text: 'La mention de Nympha, comme celle de Lydie ou de Priscille, atteste que des maisons dirigées par des femmes ont pu servir de lieux de rassemblement aux premières communautés chrétiennes d\'Asie Mineure.',
       councilIds: []
@@ -5148,11 +5591,14 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 44', text: 'Reconnaît la voix de Pierre à la porte de la maison de Marie, mère de Jean-Marc.' },
-      { dateLabel: 'Vers 44', text: 'D\'abord non crue par la communauté réunie en prière, avant que Pierre ne se fasse ouvrir.' },
+      { dateLabel: 'Vers 44', text: 'Reconnaît la voix de Pierre à la porte de la maison de Marie, mère de Jean-Marc.', placeId: 'jerusalem' },
+      { dateLabel: 'Vers 44', text: 'D\'abord non crue par la communauté réunie en prière, avant que Pierre ne se fasse ouvrir.', placeId: 'jerusalem' },
     ],
     regionLabel: 'Jérusalem',
     locationsSummary: 'Sert dans la maison de Marie, mère de Jean-Marc, à Jérusalem, où se réunit la communauté priant pour la libération de Pierre.',
+    places: [
+      { id: 'jerusalem', name: 'Jérusalem', region: 'Judée', role: 'Maison de Marie', lat: 31.7683, lng: 35.2137 }
+    ],
     churchTeaching: {
       text: 'L\'épisode de Rhode, souvent lu avec une pointe d\'humour dans le texte des Actes, illustre la joie et l\'incrédulité mêlées de la première communauté face à l\'exaucement inattendu de sa prière pour Pierre.',
       councilIds: []
@@ -5189,12 +5635,15 @@ export const figureDetails: Record<string, FigureDetail> = {
       ],
     ],
     timeline: [
-      { dateLabel: 'Vers 35', text: 'Disciple de Jaffa connue pour ses bonnes œuvres et ses aumônes.' },
-      { dateLabel: 'Vers 35', text: 'Meurt ; les disciples envoient chercher Pierre à Lydda.' },
-      { dateLabel: 'Vers 35', text: 'Ressuscitée par Pierre ; la nouvelle se répand dans tout Jaffa.' },
+      { dateLabel: 'Vers 35', text: 'Disciple de Jaffa connue pour ses bonnes œuvres et ses aumônes.', placeId: 'jaffa' },
+      { dateLabel: 'Vers 35', text: 'Meurt ; les disciples envoient chercher Pierre à Lydda.', placeId: 'jaffa' },
+      { dateLabel: 'Vers 35', text: 'Ressuscitée par Pierre ; la nouvelle se répand dans tout Jaffa.', placeId: 'jaffa' },
     ],
     regionLabel: 'Jaffa (Joppé)',
     locationsSummary: 'Disciple de Jaffa, port de la côte méditerranéenne, connue pour ses œuvres de charité, ressuscitée par Pierre après sa mort.',
+    places: [
+      { id: 'jaffa', name: 'Jaffa', region: 'Côte de Saron', role: 'Charité', lat: 32.0543, lng: 34.752 }
+    ],
     churchTeaching: {
       text: 'La résurrection de Tabitha par Pierre, rapportée immédiatement après les guérisons d\'Énée à Lydda, manifeste dans les Actes la continuité entre les miracles du Christ et ceux accomplis par les apôtres en son nom ; l\'Église y voit un signe de la puissance de la prière et un exemple de charité active envers les pauvres.',
       councilIds: []

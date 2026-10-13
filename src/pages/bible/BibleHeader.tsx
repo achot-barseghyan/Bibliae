@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useState, type ReactNode, type RefObject } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import {
   AccessibilityIcon,
@@ -21,6 +21,11 @@ interface BibleHeaderProps {
   /** Nombre de notes du chapitre affiché ; le badge n'apparaît que si > 0. */
   notesCount?: number;
   onNotesClick?: () => void;
+  /** Notes du chapitre dépliées en cartes ; avec `onToggleNotes`, remplace le badge du nombre de notes. */
+  notesExpanded?: boolean;
+  onToggleNotes?: () => void;
+  /** Remplissage du filet de progression de lecture, piloté par la page (scaleX). */
+  progressRef?: RefObject<HTMLSpanElement | null>;
 }
 
 const BibleHeader: React.FC<BibleHeaderProps> = ({
@@ -29,7 +34,10 @@ const BibleHeader: React.FC<BibleHeaderProps> = ({
   onTitleClick,
   accent = false,
   notesCount = 0,
-  onNotesClick
+  onNotesClick,
+  notesExpanded = false,
+  onToggleNotes,
+  progressRef
 }) => {
   const [isA11yOpen, setIsA11yOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -74,7 +82,24 @@ const BibleHeader: React.FC<BibleHeaderProps> = ({
         )}
 
         <div className="bible-header-side bible-header-side--right">
-          {notesCount > 0 && (
+          {notesCount > 0 && onToggleNotes && (
+            <button
+              type="button"
+              className={`bible-header-notes-toggle${notesExpanded ? ' is-expanded' : ''}`}
+              onClick={() => {
+                tapHaptic();
+                onToggleNotes();
+              }}
+              aria-pressed={notesExpanded}
+              aria-label={notesExpanded ? 'Replier les notes' : 'Déplier les notes'}
+            >
+              <span className="bible-header-notes-toggle-fleuron" aria-hidden="true">
+                {'❦︎'}
+              </span>
+              {notesExpanded ? 'Replier' : 'Déplier'}
+            </button>
+          )}
+          {notesCount > 0 && !onToggleNotes && (
             <button
               type="button"
               className="bible-header-notes-badge"
@@ -110,6 +135,11 @@ const BibleHeader: React.FC<BibleHeaderProps> = ({
             <SearchIcon size={19} />
           </button>
         </div>
+        {progressRef && (
+          <span className="bible-header-progress" aria-hidden="true">
+            <span className="bible-header-progress-fill" ref={progressRef} />
+          </span>
+        )}
       </header>
 
       <AnimatePresence>

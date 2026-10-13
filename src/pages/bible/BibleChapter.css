@@ -9,36 +9,49 @@
 
 .bible-chapter-kicker {
   font-family: var(--font-inter);
-  font-weight: 400;
+  font-weight: 600;
   font-size: var(--taille-surtitre);
   text-transform: uppercase;
   letter-spacing: var(--tracking-max);
   color: var(--bible-accent);
-  margin: 0 0 8px;
+  margin: 0;
 }
 
-.bible-chapter-title {
-  font-family: var(--bible-font);
-  font-weight: 400;
-  font-size: var(--taille-nom-figure);
-  color: var(--bible-text);
-  margin: 0 0 4px;
+/* Numéro du chapitre dans sa couronne de rayons dorés. */
+.bible-chapter-numeral {
+  position: relative;
+  margin: 10px auto 0;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bible-chapter-numeral-rays {
+  inset: 0;
+  background: repeating-conic-gradient(rgba(181, 137, 46, 0.6) 0deg 0.6deg, transparent 0.6deg 9deg);
+  -webkit-mask: radial-gradient(circle closest-side, transparent 0 80%, #000 81% 90%, transparent 91%);
+  mask: radial-gradient(circle closest-side, transparent 0 80%, #000 81% 90%, transparent 91%);
+  animation-duration: 80s;
+}
+
+.bible-chapter-numeral-value {
+  position: relative;
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+  font-size: 96px;
+  line-height: 1;
+  color: var(--bible-accent);
 }
 
 .bible-chapter-subtitle {
-  font-family: var(--bible-font);
+  font-family: var(--font-eb-garamond);
   font-style: italic;
   font-weight: 400;
-  font-size: var(--taille-verset);
+  font-size: calc(17px * var(--a11y-scale));
   color: var(--bible-muted);
-  margin: 0 0 16px;
-}
-
-.bible-chapter-rule {
-  width: 48px;
-  height: 1px;
-  background: var(--bible-border);
-  margin: 0 auto 28px;
+  margin: 6px 0 0;
 }
 
 .bible-chapter-source {
@@ -46,7 +59,152 @@
   font-size: var(--taille-surtitre);
   letter-spacing: var(--tracking-min);
   color: var(--bible-faint);
-  margin: 0 0 16px;
+  margin: 14px 0 0;
+}
+
+.bible-chapter-rule {
+  width: 120px;
+  height: 0.5px;
+  background: var(--bible-gold);
+  margin: 22px auto 26px;
+  transform-origin: 50% 50%;
+}
+
+/* --- Fin du chapitre : marquer comme lu, chapitre suivant --- */
+.bible-chapter-end {
+  margin-top: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.bible-chapter-end-cross {
+  color: var(--bible-gold);
+}
+
+.bible-chapter-mark {
+  min-height: 50px;
+  padding: 0 22px 0 8px;
+  border: none;
+  border-radius: 25px;
+  background: var(--bible-raised);
+  box-shadow: inset 0 0 0 1px rgba(181, 137, 46, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bible-text);
+  cursor: pointer;
+  transition:
+    background 500ms,
+    box-shadow 500ms,
+    color 500ms;
+}
+
+.bible-chapter-mark-check {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--bible-border-soft);
+  color: var(--bible-faint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 500ms,
+    color 500ms;
+}
+
+.bible-chapter-mark.is-read {
+  background: var(--bible-accent);
+  box-shadow: 0 12px 22px -12px rgba(107, 30, 35, 0.8);
+  color: var(--bible-bg);
+}
+
+.bible-chapter-mark.is-read .bible-chapter-mark-check {
+  background: var(--bible-on-accent);
+  color: var(--bible-accent);
+}
+
+.bible-chapter-mark:focus-visible,
+.bible-chapter-next:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: 3px;
+}
+
+.bible-chapter-mark-hint {
+  margin: -4px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(14.5px * var(--a11y-scale));
+  color: var(--bible-muted);
+}
+
+/* Toujours sombre, quel que soit le thème de lecture. */
+.bible-chapter-next {
+  align-self: stretch;
+  margin-top: 8px;
+  padding: 18px 20px;
+  border: none;
+  border-radius: 16px;
+  background: #23201a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bible-chapter-next-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bible-chapter-next-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f0d58e;
+}
+
+.bible-chapter-next-title {
+  margin-top: 6px;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: calc(26px * var(--a11y-scale));
+  line-height: 1;
+  color: #f4eddc;
+}
+
+.bible-chapter-next-detail {
+  margin-top: 4px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(244, 237, 220, 0.7);
+}
+
+.bible-chapter-next-arrow {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px rgba(240, 213, 142, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-cormorant);
+  font-size: 20px;
+  color: #f0d58e;
 }
 
 .bible-chapter-loading {

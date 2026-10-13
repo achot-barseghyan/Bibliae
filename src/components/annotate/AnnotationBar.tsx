@@ -23,9 +23,9 @@ interface AnnotationBarProps {
 }
 
 /**
- * Barre d'annotation flottante, en deux étages : la pastille de contexte
- * (référence, Copier, Partager, fermer) au-dessus de la pilule d'outils
- * (couleurs, Souligner, Note, Effacer).
+ * Panneau d'annotation sombre posé en bas du lecteur : référence et
+ * fermeture, puis les pastilles (couleurs, souligner, gommer), puis les
+ * actions Note / Partager / Copier.
  */
 const AnnotationBar: React.FC<AnnotationBarProps> = ({
   contextLabel,
@@ -56,76 +56,73 @@ const AnnotationBar: React.FC<AnnotationBarProps> = ({
       exit={{ y: '140%', opacity: 0 }}
       transition={transition}
     >
-      <div className="annot-bar-context">
+      <div className="annot-bar-head">
         <span className="annot-bar-ref">{contextLabel}</span>
-        <span className="annot-bar-context-divider" aria-hidden="true" />
-        <button type="button" className="annot-bar-context-action" onClick={onCopy}>
-          Copier
-        </button>
-        <button type="button" className="annot-bar-context-action" onClick={onShare}>
-          Partager
-        </button>
         <button type="button" className="annot-bar-close" onClick={onClose} aria-label="Annuler la sélection">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-            <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          <svg width="11" height="11" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+            <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
           </svg>
         </button>
       </div>
 
-      <div className="annot-bar-tools">
-        <div className="annot-bar-colors">
-          {HIGHLIGHT_COLORS.map((color) => (
-            <button
-              key={color.key}
-              type="button"
-              className={`annot-bar-swatch${activeColor === color.key ? ' is-active' : ''}`}
-              onClick={() => onPickColor(color.key)}
-              aria-label={`Surligner en ${color.label}`}
-              aria-pressed={activeColor === color.key}
-            >
-              <span className="annot-bar-swatch-dot" style={{ background: color.hex }} />
-            </button>
-          ))}
-        </div>
-
-        <span className="annot-bar-tools-divider" aria-hidden="true" />
-
-        <div className="annot-bar-actions">
+      <div className="annot-bar-swatches">
+        {HIGHLIGHT_COLORS.map((color) => (
           <button
+            key={color.key}
             type="button"
-            className={`annot-bar-action${isUnderlined ? ' is-active' : ''}`}
-            onClick={onToggleUnderline}
-            aria-pressed={isUnderlined}
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M4 1.5v6a4 4 0 008 0v-6" stroke="#F7F1E3" strokeWidth="1.3" strokeLinecap="round" />
-              <path d="M2.5 14.5h11" stroke="#E2BE6E" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-            <span className="annot-bar-action-label">Souligner</span>
-          </button>
+            className={`annot-bar-swatch${activeColor === color.key ? ' is-active' : ''}`}
+            style={{ background: color.hex }}
+            onClick={() => onPickColor(color.key)}
+            aria-label={`Surligner en ${color.label}`}
+            aria-pressed={activeColor === color.key}
+          />
+        ))}
+        <button
+          type="button"
+          className={`annot-bar-round${isUnderlined ? ' is-active' : ''}`}
+          onClick={onToggleUnderline}
+          aria-label="Souligner"
+          aria-pressed={isUnderlined}
+        >
+          <svg width="13" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 1.5v6a4 4 0 008 0v-6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+            <path d="M2.5 14.5h11" stroke="#F0D58E" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          className="annot-bar-round"
+          onClick={onErase}
+          disabled={!canErase}
+          aria-label="Effacer le surlignage et le soulignement"
+        >
+          <svg width="12" height="12" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path d="M1 14L14 1" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
 
-          <button type="button" className="annot-bar-action" onClick={onNote}>
-            <svg width="15" height="16" viewBox="0 0 15 16" fill="none" aria-hidden="true">
-              <path d="M1.5 1.5h12v9.4L10 14.5H1.5v-13z" stroke="#F7F1E3" strokeWidth="1.3" strokeLinejoin="round" />
-              <path d="M4.5 5.5h6M4.5 8.5h4" stroke="#F7F1E3" strokeWidth="1.2" strokeLinecap="round" />
-            </svg>
-            <span className="annot-bar-action-label">Note</span>
-          </button>
-
-          {canErase && (
-            <button type="button" className="annot-bar-action annot-bar-action--erase" onClick={onErase}>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path
-                  d="M6 14.5h8M2.2 10.3l6.6-6.6a1.5 1.5 0 012.1 0l2.4 2.4a1.5 1.5 0 010 2.1L8 13.5H5.4l-3.2-3.2z"
-                  stroke="#E8A8A2"
-                  strokeWidth="1.3"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span className="annot-bar-action-label">Effacer</span>
-            </button>
-          )}
-        </div>
+      <div className="annot-bar-actions">
+        <button type="button" className="annot-bar-action" onClick={onNote}>
+          <svg width="11" height="15" viewBox="0 0 11 15" fill="none" aria-hidden="true">
+            <path d="M6.5 1H4.6a3.3 3.3 0 000 6.6h1.9" fill="#F0D58E" />
+            <path d="M6.5 1v13M9.5 1v13M4.6 1h5.9" stroke="#F0D58E" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+          Note
+        </button>
+        <button type="button" className="annot-bar-action" onClick={onShare}>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M1.5 10.5l9-9M4 1.5h6.5V8" stroke="#F0D58E" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Partager
+        </button>
+        <button type="button" className="annot-bar-action" onClick={onCopy}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="8" height="8" rx="1" stroke="#F0D58E" strokeWidth="1.3" />
+            <rect x="5" y="5" width="8" height="8" rx="1" stroke="#F0D58E" strokeWidth="1.3" />
+          </svg>
+          Copier
+        </button>
       </div>
     </motion.div>
   );

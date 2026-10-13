@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { IonContent, IonPage } from '@ionic/react';
-import { AnimatePresence } from 'framer-motion';
-import { getBook, getCategory } from '../../data/bible';
+import { AnimatePresence, motion } from 'framer-motion';
+import { BOOKS, getBook, getCategory } from '../../data/bible';
 import { useChapterVerses } from '../../hooks/useChapterVerses';
-import { ChevronLeftIcon, ChevronRightIcon } from '../../components/nav/icons';
+import { ChevronLeftIcon, ChevronRightIcon, LatinCrossIcon } from '../../components/nav/icons';
 import WorldButton from '../../components/nav/WorldButton';
 import { tapHaptic } from '../../utils/haptics';
 import { useAccessibility } from '../../hooks/useAccessibility';
@@ -17,8 +17,6 @@ import {
   applyVerseStyle,
   chapterNotes as groupChapterNotes,
   charStyles,
-  countWords,
-  noteOverlaps,
   rangesBetween,
   sameRanges,
   saveVerseNote,
@@ -39,9 +37,12 @@ import ChapterNotesSheet from './ChapterNotesSheet';
 import ParcoursCompletionSheet from './ParcoursCompletionSheet';
 import ParcoursCreateSheet from './ParcoursCreateSheet';
 import ChapterPickerSheet from './ChapterPickerSheet';
+import { BIBLE_EASE, RISE_IN, stagger, useBibleReducedMotion, useRevealOnce } from './bibleMotion';
 import './BibleChapter.css';
 
 const SCROLL_BOTTOM_RATIO = 0.92;
+/** Vitesse de lecture retenue pour la durée affichée sous le numéro de chapitre. */
+const WORDS_PER_MINUTE = 200;
 
 /** Position de défilement du dernier chapitre lu, pour y revenir après être
  * passé par une fiche (figure, lieu...) : Ionic masque alors la page, ce qui
@@ -75,6 +76,25 @@ function saveChapterScroll(position: ChapterScroll) {
 
 /** Ligne d'aide affichée tant que l'utilisateur n'a pas encore annoté. */
 const ANNOTATION_HINT_KEY = 'bibliae:annotation-hint-seen';
+
+/** Notes affichées en cartes dépliées sous les versets (bouton « Déplier » de l'en-tête). */
+const NOTES_EXPANDED_KEY = 'bibliae:notes-expanded';
+
+function readNotesExpanded(): boolean {
+  try {
+    return localStorage.getItem(NOTES_EXPANDED_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+function writeNotesExpanded(value: boolean) {
+  try {
+    localStorage.setItem(NOTES_EXPANDED_KEY, String(value));
+  } catch {
+    // Stockage indisponible : les notes reviendront simplement repliées.
+  }
+}
 
 function readHintSeen(): boolean {
   try {
@@ -122,6 +142,8 @@ interface VerseNoteEditor {
   initialText: string;
   /** Annotations de la note modifiée, remplacées à l'enregistrement. */
   replaceIds: string[];
+  /** Note existante ouverte depuis le texte : la feuille s'ouvre en relecture. */
+  updatedAt?: string;
 }
 
 /** Note attachée au chapitre entier (ancienne fonctionnalité, éditée telle quelle). */
@@ -142,12 +164,25 @@ const BibleChapter: React.FC = () => {
   const { verses, isLoading: areVersesLoading } = useChapterVerses(bookId, chapterNumber);
   const { settings } = useAccessibility();
   const { annotations, updateNote } = useAnnotations();
-  const { parcours, activeParcours, positionFor, savePosition, markRead } = useReadingProgress();
+  const { parcours, activeParcours, positionFor, savePosition, markRead, unmarkRead, isRead, forParcours } =
+    useReadingProgress();
+  const reduceMotion = useBibleReducedMotion();
   const versesContainerRef = useRef<HTMLDivElement>(null);
+  const openerRef = useRef<HTMLDivElement>(null);
+  const ruleRef = useRef<HTMLDivElement>(null);
+  const progressFillRef = useRef<HTMLSpanElement>(null);
+  const checkRef = useRef<HTMLSpanElement>(null);
+  // Chapitre décoché à la main : ne pas le recocher en quittant la page,
+  // même si la fin du texte a été atteinte.
+  const manuallyUnmarkedRef = useRef(false);
   const [noteEditor, setNoteEditor] = useState<VerseNoteEditor | null>(null);
   const [chapterNoteEditor, setChapterNoteEditor] = useState<ChapterNoteEditor | null>(null);
   const [isHintSeen, setIsHintSeen] = useState(readHintSeen);
   const [isNotesListOpen, setIsNotesListOpen] = useState(false);
+  const [areNotesExpanded, setAreNotesExpanded] = useState(readNotesExpanded);
+  const [isNoteToastVisible, setIsNoteToastVisible] = useState(false);
+  const noteToastTimer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(noteToastTimer.current), []);
   const [completedParcoursId, setCompletedParcoursId] = useState<string | null>(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isChapterPickerOpen, setIsChapterPickerOpen] = useState(false);
@@ -316,6 +351,7 @@ const BibleChapter: React.FC = () => {
     endVisibleRef.current = false;
     scrolledToBottomRef.current = false;
     planPassedRef.current = false;
+    manuallyUnmarkedRef.current = false;
     // Figé à l'ouverture : le pied de page change de chapitre sans le paramètre
     // `plan`, et le nettoyage doit cocher la référence du chapitre quitté.
     const planTarget = planTargetRef.current;
@@ -342,11 +378,19 @@ const BibleChapter: React.FC = () => {
         }
       }
 
+      // Filet doré sous l'en-tête : part du chapitre déjà parcourue.
+      const updateProgress = () => {
+        const max = scrollEl.scrollHeight - scrollEl.clientHeight;
+        const ratio = max > 0 ? Math.min(1, scrollEl.scrollTop / max) : 0;
+        if (progressFillRef.current) progressFillRef.current.style.transform = `scaleX(${ratio.toFixed(3)})`;
+      };
+
       let savedTop = loadChapterScroll(book.id, chapterNumber);
       const restore = () => {
         if (savedTop !== null && scrollEl.clientHeight > 0 && Math.abs(scrollEl.scrollTop - savedTop) > 1) {
           scrollEl.scrollTop = savedTop;
         }
+        updateProgress();
       };
       restoreScrollRef.current = restore;
       restore();
@@ -362,6 +406,7 @@ const BibleChapter: React.FC = () => {
         // Page masquée : son défilement retombe à zéro, ce n'est pas une
         // vraie lecture à mémoriser.
         if (scrollEl.clientHeight === 0) return;
+        updateProgress();
         savedTop = scrollEl.scrollTop;
         window.clearTimeout(saveTimer);
         saveTimer = window.setTimeout(
@@ -401,7 +446,7 @@ const BibleChapter: React.FC = () => {
       // jusqu'en bas. Si le texte n'est pas encore chargé, on ne marque rien.
       const fitsWithoutScrolling = !versesLoadingRef.current && endVisibleRef.current;
       const reachedEnd = scrolledToBottomRef.current || fitsWithoutScrolling;
-      if (reachedEnd) {
+      if (reachedEnd && !manuallyUnmarkedRef.current) {
         const current = activeParcoursRef.current;
         if (current) {
           const { justCompleted } = markRead(current.id, book.id, chapterNumber, 'reading');
@@ -416,6 +461,18 @@ const BibleChapter: React.FC = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [book?.id, chapterNumber]);
+
+  // --- Ouverture du chapitre : titre, numéral, filet doré ---
+  useRevealOnce(`${book?.id}-${chapterNumber}`, () => {
+    if (reduceMotion || !openerRef.current) return;
+    stagger(openerRef.current.querySelectorAll('[data-op]'), RISE_IN, { duration: 1000, delay: 200, step: 140 });
+    ruleRef.current?.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], {
+      duration: 1200,
+      delay: 650,
+      easing: BIBLE_EASE,
+      fill: 'backwards'
+    });
+  });
 
   const markHintSeen = () => {
     if (isHintSeen) return;
@@ -455,9 +512,8 @@ const BibleChapter: React.FC = () => {
       ? selectedWordStyles[0].highlight
       : null;
   const isUnderlined = selectedWordStyles.length > 0 && selectedWordStyles.every((w) => w.underline);
-  const canErase =
-    selectedWordStyles.some((w) => w.highlight !== null || w.underline) ||
-    verseNotes.some((note) => noteOverlaps(note, selectedRanges));
+  // La gomme ne touche qu'au style : une note se supprime depuis sa feuille.
+  const canErase = selectedWordStyles.some((w) => w.highlight !== null || w.underline);
 
   const applyStyle = (op: StyleOp) => {
     applyVerseStyle(sourceId, selectedRanges, op, textOf);
@@ -490,19 +546,45 @@ const BibleChapter: React.FC = () => {
         reference: book ? `${book.abbreviation} ${chapterNumber}, ${first === last ? first : `${first}-${last}`}` : '',
         quote: ranges.map((r) => (textByVerse.get(r.verse) ?? '').slice(r.start, r.end)).join(' '),
         initialText: note.text,
-        replaceIds: note.annotationIds
+        replaceIds: note.annotationIds,
+        updatedAt: note.updatedAt
       });
     },
     [wordsByVerse, setSelection, book, chapterNumber, textByVerse]
   );
 
-  const handleSaveVerseNote = (text: string) => {
+  const handleSaveVerseNote = (text: string, color: HighlightColor | null) => {
     if (!noteEditor) return;
+    // La note d'abord : poser ensuite le surlignage ne fait que retirer le
+    // style des annotations de note, sans jamais les supprimer.
     saveVerseNote(sourceId, noteEditor.ranges, text, noteEditor.replaceIds, textOf);
+    // Couleur retirée dans la feuille : on enlève le surlignage, la note reste.
+    if (text.trim() && (color || activeColor)) {
+      applyVerseStyle(sourceId, noteEditor.ranges, { kind: 'color', color }, textOf);
+    }
     tapHaptic();
     markHintSeen();
     setNoteEditor(null);
     clearSelection();
+    if (text.trim()) {
+      setIsNoteToastVisible(true);
+      window.clearTimeout(noteToastTimer.current);
+      noteToastTimer.current = window.setTimeout(() => setIsNoteToastVisible(false), 2600);
+    }
+  };
+
+  const handleDeleteVerseNote = () => {
+    if (!noteEditor) return;
+    saveVerseNote(sourceId, noteEditor.ranges, '', noteEditor.replaceIds, textOf);
+    tapHaptic();
+    setNoteEditor(null);
+    clearSelection();
+  };
+
+  /** Une note ouverte depuis le texte sélectionne son passage : on le désélectionne en la fermant. */
+  const closeNoteEditor = () => {
+    if (noteEditor?.updatedAt) clearSelection();
+    setNoteEditor(null);
   };
 
   /** Citation au format « « texte » — Jn 1, 4 (Crampon) ». */
@@ -522,6 +604,40 @@ const BibleChapter: React.FC = () => {
   const category = getCategory(book.category);
   const hasPrev = chapterNumber > 1;
   const hasNext = chapterNumber < book.chapters;
+  const minutes = Math.max(1, Math.round(verses.reduce((sum, v) => sum + v.text.split(/\s+/).length, 0) / WORDS_PER_MINUTE));
+  const nextBook = hasNext ? null : BOOKS[BOOKS.findIndex((b) => b.id === book.id) + 1];
+  const next = hasNext
+    ? { path: `/bible/${book.id}/${chapterNumber + 1}`, kicker: 'Chapitre suivant', title: `${book.name} ${chapterNumber + 1}` }
+    : nextBook
+      ? {
+          path: `/bible/${nextBook.id}/1`,
+          kicker: 'Livre suivant',
+          title: nextBook.name,
+          detail: `${nextBook.chapters} chapitre${nextBook.chapters > 1 ? 's' : ''}`
+        }
+      : null;
+
+  const isChapterRead = activeParcours ? isRead(activeParcours.id, book.id, chapterNumber) : false;
+  const readInBook = activeParcours ? forParcours(activeParcours.id).filter((c) => c.bookId === book.id).length : 0;
+
+  const toggleRead = () => {
+    if (!activeParcours) return;
+    tapHaptic();
+    if (isChapterRead) {
+      manuallyUnmarkedRef.current = true;
+      unmarkRead(activeParcours.id, book.id, chapterNumber);
+      return;
+    }
+    manuallyUnmarkedRef.current = false;
+    const { justCompleted } = markRead(activeParcours.id, book.id, chapterNumber, 'manual');
+    if (justCompleted) setCompletedParcoursId(activeParcours.id);
+    if (!reduceMotion) {
+      checkRef.current?.animate(
+        [{ transform: 'scale(.4) rotate(-30deg)' }, { transform: 'scale(1.15)' }, { transform: 'none' }],
+        { duration: 700, easing: BIBLE_EASE }
+      );
+    }
+  };
 
   return (
     <IonPage>
@@ -530,21 +646,44 @@ const BibleChapter: React.FC = () => {
           accent
           onBack={() => navigate(-1)}
           onTitleClick={() => setIsChapterPickerOpen(true)}
-          notesCount={chapterNotes.length}
+          // Notes de versets : bouton « Déplier ». Seules des notes de chapitre
+          // entier (ancienne fonctionnalité) : le badge qui ouvre leur liste.
+          notesCount={verseNotes.length > 0 ? verseNotes.length : chapterNotes.length}
           onNotesClick={() => setIsNotesListOpen(true)}
+          notesExpanded={areNotesExpanded}
+          onToggleNotes={
+            verseNotes.length > 0
+              ? () => {
+                  writeNotesExpanded(!areNotesExpanded);
+                  setAreNotesExpanded(!areNotesExpanded);
+                }
+              : undefined
+          }
           title={`${book.name} ${chapterNumber}`}
+          progressRef={progressFillRef}
         />
 
         <div className="bible-chapter-body">
-          <p className="bible-chapter-kicker">{category.label}</p>
-          <h1 className="bible-chapter-title">{book.name}</h1>
-          <p className="bible-chapter-subtitle">
-            Chapitre {chapterNumber} sur {book.chapters}
-          </p>
-          <p className="bible-chapter-source">
-            Texte basé sur la Bible Crampon 1923, adapté et modernisé pour cette application
-          </p>
-          <div className="bible-chapter-rule" />
+          <div className="bible-chapter-opener" ref={openerRef}>
+            <p className="bible-chapter-kicker" data-op>
+              {category.label} · {book.name}
+            </p>
+            <h1 className="bible-chapter-numeral" data-op aria-label={`${book.name}, chapitre ${chapterNumber}`}>
+              <span className="bible-rays bible-chapter-numeral-rays" aria-hidden="true" />
+              <span className="bible-chapter-numeral-value" aria-hidden="true">
+                {chapterNumber}
+              </span>
+            </h1>
+            <p className="bible-chapter-subtitle" data-op>
+              {verses.length > 0
+                ? `${verses.length} verset${verses.length > 1 ? 's' : ''} · environ ${minutes} min`
+                : `Chapitre ${chapterNumber} sur ${book.chapters}`}
+            </p>
+            <p className="bible-chapter-source" data-op>
+              Texte basé sur la Bible Crampon 1923, adapté et modernisé pour cette application
+            </p>
+          </div>
+          <div className="bible-chapter-rule" ref={ruleRef} />
 
           {verses.length > 0 ? (
             <div
@@ -577,6 +716,7 @@ const BibleChapter: React.FC = () => {
                   notes={notesByLastVerse.get(verse.number) ?? NO_NOTES}
                   onOpenNote={openExistingNote}
                   isFocused={!!focusRange && verse.number >= focusRange.from && verse.number <= focusRange.to}
+                  notesExpanded={areNotesExpanded}
                 />
               ))}
             </div>
@@ -595,6 +735,59 @@ const BibleChapter: React.FC = () => {
           )}
 
           <div ref={endSentinelRef} aria-hidden="true" style={{ height: 1 }} />
+
+          {verses.length > 0 && (
+            <div className="bible-chapter-end">
+              <LatinCrossIcon size={22} className="bible-chapter-end-cross" />
+              {activeParcours && (
+                <>
+                  <button
+                    type="button"
+                    className={`bible-chapter-mark${isChapterRead ? ' is-read' : ''}`}
+                    onClick={toggleRead}
+                    aria-pressed={isChapterRead}
+                  >
+                    <span className="bible-chapter-mark-check" ref={checkRef}>
+                      <svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path
+                          d="M1.2 6.4l3.2 3.2 6.4-7.2"
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    {isChapterRead ? 'Chapitre lu' : 'Marquer comme lu'}
+                  </button>
+                  <p className="bible-chapter-mark-hint">
+                    {isChapterRead
+                      ? `Ajouté à ${activeParcours.name} · ${readInBook} / ${book.chapters}`
+                      : `Compté dans ${activeParcours.name}`}
+                  </p>
+                </>
+              )}
+              {next && (
+                <button
+                  type="button"
+                  className="bible-chapter-next"
+                  onClick={() => {
+                    tapHaptic();
+                    navigate(next.path, { replace: true });
+                  }}
+                >
+                  <span className="bible-chapter-next-text">
+                    <span className="bible-chapter-next-kicker">{next.kicker}</span>
+                    <span className="bible-chapter-next-title">{next.title}</span>
+                    {next.detail && <span className="bible-chapter-next-detail">{next.detail}</span>}
+                  </span>
+                  <span className="bible-chapter-next-arrow" aria-hidden="true">
+                    →
+                  </span>
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
         <footer className="bible-chapter-pager">
@@ -650,8 +843,9 @@ const BibleChapter: React.FC = () => {
           {selection && selectedRanges.length > 0 && !noteEditor && !isDragging && (
             <AnnotationBar
               contextLabel={(() => {
-                const count = countWords(selection.anchor, selection.focus, wordsByVerse);
-                return `${referenceFor(selectedRanges)} · ${count} mot${count > 1 ? 's' : ''}`;
+                const first = selectedRanges[0].verse;
+                const last = selectedRanges[selectedRanges.length - 1].verse;
+                return `${book.name} ${chapterNumber}, ${first === last ? first : `${first}-${last}`}`;
               })()}
               activeColor={activeColor}
               isUnderlined={isUnderlined}
@@ -681,10 +875,42 @@ const BibleChapter: React.FC = () => {
               reference={noteEditor.reference}
               quote={noteEditor.quote}
               initialText={noteEditor.initialText}
+              initialColor={activeColor}
+              updatedAt={noteEditor.updatedAt}
               reduceMotion={settings.reduceMotion}
               onSave={handleSaveVerseNote}
-              onClose={() => setNoteEditor(null)}
+              onDelete={handleDeleteVerseNote}
+              onShare={(text) => {
+                tapHaptic();
+                shareText(`« ${noteEditor.quote} » — ${noteEditor.reference} (Crampon)\n\n${text}`);
+              }}
+              onShowAll={() => {
+                closeNoteEditor();
+                setIsNotesListOpen(true);
+              }}
+              onClose={closeNoteEditor}
             />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {isNoteToastVisible && (
+            <motion.div
+              className="verse-note-toast"
+              slot="fixed"
+              role="status"
+              initial={{ opacity: 0, x: '-50%', y: 20 }}
+              animate={{ opacity: 1, x: '-50%', y: 0 }}
+              exit={{ opacity: 0, x: '-50%', y: 20 }}
+              transition={settings.reduceMotion ? { duration: 0 } : { duration: 0.45, ease: [0.2, 0.7, 0.2, 1] }}
+            >
+              <span className="verse-note-toast-check" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M1.2 6.4l3.2 3.2 6.4-7.2" stroke="#6B1E23" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              Note enregistrée
+            </motion.div>
           )}
         </AnimatePresence>
 

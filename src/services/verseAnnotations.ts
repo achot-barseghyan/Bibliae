@@ -40,7 +40,8 @@ export interface VerseRange {
 }
 
 export type StyleOp =
-  | { kind: 'color'; color: HighlightColor }
+  /** `null` retire le surlignage sans toucher au soulignement. */
+  | { kind: 'color'; color: HighlightColor | null }
   | { kind: 'underline'; on: boolean }
   | { kind: 'erase' };
 
@@ -165,11 +166,12 @@ function makeAnnotation(
   };
 }
 
-function overlaps(a: Annotation, range: VerseRange): boolean {
-  return a.target.blockIndex === range.verse && a.target.start < range.end && a.target.end > range.start;
-}
-
-/** Applique une couleur, un (dé)soulignement ou un effacement aux plages données. */
+/**
+ * Applique une couleur, un (dé)soulignement ou un effacement aux plages
+ * données. Ne touche qu'au style : les notes du passage restent toujours en
+ * place (on les supprime depuis leur feuille), seul leur éventuel ancien
+ * surlignage est repris dans les annotations de style.
+ */
 export function applyVerseStyle(
   sourceId: string,
   ranges: VerseRange[],
@@ -181,7 +183,6 @@ export function applyVerseStyle(
     const now = new Date().toISOString();
     const removedIds = new Set<string>();
     const strippedIds = new Set<string>();
-    const erasedNoteKeys = new Set<string>();
     const added: Annotation[] = [];
 
     for (const range of ranges) {
@@ -201,7 +202,6 @@ export function applyVerseStyle(
       for (const a of block) {
         if (a.note === null) removedIds.add(a.id);
         else if (hasStyle(a.style)) strippedIds.add(a.id);
-        if (op.kind === 'erase' && a.note !== null && overlaps(a, range)) erasedNoteKeys.add(a.groupId ?? a.id);
       }
 
       let i = 0;
@@ -221,16 +221,7 @@ export function applyVerseStyle(
 
     const annotations = prev.annotations
       .filter((a) => !removedIds.has(a.id))
-      .flatMap((a): Annotation[] => {
-        const isErasedNote = a.note !== null && erasedNoteKeys.has(a.groupId ?? a.id);
-        const style = strippedIds.has(a.id) ? { highlight: null, underline: false } : a.style;
-        if (isErasedNote) {
-          // Une ancienne note portait aussi un surlignage : hors des versets
-          // modifiés, on garde ce surlignage et on retire seulement la note.
-          return hasStyle(style) ? [{ ...a, note: null, groupId: undefined, updatedAt: now }] : [];
-        }
-        return strippedIds.has(a.id) ? [{ ...a, style }] : [a];
-      });
+      .map((a) => (strippedIds.has(a.id) ? { ...a, style: { highlight: null, underline: false } } : a));
 
     return { ...prev, annotations: [...annotations, ...added] };
   });
@@ -304,12 +295,6 @@ export function chapterNotes(annotations: Annotation[], sourceId: string): Verse
       const rb = b.ranges[0];
       return ra.verse - rb.verse || ra.start - rb.start;
     });
-}
-
-export function noteOverlaps(note: VerseNote, ranges: VerseRange[]): boolean {
-  return note.ranges.some((nr) =>
-    ranges.some((r) => r.verse === nr.verse && r.start < nr.end && r.end > nr.start)
-  );
 }
 
 export function sameRanges(a: VerseRange[], b: VerseRange[]): boolean {

@@ -5,7 +5,7 @@ const STORAGE_KEY = 'bibliae:chapter-menu-tour-seen';
 
 const STEPS: TourStep[] = [
   {
-    selector: '.bible-chapter-grid',
+    selector: '.bible-book-body .bible-chapter-grid',
     title: 'Les actions d’un chapitre',
     text: 'Appui long sur un chapitre pour le marquer lu ou en cours, lui ajouter une note, le mettre en favori, le partager ou tout réinitialiser — sans l’ouvrir.',
     shape: 'pill',

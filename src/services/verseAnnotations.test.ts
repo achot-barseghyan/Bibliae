@@ -76,7 +76,7 @@ describe('styles', () => {
     expect(styles.underline[25]).toBe(true);
   });
 
-  it('efface style et notes qui chevauchent la sélection, sur tous leurs versets', () => {
+  it('efface le style de la sélection sans jamais toucher aux notes', () => {
     const passage = rangesBetween({ verse: 1, word: 3 }, { verse: 2, word: 1 }, words);
     applyVerseStyle(SOURCE, passage, { kind: 'color', color: 'sanguine' }, textOf);
     saveVerseNote(SOURCE, passage, 'Le Verbe', [], textOf);
@@ -85,11 +85,26 @@ describe('styles', () => {
     const erase = rangesBetween({ verse: 2, word: 0 }, { verse: 2, word: 0 }, words);
     applyVerseStyle(SOURCE, erase, { kind: 'erase' }, textOf);
 
-    expect(chapterNotes(getAppData().annotations, SOURCE)).toHaveLength(0);
+    const notes = chapterNotes(getAppData().annotations, SOURCE);
+    expect(notes).toHaveLength(1);
+    expect(notes[0].text).toBe('Le Verbe');
     expect(stylesOf(2).highlight[0]).toBeNull();
     // Le surlignage hors de la sélection effacée reste en place.
     expect(stylesOf(2).highlight[4]).toBe('sanguine');
     expect(stylesOf(1).highlight[22]).toBe('sanguine');
+  });
+
+  it('retire la couleur (color: null) en gardant soulignement et note', () => {
+    const passage = rangesBetween({ verse: 1, word: 0 }, { verse: 1, word: 1 }, words);
+    applyVerseStyle(SOURCE, passage, { kind: 'color', color: 'or' }, textOf);
+    applyVerseStyle(SOURCE, passage, { kind: 'underline', on: true }, textOf);
+    saveVerseNote(SOURCE, passage, 'Commencement', [], textOf);
+
+    applyVerseStyle(SOURCE, passage, { kind: 'color', color: null }, textOf);
+
+    expect(stylesOf(1).highlight[0]).toBeNull();
+    expect(stylesOf(1).underline[0]).toBe(true);
+    expect(chapterNotes(getAppData().annotations, SOURCE)).toHaveLength(1);
   });
 });
 

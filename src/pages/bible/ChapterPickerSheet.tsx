@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useDragControls } from 'framer-motion';
 import type { Book } from '../../data/bible';
 import { useAccessibility } from '../../hooks/useAccessibility';
 import { CloseIcon } from '../../components/nav/icons';
@@ -20,6 +20,10 @@ interface ChapterPickerSheetProps {
 const ChapterPickerSheet: React.FC<ChapterPickerSheetProps> = ({ book, currentChapter, onClose }) => {
   const navigate = useNavigate();
   const { settings } = useAccessibility();
+  // Glisser pour fermer depuis la poignée et le titre seulement : sur toute la
+  // feuille, le geste capturait le doigt et empêchait de faire défiler la grille.
+  const dragControls = useDragControls();
+  const startDrag = (e: React.PointerEvent) => dragControls.start(e);
   const transition = settings.reduceMotion ? { duration: 0 } : { duration: 0.26, ease: EASE };
   const emptyCount = Math.ceil(book.chapters / COLUMNS) * COLUMNS - book.chapters;
 
@@ -59,6 +63,8 @@ const ChapterPickerSheet: React.FC<ChapterPickerSheetProps> = ({ book, currentCh
         exit={{ y: '100%' }}
         transition={transition}
         drag="y"
+        dragControls={dragControls}
+        dragListener={false}
         dragConstraints={{ top: 0, bottom: 0 }}
         dragElastic={{ top: 0, bottom: 0.6 }}
         onDragEnd={(_event, info) => {
@@ -67,9 +73,11 @@ const ChapterPickerSheet: React.FC<ChapterPickerSheetProps> = ({ book, currentCh
           }
         }}
       >
-        <div className="verse-sheet-handle" aria-hidden="true" />
+        <div className="chapter-picker-grip" onPointerDown={startDrag}>
+          <div className="verse-sheet-handle" aria-hidden="true" />
+        </div>
 
-        <div className="chapter-picker-header">
+        <div className="chapter-picker-header" onPointerDown={startDrag}>
           <button type="button" className="chapter-picker-title" onClick={goToBookList}>
             {book.name}
           </button>
@@ -78,28 +86,34 @@ const ChapterPickerSheet: React.FC<ChapterPickerSheetProps> = ({ book, currentCh
           </button>
         </div>
 
-        <div className="chapter-picker-grid">
-          {Array.from({ length: book.chapters }, (_, index) => {
-            const chapter = index + 1;
-            const isCurrent = chapter === currentChapter;
-            return (
-              <button
-                key={chapter}
-                type="button"
-                className={`chapter-picker-cell${isCurrent ? ' is-current' : ''}`}
-                onClick={() => goToChapter(chapter)}
-                aria-current={isCurrent ? 'true' : undefined}
-              >
-                {chapter}
-              </button>
-            );
-          })}
-          {Array.from({ length: emptyCount }, (_, index) => (
-            <span key={`empty-${index}`} className="chapter-picker-cell chapter-picker-cell--empty" aria-hidden="true" />
-          ))}
-        </div>
+        <div className="chapter-picker-scroll">
+          <div className="chapter-picker-grid">
+            {Array.from({ length: book.chapters }, (_, index) => {
+              const chapter = index + 1;
+              const isCurrent = chapter === currentChapter;
+              return (
+                <button
+                  key={chapter}
+                  type="button"
+                  className={`chapter-picker-cell${isCurrent ? ' is-current' : ''}`}
+                  onClick={() => goToChapter(chapter)}
+                  aria-current={isCurrent ? 'true' : undefined}
+                >
+                  {chapter}
+                </button>
+              );
+            })}
+            {Array.from({ length: emptyCount }, (_, index) => (
+              <span
+                key={`empty-${index}`}
+                className="chapter-picker-cell chapter-picker-cell--empty"
+                aria-hidden="true"
+              />
+            ))}
+          </div>
 
-        <p className="chapter-picker-hint">Toucher « {book.name} » revient à la liste des livres.</p>
+          <p className="chapter-picker-hint">Toucher « {book.name} » revient à la liste des livres.</p>
+        </div>
       </motion.div>
     </motion.div>
   );

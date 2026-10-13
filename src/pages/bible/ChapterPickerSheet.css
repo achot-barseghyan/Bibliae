@@ -72,3 +72,30 @@
   font-size: var(--taille-cartouche);
   color: var(--bible-faint);
 }
+
+/* La grille défile seule (150 psaumes) ; poignée et titre restent en place
+   et portent le geste « glisser pour fermer ». */
+.chapter-picker-sheet {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.chapter-picker-grip,
+.chapter-picker-header {
+  flex: 0 0 auto;
+  touch-action: none;
+}
+
+.chapter-picker-grip {
+  padding-top: 1px;
+  cursor: grab;
+}
+
+.chapter-picker-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding-bottom: 12px;
+}

@@ -84,7 +84,7 @@ import leahImg from '../assets/images/women/Leah.webp';
 import lydiaImg from '../assets/images/women/Lydia.webp';
 import marthaImg from '../assets/images/women/Martha.webp';
 import maryMagdaleneImg from '../assets/images/women/Mary Magdalene.webp';
-import maryImg from '../assets/images/women/Mary and Baby Jesus.webp';
+import maryImg from '../assets/events/birth_of_jesus/Mary.webp';
 import maryBethanyImg from '../assets/images/women/Mary of Bethany.webp';
 import miriamImg from '../assets/images/women/Miriam.webp';
 import naomiImg from '../assets/images/women/Naomi.webp';

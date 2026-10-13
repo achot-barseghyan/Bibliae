@@ -4,7 +4,7 @@
 
 import jesusImg from '../assets/images/men/Jesus_Christ.webp';
 import moiseImg from '../assets/images/men/Moses.webp';
-import marieImg from '../assets/images/women/Mary and Baby Jesus.webp';
+import marieImg from '../assets/events/birth_of_jesus/Mary.webp';
 import abrahamImg from '../assets/images/men/Abraham.webp';
 import davidImg from '../assets/images/men/David.webp';
 import eveImg from '../assets/images/women/Eve.webp';

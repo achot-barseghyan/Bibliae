@@ -1,4 +1,4 @@
-import { daysUntilFeast, easterSunday, feastCountdownLabel, feastDate } from './liturgicalFeasts';
+import { daysUntilFeast, easterSunday, feastCountdownLabel, feastDate, liturgicalYear } from './liturgicalFeasts';
 
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 
@@ -38,5 +38,24 @@ describe('liturgicalFeasts', () => {
     expect(feastCountdownLabel('noel', new Date(2026, 9, 11))).toBe('Noël dans 75 jours');
     expect(feastCountdownLabel('noel', new Date(2026, 11, 25))).toBe("Noël · aujourd'hui");
     expect(feastCountdownLabel('noel', new Date(2026, 11, 24))).toBe('Noël demain');
+  });
+});
+
+describe('liturgicalYear', () => {
+  it('découpe l’année 2025-2026 en temps liturgiques', () => {
+    const year = liturgicalYear(new Date(2026, 8, 11));
+    expect(year.sundayCycle).toBe('A');
+    expect(year.weekdayCycle).toBe('paire');
+    expect(year.seasons.map((s) => s.days)).toEqual([25, 18, 37, 46, 50, 188]);
+    expect(year.length).toBe(364);
+    expect(year.dayIndex).toBe(285);
+  });
+
+  it('bascule à l’Avent', () => {
+    expect(liturgicalYear(new Date(2026, 10, 28)).sundayCycle).toBe('A');
+    const advent = liturgicalYear(new Date(2026, 10, 29));
+    expect(advent.sundayCycle).toBe('B');
+    expect(advent.weekdayCycle).toBe('impaire');
+    expect(advent.dayIndex).toBe(0);
   });
 });

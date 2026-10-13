@@ -129,3 +129,66 @@
   text-align: left;
   padding-left: 8px;
 }
+
+/* Filet de progression de lecture (lecteur de chapitre), posé sur la
+   bordure basse de l'en-tête. */
+.bible-header-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--bible-border-soft);
+  pointer-events: none;
+}
+
+.bible-header-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--bible-gold);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.bible-header--accent:has(.bible-header-progress) {
+  border-bottom-color: transparent;
+}
+
+/* « ❦ Déplier » / « Replier » : notes du chapitre en carte ou en bandeau. */
+.bible-header-notes-toggle {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  margin-right: 2px;
+  padding: 0 13px 0 11px;
+  border: none;
+  border-radius: 17px;
+  background: none;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--bible-accent) 45%, transparent);
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bible-accent);
+  cursor: pointer;
+  transition: background 300ms;
+}
+
+.bible-header-notes-toggle.is-expanded {
+  background: color-mix(in srgb, var(--bible-accent) 10%, transparent);
+}
+
+.bible-header-notes-toggle-fleuron {
+  font-family: var(--font-cormorant);
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.bible-header-notes-toggle:focus-visible {
+  outline: 2px solid var(--bible-accent);
+  outline-offset: 2px;
+}

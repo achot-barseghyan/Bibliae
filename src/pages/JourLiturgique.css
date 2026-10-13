@@ -28,158 +28,11 @@
   background: var(--color-papier-enfonce);
 }
 
-.jour-header-side--right {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.jour-header-title {
-  font-family: var(--font-cormorant);
-  font-weight: 500;
-  font-size: var(--taille-titre-section);
-  color: var(--color-encre);
-  margin: 0;
-}
-
-.jour-date-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 8px 28px 0;
-}
-
-.jour-date-line {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--font-inter);
-  font-weight: 600;
-  font-size: var(--taille-surtitre);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--color-oxblood);
-  margin: 0 0 10px;
-}
-
-.jour-date-dot {
-  flex: 0 0 auto;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1px solid var(--color-encre);
-}
-
-.jour-title {
-  font-family: var(--font-cormorant);
-  font-weight: 500;
-  font-size: calc(26px * var(--a11y-scale));
-  line-height: 1.25;
-  color: var(--color-encre);
-  max-width: 320px;
-  margin: 0 0 8px;
-}
-
-.jour-subtitle {
-  font-family: var(--font-cormorant);
-  font-style: italic;
-  font-size: var(--taille-valeur);
-  color: var(--encre-60);
-  margin: 0 0 18px;
-}
-
 .jour-divider {
   width: 140px;
   height: 1px;
   background: linear-gradient(to right, transparent, var(--color-or), transparent);
   margin-bottom: 20px;
-}
-
-.jour-week-strip {
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
-  padding: 0 16px 24px;
-}
-
-.jour-week-day {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 2px;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  background: none;
-  cursor: pointer;
-}
-
-.jour-week-day.is-active {
-  border-color: var(--color-oxblood);
-}
-
-.jour-week-letter {
-  font-family: var(--font-inter);
-  font-size: calc(9px * var(--a11y-scale));
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--encre-60);
-}
-
-.jour-week-number {
-  font-family: var(--font-cormorant);
-  font-weight: 500;
-  font-size: var(--taille-valeur);
-  color: var(--color-encre);
-}
-
-.jour-week-day.is-active .jour-week-number {
-  color: var(--color-oxblood);
-}
-
-.jour-week-marker {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-}
-
-.jour-week-marker--green {
-  /* Même vert que les surlignages olive des annotations (highlightColors.css),
-     répété ici en dur : cette page n'importe pas ce fichier et une variable
-     CSS non définie n'aurait pas de couleur de repli. */
-  background: #5e6a3a;
-}
-
-.jour-week-marker--gold {
-  background: var(--color-or);
-}
-
-.jour-week-legend {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 0 16px 20px;
-}
-
-.jour-week-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-inter);
-  font-size: calc(9px * var(--a11y-scale));
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--encre-60);
-}
-
-.jour-week-marker.is-visible {
-  opacity: 1;
-}
-
-.jour-section {
-  padding: 20px 20px 0;
 }
 
 .jour-section-kicker {
@@ -192,90 +45,6 @@
   margin: 0 0 12px;
   border-top: 1px solid var(--filet-barres);
   padding-top: 18px;
-}
-
-.jour-readings {
-  display: flex;
-  flex-direction: column;
-}
-
-.jour-reading-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  width: 100%;
-  padding: 12px 0;
-  border-top: 1px solid var(--filet-barres);
-  background: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
-  text-align: left;
-  cursor: pointer;
-}
-
-.jour-readings > .jour-reading-row:first-child {
-  border-top: none;
-}
-
-.jour-reading-row:disabled {
-  cursor: default;
-}
-
-.jour-reading-icon {
-  flex: 0 0 auto;
-  width: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 3px;
-  font-family: var(--font-cormorant);
-  font-style: italic;
-  font-size: var(--taille-valeur);
-  color: var(--color-oxblood);
-}
-
-.jour-reading-body {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.jour-reading-label-row {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
-.jour-reading-type {
-  font-family: var(--font-inter);
-  font-weight: 600;
-  font-size: var(--taille-cartouche);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--color-oxblood);
-}
-
-.jour-reading-ref {
-  font-family: var(--font-eb-garamond);
-  font-size: var(--taille-valeur);
-  color: var(--encre-60);
-}
-
-.jour-reading-quote {
-  font-family: var(--font-lecture);
-  font-size: var(--taille-valeur);
-  line-height: calc(1.4 * var(--a11y-leading));
-  color: var(--color-encre);
-}
-
-.jour-reading-chevron {
-  flex: 0 0 auto;
-  color: var(--encre-60);
-  margin-top: 4px;
 }
 
 .jour-gospel-button {
@@ -298,138 +67,7 @@
   cursor: pointer;
 }
 
-.jour-source {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-inter);
-  font-size: calc(9px * var(--a11y-scale));
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--encre-60);
-  opacity: 0.7;
-  margin: 20px 20px 0;
-}
-
-.jour-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  padding: 24px 20px 0;
-}
-
-.jour-action-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-  padding: 14px 16px;
-  border-radius: 10px;
-  border: 1px solid var(--filet-barres);
-  background: none;
-  cursor: pointer;
-  text-align: left;
-}
-
-.jour-action-icon {
-  color: var(--color-oxblood);
-}
-
-.jour-action-title {
-  font-family: var(--font-cormorant);
-  font-weight: 500;
-  font-size: var(--taille-valeur);
-  color: var(--color-encre);
-}
-
-.jour-action-meta {
-  font-family: var(--font-inter);
-  font-size: calc(9px * var(--a11y-scale));
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--encre-60);
-}
-
-.jour-nav-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin: 28px 20px 0;
-  padding: 16px 0 calc(env(safe-area-inset-bottom, 0px) + 24px);
-  border-top: 1px solid var(--filet-barres);
-}
-
-.jour-nav-button {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: none;
-  border: none;
-  font-family: var(--font-inter);
-  font-weight: 600;
-  font-size: calc(9px * var(--a11y-scale));
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--color-oxblood);
-  cursor: pointer;
-}
-
-.jour-nav-sep {
-  color: var(--color-or);
-  font-size: calc(12px * var(--a11y-scale));
-}
-
-.jour-nav-button:disabled {
-  opacity: 0.25;
-  cursor: default;
-}
-
-/* --- Bascule Ordinaire / Traditionnel --- */
-
-.jour-ordo-toggle {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: 0 20px 20px;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--filet-barres);
-}
-
-.jour-ordo-button {
-  padding: 10px 4px;
-  background: none;
-  border: none;
-  border-left: 1px solid var(--filet-barres);
-  font-family: var(--font-inter);
-  font-weight: 400;
-  font-size: calc(10px * var(--a11y-scale));
-  letter-spacing: var(--tracking-min);
-  text-transform: uppercase;
-  color: var(--color-encre);
-  cursor: pointer;
-}
-
-.jour-ordo-button:first-child {
-  border-left: none;
-}
-
-.jour-ordo-button.is-active {
-  font-weight: 600;
-  color: var(--color-oxblood);
-  background: var(--color-papier-enfonce);
-}
-
-.jour-ordo-button:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-
-/* --- Blocs génériques (Ce que l'Église célèbre, heures, questions) --- */
-
-.jour-block {
-  padding: 20px 20px 0;
-}
+/* --- Prose (description du jour, encarts hors ligne) --- */
 
 .jour-prose {
   font-family: var(--font-lecture);
@@ -438,116 +76,6 @@
   color: var(--color-encre);
   margin: 0;
   text-align: left;
-}
-
-.jour-link-button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 10px;
-  padding: 0;
-  background: none;
-  border: none;
-  font-family: var(--font-inter);
-  font-weight: 400;
-  font-size: var(--taille-surtitre);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--color-oxblood);
-  cursor: pointer;
-}
-
-.jour-link-chevron--up {
-  transform: rotate(-90deg);
-}
-
-.jour-section-heading-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  border-top: 1px solid var(--filet-barres);
-  padding-top: 18px;
-  margin-bottom: 8px;
-}
-
-.jour-section-title {
-  font-family: var(--font-cormorant);
-  font-weight: 400;
-  font-size: calc(24px * var(--a11y-scale));
-  color: var(--color-encre);
-  margin: 0 0 12px;
-  border-top: 1px solid var(--filet-barres);
-  padding-top: 18px;
-}
-
-.jour-section-heading-row .jour-section-title {
-  border-top: none;
-  padding-top: 0;
-  margin: 0;
-}
-
-.jour-section-count {
-  font-family: var(--font-inter);
-  font-weight: 300;
-  font-size: var(--taille-cartouche);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--encre-60);
-}
-
-.jour-hours-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--filet-barres);
-  border: 1px solid var(--filet-barres);
-}
-
-.jour-hour-card {
-  min-height: 60px;
-  padding: 10px 14px;
-  background: var(--color-papier);
-  border: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 3px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.jour-hour-card--all {
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-inter);
-  font-size: var(--taille-cartouche);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--color-oxblood);
-}
-
-.jour-hour-name {
-  font-family: var(--font-cormorant);
-  font-weight: 600;
-  font-size: calc(20px * var(--a11y-scale));
-  color: var(--color-encre);
-}
-
-.jour-hour-name.is-now {
-  color: var(--color-oxblood);
-}
-
-.jour-hour-meta {
-  font-family: var(--font-inter);
-  font-weight: 400;
-  font-size: calc(12px * var(--a11y-scale));
-  letter-spacing: 0.02em;
-  color: var(--encre-60);
-}
-
-.jour-hour-meta.is-now {
-  color: var(--color-oxblood);
 }
 
 /* --- Page de lecture (messe / heure), occupe toute la page Ionic --- */
@@ -891,4 +419,1217 @@
   letter-spacing: var(--tracking-min);
   text-transform: uppercase;
   color: var(--color-oxblood);
+}
+
+/* =====================================================================
+   Jour liturgique — ciel du jour, roue de l'année, messe, cadran des heures
+   Les sections claires suivent la palette (et le thème de lecture) ; le
+   ciel et le cadran des heures gardent leurs teintes nocturnes fixes.
+   ===================================================================== */
+
+.jl {
+  --jl-velin: #F4EDDC;
+  --jl-or-clair: #F0D58E;
+  --jl-or-vif: #D9B66A;
+  --jl-carte: var(--color-rosaire);
+}
+
+@keyframes jlTwinkle {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 1; }
+}
+
+@keyframes jlSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes jlBreath {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
+@keyframes jlPing {
+  0% { box-shadow: 0 0 0 0 rgba(240, 213, 142, 0.7); }
+  100% { box-shadow: 0 0 0 12px rgba(240, 213, 142, 0); }
+}
+
+@keyframes jlShimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+
+@keyframes jlSun {
+  0%, 100% { box-shadow: 0 0 18px 4px rgba(240, 213, 142, 0.75); }
+  50% { box-shadow: 0 0 30px 10px rgba(240, 213, 142, 0.95); }
+}
+
+@keyframes jlIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); filter: blur(5px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+@keyframes jlRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes jlArc {
+  from { stroke-dasharray: 0 360; }
+}
+
+@keyframes jlFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.jl [data-in] {
+  animation: jlIn 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(120ms + var(--i, 0) * 160ms);
+}
+
+.jl [data-rv] {
+  opacity: 0;
+  transform: translateY(26px);
+}
+
+.jl [data-rv].is-revealed {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 900ms var(--rv-delay, 0ms),
+    transform 1000ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--rv-delay, 0ms);
+}
+
+/* --- Ciel du jour --- */
+
+.jl-sky {
+  position: relative;
+  overflow: hidden;
+  background: #0F1526;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 18px);
+}
+
+.jl-sky-tint {
+  position: absolute;
+  inset: 0;
+  background-color: var(--jl-tint);
+  -webkit-mask: radial-gradient(120% 70% at 50% 34%, #000 0%, rgba(0, 0, 0, 0.55) 40%, transparent 75%);
+  mask: radial-gradient(120% 70% at 50% 34%, #000 0%, rgba(0, 0, 0, 0.55) 40%, transparent 75%);
+  opacity: 0.75;
+  transition: background-color 900ms;
+}
+
+.jl-stars {
+  position: absolute;
+  inset: 0;
+}
+
+.jl-stars span {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #FFF6DE;
+  box-shadow: 0 0 6px rgba(255, 236, 190, 0.9);
+  animation-name: jlTwinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.jl-topbar {
+  position: relative;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr) 84px;
+  align-items: center;
+}
+
+.jl-topbar-title {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--jl-or-vif);
+}
+
+.jl-topbar-side {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.jl-round-button {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(244, 237, 220, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--jl-velin);
+  cursor: pointer;
+}
+
+.jl-round-button.is-active {
+  color: var(--jl-or-clair);
+  background: rgba(244, 237, 220, 0.2);
+}
+
+/* Bascule Ordinaire / Traditionnel */
+.jl-rite {
+  position: relative;
+  margin: 18px auto 0;
+  width: 236px;
+  height: 36px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 18px;
+  background: rgba(244, 237, 220, 0.1);
+  box-shadow: inset 0 0 0 0.5px rgba(244, 237, 220, 0.25);
+}
+
+.jl-rite-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: 15px;
+  background: var(--jl-or-clair);
+  transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.jl-rite-thumb.is-right {
+  transform: translateX(100%);
+}
+
+.jl-rite-option {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.75);
+  cursor: pointer;
+  transition: color 400ms;
+}
+
+.jl-rite-option.is-active {
+  color: #23201A;
+}
+
+.jl-rite-option:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Roue de l'année liturgique */
+.jl-wheel {
+  position: relative;
+  margin: 22px auto 0;
+  width: 280px;
+  height: 280px;
+}
+
+.jl-wheel-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 213, 142, 0.22), transparent 62%);
+  animation: jlBreath 6s ease-in-out infinite;
+}
+
+.jl-wheel-svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.jl-wheel-guide {
+  fill: none;
+  stroke: rgba(244, 237, 220, 0.12);
+  stroke-width: 0.6;
+}
+
+.jl-wheel-arc {
+  fill: none;
+  transition: stroke-width 500ms;
+  animation: jlArc 700ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: calc(350ms + var(--i, 0) * 140ms);
+}
+
+.jl-wheel-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-inter);
+  font-size: 7.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(244, 237, 220, 0.65);
+  pointer-events: none;
+}
+
+.jl-wheel-marker {
+  position: absolute;
+  left: 140px;
+  top: 140px;
+  width: 0;
+  height: 0;
+  transition: transform 1200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.jl-wheel-marker-ray {
+  position: absolute;
+  left: -1px;
+  top: -140px;
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(180deg, #F0D58E, transparent);
+  animation: jlFade 1200ms ease 600ms backwards;
+}
+
+.jl-wheel-marker-dot {
+  position: absolute;
+  left: -7px;
+  top: -120px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--jl-or-clair);
+  animation:
+    jlFade 1200ms ease 600ms backwards,
+    jlPing 2.2s ease-out infinite;
+}
+
+.jl-wheel-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 170px;
+  height: 170px;
+  margin: -85px 0 0 -85px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.jl-wheel-day {
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+  font-size: 92px;
+  line-height: 0.9;
+  color: var(--jl-velin);
+}
+
+.jl-wheel-month {
+  margin-top: 6px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--jl-or-vif);
+}
+
+.jl-wheel-year {
+  margin-top: 8px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(244, 237, 220, 0.6);
+}
+
+/* Identité du jour */
+.jl-identity {
+  position: relative;
+  padding: 20px 26px 0;
+  text-align: center;
+  animation: jlRise 1000ms cubic-bezier(0.2, 0.7, 0.2, 1) 700ms backwards;
+}
+
+.jl-date-line {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--jl-or-clair);
+}
+
+.jl-date-dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--jl-day);
+  box-shadow: 0 0 0 2px rgba(244, 237, 220, 0.25);
+  transition: background 600ms;
+}
+
+.jl-title {
+  margin: 14px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+  font-size: calc(32px * var(--a11y-scale));
+  line-height: 1.08;
+  color: var(--jl-velin);
+  text-wrap: balance;
+}
+
+.jl-subtitle {
+  margin: 10px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(16px * var(--a11y-scale));
+  color: rgba(244, 237, 220, 0.75);
+}
+
+/* Semaine */
+.jl-week {
+  position: relative;
+  margin-top: 26px;
+  padding: 16px 12px 18px;
+  background: linear-gradient(180deg, rgba(15, 21, 38, 0) 0%, rgba(15, 21, 38, 0.6) 100%);
+}
+
+.jl-week-bars {
+  height: 96px;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  align-items: end;
+}
+
+.jl-week-day {
+  position: relative;
+  height: 74px;
+  padding: 0 0 10px;
+  border: 0;
+  border-radius: 24px 24px 8px 8px;
+  background: rgba(244, 237, 220, 0.08);
+  box-shadow: inset 0 0 0 0.5px rgba(244, 237, 220, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  cursor: pointer;
+  transition:
+    height 600ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    background 500ms,
+    box-shadow 500ms;
+}
+
+.jl-week-day.is-active {
+  height: 96px;
+  background: var(--jl-velin);
+  box-shadow:
+    0 12px 24px -12px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px #B5892E;
+}
+
+.jl-week-dot {
+  display: inline-block;
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.jl-week-dot.is-feast {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.3px var(--jl-or-clair);
+}
+
+.jl-week-day.is-active .jl-week-dot.is-feast {
+  box-shadow: inset 0 0 0 1.3px #B5892E;
+}
+
+.jl-week-number {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1;
+  color: var(--jl-velin);
+}
+
+.jl-week-letter {
+  font-family: var(--font-inter);
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.6);
+}
+
+.jl-week-day.is-active .jl-week-number {
+  font-weight: 600;
+  color: #6B1E23;
+}
+
+.jl-week-day.is-active .jl-week-letter {
+  color: #6B1E23;
+}
+
+.jl-week-legend {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+}
+
+.jl-week-legend > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-inter);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: rgba(244, 237, 220, 0.75);
+}
+
+.jl-week-legend .jl-week-dot {
+  width: 7px;
+  height: 7px;
+}
+
+/* --- Chargement --- */
+
+.jl-skeleton {
+  padding: 30px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.jl-skeleton > span {
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--color-papier-enfonce) 0%, var(--jl-carte) 50%, var(--color-papier-enfonce) 100%);
+  background-size: 400px 100%;
+  animation: jlShimmer 1.4s linear infinite;
+}
+
+.jl-skeleton p {
+  margin: 6px 0 0;
+  text-align: center;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--encre-50);
+}
+
+/* --- Ce que l'Église célèbre --- */
+
+.jl-kicker {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+.jl-celebrate {
+  padding: 30px 24px;
+  background: var(--color-papier-enfonce);
+}
+
+.jl-celebrate-text {
+  margin: 14px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: calc(20px * var(--a11y-scale));
+  line-height: calc(1.5 * var(--a11y-leading));
+  color: var(--color-encre);
+  text-wrap: pretty;
+}
+
+.jl-drop-cap {
+  float: left;
+  margin: 6px 10px 0 0;
+  font-weight: 500;
+  font-size: 58px;
+  line-height: 0.72;
+  color: var(--color-oxblood);
+}
+
+.jl-more {
+  margin-top: 14px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+  cursor: pointer;
+}
+
+.jl-more-rule {
+  display: block;
+  width: 26px;
+  height: 0.5px;
+  background: currentColor;
+  transition: width 300ms;
+}
+
+.jl-more:active .jl-more-rule {
+  width: 38px;
+}
+
+/* --- La messe --- */
+
+.jl-section-title {
+  margin: 0;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--color-encre);
+}
+
+.jl-section-title--light {
+  padding: 0 6px;
+  font-size: 30px;
+  color: var(--jl-velin);
+}
+
+.jl-mass {
+  padding: 36px 18px 0;
+}
+
+.jl-mass-head {
+  padding: 0 6px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.jl-mass-count {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--encre-60);
+}
+
+.jl-mass-timeline {
+  position: relative;
+  margin-top: 22px;
+  padding-left: 44px;
+}
+
+.jl-mass-track {
+  position: absolute;
+  left: 21px;
+  top: 14px;
+  bottom: 60px;
+  width: 0.5px;
+  background: var(--filet-barres);
+}
+
+.jl-mass-progress {
+  position: absolute;
+  left: 20.5px;
+  top: 14px;
+  width: 1.5px;
+  height: 0;
+  background: linear-gradient(180deg, #B5892E, var(--color-oxblood));
+}
+
+.jl-mass-item {
+  position: relative;
+  width: 100%;
+  padding: 0 6px 26px 0;
+  border: 0;
+  background: none;
+  display: block;
+  text-align: left;
+  cursor: pointer;
+}
+
+.jl-mass-node {
+  position: absolute;
+  left: -44px;
+  top: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--color-papier);
+  box-shadow: inset 0 0 0 1px rgba(181, 137, 46, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-cormorant);
+  font-size: 16px;
+  color: var(--color-or);
+}
+
+.jl-mass-label-row,
+.jl-gospel-label-row {
+  padding-top: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.jl-mass-label {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+.jl-mass-ref {
+  font-family: var(--font-eb-garamond);
+  font-size: 14.5px;
+  color: var(--encre-72);
+}
+
+.jl-mass-quote {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-cormorant);
+  font-size: calc(20px * var(--a11y-scale));
+  line-height: 1.4;
+  color: var(--color-encre);
+  text-wrap: pretty;
+}
+
+.jl-gospel-wrap {
+  position: relative;
+}
+
+.jl-gospel-node {
+  position: absolute;
+  z-index: 1;
+  left: -44px;
+  top: 16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #6B1E23;
+  box-shadow: 0 0 0 5px rgba(107, 30, 35, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-cormorant);
+  font-size: 20px;
+  color: var(--jl-or-clair);
+}
+
+.jl-gospel {
+  position: relative;
+  overflow: hidden;
+  margin-left: -6px;
+  padding: 22px 20px;
+  border-radius: 16px;
+  background: radial-gradient(100% 80% at 90% 0%, #3A1A1E 0%, #23201A 70%);
+  box-shadow: 0 22px 36px -24px rgba(35, 32, 26, 0.8);
+}
+
+.jl-gospel-watermark {
+  position: absolute;
+  right: 6px;
+  top: -24px;
+  color: rgba(240, 213, 142, 0.25);
+  pointer-events: none;
+}
+
+.jl-gospel-text-button {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  display: block;
+  text-align: left;
+  cursor: pointer;
+}
+
+.jl-gospel-label {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jl-or-clair);
+}
+
+.jl-gospel-ref {
+  font-family: var(--font-eb-garamond);
+  font-size: 14.5px;
+  color: rgba(244, 237, 220, 0.7);
+}
+
+.jl-gospel-text {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.26em;
+  font-family: var(--font-cormorant);
+  font-size: calc(23px * var(--a11y-scale));
+  line-height: 1.38;
+  color: var(--jl-velin);
+}
+
+.jl-gospel-word {
+  opacity: 0.15;
+  transition: opacity 300ms;
+}
+
+.jl-gospel-word.is-read {
+  opacity: 1;
+}
+
+.jl-gold-button {
+  position: relative;
+  margin-top: 20px;
+  height: 46px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 23px;
+  background: var(--jl-or-clair);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #23201A;
+  cursor: pointer;
+}
+
+.jl-gold-button span {
+  font-family: var(--font-cormorant);
+  font-size: 18px;
+  letter-spacing: 0;
+  color: #6B1E23;
+}
+
+.jl-gold-button:active {
+  background: #F4DFA4;
+}
+
+.jl-gold-button--light {
+  margin: 0 0 0 -44px;
+}
+
+/* --- Liturgie des heures --- */
+
+.jl-hours {
+  margin-top: 40px;
+  padding: 34px 18px 30px;
+  background: radial-gradient(120% 90% at 50% 100%, #2A2238 0%, #141C30 65%);
+}
+
+.jl-hours-subtitle {
+  margin: 6px 0 0;
+  padding: 0 6px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(244, 237, 220, 0.65);
+}
+
+.jl-dial-frame {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  margin: 22px auto 0;
+}
+
+.jl-dial {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 340px;
+  height: 196px;
+  transform-origin: 0 0;
+}
+
+.jl-dial svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.jl-dial-path {
+  fill: none;
+  stroke: rgba(244, 237, 220, 0.2);
+  stroke-width: 0.8;
+  stroke-dasharray: 2 5;
+}
+
+.jl-dial-progress {
+  fill: none;
+  stroke: var(--jl-or-clair);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1100ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.jl-dial-horizon {
+  stroke: rgba(244, 237, 220, 0.25);
+  stroke-width: 0.5;
+}
+
+.jl-dial-hour {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  padding: 0;
+  border: 0;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.jl-dial-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(244, 237, 220, 0.45);
+  box-shadow: 0 0 0 3px #1B2238;
+  transition: all 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.jl-dial-dot.is-now {
+  background: var(--jl-or-clair);
+}
+
+.jl-dial-dot.is-on {
+  width: 0;
+  height: 0;
+}
+
+.jl-dial-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.6);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: color 400ms;
+}
+
+.jl-dial-label.is-on {
+  font-weight: 600;
+  color: var(--jl-or-clair);
+}
+
+.jl-dial-sun-arm {
+  position: absolute;
+  left: 170px;
+  top: 176px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  transition: transform 1100ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.jl-dial-sun {
+  position: absolute;
+  left: -151px;
+  top: -11px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFF6DE, #F0D58E 60%, #B5892E);
+  animation: jlSun 3s ease-in-out infinite;
+}
+
+.jl-dial-center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 96px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.jl-dial-name {
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 38px;
+  line-height: 1;
+  color: var(--jl-velin);
+}
+
+.jl-dial-tag {
+  margin-top: 8px;
+  font-family: var(--font-inter);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.6);
+}
+
+.jl-dial-tag.is-now {
+  color: var(--jl-or-clair);
+}
+
+.jl-hours-actions {
+  margin: 18px 6px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.jl-hours-pray {
+  height: 50px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 25px;
+  background: var(--jl-or-clair);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: #23201A;
+  cursor: pointer;
+}
+
+.jl-hours-pray span {
+  font-family: var(--font-cormorant);
+  font-size: 18px;
+  color: #6B1E23;
+}
+
+.jl-hours-all {
+  height: 50px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 25px;
+  background: none;
+  box-shadow: inset 0 0 0 1px rgba(244, 237, 220, 0.4);
+  font-family: var(--font-inter);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--jl-velin);
+  cursor: pointer;
+}
+
+/* --- Rosaire / Garder --- */
+
+.jl-tiles {
+  padding: 34px 18px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.jl-tile {
+  position: relative;
+  overflow: hidden;
+  height: 92px;
+  padding: 16px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--jl-carte);
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  text-align: left;
+  cursor: pointer;
+  transition: background 500ms;
+}
+
+.jl-tile-rosette {
+  position: absolute;
+  right: -18px;
+  top: -18px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(#B5892E 0deg 4deg, transparent 4deg 18deg);
+  -webkit-mask: radial-gradient(circle, transparent 0 62%, #000 63% 70%, transparent 71%);
+  mask: radial-gradient(circle, transparent 0 62%, #000 63% 70%, transparent 71%);
+  animation: jlSpin 30s linear infinite;
+}
+
+.jl-tile-mark {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+
+.jl-tile-mark path {
+  stroke: var(--color-or);
+  stroke-width: 1.2;
+  fill: transparent;
+  transition: fill 400ms;
+}
+
+.jl-tile-title {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 1.05;
+  color: var(--color-encre);
+}
+
+.jl-tile-meta {
+  margin-top: 3px;
+  font-family: var(--font-inter);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--encre-60);
+}
+
+.jl-tile.is-saved {
+  background: #6B1E23;
+  box-shadow: none;
+}
+
+.jl-tile.is-saved .jl-tile-mark path {
+  stroke: var(--jl-or-clair);
+  fill: var(--jl-or-clair);
+}
+
+.jl-tile.is-saved .jl-tile-title {
+  color: var(--jl-velin);
+}
+
+.jl-tile.is-saved .jl-tile-meta {
+  color: rgba(244, 237, 220, 0.7);
+}
+
+.jl-source {
+  margin: 26px 0 0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--encre-60);
+}
+
+.jl-source span {
+  font-family: var(--font-cormorant);
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--color-or);
+}
+
+/* --- Veille / lendemain --- */
+
+.jl-nav {
+  margin-top: 18px;
+  padding: 16px 18px 30px;
+  border-top: 0.5px solid var(--filet-sections);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.jl-nav-button {
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 14px;
+  background: none;
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  cursor: pointer;
+}
+
+.jl-nav-button.is-dark {
+  background: #23201A;
+  box-shadow: none;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.jl-nav-kicker {
+  font-family: var(--font-inter);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--encre-50);
+}
+
+.jl-nav-day {
+  margin-top: 4px;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--color-encre);
+}
+
+.jl-nav-button.is-dark .jl-nav-kicker {
+  color: rgba(244, 237, 220, 0.6);
+}
+
+.jl-nav-button.is-dark .jl-nav-day {
+  color: var(--jl-or-clair);
+}
+
+/* --- Réduire les animations --- */
+
+@media (prefers-reduced-motion: reduce) {
+  .jl *,
+  .jl *::before,
+  .jl *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .jl [data-rv],
+  .jl [data-rv].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
 }

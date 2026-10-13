@@ -83,3 +83,65 @@ export function feastCountdownLabel(feast: FeastId, today: Date = new Date()): s
   if (days === 1) return `${label} demain`;
   return `${label} dans ${days} jours`;
 }
+
+export type LiturgicalSeasonKey = 'avent' | 'noel' | 'ordinaire-1' | 'careme' | 'paques' | 'ordinaire-2';
+
+export interface LiturgicalSeason {
+  key: LiturgicalSeasonKey;
+  label: string;
+  color: 'violet' | 'blanc' | 'vert';
+  days: number;
+}
+
+export interface LiturgicalYear {
+  seasons: LiturgicalSeason[];
+  /** Nombre total de jours de l'année liturgique. */
+  length: number;
+  /** Rang du jour demandé dans l'année (0 = premier dimanche de l'Avent). */
+  dayIndex: number;
+  /** Cycle des dimanches (A, B, C). */
+  sundayCycle: 'A' | 'B' | 'C';
+  /** Cycle des lectures de semaine : année paire ou impaire. */
+  weekdayCycle: 'paire' | 'impaire';
+}
+
+/** Premier dimanche de l'Avent : quatrième dimanche avant Noël. */
+function firstSundayOfAdvent(year: number): Date {
+  const christmas = utcDate(year, 12, 25);
+  return addDays(christmas, -(christmas.getUTCDay() || 7) - 21);
+}
+
+const daysBetween = (from: Date, to: Date) => Math.round((to.getTime() - from.getTime()) / DAY_MS);
+
+/** Découpage en temps de l'année liturgique qui contient `date`. Elle porte
+ * le millésime de l'année civile où elle se termine (2026 pour celle qui
+ * commence à l'Avent 2025). */
+export function liturgicalYear(date: Date = new Date()): LiturgicalYear {
+  const day = utcDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+  const endYear = day >= firstSundayOfAdvent(day.getUTCFullYear()) ? day.getUTCFullYear() + 1 : day.getUTCFullYear();
+
+  const start = firstSundayOfAdvent(endYear - 1);
+  const christmas = utcDate(endYear - 1, 12, 25);
+  const afterBaptism = addDays(baptismOfTheLord(endYear), 1);
+  const easter = easterSunday(endYear);
+  const ashWednesday = addDays(easter, -46);
+  const afterPentecost = addDays(easter, 50);
+  const end = firstSundayOfAdvent(endYear);
+
+  const seasons: LiturgicalSeason[] = [
+    { key: 'avent', label: 'Avent', color: 'violet', days: daysBetween(start, christmas) },
+    { key: 'noel', label: 'Noël', color: 'blanc', days: daysBetween(christmas, afterBaptism) },
+    { key: 'ordinaire-1', label: 'T.O.', color: 'vert', days: daysBetween(afterBaptism, ashWednesday) },
+    { key: 'careme', label: 'Carême', color: 'violet', days: daysBetween(ashWednesday, easter) },
+    { key: 'paques', label: 'Pâques', color: 'blanc', days: daysBetween(easter, afterPentecost) },
+    { key: 'ordinaire-2', label: 'Temps ordinaire', color: 'vert', days: daysBetween(afterPentecost, end) }
+  ];
+
+  return {
+    seasons,
+    length: daysBetween(start, end),
+    dayIndex: daysBetween(start, day),
+    sundayCycle: (['C', 'A', 'B'] as const)[endYear % 3],
+    weekdayCycle: endYear % 2 === 0 ? 'paire' : 'impaire'
+  };
+}

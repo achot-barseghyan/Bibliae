@@ -1,39 +1,28 @@
-/* Barre d'annotation flottante (handoff « Annotation dans le lecteur »).
-   Couleurs fixes, identiques dans tous les thèmes de lecture : la pilule
-   sombre se détache aussi bien du papier que du thème nuit. */
+/* Panneau d'annotation du lecteur. Couleurs fixes, identiques dans tous les
+   thèmes de lecture : le panneau sombre se détache aussi bien du papier que
+   du thème nuit. */
 
 .annot-bar {
   position: fixed;
-  left: 12px;
-  right: 12px;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 22px);
+  left: 10px;
+  right: 10px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
   z-index: 30;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  pointer-events: none;
-}
-
-.annot-bar > * {
-  pointer-events: auto;
-}
-
-/* --- Pastille de contexte --- */
-
-.annot-bar-context {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  max-width: 100%;
-  min-height: 32px;
-  margin-bottom: 8px;
-  padding: 0 6px 0 14px;
-  box-sizing: border-box;
-  border-radius: 16px;
-  background: #f7f1e3;
+  padding: 16px 18px 18px;
+  border-radius: 22px;
+  background: #23201a;
   box-shadow:
-    0 6px 18px rgba(35, 32, 26, 0.18),
-    inset 0 0 0 0.5px rgba(35, 32, 26, 0.2);
+    0 -18px 34px -20px rgba(15, 21, 38, 0.7),
+    0 18px 40px rgba(35, 32, 26, 0.35);
+}
+
+/* --- Référence et fermeture --- */
+
+.annot-bar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .annot-bar-ref {
@@ -41,153 +30,139 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: var(--font-eb-garamond);
-  font-size: 15px;
-  color: #6b1e23;
-}
-
-.annot-bar-context-divider {
-  flex: none;
-  width: 0.5px;
-  height: 16px;
-  margin: 0 4px;
-  background: rgba(35, 32, 26, 0.25);
-}
-
-.annot-bar-context-action {
-  flex: none;
-  min-height: 32px;
-  padding: 0 8px;
-  border: none;
-  background: none;
   font-family: var(--font-inter);
-  font-size: 11.5px;
-  font-weight: 500;
-  color: #23201a;
-  cursor: pointer;
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #f0d58e;
 }
 
 .annot-bar-close {
   flex: none;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  background: none;
-  color: rgba(35, 32, 26, 0.6);
-  cursor: pointer;
-}
-
-/* --- Pilule d'outils --- */
-
-.annot-bar-tools {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px;
-  width: 100%;
-  min-height: 66px;
-  padding: 0 8px 0 12px;
-  box-sizing: border-box;
-  border-radius: 33px;
-  background: rgba(30, 27, 22, 0.95);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 18px 40px rgba(35, 32, 26, 0.4);
-}
-
-.annot-bar-colors,
-.annot-bar-actions {
-  display: flex;
-  align-items: center;
-}
-
-.annot-bar-swatch {
   width: 36px;
-  height: 44px;
+  height: 36px;
+  margin: -8px -8px -8px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   border: none;
   background: none;
+  color: rgba(244, 237, 220, 0.7);
   cursor: pointer;
 }
 
-.annot-bar-swatch-dot {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-  transition:
-    width 0.2s,
-    height 0.2s,
-    box-shadow 0.2s;
+/* --- Pastilles : couleurs, souligner, gommer --- */
+
+.annot-bar-swatches {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.annot-bar-swatch.is-active .annot-bar-swatch-dot {
-  width: 26px;
-  height: 26px;
-  box-shadow:
-    0 0 0 2px #1e1b16,
-    0 0 0 3.5px #f7f1e3;
-}
-
-.annot-bar-tools-divider {
+.annot-bar-swatch,
+.annot-bar-round {
   flex: none;
-  width: 0.5px;
-  height: 30px;
-  background: rgba(247, 241, 227, 0.22);
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    box-shadow 300ms,
+    transform 300ms;
+}
+
+.annot-bar-swatch.is-active {
+  box-shadow:
+    0 0 0 2px #23201a,
+    0 0 0 3.5px #f0d58e;
+}
+
+.annot-bar-round {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(244, 237, 220, 0.4);
+  color: rgba(244, 237, 220, 0.75);
+}
+
+.annot-bar-round.is-active {
+  background: rgba(240, 213, 142, 0.16);
+  box-shadow: inset 0 0 0 1px #f0d58e;
+  color: #f4eddc;
+}
+
+.annot-bar-round:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (hover: hover) {
+  .annot-bar-swatch:hover,
+  .annot-bar-round:not(:disabled):hover {
+    transform: scale(1.08);
+  }
+
+  .annot-bar-action:hover {
+    background: rgba(244, 237, 220, 0.14);
+  }
+}
+
+/* --- Actions --- */
+
+.annot-bar-actions {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .annot-bar-action {
-  width: 48px;
-  height: 52px;
+  min-width: 0;
+  height: 48px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 0;
+  gap: 8px;
+  padding: 0 6px;
   border: none;
   border-radius: 14px;
-  background: transparent;
+  background: rgba(244, 237, 220, 0.08);
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f4eddc;
   cursor: pointer;
 }
 
-.annot-bar-action.is-active {
-  background: rgba(226, 190, 110, 0.18);
-}
-
-.annot-bar-action-label {
-  font-family: var(--font-inter);
-  font-size: 9px;
-  font-weight: 500;
-  color: rgba(247, 241, 227, 0.8);
-}
-
-.annot-bar-action--erase .annot-bar-action-label {
-  color: #e8a8a2;
+.annot-bar-action svg {
+  flex: none;
 }
 
 .annot-bar-swatch:focus-visible,
+.annot-bar-round:focus-visible,
 .annot-bar-action:focus-visible,
-.annot-bar-context-action:focus-visible,
 .annot-bar-close:focus-visible {
-  outline: 2px solid #e2be6e;
+  outline: 2px solid #f0d58e;
   outline-offset: 2px;
 }
 
 /* Écrans étroits : les pastilles se resserrent pour que tout tienne. */
 @media (max-width: 370px) {
-  .annot-bar-swatch {
-    width: 30px;
+  .annot-bar-swatches {
+    gap: 7px;
   }
 
-  .annot-bar-action {
-    width: 44px;
+  .annot-bar-swatch,
+  .annot-bar-round {
+    width: 30px;
+    height: 30px;
   }
 }
