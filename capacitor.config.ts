@@ -10,6 +10,15 @@ const config: CapacitorConfig = {
   appId: 'com.bibliae.app',
   appName: 'Bibliae',
   webDir: 'dist',
+  plugins: {
+    // L'écran natif reste affiché jusqu'au début de l'animation de lancement
+    // (src/splash/bibliaeSplash.ts), qui le masque elle-même.
+    SplashScreen: {
+      launchAutoHide: false,
+      backgroundColor: '#6B1E23',
+      showSpinner: false
+    }
+  },
   ...(liveReload && {
     server: {
       url: `http://${liveReloadHost}:5173`,

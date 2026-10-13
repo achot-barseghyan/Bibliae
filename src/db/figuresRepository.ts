@@ -33,6 +33,15 @@ interface FigureRow {
   image: string;
 }
 
+/**
+ * Images embarquées par id. L'URL d'une image change à chaque fois que le
+ * fichier change (empreinte de Vite, passage de PNG à WebP…), alors que la
+ * table n'est remplie qu'au premier lancement : l'URL enregistrée peut donc
+ * pointer vers un fichier qui n'existe plus après une mise à jour de l'app.
+ * On prend toujours l'image de la version installée.
+ */
+const bundledImages = new Map(seedFigures.map((f) => [f.id, f.image]));
+
 function rowToFigure(row: FigureRow): Figure {
   return {
     id: row.id,
@@ -45,7 +54,7 @@ function rowToFigure(row: FigureRow): Figure {
     date: row.date,
     books: JSON.parse(row.books) as string[],
     mentions: row.mentions,
-    image: row.image
+    image: bundledImages.get(row.id) ?? row.image
   };
 }
 
