@@ -1,23 +1,85 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IonContent, IonPage } from '@ionic/react';
-import { useParishSearch } from '../../hooks/useParishSearch';
+import { IonPage } from '@ionic/react';
+import { useParishSearch, type Parish } from '../../hooks/useParishSearch';
 import { locationLabelFromZip } from '../../utils/frenchDepartments';
-import { ChevronLeftIcon, SearchIcon, LocationIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
+import { churchCountLabel, departmentCode, hasWebsite } from './parishFormat';
 import './Paroisses.css';
 import WorldButton from '../../components/nav/WorldButton';
+
+// Trouver une paroisse (maquette « Trouver une paroisse v2 ») : en-tête nuit
+// avec radar pendant la localisation, champ de recherche collant, filtres
+// appliqués aux résultats déjà chargés, cartes avec cadran « une graduation
+// par église ».
+
+const FILTERS: { label: string; test: (parish: Parish) => boolean }[] = [
+  { label: 'Toutes', test: () => true },
+  { label: 'Avec site', test: (parish) => hasWebsite(parish) },
+  { label: '5 églises et +', test: (parish) => parish.churchCount >= 5 }
+];
+
+const ParishCard: React.FC<{ parish: Parish; index: number; onOpen: () => void }> = ({
+  parish,
+  index,
+  onOpen
+}) => {
+  const location = locationLabelFromZip(parish.zipCode);
+  const site = hasWebsite(parish);
+  const n = parish.churchCount;
+  const meta = [location, parish.dioceseId ? `Diocèse n° ${parish.dioceseId}` : null]
+    .filter(Boolean)
+    .join(' · ');
+
+  return (
+    <button
+      type="button"
+      className="tp-card"
+      style={{ '--tp-i': Math.min(index, 12) } as React.CSSProperties}
+      onClick={onOpen}
+    >
+      <span
+        className="tp-dial"
+        aria-hidden="true"
+        style={{ '--tp-tick': `${(360 / Math.max(n, 1)).toFixed(2)}deg` } as React.CSSProperties}
+      >
+        <span className="tp-dial-ring" />
+        <span className="tp-dial-core">{parish.zipCode ? departmentCode(parish.zipCode) : '†'}</span>
+      </span>
+      <span className="tp-card-main">
+        <span className="tp-card-name">{parish.name}</span>
+        <span className="tp-card-tags">
+          <span className="tp-tag">
+            {churchCountLabel(n)}
+          </span>
+          {site && <span className="tp-tag tp-tag--site">Site</span>}
+        </span>
+        {meta && <span className="tp-card-meta">{meta}</span>}
+      </span>
+      <span className="tp-card-side">
+        {parish.zipCode && <span className="tp-card-zip">{parish.zipCode}</span>}
+        <span className="tp-card-chevron" aria-hidden="true">
+          ›
+        </span>
+      </span>
+    </button>
+  );
+};
 
 const Paroisses: React.FC = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
+  const [filter, setFilter] = useState(0);
   const [isLocating, setIsLocating] = useState(false);
   const [locateError, setLocateError] = useState<string | null>(null);
-  const { results, totalItems, isLoading, error } = useParishSearch(query);
+  const { results, isLoading, error } = useParishSearch(query);
 
   const trimmed = query.trim();
+  const searching = trimmed.length >= 2;
+  const shown = results.filter(FILTERS[filter].test);
 
   const locateMe = () => {
+    if (isLocating) return;
     // Les navigateurs refusent la position aux pages servies en http (hors
     // localhost), sans même afficher de demande : l'erreur ressemble alors à
     // un refus de l'utilisateur alors que l'autorisation est bien donnée.
@@ -76,136 +138,183 @@ const Paroisses: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <IonContent fullscreen className="paroisses-content">
-        <header className="paroisses-header">
-          <button
-            type="button"
-            className="paroisses-header-button"
-            onClick={() => {
-              tapHaptic();
-              navigate(-1);
-            }}
-            aria-label="Retour"
-          >
-            <ChevronLeftIcon size={22} />
-          </button>
-        </header>
+    <IonPage className="tp-page">
+      <div className="tp-scroll">
+        <header className="tp-hero">
+          <span className="tp-rosace" aria-hidden="true" />
+          <span className={`tp-radar${isLocating ? ' is-on' : ''}`} aria-hidden="true">
+            <span className="tp-radar-ping" />
+            <span className="tp-radar-ping tp-radar-ping--late" />
+            <span className="tp-radar-dot" />
+          </span>
 
-        <div className="paroisses-hero">
-          <h1 className="paroisses-title">Trouver une paroisse</h1>
-          <p className="paroisses-subtitle">
-            Cherche par nom de paroisse, par ville ou par code postal. Chaque fiche donne les églises
-            rattachées et les horaires des messes.
-          </p>
-        </div>
-
-        <div className="paroisses-search">
-          <div className="paroisses-search-field">
-            <SearchIcon size={17} className="paroisses-search-icon" />
-            <input
-              type="search"
-              className="paroisses-search-input"
-              placeholder="Nom, ville ou code postal"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            {trimmed && (
+          <div className="tp-hero-inner">
+            <div className="tp-hero-top">
               <button
                 type="button"
-                className="paroisses-search-clear"
+                className="tp-back"
+                onClick={() => {
+                  tapHaptic();
+                  navigate(-1);
+                }}
+                aria-label="Retour"
+              >
+                ‹
+              </button>
+              <span className="tp-kicker">Église</span>
+            </div>
+            <h1 className="tp-title">
+              Trouver une
+              <br />
+              paroisse
+            </h1>
+            <p className="tp-lede">
+              Cherche par nom de paroisse, par ville ou par code postal. Chaque fiche donne les
+              églises rattachées et les horaires des messes.
+            </p>
+          </div>
+        </header>
+
+        <div className="tp-search">
+          <label className="tp-field">
+            <span className="tp-field-shine" aria-hidden="true" />
+            <svg className="tp-field-icon" width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path
+                d="M8.2 14.4a6.2 6.2 0 100-12.4 6.2 6.2 0 000 12.4zM12.9 12.9l3.7 3.7"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+              />
+            </svg>
+            <input
+              type="search"
+              className="tp-input"
+              placeholder="Paris, 75004, Sainte-Marie…"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              aria-label="Nom, ville ou code postal"
+              enterKeyHint="search"
+            />
+            {query && (
+              <button
+                type="button"
+                className="tp-clear"
                 onClick={() => {
                   setQuery('');
                   setLocateError(null);
                 }}
+                aria-label="Effacer la recherche"
               >
-                Effacer
+                <span className="tp-clear-dot">
+                  <svg width="9" height="9" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                    <path d="M1 1l13 13M14 1L1 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                  </svg>
+                </span>
               </button>
             )}
-          </div>
+          </label>
         </div>
 
-        <button type="button" className="paroisses-locate" onClick={locateMe} disabled={isLocating}>
-          <LocationIcon size={16} />
-          {isLocating ? 'Localisation…' : 'Autour de moi'}
-        </button>
+        <div className="tp-chips">
+          <button
+            type="button"
+            className="tp-chip tp-chip--locate"
+            onClick={locateMe}
+            aria-busy={isLocating}
+          >
+            <span className="tp-locate-dot" aria-hidden="true" />
+            {isLocating ? 'Localisation…' : 'Autour de moi'}
+          </button>
+          {FILTERS.map((f, i) => (
+            <button
+              key={f.label}
+              type="button"
+              className={`tp-chip${i === filter ? ' is-active' : ''}`}
+              aria-pressed={i === filter}
+              onClick={() => setFilter(i)}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
 
-        {locateError && <p className="paroisses-locate-error">{locateError}</p>}
+        {locateError && <p className="tp-locate-error">{locateError}</p>}
 
-        <div className="paroisses-results">
-          {trimmed.length >= 2 && (
-            <div className="paroisses-results-header">
-              <p className="paroisses-results-count">
-                {isLoading
-                  ? 'Recherche…'
-                  : `${totalItems} paroisse${totalItems > 1 ? 's' : ''}`}
+        {searching && (
+          <div className="tp-count" aria-live="polite">
+            <span className="tp-count-main">
+              <span className="tp-count-num">{isLoading ? '…' : shown.length}</span>
+              <span className="tp-count-word">
+                {isLoading ? 'Recherche' : shown.length > 1 ? 'paroisses' : 'paroisse'}
+              </span>
+            </span>
+            <span className="tp-count-scope">« {trimmed} »</span>
+          </div>
+        )}
+
+        <div className="tp-results">
+          {!searching && (
+            <div className="tp-empty">
+              <p className="tp-empty-title">Où cherches-tu ?</p>
+              <p className="tp-empty-text">
+                Tape au moins deux lettres : une ville, un code postal ou le nom du saint patron.
               </p>
-              <p className="paroisses-results-query">« {trimmed} »</p>
             </div>
           )}
 
-          {trimmed.length < 2 && (
-            <p className="paroisses-hint">Tape au moins deux lettres pour commencer la recherche.</p>
+          {searching && error && (
+            <div className="tp-empty">
+              <p className="tp-empty-title">Recherche indisponible</p>
+              <p className="tp-empty-text">{error}</p>
+            </div>
           )}
 
-          {error && <p className="paroisses-error">{error}</p>}
-
-          {!error && !isLoading && trimmed.length >= 2 && results.length === 0 && (
-            <p className="paroisses-empty">Aucune paroisse trouvée pour « {trimmed} ».</p>
+          {searching && !error && !isLoading && shown.length === 0 && (
+            <div className="tp-empty">
+              <p className="tp-empty-title">Aucune paroisse trouvée</p>
+              <p className="tp-empty-text">
+                {results.length > 0
+                  ? 'Aucun résultat avec ce filtre. Essaie « Toutes ».'
+                  : 'Essaie un nom de ville, un code postal, ou le nom du saint patron.'}
+              </p>
+            </div>
           )}
 
-          {results.map((parish) => {
-            const location = locationLabelFromZip(parish.zipCode);
-            const hasWebsite = parish.website.includes('.');
-            return (
-              <article className="paroisses-card" key={parish.id}>
-                <div className="paroisses-card-head">
-                  <h3 className="paroisses-card-name">{parish.name}</h3>
-                  {parish.zipCode && <span className="paroisses-card-zip">{parish.zipCode}</span>}
-                </div>
-                <div className="paroisses-card-tags">
-                  <span className="paroisses-card-tag">
-                    {parish.churchCount > 0
-                      ? `${parish.churchCount} église${parish.churchCount > 1 ? 's' : ''}`
-                      : 'Églises à préciser'}
-                  </span>
-                  {hasWebsite && (
-                    <a
-                      className="paroisses-card-tag paroisses-card-tag--link"
-                      href={parish.website.startsWith('http') ? parish.website : `https://${parish.website}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Site
-                    </a>
-                  )}
-                </div>
-                {(location || parish.dioceseId) && (
-                  <p className="paroisses-card-meta">
-                    {location}
-                    {location && parish.dioceseId ? ' · ' : ''}
-                    {parish.dioceseId ? `Diocèse n° ${parish.dioceseId}` : ''}
-                  </p>
-                )}
-              </article>
-            );
-          })}
+          {/* La clé change à chaque recherche/filtre : les cartes rejouent leur apparition. */}
+          {!isLoading && (
+            <div className="tp-list" key={`${trimmed}|${filter}`}>
+              {shown.map((parish, i) => (
+                <ParishCard
+                  key={parish.id}
+                  parish={parish}
+                  index={i}
+                  onOpen={() => {
+                    tapHaptic();
+                    navigate(`/paroisses/${parish.id}`, { state: { parish } });
+                  }}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="paroisses-note">
-          <p className="paroisses-note-kicker">Bon à savoir</p>
-          <p className="paroisses-note-text">
-            Une paroisse regroupe plusieurs églises. Les horaires de messe peuvent changer pendant l'été
-            et les grandes fêtes : vérifie sur la fiche avant de te déplacer.
+        <aside className="tp-note">
+          <span className="tp-note-glow" aria-hidden="true" />
+          <p className="tp-note-kicker">Bon à savoir</p>
+          <p className="tp-note-text">
+            Une paroisse regroupe plusieurs églises. Les horaires de messe peuvent changer pendant
+            l'été et les grandes fêtes : vérifie sur la fiche avant de te déplacer.
           </p>
-        </div>
+        </aside>
 
-        <footer className="paroisses-footer">
-          <p className="paroisses-footer-wordmark">Lux Scripturae, Fides Ecclesiae</p>
-          <p className="paroisses-footer-links">À propos · Sources · Contact</p>
+        <footer className="tp-footer">
+          <span className="tp-footer-cross" aria-hidden="true">
+            †
+          </span>
+          <span className="tp-footer-motto">Lux Scripturae, fides Ecclesiae</span>
         </footer>
         <WorldButton />
-      </IonContent>
+      </div>
     </IonPage>
   );
 };

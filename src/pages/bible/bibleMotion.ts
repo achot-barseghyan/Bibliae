@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useAccessibility } from '../../hooks/useAccessibility';
-import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 // Animations d'entrée du monde Bible (liste, livre, lecteur) : apparitions
 // échelonnées et compteurs, jouées via l'API Web Animations pour ne rien
@@ -10,9 +9,7 @@ export const BIBLE_EASE = 'cubic-bezier(.2,.7,.2,1)';
 
 /** Réglage de l'app ou préférence système : dans les deux cas, pas d'animation. */
 export function useBibleReducedMotion(): boolean {
-  const { settings } = useAccessibility();
-  const prefersReduced = usePrefersReducedMotion();
-  return settings.reduceMotion || prefersReduced;
+  return useReducedMotion();
 }
 
 interface StaggerOptions {

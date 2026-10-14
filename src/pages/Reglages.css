@@ -17,3 +17,19 @@
   margin: 0;
 }
 
+
+/* Les sections Réglages v2 (AccessibilityPanel, ReadingPrefsSection) ont
+   des marges de feuille (18px) ; on les aligne ici sur l'en-tête de page. */
+.reglages-content .a11y-panel,
+.reglages-content .reading-prefs-section {
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+/* Thème Nuit : --color-encre devient clair, l'option active passe à l'or
+   avec une encre sombre pour rester lisible. */
+html[data-reading-theme='nuit'] .reglages-content {
+  --rl-sel-bg: var(--color-or);
+  --rl-sel-ink: var(--color-papier);
+  --rl-sel-fg: var(--color-papier);
+}

@@ -2,40 +2,127 @@
   position: fixed;
   inset: 0;
   z-index: 300;
-  background: rgba(28, 24, 20, 0.34);
+  background: rgba(15, 21, 38, 0.55);
   display: flex;
   align-items: flex-end;
 }
 
+/* La feuille garde sa palette crème quel que soit le thème de lecture
+   choisi (html[data-reading-theme] / [data-reading-font] redéfinissent ces
+   jetons pour toute l'app) : seul l'aperçu reflète le thème. */
 .a11y-quick-sheet {
+  --color-papier: #F4EDDC;
+  --color-encre: #23201A;
+  --color-oxblood: #6B1E23;
+  --color-or: #B5892E;
+  --encre-60: rgba(35, 32, 26, 0.62);
+  --filet-sections: rgba(35, 32, 26, 0.2);
+  --filet-tableaux: rgba(35, 32, 26, 0.16);
+  --filet-barres: rgba(35, 32, 26, 0.3);
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-eb-garamond: 'EB Garamond', serif;
+  --font-inter: 'Inter', sans-serif;
+
   width: 100%;
-  max-height: 86vh;
+  max-height: calc(100% - env(safe-area-inset-top, 0px) - 16px);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   background: var(--color-papier);
-  border-top-left-radius: 22px;
-  border-top-right-radius: 22px;
-  border: 1px solid var(--filet-barres);
-  border-bottom: none;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0 -20px 40px -20px rgba(15, 21, 38, 0.6);
+}
+
+/* --- En-tête nuit : rosace qui tourne, halo qui respire, aperçu --- */
+
+.a11y-quick-hero {
+  position: relative;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0F1526 0%, #1B2640 70%, #2A2238 100%);
+  padding: 10px 18px 20px;
+}
+
+.a11y-quick-rosace {
+  position: absolute;
+  right: -110px;
+  top: -120px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    rgba(240, 213, 142, 0.4) 0deg 0.6deg,
+    transparent 0.6deg 7.5deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 0 60%, #000 61% 70%, transparent 71%);
+  mask: radial-gradient(circle, transparent 0 60%, #000 61% 70%, transparent 71%);
+  animation: a11y-quick-spin 120s linear infinite;
+  pointer-events: none;
+}
+
+.a11y-quick-glow {
+  position: absolute;
+  left: -60px;
+  bottom: -80px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 213, 142, 0.16), transparent 66%);
+  animation: a11y-quick-breath 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.a11y-quick-handle {
+  position: relative;
+  width: 38px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(244, 237, 220, 0.35);
+  margin: 0 auto;
+  cursor: grab;
 }
 
 .a11y-quick-header {
-  flex: 0 0 auto;
+  position: relative;
+  margin-top: 10px;
   display: flex;
-  justify-content: flex-end;
-  margin: -4px 8px -4px 0;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.a11y-quick-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #D9B66A;
+  margin: 0;
+}
+
+.a11y-quick-title {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1;
+  color: #F4EDDC;
+  margin: 4px 0 0;
 }
 
 .a11y-quick-close {
   width: 44px;
   height: 44px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   background: none;
   border: none;
-  color: var(--color-encre);
+  box-shadow: inset 0 0 0 0.5px rgba(240, 213, 142, 0.6);
+  color: #F0D58E;
   cursor: pointer;
+  transition: transform 0.15s ease;
 }
 
 .a11y-quick-close:active {
@@ -43,57 +130,128 @@
 }
 
 .a11y-quick-close:focus-visible {
-  outline: 2px solid var(--color-oxblood);
+  outline: 2px solid #F0D58E;
   outline-offset: 2px;
 }
 
-.a11y-quick-handle {
-  flex: 0 0 auto;
-  width: 44px;
-  height: 4px;
-  border-radius: 999px;
-  background: var(--filet-barres);
-  margin: 10px auto 4px;
-  cursor: grab;
+/* Les couleurs de l'aperçu viennent des styles en ligne (voir
+   AccessibilityQuickSheet.tsx, calculés depuis READING_THEMES/READING_FONTS).
+   La taille suit --taille-verset (échelle d'accessibilité) et la hauteur
+   s'anime d'un nombre de lignes à l'autre (--pv-lines). */
+.a11y-quick-preview {
+  position: relative;
+  margin-top: 16px;
+  border-radius: 18px;
+  padding: 14px 18px 16px;
+  overflow: hidden;
+  box-shadow: 0 22px 36px -20px rgba(0, 0, 0, 0.75), inset 0 0 0 1px rgba(181, 137, 46, 0.7);
+  transition: background 500ms ease;
 }
 
-/* Les couleurs de l'aperçu viennent des styles en ligne (voir
-   AccessibilityQuickSheet.tsx, calculés depuis READING_THEMES/READING_FONTS)
-   plutôt que de jetons CSS scopés à .bible-world, pour que l'aperçu reste
-   correct quel que soit l'écran d'où la feuille est ouverte. */
-.a11y-quick-preview {
-  flex: 0 0 auto;
-  margin: 10px 20px 4px;
-  padding: 18px 16px;
-  border-radius: 10px;
-  border: 1px solid;
+.a11y-quick-preview-shine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, rgba(181, 137, 46, 0.14), transparent);
+  animation: a11y-quick-shine 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.a11y-quick-preview-top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .a11y-quick-preview-kicker {
   font-family: var(--font-inter);
-  font-weight: 400;
-  font-size: var(--taille-surtitre);
+  font-weight: 600;
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  margin: 0 0 10px;
+  transition: color 500ms ease;
+}
+
+.a11y-quick-preview-meta {
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 500ms ease;
 }
 
 .a11y-quick-preview-text {
-  font-size: var(--taille-verset);
-  line-height: calc(1.6 * var(--a11y-leading));
-  margin: 0;
+  --pv-size: calc(var(--taille-verset) * 0.85);
+  --pv-leading: calc(1.5 * var(--a11y-leading));
+  position: relative;
+  margin: 8px 0 0;
+  font-size: var(--pv-size);
+  line-height: var(--pv-leading);
+  height: calc(var(--pv-size) * var(--pv-leading) * var(--pv-lines, 4));
+  overflow: hidden;
+  text-wrap: pretty;
+  transition: font-size 450ms cubic-bezier(0.2, 0.7, 0.2, 1), line-height 450ms ease,
+    height 450ms ease, color 500ms ease;
 }
 
 .a11y-quick-preview-verse-number {
   font-family: var(--font-inter);
-  font-size: var(--taille-surtitre);
-  vertical-align: super;
-  margin-right: 4px;
+  font-size: 0.55em;
+  font-weight: 600;
+  margin-right: 3px;
 }
 
 .a11y-quick-scroll {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
-  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+}
+
+.a11y-quick-scroll .reading-prefs-section {
+  border-bottom: none;
+}
+
+@keyframes a11y-quick-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes a11y-quick-breath {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes a11y-quick-shine {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+  }
+  55%,
+  100% {
+    transform: translateX(320%) skewX(-18deg);
+  }
+}
+
+/* « Réduire les animations » : la règle globale de variables.css raccourcit
+   déjà les animations ; on les retire tout à fait pour figer le décor. */
+html[data-reduce-motion='true'] .a11y-quick-rosace,
+html[data-reduce-motion='true'] .a11y-quick-glow {
+  animation: none !important;
+}
+
+html[data-reduce-motion='true'] .a11y-quick-preview-shine {
+  display: none;
 }

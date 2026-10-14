@@ -1,36 +1,45 @@
+/* Réglages v2 — commun à la page /reglages et à AccessibilityQuickSheet.
+   --rl-sel-bg / --rl-sel-ink : fond et encre de l'option active (encre
+   sombre + or clair). Redéfinis pour le thème Nuit dans Reglages.css, où
+   --color-encre devient clair. */
+
 .a11y-panel {
   background: var(--color-papier);
-  border-bottom: 1px solid var(--filet-sections);
-  padding: 20px 28px 24px;
+  border-bottom: 0.5px solid var(--filet-sections);
+  padding: 24px 18px 22px;
 }
 
 .a11y-panel-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 18px;
 }
 
 .a11y-panel-title {
   font-family: var(--font-cormorant);
   font-weight: 500;
-  font-size: var(--taille-titre-section);
+  font-size: 26px;
+  line-height: 1;
   color: var(--color-encre);
   margin: 0;
 }
 
 .a11y-panel-reset {
+  min-height: 44px;
+  margin: -14px 0;
+  display: flex;
+  align-items: center;
   font-family: var(--font-inter);
-  font-weight: 400;
-  font-size: var(--taille-surtitre);
+  font-weight: 600;
+  font-size: 9px;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
+  letter-spacing: 0.18em;
   color: var(--color-oxblood);
   background: none;
   border: none;
-  padding: 4px;
+  padding: 0 0 0 8px;
   cursor: pointer;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, opacity 0.3s ease;
 }
 
 .a11y-panel-reset:active:not(:disabled) {
@@ -39,39 +48,60 @@
 
 .a11y-panel-reset:disabled {
   cursor: default;
-  opacity: 0.7;
+  opacity: 0.55;
 }
 
 .a11y-panel-label {
   font-family: var(--font-inter);
-  font-weight: 400;
-  font-size: var(--taille-surtitre);
+  font-weight: 600;
+  font-size: 8.5px;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
+  letter-spacing: 0.2em;
   color: var(--encre-60);
-  margin: 0 0 10px;
+  margin: 16px 0 10px;
 }
 
+/* Sélecteur segmenté : une pastille sombre glisse sous la taille active. */
 .a11y-scale-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 22px;
+  position: relative;
+  height: 56px;
+  padding: 4px;
+  box-sizing: border-box;
+  border-radius: 28px;
+  background: rgba(35, 32, 26, 0.06);
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.a11y-scale-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 4);
+  border-radius: 24px;
+  background: var(--rl-sel-bg, var(--color-encre));
+  box-shadow: 0 6px 14px -6px rgba(15, 21, 38, 0.6);
+  transition: transform 550ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .a11y-scale-button {
-  flex: 1;
+  position: relative;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 44px;
-  font-family: var(--font-cormorant);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  line-height: 1;
   color: var(--color-encre);
-  background: var(--color-papier);
-  border: 1px solid var(--filet-barres);
-  border-radius: 8px;
+  background: none;
+  border: none;
+  border-radius: 24px;
+  padding: 0;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease,
-    color 0.2s ease;
+  transition: color 400ms ease, transform 0.15s ease;
 }
 
 .a11y-scale-button:active {
@@ -79,69 +109,88 @@
 }
 
 .a11y-scale-button.is-active {
-  background: var(--color-oxblood);
-  border-color: var(--color-oxblood);
-  color: var(--color-papier);
+  color: var(--rl-sel-ink, #F0D58E);
+}
+
+.a11y-toggle-list {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
 }
 
 .a11y-toggle-row {
+  min-height: 62px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 14px 0;
-  border-top: 1px solid var(--filet-sections);
+  gap: 14px;
+  border-top: 0.5px solid var(--filet-tableaux);
+  cursor: pointer;
+}
+
+.a11y-toggle-text {
+  flex: 1;
+  min-width: 0;
 }
 
 .a11y-toggle-title {
-  font-family: var(--font-inter);
+  font-family: var(--font-eb-garamond);
   font-weight: 500;
-  font-size: var(--taille-valeur);
+  font-size: 17px;
+  line-height: 1.2;
   color: var(--color-encre);
-  margin: 0 0 2px;
+  margin: 0;
 }
 
 .a11y-toggle-description {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--taille-cartouche);
+  font-size: 11px;
+  line-height: 1.35;
   color: var(--encre-60);
-  margin: 0;
+  margin: 2px 0 0;
 }
 
 .a11y-switch {
+  position: relative;
   flex: 0 0 auto;
-  width: 44px;
-  height: 26px;
-  border-radius: 13px;
-  border: 1px solid var(--filet-barres);
-  background: var(--color-papier-enfonce);
-  padding: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  width: 48px;
+  height: 28px;
+  border-radius: 14px;
+  border: none;
+  padding: 0;
+  background: rgba(35, 32, 26, 0.08);
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres);
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
-}
-
-.a11y-switch:active {
-  transform: scale(0.95);
+  transition: background 400ms ease, box-shadow 400ms ease;
 }
 
 .a11y-switch.is-on {
-  background: var(--color-oxblood);
-  border-color: var(--color-oxblood);
+  background: var(--rl-sel-bg, var(--color-encre));
+  box-shadow: inset 0 0 0 1px #B5892E;
 }
 
 .a11y-switch-thumb {
-  width: 20px;
-  height: 20px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: var(--color-encre);
-  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s ease;
+  background: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(35, 32, 26, 0.3);
+  transition: transform 450ms cubic-bezier(0.3, 1.4, 0.4, 1), background 400ms ease,
+    box-shadow 400ms ease;
 }
 
 .a11y-switch.is-on .a11y-switch-thumb {
-  background: var(--color-papier);
-  transform: translateX(18px);
+  background: #F0D58E;
+  box-shadow: 0 0 10px rgba(240, 213, 142, 0.7);
+  transform: translateX(20px);
+}
+
+.a11y-switch:focus-visible,
+.a11y-scale-button:focus-visible,
+.a11y-panel-reset:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 2px;
 }

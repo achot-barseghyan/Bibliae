@@ -15,6 +15,7 @@ export type BookmarkType =
   | 'saint'
   | 'prier-home'
   | 'liturgie'
+  | 'paroisse'
   | 'unknown';
 
 export interface ResolvedBookmark {
@@ -139,6 +140,24 @@ function resolveLiturgie(key: string, date: string): ResolvedBookmark {
   };
 }
 
+/** Clé « paroisse:<id>:<nom> » : le nom est gardé dans la clé pour que la
+ * liste des favoris s'affiche hors ligne, sans rappeler l'API. */
+function resolveParoisse(key: string, rest: string): ResolvedBookmark {
+  const sep = rest.indexOf(':');
+  const id = sep === -1 ? rest : rest.slice(0, sep);
+  const name = sep === -1 ? '' : rest.slice(sep + 1);
+  if (!/^\d+$/.test(id)) {
+    return { key, type: 'unknown', title: key, subtitle: 'Ce favori ne peut plus être retrouvé' };
+  }
+  return {
+    key,
+    type: 'paroisse',
+    title: name || 'Paroisse',
+    subtitle: 'Paroisse',
+    path: `/paroisses/${id}`
+  };
+}
+
 export function resolveBookmark(key: string): ResolvedBookmark {
   if (key === 'prier:home') {
     return {
@@ -174,6 +193,8 @@ export function resolveBookmark(key: string): ResolvedBookmark {
       return resolveSaint(key, rest);
     case 'liturgie':
       return resolveLiturgie(key, rest);
+    case 'paroisse':
+      return resolveParoisse(key, rest);
     default:
       return { key, type: 'unknown', title: key, subtitle: 'Ce favori ne peut plus être retrouvé' };
   }
@@ -189,6 +210,7 @@ export const BOOKMARK_TYPE_LABELS: Record<BookmarkType, string> = {
   saint: 'Saints',
   'prier-home': 'Prier',
   liturgie: 'Jours liturgiques',
+  paroisse: 'Paroisses',
   unknown: 'Introuvables'
 };
 
@@ -202,5 +224,6 @@ export const BOOKMARK_TYPE_ORDER: BookmarkType[] = [
   'council',
   'prier-home',
   'liturgie',
+  'paroisse',
   'unknown'
 ];

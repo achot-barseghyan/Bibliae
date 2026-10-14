@@ -1,11 +1,19 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { initAppDataStore } from './services/appDataStore';
+import { getAppData, initAppDataStore } from './services/appDataStore';
+import { setReducedMotion } from './services/reducedMotion';
 import { warmUpBibleDatabase } from './db/versesRepository';
 import App from './App';
 import { Capacitor } from '@capacitor/core';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { playBibliaeSplash } from './splash/bibliaeSplash';
+
+// Réglages lus avant tout : l'animation de lancement et le premier rendu
+// doivent déjà respecter « Réduire les animations ».
+const storeReady = initAppDataStore().finally(() => {
+  const systemReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+  setReducedMotion(getAppData().settings.accessibility.reduceMotion || systemReduced);
+});
 
 // Animation de lancement, dans l'app native seulement. Elle masque l'écran
 // natif (gardé affiché, voir capacitor.config.ts) à sa première image ;
@@ -15,6 +23,7 @@ if (Capacitor.isNativePlatform()) {
   // Secours : quoi qu'il arrive, l'écran natif ne reste pas plus de 3 s.
   const fallback = window.setTimeout(hideNative, 3000);
   playBibliaeSplash({
+    settingsReady: storeReady,
     onReady: () => {
       window.clearTimeout(fallback);
       hideNative();
@@ -28,7 +37,7 @@ if (Capacitor.isNativePlatform()) {
 const container = document.getElementById('root');
 const root = createRoot(container!);
 
-initAppDataStore().finally(() => {
+storeReady.finally(() => {
   root.render(
     <React.StrictMode>
       <App />

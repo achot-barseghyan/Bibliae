@@ -12,7 +12,7 @@ version sur les stores**.
    d'initialisation (pas de README, pas de .gitignore).
 3. Clique "Create repository".
 4. Sur la page du nouveau dépôt (vide), clique "uploading an existing file".
-5. Glisse-dépose les 8 fichiers `.json` de ce dossier (pas ce README).
+5. Glisse-dépose les 9 fichiers `.json` de ce dossier (pas ce README).
 6. En bas, écris un message de commit (ex. "Contenu initial") et clique
    "Commit changes".
 
@@ -32,6 +32,29 @@ C'est tout : la branche s'appelle `main` par défaut, ce que l'app attend déjà
    de l'app (le contenu est mis en cache et rafraîchi en tâche de fond) —
    ou immédiatement s'ils rouvrent l'app avec une connexion internet après
    la modification.
+
+## Annoncer une nouvelle version (`app-version.json`)
+
+Ce fichier n'est pas du texte éditorial : il décide si l'app invite à se
+mettre à jour. À chaque lancement, l'app compare **sa** version (le
+`versionName` d'Android, la version d'iOS) à ce fichier :
+
+- `latest` : la dernière version publiée sur les stores. Si l'app installée
+  est plus ancienne, une feuille « Nouvelle version » s'ouvre, avec un bouton
+  vers le store et « Plus tard » (l'invitation revient 3 jours après).
+- `minimum` : en dessous de cette version, la feuille devient « Mise à jour
+  requise » et ne peut plus être fermée. À n'utiliser que si une ancienne
+  version ne fonctionne plus.
+- `stores.android` / `stores.ios` : liens des fiches. **Le lien iOS est vide
+  tant que l'app n'est pas sur l'App Store** ; sans lien, rien ne s'affiche
+  sur iPhone.
+- `news` : 2 ou 3 nouveautés (`glyph`, `title`, `body`). Glyphes sûrs :
+  ✦ ✶ ❧ ✿ ◈ ❡ ⁂ ✚ † ⌕ — éviter ✝ ↗ ★ ☀ etc., affichés en émoji sur iPhone.
+
+**Ordre à respecter :** publier d'abord la version sur les stores (et
+attendre qu'elle soit disponible), **puis** changer `latest` ici. Sinon les
+utilisateurs sont envoyés vers une fiche qui propose encore l'ancienne
+version.
 
 ## Ce qui n'est PAS modifiable ici
 

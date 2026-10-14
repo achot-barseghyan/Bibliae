@@ -596,3 +596,23 @@ export const InfoIcon: React.FC<IconProps> = ({ size = 14, className }) => (
     <path d="M12 8h.01" />
   </svg>
 );
+
+/** Flèche « lien externe », dessinée en SVG : le caractère ↗ s'affiche en
+ * émoji (carré bleu) sur iOS. Suit la couleur et, par défaut, la taille du texte. */
+export const ExternalArrowIcon: React.FC<IconProps> = ({ size, className }) => (
+  <svg
+    width={size ?? '0.8em'}
+    height={size ?? '0.8em'}
+    viewBox="0 0 12 12"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.3"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden="true"
+    style={{ display: 'inline-block', verticalAlign: '-0.05em', flex: 'none' }}
+  >
+    <path d="M3.5 8.5l5-5M4.5 3.5h4v4" />
+  </svg>
+);

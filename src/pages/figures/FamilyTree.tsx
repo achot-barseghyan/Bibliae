@@ -16,6 +16,15 @@ interface FamilyTreeProps {
 /** Zoom de départ : assez pour lire les noms, assez peu pour voir les proches. */
 const TREE_SCALE = 0.8;
 
+/**
+ * Générations affichées autour de la personne au centre. Toute la lignée
+ * (jusqu'à Adam pour Jésus) faisait des centaines de cartes avec portrait :
+ * l'arbre ramait. Toucher un proche recentre l'arbre sur lui (ou ouvre sa
+ * fiche), la limite suit donc l'exploration.
+ */
+const ANCESTRY_DEPTH = 2;
+const PROGENY_DEPTH = 2;
+
 function escapeHtml(text: string): string {
   return text.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 }
@@ -95,8 +104,8 @@ const FamilyTree: React.FC<FamilyTreeProps> = ({ figureId, figures }) => {
       .setTransitionTime(settings.reduceMotion ? 0 : 700)
       .setCardXSpacing(118)
       .setCardYSpacing(132)
-      // Pas de limite de générations : toute la lignée directe (ancêtres et
-      // descendants) est affichée d'emblée.
+      .setAncestryDepth(ANCESTRY_DEPTH)
+      .setProgenyDepth(PROGENY_DEPTH)
       .setShowSiblingsOfMain(true)
       // Les patriarches épousent leurs cousines (Isaac et Rébecca, Jacob et
       // Léa/Rachel) : sans cela, la lignée commune (Térah → … → Adam) serait

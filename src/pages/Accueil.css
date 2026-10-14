@@ -648,6 +648,12 @@
 .browse-tile--2 { border-radius: 16px 16px 16px 70px; }
 .browse-tile--3 { border-radius: 16px 16px 70px 16px; }
 
+/* Rangée du bas : le grand arrondi (70px) d'un coin inférieur rognait la
+   ligne « 15 mystères » ; on remonte le texte au-dessus de la courbe, sur
+   les deux tuiles pour qu'elles restent alignées. */
+.browse-tile--2,
+.browse-tile--3 { padding-bottom: 28px; }
+
 .browse-tile.is-dark {
   background: linear-gradient(160deg, #8A2A2F, #4A1418);
   box-shadow:

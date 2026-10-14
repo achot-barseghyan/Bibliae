@@ -4,11 +4,15 @@
 // croix monte, « Bibliae » s'écrit et le verset apparaît (~4,8 s).
 // Réglages natifs associés : capacitor.config.ts et res/values/styles.xml.
 
+import { isReducedMotion } from '../services/reducedMotion';
+
 const EASE = 'cubic-bezier(.2,.7,.2,1)';
 /** Attente maximale des polices avant de mesurer le « B » (hors ligne, on s'en passe). */
 const FONTS_TIMEOUT_MS = 800;
 
 interface SplashOptions {
+  /** Réglages de l'app chargés (« Réduire les animations » appliqué). */
+  settingsReady?: Promise<unknown>;
   /** Appelé à la première image de l'animation : masquer l'écran natif. */
   onReady?: () => void;
   /** Appelé une fois l'animation retirée. */
@@ -57,10 +61,14 @@ async function waitForFonts(): Promise<void> {
   await Promise.race([fonts.catch(() => undefined), new Promise((r) => setTimeout(r, FONTS_TIMEOUT_MS))]);
 }
 
-export async function playBibliaeSplash({ onReady, onDone }: SplashOptions = {}): Promise<void> {
-  await waitForFonts();
+export async function playBibliaeSplash({ settingsReady, onReady, onDone }: SplashOptions = {}): Promise<void> {
+  await Promise.all([
+    waitForFonts(),
+    settingsReady && Promise.race([settingsReady.catch(() => undefined), new Promise((r) => setTimeout(r, FONTS_TIMEOUT_MS))])
+  ]);
 
-  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+  // Préférence système ou réglage de l'app (appliqué par main.tsx).
+  const reduce = isReducedMotion() || (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false);
   const root = document.createElement('div');
   root.setAttribute('aria-hidden', 'true');
   root.style.cssText = 'position:fixed;inset:0;z-index:99999;overflow:hidden;background:#6B1E23;';

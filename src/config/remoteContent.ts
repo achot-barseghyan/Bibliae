@@ -17,5 +17,6 @@ export const REMOTE_CONTENT_PATHS = {
   saints: 'saints.json',
   rosary: 'rosary.json',
   councils: 'councils.json',
-  catechisme: 'catechisme.json'
+  catechisme: 'catechisme.json',
+  appVersion: 'app-version.json'
 } as const;

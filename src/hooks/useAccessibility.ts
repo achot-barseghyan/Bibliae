@@ -19,7 +19,7 @@ export function useAccessibility() {
     root.setAttribute('data-text-scale', String(settings.textScale));
     root.setAttribute('data-line-spacing', String(settings.lineSpacing));
     root.setAttribute('data-contrast', String(settings.contrast));
-    root.setAttribute('data-reduce-motion', String(settings.reduceMotion));
+    // data-reduce-motion : voir useApplyReducedMotion (monté dans App).
   }, [settings]);
 
   const update = useCallback(

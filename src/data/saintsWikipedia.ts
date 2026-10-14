@@ -1185,7 +1185,7 @@ export const WIKI_SAINTS: WikiSaintRow[] = [
   ["Vaast d'Arras","","",null,null,null,"Saint",""],
   ["Valbert","Moine né vers 595, mort le. Disciple de Saint-Colomban, il succéda à Saint-Eustache et fut dès 629 le troisième abbé de Luxeuil","",null,null,null,"Moines",""],
   ["Valentin aussi connu comme Saint Valentin de Terni ou Saint Valentin de Rome","","",null,1,14,"Saint",""],
-  ["Valentine","Martyre à Césarée de Palestine","✝ 308",308,6,25,"Martyrs",""],
+  ["Valentine","Martyre à Césarée de Palestine","† 308",308,6,25,"Martyrs",""],
   ["Valérie","","",null,null,null,"Sainte",""],
   ["Valerius Ve s","Premier évêque du Couserans","",null,null,null,"Évêques",""],
   ["Venceslas","","",null,null,null,"Saint",""],

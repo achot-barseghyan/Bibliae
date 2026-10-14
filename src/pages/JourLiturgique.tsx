@@ -9,7 +9,7 @@ import { useLiturgicalDay } from '../hooks/useLiturgicalDay';
 import { useLiturgicalMonth } from '../hooks/useLiturgicalMonth';
 import { useBookmarks } from '../hooks/useBookmarks';
 import { useElementWidth } from '../hooks/useElementWidth';
-import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 import { liturgicalYear } from '../services/liturgicalFeasts';
 import { todayIso, shiftIsoDate, type LiturgicalItem, type OrdoData } from '../services/liturgicalCalendar';
 import { BOOKS } from '../data/bible';
@@ -28,6 +28,7 @@ import AccessibilityQuickSheet from '../components/AccessibilityQuickSheet';
 import { tapHaptic } from '../utils/haptics';
 import './JourLiturgique.css';
 import WorldButton from '../components/nav/WorldButton';
+import { isReducedMotion } from '../services/reducedMotion';
 
 const EASE = 'cubic-bezier(.2,.7,.2,1)';
 
@@ -339,7 +340,7 @@ function longDateLabel(date: string): string {
 
 const JourLiturgique: React.FC = () => {
   const navigate = useNavigate();
-  const reduced = usePrefersReducedMotion();
+  const reduced = useReducedMotion();
   // Le paramètre d'URL ne sert qu'à choisir la date d'ouverture (lien
   // profond depuis un favori) : changer de jour ensuite ne touche plus à
   // l'URL, pour rester sur une seule et même page plutôt que d'empiler des
@@ -1160,7 +1161,7 @@ export const LiturgieLecture: React.FC = () => {
   // sinon, en avançant avec le pager du bas, l'onglet courant peut sortir
   // du cadre et il faut alors faire défiler la barre à la main.
   useEffect(() => {
-    activeTabRef.current?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    activeTabRef.current?.scrollIntoView({ behavior: isReducedMotion() ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
   }, [index, hasTabs]);
 
   // L'onglet actif peut changer depuis l'extérieur du swipe (clic sur un

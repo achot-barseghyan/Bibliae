@@ -10,14 +10,15 @@ interface ToggleRowProps {
   onChange: (value: boolean) => void;
 }
 
+// Toute la ligne est cliquable (cible ≥ 44px) ; le bouton porte le rôle switch.
 const ToggleRow: React.FC<ToggleRowProps> = ({
   title,
   description,
   checked,
   onChange
 }) => (
-  <div className="a11y-toggle-row">
-    <div>
+  <div className="a11y-toggle-row" onClick={() => onChange(!checked)}>
+    <div className="a11y-toggle-text">
       <p className="a11y-toggle-title">{title}</p>
       <p className="a11y-toggle-description">{description}</p>
     </div>
@@ -27,7 +28,10 @@ const ToggleRow: React.FC<ToggleRowProps> = ({
       aria-checked={checked}
       aria-label={title}
       className={`a11y-switch${checked ? ' is-on' : ''}`}
-      onClick={() => onChange(!checked)}
+      onClick={(e) => {
+        e.stopPropagation();
+        onChange(!checked);
+      }}
     >
       <span className="a11y-switch-thumb" />
     </button>
@@ -36,6 +40,7 @@ const ToggleRow: React.FC<ToggleRowProps> = ({
 
 const AccessibilityPanel: React.FC = () => {
   const { settings, update, reset, isDefault } = useAccessibility();
+  const activeIndex = Math.max(0, textScales.indexOf(settings.textScale));
 
   return (
     <div className="a11y-panel">
@@ -53,6 +58,11 @@ const AccessibilityPanel: React.FC = () => {
 
       <p className="a11y-panel-label">Taille du texte</p>
       <div className="a11y-scale-row">
+        <span
+          className="a11y-scale-indicator"
+          aria-hidden="true"
+          style={{ transform: `translateX(${activeIndex * 100}%)` }}
+        />
         {textScales.map((scale, index) => (
           <button
             key={scale}
@@ -70,24 +80,26 @@ const AccessibilityPanel: React.FC = () => {
         ))}
       </div>
 
-      <ToggleRow
-        title="Interlignage large"
-        description="Plus d'air entre les lignes"
-        checked={settings.lineSpacing}
-        onChange={(value) => update('lineSpacing', value)}
-      />
-      <ToggleRow
-        title="Contraste renforcé"
-        description="Encre plus sombre sur le crème"
-        checked={settings.contrast}
-        onChange={(value) => update('contrast', value)}
-      />
-      <ToggleRow
-        title="Réduire les animations"
-        description="Supprime transitions et fondus"
-        checked={settings.reduceMotion}
-        onChange={(value) => update('reduceMotion', value)}
-      />
+      <div className="a11y-toggle-list">
+        <ToggleRow
+          title="Interlignage large"
+          description="Plus d'air entre les lignes"
+          checked={settings.lineSpacing}
+          onChange={(value) => update('lineSpacing', value)}
+        />
+        <ToggleRow
+          title="Contraste renforcé"
+          description="Encre plus sombre sur le crème"
+          checked={settings.contrast}
+          onChange={(value) => update('contrast', value)}
+        />
+        <ToggleRow
+          title="Réduire les animations"
+          description="Supprime transitions et fondus"
+          checked={settings.reduceMotion}
+          onChange={(value) => update('reduceMotion', value)}
+        />
+      </div>
     </div>
   );
 };

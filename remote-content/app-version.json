@@ -1,0 +1,25 @@
+{
+  "latest": "1.1.1",
+  "minimum": "1.0.0",
+  "stores": {
+    "android": "https://play.google.com/store/apps/details?id=com.bibliae.app",
+    "ios": ""
+  },
+  "news": [
+    {
+      "glyph": "⌕",
+      "title": "Recherche unifiée",
+      "body": "Figures, versets, événements, prières et saints dans une seule recherche."
+    },
+    {
+      "glyph": "✦",
+      "title": "Figures par époque",
+      "body": "Parcourez le Compendium de la Genèse à l'Église naissante."
+    },
+    {
+      "glyph": "✚",
+      "title": "Trouver une paroisse",
+      "body": "Chaque paroisse a sa fiche : églises, itinéraire et horaires des messes."
+    }
+  ]
+}

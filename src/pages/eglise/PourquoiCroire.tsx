@@ -10,7 +10,7 @@ import {
   OBJECTIONS,
   ROMAN
 } from '../../data/pourquoiCroire';
-import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { tapHaptic } from '../../utils/haptics';
 import './PourquoiCroire.css';
 
@@ -46,7 +46,7 @@ interface DragState {
 
 const PourquoiCroire: React.FC = () => {
   const navigate = useNavigate();
-  const reduced = usePrefersReducedMotion();
+  const reduced = useReducedMotion();
 
   const [qi, setQi] = useState(0);
   const [chap, setChap] = useState(0);

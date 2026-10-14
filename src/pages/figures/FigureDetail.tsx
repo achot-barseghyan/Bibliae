@@ -6,7 +6,7 @@ import { PhotoSlider } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import { useFigures } from '../../hooks/useFigures';
 import { useBookmarks } from '../../hooks/useBookmarks';
-import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useRemoteFigureDetails } from '../../hooks/content/useRemoteFigureDetails';
 import { useRemoteCouncils } from '../../hooks/content/useRemoteCouncils';
 import type { FigurePlace, ScriptureRef, TimelineEntry } from '../../data/figureDetails';
@@ -17,7 +17,8 @@ import {
   TreeIcon,
   CompassIcon,
   ZoomIcon,
-  LatinCrossIcon
+  LatinCrossIcon,
+  ExternalArrowIcon
 } from '../../components/nav/icons';
 import { hasGenealogy } from '../../data/genealogy';
 import FamilyTree from './FamilyTree';
@@ -28,6 +29,7 @@ import { tapHaptic } from '../../utils/haptics';
 import './FigureDetail.css';
 import WorldButton from '../../components/nav/WorldButton';
 import { ARTIST_NAME, ARTIST_SHOP_URL } from '../../data/credits';
+import { isReducedMotion } from '../../services/reducedMotion';
 
 const EASE = 'cubic-bezier(.2,.7,.2,1)';
 
@@ -160,7 +162,7 @@ function fr(text: string): string {
 
 const FigureDetail: React.FC = () => {
   const navigate = useNavigate();
-  const reduced = usePrefersReducedMotion();
+  const reduced = useReducedMotion();
   const { figureId = '' } = useParams<{ figureId: string }>();
   const { figures } = useFigures();
   const figureDetails = useRemoteFigureDetails();
@@ -261,7 +263,7 @@ const FigureDetail: React.FC = () => {
     const el = tabs?.querySelectorAll<HTMLElement>('[data-tab]')[index];
     if (!tabs || !el) return;
     setInk({ left: el.offsetLeft + 10, width: el.offsetWidth - 20 });
-    tabs.scrollTo({ left: el.offsetLeft - 60, behavior: 'smooth' });
+    tabs.scrollTo({ left: el.offsetLeft - 60, behavior: isReducedMotion() ? 'auto' : 'smooth' });
   }, []);
 
   const activeSectionRef = useRef(0);
@@ -380,7 +382,7 @@ const FigureDetail: React.FC = () => {
         ? card
         : best
     );
-    track.scrollTo({ left: nearest.offsetLeft - PLACES_PADDING, behavior: 'smooth' });
+    track.scrollTo({ left: nearest.offsetLeft - PLACES_PADDING, behavior: isReducedMotion() ? 'auto' : 'smooth' });
   };
 
   if (!figure) {
@@ -580,7 +582,7 @@ const FigureDetail: React.FC = () => {
                 <span className="ff-credit-kicker">Artwork by</span>
                 <a href={ARTIST_SHOP_URL} target="_blank" rel="noopener noreferrer" className="ff-credit-link">
                   {ARTIST_NAME}
-                  <span aria-hidden="true">↗</span>
+                  <ExternalArrowIcon />
                 </a>
               </span>
               <span className="ff-credit-rule ff-credit-rule--right" aria-hidden="true" />
@@ -644,7 +646,7 @@ const FigureDetail: React.FC = () => {
                             setActiveRef(segment.ref);
                           }}
                         >
-                          {segment.ref.display} <span aria-hidden="true">↗</span>
+                          {segment.ref.display} <ExternalArrowIcon />
                         </button>
                       )
                     )}
@@ -816,7 +818,7 @@ const FigureDetail: React.FC = () => {
                           setActiveCouncil(council);
                         }}
                       >
-                        {council.display} <span aria-hidden="true">↗</span>
+                        {council.display} <ExternalArrowIcon />
                       </button>
                     );
                   })}

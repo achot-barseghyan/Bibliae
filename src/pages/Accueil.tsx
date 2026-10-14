@@ -5,32 +5,19 @@ import { useRemoteAccueil } from '../hooks/content/useRemoteAccueil';
 import { useFigures } from '../hooks/useFigures';
 import { useReadingProgress } from '../hooks/useReadingProgress';
 import { useLiturgicalDay } from '../hooks/useLiturgicalDay';
-import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 import { BOOKS, getBook } from '../data/bible';
 import { MYSTERY_ORDER } from '../data/rosary';
 import { LatinCrossIcon, SearchIcon } from '../components/nav/icons';
 import { tapHaptic } from '../utils/haptics';
+import AccueilSearch from './accueil/AccueilSearch';
+import { SEARCH_SCOPES as SCOPES } from './accueil/searchIndex';
 import './Accueil.css';
 
 const EASE = 'cubic-bezier(.2,.7,.2,1)';
 
 /** Exemples tapés dans la barre de recherche, hors portée choisie. */
 const PLACEHOLDERS = ['Une figure, un lieu, un verset…', 'Moïse', 'Jérusalem', 'Jn 3, 16', 'Marie', 'Le bon Samaritain'];
-
-interface SearchScope {
-  label: string;
-  glyph: string;
-  path: string;
-  examples: string[];
-}
-
-const SCOPES: SearchScope[] = [
-  { label: 'Figures', glyph: '✦', path: '/compendium/figures', examples: ['Une figure…', 'Abraham', 'Marie-Madeleine', 'Élie', 'Pierre'] },
-  { label: 'Versets', glyph: '❡', path: '/bible', examples: ['Un verset…', 'Jn 3, 16', 'Ps 23', 'Mt 5, 3-12', '« Je suis le chemin »'] },
-  { label: 'Événements', glyph: '◈', path: '/compendium/evenements', examples: ['Un événement…', 'La Nativité', 'Le passage de la mer Rouge', 'La Pentecôte'] },
-  { label: 'Prières', glyph: '❧', path: '/prier/prieres', examples: ['Une prière…', 'Notre Père', 'Je vous salue Marie', 'Angélus', 'Magnificat'] },
-  { label: 'Saints', glyph: '✶', path: '/prier/saints', examples: ['Un saint…', 'Thérèse de Lisieux', "François d'Assise", 'Jean-Marie Vianney', "Jeanne d'Arc"] }
-];
 
 /** Mots du titre mis en relief (italique doré). */
 const HEADLINE_ACCENTS = new Set(['figure,', 'lieu,', 'récit']);
@@ -158,13 +145,15 @@ function useTypedPlaceholder(words: string[], reduced: boolean): string {
 
 const Accueil: React.FC = () => {
   const navigate = useNavigate();
-  const reduced = usePrefersReducedMotion();
+  const reduced = useReducedMotion();
   const { hero, featuredFigures } = useRemoteAccueil();
   const { figures } = useFigures();
   const { activeParcours, positionFor, progress } = useReadingProgress();
   const { feast } = useLiturgicalDay();
 
   const [scope, setScope] = useState(-1);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
   const [activeFigure, setActiveFigure] = useState(0);
 
   const pageRef = useRef<HTMLDivElement>(null);
@@ -331,7 +320,6 @@ const Accueil: React.FC = () => {
   }, [onScroll, aboutWords]);
 
   const contentRef = useRef<HTMLIonContentElement>(null);
-  const toTop = () => contentRef.current?.scrollToTop(reduced ? 0 : 500);
 
   // --- Carrousel des figures ----------------------------------------------
 
@@ -418,7 +406,7 @@ const Accueil: React.FC = () => {
 
   const openSearch = () => {
     tapHaptic();
-    navigate(scope >= 0 ? SCOPES[scope].path : '/compendium/figures');
+    setSearchOpen(true);
   };
 
   const go = (path: string) => {
@@ -435,7 +423,7 @@ const Accueil: React.FC = () => {
           <LatinCrossIcon size={15} className="accueil-bar-cross" />
           <span>Bibliae</span>
         </div>
-        <button type="button" className="accueil-bar-search" onClick={toTop} tabIndex={-1} aria-label="Remonter à la recherche">
+        <button type="button" className="accueil-bar-search" onClick={openSearch} tabIndex={-1} aria-label="Rechercher">
           <SearchIcon size={14} />
         </button>
       </div>
@@ -803,6 +791,7 @@ const Accueil: React.FC = () => {
           </footer>
         </div>
       </IonContent>
+      <AccueilSearch open={searchOpen} initialScope={scope} onClose={closeSearch} />
     </IonPage>
   );
 };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const DEBOUNCE_MS = 400;
-const API_BASE = 'https://open-church.io/api/parishes';
+export const API_BASE = 'https://open-church.io/api/parishes';
 const GEOCODER_URL = 'https://api-adresse.data.gouv.fr/search/';
 /** Score minimal du géocodeur pour considérer la saisie comme une ville. */
 const CITY_MIN_SCORE = 0.6;
@@ -13,18 +13,23 @@ export interface Parish {
   zipCode: string;
   website: string;
   churchCount: number;
+  /** Identifiant de la communauté sur messes.info (« pa/75/notre-dame-de-paris »). */
+  messesinfoId: string | null;
+  /** Églises rattachées (« /api/wikidata_churches/2981 »). */
+  churchRefs: string[];
 }
 
-interface RawParish {
+export interface RawParish {
   id: number;
   name: string;
   diocese?: string;
   zipCode?: string;
   website?: string;
+  messesinfoId?: string | null;
   wikidataChurches?: string[];
 }
 
-function parseParish(raw: RawParish): Parish {
+export function parseParish(raw: RawParish): Parish {
   const dioceseMatch = raw.diocese?.match(/(\d+)$/);
   return {
     id: raw.id,
@@ -32,7 +37,9 @@ function parseParish(raw: RawParish): Parish {
     dioceseId: dioceseMatch ? dioceseMatch[1] : null,
     zipCode: raw.zipCode ?? '',
     website: raw.website ?? '',
-    churchCount: Array.isArray(raw.wikidataChurches) ? raw.wikidataChurches.length : 0
+    churchCount: Array.isArray(raw.wikidataChurches) ? raw.wikidataChurches.length : 0,
+    messesinfoId: raw.messesinfoId || null,
+    churchRefs: Array.isArray(raw.wikidataChurches) ? raw.wikidataChurches : []
   };
 }
 
@@ -56,7 +63,7 @@ function normalize(text: string): string {
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
     .replace(/[-'’]/g, ' ')
-    .replace(/s+/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
@@ -92,7 +99,7 @@ async function parishesForPostcode(postcode: string): Promise<Parish[]> {
  * approchée, elle renvoie sinon des paroisses sans rapport (« Chatou » pour
  * « chalon »). */
 async function searchParishes(query: string): Promise<Parish[]> {
-  if (/^d{5}$/.test(query)) return parishesForPostcode(query);
+  if (/^\d{5}$/.test(query)) return parishesForPostcode(query);
 
   const [byName, postcodes] = await Promise.all([
     fetchParishes('name', query),

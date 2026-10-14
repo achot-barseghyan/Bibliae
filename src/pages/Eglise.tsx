@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IonContent, IonPage } from '@ionic/react';
 import { tapHaptic } from '../utils/haptics';
-import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 import { CHAPTERS, OBJECTIONS } from '../data/pourquoiCroire';
 import './Eglise.css';
 
@@ -182,7 +182,7 @@ const STARS = (() => {
 
 const Eglise: React.FC = () => {
   const navigate = useNavigate();
-  const reduced = usePrefersReducedMotion();
+  const reduced = useReducedMotion();
 
   const [tab, setTab] = useState<QaTab>('bases');
   const [open, setOpen] = useState(0);

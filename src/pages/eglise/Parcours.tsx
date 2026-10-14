@@ -9,6 +9,7 @@ import VersePreviewSheet from '../figures/VersePreviewSheet';
 import { tapHaptic } from '../../utils/haptics';
 import './Parcours.css';
 import WorldButton from '../../components/nav/WorldButton';
+import { isReducedMotion } from '../../services/reducedMotion';
 
 interface ParcoursLocationState {
   stepId?: string;
@@ -29,7 +30,7 @@ const Parcours: React.FC = () => {
   const nextStep = stepIndex < PARCOURS_ORDER.length - 1 ? parcoursSteps[PARCOURS_ORDER[stepIndex + 1]] : undefined;
 
   useEffect(() => {
-    ionContentRef.current?.scrollToTop(300);
+    ionContentRef.current?.scrollToTop(isReducedMotion() ? 0 : 300);
   }, [stepIndex]);
 
   const goToStep = (id: string) => {

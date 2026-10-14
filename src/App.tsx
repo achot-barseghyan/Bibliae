@@ -1,6 +1,8 @@
 import { Navigate, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { useApplyReducedMotion } from './hooks/useReducedMotion';
+import UpdateSheet from './components/UpdateSheet';
 import { BibleReadingPrefsProvider } from './hooks/useBibleReadingPrefs';
 import CompendiumTabs from './navigation/CompendiumTabs';
 import Bible from './pages/Bible';
@@ -9,6 +11,7 @@ import Prier from './pages/Prier';
 import FigureDetail from './pages/figures/FigureDetail';
 import Parcours from './pages/eglise/Parcours';
 import Paroisses from './pages/eglise/Paroisses';
+import ParoisseDetail from './pages/eglise/ParoisseDetail';
 import PourquoiCroire from './pages/eglise/PourquoiCroire';
 import Saints from './pages/eglise/Saints';
 import CouncilText from './pages/CouncilText';
@@ -56,39 +59,46 @@ import './theme/desktopFrame.css';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <div className="app-shell">
-    <IonApp>
-      <BibleReadingPrefsProvider>
-        <IonReactRouter>
-          <IonRouterOutlet>
-            <Route path="/compendium/*" element={<CompendiumTabs />} />
-            <Route path="/bible/*" element={<Bible />} />
-            <Route path="/rosaire" element={<Rosaire />} />
-            <Route path="/prier/*" element={<Prier />} />
-            <Route path="/figures/:figureId" element={<FigureDetail />} />
-            <Route path="/evenements/:eventId" element={<EvenementDetail />} />
-            <Route path="/parcours" element={<Parcours />} />
-            <Route path="/paroisses" element={<Paroisses />} />
-            <Route path="/pourquoi-croire" element={<PourquoiCroire />} />
-            <Route path="/saints" element={<Saints />} />
-            <Route path="/credo/:councilId" element={<CouncilText />} />
-            <Route path="/reglages" element={<Reglages />} />
-            <Route path="/a-propos" element={<APropos />} />
-            <Route path="/sources" element={<Sources />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/favoris" element={<Favoris />} />
-            <Route path="/liturgie" element={<JourLiturgique />} />
-            <Route path="/liturgie/:date" element={<JourLiturgique />} />
-            <Route path="/liturgie/:date/:part" element={<LiturgieLecture />} />
-            <Route path="/catechisme/:ref" element={<Catechisme />} />
-            <Route path="/" element={<Navigate to="/compendium/accueil" replace />} />
-          </IonRouterOutlet>
-          <LieuxOpeningNotice />
-        </IonReactRouter>
-      </BibleReadingPrefsProvider>
-    </IonApp>
-  </div>
-);
+const App: React.FC = () => {
+  // « Réduire les animations » appliqué partout (CSS, framer-motion, Web Animations).
+  useApplyReducedMotion();
+
+  return (
+    <div className="app-shell">
+      <IonApp>
+        <BibleReadingPrefsProvider>
+          <IonReactRouter>
+            <IonRouterOutlet>
+              <Route path="/compendium/*" element={<CompendiumTabs />} />
+              <Route path="/bible/*" element={<Bible />} />
+              <Route path="/rosaire" element={<Rosaire />} />
+              <Route path="/prier/*" element={<Prier />} />
+              <Route path="/figures/:figureId" element={<FigureDetail />} />
+              <Route path="/evenements/:eventId" element={<EvenementDetail />} />
+              <Route path="/parcours" element={<Parcours />} />
+              <Route path="/paroisses" element={<Paroisses />} />
+              <Route path="/paroisses/:parishId" element={<ParoisseDetail />} />
+              <Route path="/pourquoi-croire" element={<PourquoiCroire />} />
+              <Route path="/saints" element={<Saints />} />
+              <Route path="/credo/:councilId" element={<CouncilText />} />
+              <Route path="/reglages" element={<Reglages />} />
+              <Route path="/a-propos" element={<APropos />} />
+              <Route path="/sources" element={<Sources />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/favoris" element={<Favoris />} />
+              <Route path="/liturgie" element={<JourLiturgique />} />
+              <Route path="/liturgie/:date" element={<JourLiturgique />} />
+              <Route path="/liturgie/:date/:part" element={<LiturgieLecture />} />
+              <Route path="/catechisme/:ref" element={<Catechisme />} />
+              <Route path="/" element={<Navigate to="/compendium/accueil" replace />} />
+            </IonRouterOutlet>
+            <LieuxOpeningNotice />
+          <UpdateSheet />
+          </IonReactRouter>
+        </BibleReadingPrefsProvider>
+      </IonApp>
+    </div>
+  );
+};
 
 export default App;

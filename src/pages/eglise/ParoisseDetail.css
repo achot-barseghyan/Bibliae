@@ -1,0 +1,649 @@
+/* Fiche paroisse : complète Paroisses.css (même .tp-page, en-tête, encart
+   et pied de page). */
+
+.tp-hero.pf-hero {
+  padding-bottom: 96px;
+}
+
+.pf-hero-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tp-page .pf-fav {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px rgba(240, 213, 142, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tp-or-clair);
+}
+
+.pf-fav svg {
+  transition: transform 450ms cubic-bezier(0.3, 1.6, 0.4, 1);
+}
+
+.pf-fav.is-on svg {
+  transform: scale(1.15);
+}
+
+.pf-place {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pf-dept {
+  height: 24px;
+  min-width: 24px;
+  padding: 0 7px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  background: var(--tp-or-clair);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: #23201A;
+}
+
+.pf-place-label {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.72);
+}
+
+.tp-page .pf-title {
+  margin-top: 12px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 38px;
+  line-height: 1.02;
+  color: var(--tp-ivoire);
+  text-wrap: pretty;
+}
+
+.tp-page .pf-sub {
+  margin-top: 10px;
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.4;
+  color: rgba(244, 237, 220, 0.75);
+}
+
+.pf-hero-skeleton {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pf-hero-skeleton span {
+  display: block;
+  height: 34px;
+  width: 80%;
+  border-radius: 8px;
+  background: rgba(244, 237, 220, 0.12);
+}
+
+.pf-hero-skeleton span + span {
+  height: 14px;
+  width: 55%;
+}
+
+/* --- Prochaine messe (carte qui chevauche l'en-tête) --- */
+
+.pf-next-wrap {
+  position: relative;
+  z-index: 2;
+  margin-top: -62px;
+  padding: 0 18px;
+}
+
+.pf-next {
+  position: relative;
+  overflow: hidden;
+  min-height: 112px;
+  box-sizing: border-box;
+  padding: 16px 18px 16px 16px;
+  border-radius: 20px;
+  background: var(--tp-ivoire);
+  box-shadow: 0 22px 36px -20px rgba(15, 21, 38, 0.75), inset 0 0 0 1px rgba(181, 137, 46, 0.7);
+  color: #23201A;
+}
+
+.pf-next-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+
+.pf-skel {
+  display: block;
+  border-radius: 6px;
+  background: rgba(35, 32, 26, 0.1);
+}
+
+.pf-skel--ring {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: rgba(35, 32, 26, 0.07);
+}
+
+.pf-skel-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.pf-ring {
+  position: relative;
+  width: 76px;
+  height: 76px;
+}
+
+.pf-ring svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.pf-ring-track {
+  fill: none;
+  stroke: rgba(35, 32, 26, 0.12);
+  stroke-width: 2;
+}
+
+.pf-ring-fill {
+  fill: none;
+  stroke: #B5892E;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pf-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pf-ring-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 1;
+}
+
+.pf-ring-day {
+  margin-top: 3px;
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(35, 32, 26, 0.62);
+}
+
+.pf-next-text,
+.pf-next-msg {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pf-next-msg {
+  gap: 6px;
+}
+
+.pf-next-kicker {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6B1E23;
+}
+
+.pf-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #B5892E;
+  animation: tp-pulse 2s ease-in-out infinite;
+}
+
+.pf-next-church {
+  margin-top: 6px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 1.08;
+  text-wrap: pretty;
+}
+
+.pf-next-msg .pf-next-church {
+  margin-top: 0;
+}
+
+.pf-next-kind {
+  margin-top: 3px;
+  font-family: 'EB Garamond', serif;
+  font-size: 14px;
+  line-height: 1.35;
+  color: rgba(35, 32, 26, 0.68);
+}
+
+.pf-next-kind.is-italic {
+  font-style: italic;
+}
+
+.tp-page .pf-pill {
+  margin-top: 6px;
+  align-self: flex-start;
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 20px;
+  background: #23201A;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--tp-or-clair);
+}
+
+/* --- Actions --- */
+
+.pf-actions {
+  padding: 14px 18px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+
+.pf-actions.has-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pf-action {
+  height: 46px;
+  border-radius: 23px;
+  box-shadow: inset 0 0 0 0.5px var(--encre-45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-encre);
+  transition: transform 0.15s ease;
+}
+
+.pf-action:active {
+  transform: scale(0.97);
+}
+
+.pf-action--dark {
+  background: var(--tp-nuit);
+  box-shadow: none;
+  color: var(--tp-or-clair);
+}
+
+.pf-action-arrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+/* --- Sections --- */
+
+.pf-section {
+  padding: 28px 18px 0;
+}
+
+.pf-section-head {
+  padding: 0 4px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tp-page .pf-section-title {
+  margin: 0;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--color-encre);
+}
+
+.pf-section-count {
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+/* Semaine : une pastille sombre glisse sous le jour choisi. */
+.pf-days {
+  position: relative;
+  margin-top: 14px;
+  height: 72px;
+  box-sizing: border-box;
+  border-radius: 24px;
+  background: var(--tp-voile);
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres);
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  padding: 4px;
+}
+
+.pf-days-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 7);
+  border-radius: 20px;
+  background: var(--tp-nuit);
+  box-shadow: 0 6px 14px -6px rgba(15, 21, 38, 0.6);
+  transition: transform 550ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.tp-page .pf-day {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.pf-day-wd {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--encre-60);
+  transition: color 400ms;
+}
+
+.pf-day-n {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--color-encre);
+  transition: color 400ms;
+}
+
+.pf-day.is-sunday .pf-day-wd,
+.pf-day.is-sunday .pf-day-n {
+  color: var(--color-oxblood);
+}
+
+.pf-day.is-active .pf-day-wd {
+  color: var(--tp-or-clair);
+}
+
+.pf-day.is-active .pf-day-n {
+  color: var(--tp-ivoire);
+}
+
+.pf-day-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 400ms;
+}
+
+.pf-day-dot.has {
+  background: #B5892E;
+}
+
+.pf-day.is-active .pf-day-dot.has {
+  background: var(--tp-or-clair);
+}
+
+.pf-masses {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pf-mass-skel {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  height: 68px;
+  border-radius: 16px;
+  background: var(--tp-voile);
+}
+
+.pf-mass-skel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: tp-shine 1.6s ease-in-out infinite;
+}
+
+.pf-mass {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(35, 32, 26, 0.04);
+  box-shadow: inset 0 0 0 0.5px var(--filet-sections);
+  animation: tp-rise 550ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--pf-i, 0) * 70ms);
+}
+
+.pf-mass.is-next {
+  background: var(--tp-carte);
+  box-shadow: inset 0 0 0 1px #B5892E, 0 14px 24px -18px rgba(15, 21, 38, 0.6);
+}
+
+.pf-mass-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--color-encre);
+}
+
+.pf-mass-past {
+  margin-top: 3px;
+  font-family: var(--font-inter);
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--encre-50);
+}
+
+.pf-mass-main {
+  min-width: 0;
+}
+
+.pf-mass-church {
+  font-family: var(--font-eb-garamond);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--color-encre);
+}
+
+.pf-mass.is-past .pf-mass-time,
+.pf-mass.is-past .pf-mass-church {
+  color: var(--encre-50);
+}
+
+.pf-mass-tags {
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.pf-mass-kind {
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 10px;
+  background: var(--tp-voile);
+  display: flex;
+  align-items: center;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--encre-72);
+}
+
+.pf-mass-kind.is-sunday {
+  background: #6B1E23;
+  color: #F4EDDC;
+}
+
+.pf-mass-note {
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 13.5px;
+  color: var(--encre-60);
+}
+
+.pf-mass-empty {
+  padding: 26px 18px;
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres);
+  text-align: center;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--encre-60);
+}
+
+.pf-source {
+  margin-top: 6px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pf-source-label {
+  min-width: 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 13.5px;
+  line-height: 1.35;
+  color: var(--encre-60);
+}
+
+.pf-source-link {
+  flex: none;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-oxblood);
+}
+
+/* --- Églises rattachées --- */
+
+.pf-churches {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pf-church {
+  min-height: 56px;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 0 4px;
+  border-top: 0.5px solid var(--filet-tableaux);
+  text-decoration: none;
+  color: var(--color-encre);
+}
+
+.pf-church:first-child {
+  border-top: none;
+}
+
+.pf-church-cross {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--color-or);
+  text-align: center;
+}
+
+.pf-church-name {
+  font-family: var(--font-eb-garamond);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.pf-church-go {
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}

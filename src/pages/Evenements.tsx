@@ -271,10 +271,10 @@ const Evenements: React.FC = () => {
       const to = clampIndex(target);
       if (to !== activeRef.current) tapHaptic();
       const from = posRef.current;
-      const duration = reduceRef.current ? 180 : 460;
+      const duration = reduceRef.current ? 0 : 460;
       const start = performance.now();
       const step = (now: number) => {
-        const t = Math.min(1, (now - start) / duration);
+        const t = duration > 0 ? Math.min(1, (now - start) / duration) : 1;
         posRef.current = from + (to - from) * easeOutCubic(t);
         layout();
         syncActive(false);

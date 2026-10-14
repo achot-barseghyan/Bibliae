@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { IonPage } from '@ionic/react';
 import { CALENDAR_SAINTS, SAINT_CATEGORIES, type CalendarSaint } from '../../data/saintsCalendrier';
-import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { tapHaptic } from '../../utils/haptics';
 import './Saints.css';
 
@@ -63,7 +63,8 @@ interface WheelDrag {
 
 const Saints: React.FC = () => {
   const navigate = useNavigate();
-  const reduced = usePrefersReducedMotion();
+  const location = useLocation();
+  const reduced = useReducedMotion();
 
   const today = useMemo(() => {
     const now = new Date();
@@ -333,6 +334,16 @@ const Saints: React.FC = () => {
         });
     }
   };
+
+  // Saint demandé par un lien (recherche de l'accueil) : notice ouverte d'emblée.
+  const requestedSaintId = (location.state as { saintId?: number } | null)?.saintId;
+  useEffect(() => {
+    if (requestedSaintId === undefined) return;
+    const saint = CALENDAR_SAINTS.find((s) => s.id === requestedSaintId);
+    if (saint) openSaint(saint);
+    // Une fois par navigation (location.key), pas à chaque rendu.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.key]);
 
   useEffect(() => {
     if (!sheetOpen) return;

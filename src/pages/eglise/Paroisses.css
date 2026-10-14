@@ -1,301 +1,686 @@
-.paroisses-content {
-  --background: var(--color-papier);
+/* Trouver une paroisse (maquette v2) : en-tête nuit, recherche collante,
+   filtres, cartes à cadran, encart « Bon à savoir ». Le fond, l'encre et
+   les filets suivent le thème de lecture ; l'en-tête et les pastilles
+   sombres gardent leur palette nuit. */
+
+.tp-page {
+  --tp-ivoire: #F4EDDC;
+  --tp-or-clair: #F0D58E;
+  --tp-or-doux: #D9B66A;
+  --tp-nuit: #23201A;
+  --tp-carte: #F4EDDC;
+  --tp-voile: rgba(35, 32, 26, 0.07);
+  background: var(--color-papier);
 }
 
-.paroisses-header {
-  display: flex;
-  align-items: center;
-  padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 12px;
+html[data-reading-theme='nuit'] .tp-page {
+  --tp-carte: var(--color-papier-enfonce);
+  --tp-voile: rgba(237, 229, 211, 0.08);
 }
 
-.paroisses-header-button {
-  flex: 0 0 auto;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  color: var(--color-encre);
-  cursor: pointer;
-  border-radius: 50%;
+html[data-reading-theme='contraste'] .tp-page {
+  --tp-carte: #ffffff;
 }
 
-.paroisses-header-button:focus-visible {
-  outline: 2px solid var(--color-oxblood);
-  outline-offset: 2px;
-}
-
-/* --- Titre --- */
-
-.paroisses-hero {
-  padding: 8px 28px 4px;
-}
-
-.paroisses-title {
-  font-family: var(--font-cormorant);
-  font-weight: 400;
-  font-size: var(--taille-chapitre);
-  line-height: 1.15;
-  color: var(--color-encre);
-  margin: 0 0 14px;
-}
-
-.paroisses-subtitle {
-  font-family: var(--font-cormorant);
-  font-weight: 400;
-  font-size: var(--taille-prose);
-  line-height: 1.5;
-  color: var(--encre-72);
-  margin: 0;
-}
-
-/* --- Recherche --- */
-
-.paroisses-search {
-  padding: 24px 28px 0;
-}
-
-.paroisses-search-field {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--filet-barres);
-}
-
-.paroisses-search-icon {
-  flex: 0 0 auto;
-  color: var(--encre-60);
-}
-
-.paroisses-search-input {
-  flex: 1 1 auto;
-  min-width: 0;
-  border: none;
-  background: none;
-  outline: none;
-  font-family: var(--font-cormorant);
-  font-size: var(--taille-verset);
-  color: var(--color-encre);
-}
-
-.paroisses-search-input::placeholder {
-  color: var(--encre-45);
-}
-
-.paroisses-search-clear {
-  flex: 0 0 auto;
+.tp-page button {
+  font: inherit;
+  color: inherit;
   background: none;
   border: none;
   padding: 0;
-  font-family: var(--font-inter);
-  font-weight: 600;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--color-oxblood);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* --- Autour de moi --- */
+.tp-page button:focus-visible,
+.tp-page a:focus-visible {
+  outline: 2px solid var(--color-or);
+  outline-offset: 3px;
+}
 
-.paroisses-locate {
+.tp-page p,
+.tp-page h1 {
+  margin: 0;
+}
+
+.tp-scroll {
+  position: relative;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.tp-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* --- En-tête nuit --- */
+
+.tp-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0F1526 0%, #1B2640 65%, #2A2238 100%);
+  padding: calc(env(safe-area-inset-top, 0px) + 22px) 24px 74px;
+}
+
+.tp-rosace {
+  position: absolute;
+  right: -80px;
+  top: -60px;
+  width: 290px;
+  height: 290px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(240, 213, 142, 0.4) 0deg 0.6deg, transparent 0.6deg 7.5deg);
+  -webkit-mask: radial-gradient(circle, transparent 0 60%, #000 61% 70%, transparent 71%);
+  mask: radial-gradient(circle, transparent 0 60%, #000 61% 70%, transparent 71%);
+  animation: tp-spin 120s linear infinite;
+  pointer-events: none;
+}
+
+/* Radar : n'apparaît que pendant « Autour de moi ». */
+.tp-radar {
+  position: absolute;
+  right: 46px;
+  top: calc(env(safe-area-inset-top, 0px) + 28px);
+  width: 130px;
+  height: 130px;
+  opacity: 0;
+  transition: opacity 500ms;
+  pointer-events: none;
+}
+
+.tp-radar.is-on {
+  opacity: 1;
+}
+
+.tp-radar-ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(240, 213, 142, 0.7);
+  animation: tp-ping 1.6s ease-out infinite;
+}
+
+.tp-radar-ping--late {
+  animation-delay: 0.8s;
+}
+
+.tp-radar-dot {
+  position: absolute;
+  left: 59px;
+  top: 59px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--tp-or-clair);
+  box-shadow: 0 0 14px rgba(240, 213, 142, 0.9);
+}
+
+.tp-hero-inner {
+  position: relative;
+}
+
+.tp-hero-top {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin: 0 28px;
-  padding: 16px 0;
-  border: none;
-  border-bottom: 1px solid var(--filet-barres);
-  background: none;
-  font-family: var(--font-inter);
-  font-weight: 600;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--color-oxblood);
-  cursor: pointer;
-}
-
-.paroisses-locate:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
-
-.paroisses-locate-error {
-  margin: 12px 28px 0;
-  font-family: var(--font-cormorant);
-  font-style: italic;
-  font-size: var(--taille-valeur);
-  color: var(--color-oxblood);
-}
-
-/* --- Résultats --- */
-
-.paroisses-results {
-  padding: 0 28px;
-}
-
-.paroisses-results-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
   gap: 10px;
-  padding: 16px 0 10px;
-  border-bottom: 1px solid var(--filet-sections);
 }
 
-.paroisses-results-count {
+.tp-page .tp-back {
+  width: 44px;
+  height: 44px;
+  margin: -2px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px rgba(240, 213, 142, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--tp-or-clair);
+  transition: transform 0.15s ease;
+}
+
+.tp-page .tp-back:active {
+  transform: scale(0.92);
+}
+
+.tp-kicker {
   font-family: var(--font-inter);
   font-weight: 600;
-  font-size: 11px;
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--color-oxblood);
-  margin: 0;
+  color: var(--tp-or-doux);
 }
 
-.paroisses-results-query {
-  font-family: var(--font-cormorant);
+.tp-page .tp-title {
+  margin-top: 22px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 1;
+  color: var(--tp-ivoire);
+}
+
+.tp-page .tp-lede {
+  margin-top: 12px;
+  font-family: 'EB Garamond', serif;
   font-style: italic;
-  font-size: var(--taille-valeur);
-  color: var(--encre-60);
-  margin: 0;
+  font-size: 16.5px;
+  line-height: 1.4;
+  color: rgba(244, 237, 220, 0.78);
+  text-wrap: pretty;
 }
 
-.paroisses-hint,
-.paroisses-error,
-.paroisses-empty {
-  padding: 20px 0;
-  font-family: var(--font-cormorant);
-  font-size: var(--taille-valeur);
-  color: var(--encre-60);
+/* --- Recherche (collante) --- */
+
+.tp-search {
+  position: sticky;
+  /* Une fois collé, reste sous la barre d'état (encoche). */
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  margin-top: -40px;
+  padding: 12px 18px 0;
 }
 
-.paroisses-error {
+.tp-field {
+  position: relative;
+  overflow: hidden;
+  height: 58px;
+  padding: 0 8px 0 18px;
+  border-radius: 29px;
+  background: var(--tp-ivoire);
+  box-shadow: 0 22px 36px -20px rgba(15, 21, 38, 0.75), inset 0 0 0 1px #B5892E;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: box-shadow 400ms;
+}
+
+.tp-field:focus-within {
+  box-shadow: 0 22px 36px -20px rgba(15, 21, 38, 0.75), inset 0 0 0 1.5px #B5892E;
+}
+
+.tp-field-shine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, rgba(181, 137, 46, 0.14), transparent);
+  animation: tp-shine 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+html[data-reduce-motion='true'] .tp-field-shine {
+  display: none;
+}
+
+.tp-field-icon {
+  position: relative;
+  flex: none;
+  color: #6B1E23;
+}
+
+.tp-input {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 21px;
+  color: #23201A;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.tp-input::placeholder {
+  color: rgba(35, 32, 26, 0.45);
+}
+
+.tp-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.tp-page .tp-clear {
+  position: relative;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #23201A;
+}
+
+.tp-clear-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(35, 32, 26, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Puces : Autour de moi + filtres --- */
+
+.tp-chips {
+  padding: 14px 18px 2px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tp-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.tp-page .tp-chip {
+  flex: none;
+  height: 40px;
+  padding: 0 15px;
+  border-radius: 20px;
+  background: transparent;
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--encre-72);
+  transition: background 400ms, box-shadow 400ms, color 400ms;
+}
+
+.tp-page .tp-chip.is-active {
+  background: var(--tp-carte);
+  box-shadow: inset 0 0 0 1px #B5892E;
   color: var(--color-oxblood);
 }
 
-/* --- Carte paroisse --- */
-
-.paroisses-card {
-  padding: 18px 0;
-  border-bottom: 1px solid var(--filet-sections);
+.tp-page .tp-chip--locate {
+  padding: 0 16px 0 12px;
+  gap: 9px;
+  background: var(--tp-nuit);
+  box-shadow: none;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--tp-or-clair);
 }
 
-.paroisses-card-head {
+.tp-locate-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--tp-or-clair);
+  animation: tp-pulse 2s ease-in-out infinite;
+}
+
+.tp-page .tp-locate-error {
+  margin: 12px 22px 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-oxblood);
+}
+
+/* --- Compteur --- */
+
+.tp-count {
+  padding: 24px 22px 0;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  margin: 0 0 10px;
 }
 
-.paroisses-card-name {
+.tp-count-main {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.tp-count-num {
   font-family: var(--font-cormorant);
   font-weight: 500;
-  font-size: var(--taille-titre-section);
-  line-height: 1.2;
+  font-size: 34px;
+  line-height: 1;
   color: var(--color-encre);
-  margin: 0;
 }
 
-.paroisses-card-zip {
-  flex: 0 0 auto;
+.tp-count-word {
   font-family: var(--font-inter);
   font-weight: 600;
-  font-size: 12px;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--color-oxblood);
 }
 
-.paroisses-card-tags {
+.tp-count-scope {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--encre-60);
+}
+
+/* --- Résultats --- */
+
+.tp-results {
+  padding: 14px 18px 0;
+}
+
+.tp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tp-card {
+  position: relative;
+  padding: 16px 14px 16px 16px;
+  border-radius: 18px;
+  background: var(--tp-carte);
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres), 0 14px 24px -20px rgba(15, 21, 38, 0.6);
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  animation: tp-rise 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--tp-i, 0) * 60ms);
+}
+
+.tp-page .tp-card {
+  width: 100%;
+  padding: 16px 14px 16px 16px;
+  background: var(--tp-carte);
+  text-align: left;
+  transition: transform 0.15s ease;
+}
+
+.tp-page .tp-card:active {
+  transform: scale(0.98);
+}
+
+/* Cadran : une graduation dorée par église rattachée. */
+.tp-dial {
+  position: relative;
+  width: 52px;
+  height: 52px;
+}
+
+.tp-dial-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(181, 137, 46, 0.85) 0deg 1.2deg, transparent 1.2deg var(--tp-tick, 360deg));
+  -webkit-mask: radial-gradient(circle, transparent 0 80%, #000 81% 97%, transparent 98%);
+  mask: radial-gradient(circle, transparent 0 80%, #000 81% 97%, transparent 98%);
+}
+
+.tp-dial-core {
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: var(--tp-nuit);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 1;
+  color: var(--tp-or-clair);
+}
+
+.tp-card-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tp-card-name {
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.1;
+  color: var(--color-encre);
+  text-wrap: pretty;
+}
+
+.tp-card-tags {
+  margin-top: 6px;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 10px;
+  align-items: center;
+  gap: 6px;
 }
 
-.paroisses-card-tag {
-  display: inline-flex;
-  padding: 4px 10px;
-  border-radius: 4px;
-  background: var(--color-papier-enfonce);
+.tp-tag {
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 11px;
+  background: var(--tp-voile);
+  display: flex;
+  align-items: center;
   font-family: var(--font-inter);
-  font-weight: 600;
-  font-size: 10px;
+  font-weight: 500;
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--encre-60);
+  color: var(--encre-72);
 }
 
-.paroisses-card-tag--link {
+.tp-tag--site {
   background: none;
-  border: 1px solid var(--color-oxblood);
+  box-shadow: inset 0 0 0 0.5px var(--color-oxblood);
   color: var(--color-oxblood);
-  text-decoration: none;
 }
 
-.paroisses-card-meta {
-  font-family: var(--font-cormorant);
+.tp-card-meta {
+  margin-top: 6px;
+  font-family: var(--font-eb-garamond);
   font-style: italic;
-  font-size: var(--taille-valeur);
+  font-size: 14px;
+  line-height: 1.3;
   color: var(--encre-60);
-  margin: 0;
+}
+
+.tp-card-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.tp-card-zip {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: var(--color-oxblood);
+}
+
+.tp-card-chevron {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--color-encre);
+}
+
+.tp-empty {
+  padding: 44px 20px;
+  text-align: center;
+  border-radius: 18px;
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres);
+}
+
+.tp-page .tp-empty-title {
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--color-encre);
+}
+
+.tp-page .tp-empty-text {
+  margin-top: 8px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--encre-60);
+  text-wrap: pretty;
 }
 
 /* --- Bon à savoir --- */
 
-.paroisses-note {
-  margin: 28px 28px 0;
+.tp-note {
+  position: relative;
+  overflow: hidden;
+  margin: 22px 18px 0;
   padding: 20px;
-  border-left: 3px solid var(--color-or);
-  background: var(--color-papier-enfonce);
+  border-radius: 20px;
+  background: linear-gradient(160deg, #2E4A72 0%, #1B2640 60%, #141C30 100%);
+  box-shadow: 0 20px 34px -22px rgba(15, 21, 38, 0.8), inset 0 0 0 1px rgba(240, 213, 142, 0.35);
 }
 
-.paroisses-note-kicker {
+.tp-note-glow {
+  position: absolute;
+  right: -46px;
+  top: -46px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 213, 142, 0.22), transparent 66%);
+  animation: tp-breath 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.tp-page .tp-note-kicker {
+  position: relative;
   font-family: var(--font-inter);
   font-weight: 600;
-  font-size: var(--taille-surtitre);
+  font-size: 9px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--color-oxblood);
-  margin: 0 0 10px;
+  color: var(--tp-or-clair);
 }
 
-.paroisses-note-text {
-  font-family: var(--font-cormorant);
-  font-size: var(--taille-valeur);
-  line-height: 1.5;
-  color: var(--color-encre);
-  margin: 0;
+.tp-page .tp-note-text {
+  position: relative;
+  margin-top: 10px;
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  line-height: 1.45;
+  color: rgba(244, 237, 220, 0.86);
+  text-wrap: pretty;
 }
 
 /* --- Pied de page --- */
 
-.paroisses-footer {
-  margin-top: 32px;
-  padding: 28px 28px calc(env(safe-area-inset-bottom, 0px) + 32px);
-  border-top: 1px solid var(--filet-sections);
-  text-align: center;
+.tp-footer {
+  padding: 30px 22px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
-.paroisses-footer-wordmark {
+.tp-footer-cross {
   font-family: var(--font-cormorant);
-  font-style: italic;
-  font-size: var(--taille-cartouche);
-  letter-spacing: var(--tracking-min);
+  font-size: 18px;
   color: var(--color-oxblood);
-  margin: 0 0 14px;
 }
 
-.paroisses-footer-links {
-  font-family: var(--font-inter);
-  font-size: 9px;
+.tp-footer-motto {
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
   color: var(--encre-60);
-  opacity: 0.7;
-  margin: 0;
+}
+
+@keyframes tp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes tp-breath {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes tp-shine {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+  }
+  55%,
+  100% {
+    transform: translateX(320%) skewX(-18deg);
+  }
+}
+
+@keyframes tp-ping {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes tp-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(181, 137, 46, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(181, 137, 46, 0);
+  }
+}
+
+@keyframes tp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
