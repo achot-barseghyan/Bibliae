@@ -10,12 +10,11 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.bibliae.app
       vars:
-        XCODE_WORKSPACE: "ios/App/App.xcworkspace"
+        XCODE_PROJECT: "ios/App/App.xcodeproj"
         XCODE_SCHEME: "App"
         APP_STORE_APPLE_ID: 6822832756
       node: 22
       xcode: latest
-      cocoapods: default
     scripts:
       - name: Installer les dépendances
         script: npm ci
@@ -31,7 +30,7 @@ workflows:
           LAST=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID" || echo 0)
           agvtool new-version -all $(($LAST + 1))
       - name: Build IPA
-        script: xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+        script: xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
