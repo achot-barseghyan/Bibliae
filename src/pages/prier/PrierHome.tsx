@@ -1,6 +1,5 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 import { IonContent, IonPage } from '@ionic/react';
 import { useBookmarks } from '../../hooks/useBookmarks';
 import { useRemotePrayers } from '../../hooks/content/useRemotePrayers';
@@ -10,13 +9,13 @@ import { tapHaptic } from '../../utils/haptics';
 import NightStars from '../bible/NightStars';
 import { RISE_IN, stagger, useBibleReducedMotion, useRevealOnce } from '../bible/bibleMotion';
 import PrierHeroBar from './PrierHeroBar';
-import PrierSearch from './PrierSearch';
+import { useOpenSearch } from '../accueil/searchContext';
 import './PrierHome.css';
 
 const PrierHome: React.FC = () => {
   const navigate = useNavigate();
   const { isBookmarked, toggle } = useBookmarks();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const openSearch = useOpenSearch();
   const prayers = useRemotePrayers();
   const categories = useRemoteSaints();
   const situationCount = categories.reduce((n, c) => n + c.items.length, 0);
@@ -55,7 +54,7 @@ const PrierHome: React.FC = () => {
           <div className="prier-hero prier-home-hero">
             <NightStars count={24} seed={3} />
             <PrierHeroBar
-              onSearch={() => setIsSearchOpen(true)}
+              onSearch={() => openSearch(null)}
               isBookmarked={isBookmarked('prier:home')}
               onToggleBookmark={() => toggle('prier:home')}
             />
@@ -114,7 +113,6 @@ const PrierHome: React.FC = () => {
           </footer>
         </div>
 
-        <AnimatePresence>{isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}</AnimatePresence>
         <WorldButton />
       </IonContent>
     </IonPage>

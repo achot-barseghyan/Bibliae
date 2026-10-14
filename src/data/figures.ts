@@ -28,6 +28,7 @@ import jacobImg from '../assets/images/men/Jacob.webp';
 import jamesAlphaeusImg from '../assets/images/men/James_(son_of_Alphaeus).webp';
 import jamesZebedeeImg from '../assets/images/men/James_(son_of_Zebedee).webp';
 import jehoshaphatImg from '../assets/images/men/Jehoshaphat.webp';
+import judasImg from '../assets/images/men/Judas_Iscariote.webp';
 import jeremiahImg from '../assets/images/men/Jeremiah.webp';
 import jesusImg from '../assets/images/men/Jesus_Christ.webp';
 import jobImg from '../assets/images/men/Job.webp';
@@ -148,6 +149,8 @@ export interface Figure {
   date: string;
   books: string[];
   mentions: number;
+  /** Portrait ; chaîne vide tant que l'illustration n'existe pas (l'app
+   * affiche alors l'initiale sur le fond de l'époque). */
   image: string;
 }
 
@@ -207,6 +210,11 @@ export const figures: Figure[] = [
   // --- Origines ---
   { id: 'adam', name: 'Adam', originalName: 'אָדָם', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Origines', date: '4000 av. J.-C.', books: ['Gn', 'Rm'], mentions: 29, image: adamImg },
   { id: 'eve', name: 'Ève', originalName: 'חַוָּה', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Origines', date: '4000 av. J.-C.', books: ['Gn', '2Co'], mentions: 18, image: eveImg },
+  { id: 'cain', name: 'Caïn', originalName: 'קַיִן', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Origines', date: '3950 av. J.-C.', books: ['Gn', 'He', '1Jn'], mentions: 18, image: '' },
+  { id: 'abel', name: 'Abel', originalName: 'הֶבֶל', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Origines', date: '3950 av. J.-C.', books: ['Gn', 'Mt', 'He'], mentions: 12, image: '' },
+  { id: 'seth', name: 'Seth', originalName: 'שֵׁת', testament: 'ancien', genre: 'homme', role: 'Patriarche', epoque: 'Origines', date: '3870 av. J.-C.', books: ['Gn', 'Lc'], mentions: 9, image: '' },
+  { id: 'henok', name: 'Hénok', originalName: 'חֲנוֹךְ', testament: 'ancien', genre: 'homme', role: 'Patriarche', epoque: 'Origines', date: '3380 av. J.-C.', books: ['Gn', 'He', 'Jude'], mentions: 10, image: '' },
+  { id: 'mathusalem', name: 'Mathusalem', originalName: 'מְתוּשֶׁלַח', testament: 'ancien', genre: 'homme', role: 'Patriarche', epoque: 'Origines', date: '3300 av. J.-C.', books: ['Gn', 'Lc'], mentions: 6, image: '' },
   { id: 'noe', name: 'Noé', originalName: 'נֹחַ', testament: 'ancien', genre: 'homme', role: 'Patriarche', epoque: 'Origines', date: '2400 av. J.-C.', books: ['Gn', 'He'], mentions: 45, image: noahImg },
 
   // --- Patriarches ---
@@ -214,12 +222,18 @@ export const figures: Figure[] = [
   { id: 'sarah', name: 'Sara', originalName: 'שָׂרָה', testament: 'ancien', genre: 'femme', role: 'Matriarche', epoque: 'Patriarches', date: '1900 av. J.-C.', books: ['Gn', 'He'], mentions: 56, image: sarahImg },
   { id: 'hagar', name: 'Agar', originalName: 'הָגָר', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Patriarches', date: '1890 av. J.-C.', books: ['Gn', 'Ga'], mentions: 15, image: hagarImg },
   { id: 'lot', name: 'Lot', originalName: 'לוֹט', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Patriarches', date: '1900 av. J.-C.', books: ['Gn', '2P'], mentions: 33, image: lotImg },
+  { id: 'melkisedek', name: 'Melkisédek', originalName: 'מַלְכִּי־צֶדֶק', testament: 'ancien', genre: 'homme', role: 'Prêtre', epoque: 'Patriarches', date: '1840 av. J.-C.', books: ['Gn', 'Ps', 'He'], mentions: 10, image: '' },
+  { id: 'ismael', name: 'Ismaël', originalName: 'יִשְׁמָעֵאל', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Patriarches', date: '1835 av. J.-C.', books: ['Gn', 'Ga'], mentions: 20, image: '' },
   { id: 'isaac', name: 'Isaac', originalName: 'יִצְחָק', testament: 'ancien', genre: 'homme', role: 'Patriarche', epoque: 'Patriarches', date: '1850 av. J.-C.', books: ['Gn', 'He'], mentions: 80, image: isaacImg },
   { id: 'rebekah', name: 'Rébecca', originalName: 'רִבְקָה', testament: 'ancien', genre: 'femme', role: 'Matriarche', epoque: 'Patriarches', date: '1850 av. J.-C.', books: ['Gn', 'Rm'], mentions: 30, image: rebekahImg },
+  { id: 'esau', name: 'Ésaü', originalName: 'עֵשָׂו', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Patriarches', date: '1765 av. J.-C.', books: ['Gn', 'Rm', 'He'], mentions: 97, image: '' },
   { id: 'jacob', name: 'Jacob', originalName: 'יַעֲקֹב', testament: 'ancien', genre: 'homme', role: 'Patriarche', epoque: 'Patriarches', date: '1800 av. J.-C.', books: ['Gn', 'Rm'], mentions: 170, image: jacobImg },
+  { id: 'laban', name: 'Laban', originalName: 'לָבָן', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Patriarches', date: '1750 av. J.-C.', books: ['Gn'], mentions: 54, image: '' },
   { id: 'leah', name: 'Léa', originalName: 'לֵאָה', testament: 'ancien', genre: 'femme', role: 'Matriarche', epoque: 'Patriarches', date: '1800 av. J.-C.', books: ['Gn', 'Rt'], mentions: 22, image: leahImg },
   { id: 'rachel', name: 'Rachel', originalName: 'רָחֵל', testament: 'ancien', genre: 'femme', role: 'Matriarche', epoque: 'Patriarches', date: '1790 av. J.-C.', books: ['Gn', 'Mt'], mentions: 28, image: rachelImg },
   { id: 'joseph-fils-jacob', name: 'Joseph', originalName: 'יוֹסֵף', testament: 'ancien', genre: 'homme', role: 'Chef', epoque: 'Patriarches', date: '1750 av. J.-C.', books: ['Gn', 'He'], mentions: 210, image: josephImg },
+  { id: 'juda', name: 'Juda', originalName: 'יְהוּדָה', testament: 'ancien', genre: 'homme', role: 'Patriarche', epoque: 'Patriarches', date: '1740 av. J.-C.', books: ['Gn', 'Mt'], mentions: 45, image: '' },
+  { id: 'benjamin', name: 'Benjamin', originalName: 'בִּנְיָמִין', testament: 'ancien', genre: 'homme', role: 'Patriarche', epoque: 'Patriarches', date: '1720 av. J.-C.', books: ['Gn'], mentions: 20, image: '' },
   { id: 'job', name: 'Job', originalName: 'אִיּוֹב', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Patriarches', date: '1800 av. J.-C.', books: ['Jb', 'Jc'], mentions: 58, image: jobImg },
   { id: 'tamar', name: 'Tamar', originalName: 'תָּמָר', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Patriarches', date: '1700 av. J.-C.', books: ['Gn', 'Mt'], mentions: 9, image: tamarImg },
 
@@ -228,6 +242,8 @@ export const figures: Figure[] = [
   { id: 'aaron', name: 'Aaron', originalName: 'אַהֲרֹן', testament: 'ancien', genre: 'homme', role: 'Prêtre', epoque: 'Exode', date: '1250 av. J.-C.', books: ['Ex', 'Lv', 'Nb'], mentions: 340, image: aaronImg },
   { id: 'miriam', name: 'Miriam', originalName: 'מִרְיָם', testament: 'ancien', genre: 'femme', role: 'Prophétesse', epoque: 'Exode', date: '1250 av. J.-C.', books: ['Ex', 'Nb'], mentions: 14, image: miriamImg },
   { id: 'zipporah', name: 'Séphora', originalName: 'צִפֹּרָה', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Exode', date: '1300 av. J.-C.', books: ['Ex'], mentions: 6, image: zipporahImg },
+  { id: 'jethro', name: 'Jéthro', originalName: 'יִתְרוֹ', testament: 'ancien', genre: 'homme', role: 'Prêtre', epoque: 'Exode', date: '1290 av. J.-C.', books: ['Ex'], mentions: 10, image: '' },
+  { id: 'balaam', name: 'Balaam', originalName: 'בִּלְעָם', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Exode', date: '1250 av. J.-C.', books: ['Nb', '2P', 'Ap'], mentions: 60, image: '' },
   { id: 'joshua', name: 'Josué', originalName: 'יְהוֹשֻׁעַ', testament: 'ancien', genre: 'homme', role: 'Chef', epoque: 'Exode', date: '1250 av. J.-C.', books: ['Nb', 'Jos'], mentions: 218, image: joshuaImg },
   { id: 'caleb', name: 'Caleb', originalName: 'כָּלֵב', testament: 'ancien', genre: 'homme', role: 'Chef', epoque: 'Exode', date: '1250 av. J.-C.', books: ['Nb', 'Jos'], mentions: 32, image: calebImg },
 
@@ -235,10 +251,13 @@ export const figures: Figure[] = [
   { id: 'eli', name: 'Éli', originalName: 'עֵלִי', testament: 'ancien', genre: 'homme', role: 'Prêtre', epoque: 'Juges', date: '1100 av. J.-C.', books: ['1S'], mentions: 34, image: eliImg },
   { id: 'hannah', name: 'Anne', originalName: 'חַנָּה', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Juges', date: '1080 av. J.-C.', books: ['1S'], mentions: 13, image: hannahImg },
   { id: 'gideon', name: 'Gédéon', originalName: 'גִּדְעוֹן', testament: 'ancien', genre: 'homme', role: 'Juge', epoque: 'Juges', date: '1150 av. J.-C.', books: ['Jg'], mentions: 39, image: gideonImg },
+  { id: 'jephte', name: 'Jephté', originalName: 'יִפְתָּח', testament: 'ancien', genre: 'homme', role: 'Juge', epoque: 'Juges', date: '1100 av. J.-C.', books: ['Jg', 'He'], mentions: 30, image: '' },
   { id: 'deborah', name: 'Débora', originalName: 'דְּבוֹרָה', testament: 'ancien', genre: 'femme', role: 'Juge', epoque: 'Juges', date: '1150 av. J.-C.', books: ['Jg'], mentions: 20, image: deborahImg },
+  { id: 'barak', name: 'Barak', originalName: 'בָּרָק', testament: 'ancien', genre: 'homme', role: 'Chef', epoque: 'Juges', date: '1125 av. J.-C.', books: ['Jg', 'He'], mentions: 14, image: '' },
   { id: 'samson', name: 'Samson', originalName: 'שִׁמְשׁוֹן', testament: 'ancien', genre: 'homme', role: 'Juge', epoque: 'Juges', date: '1100 av. J.-C.', books: ['Jg', 'He'], mentions: 38, image: samsonImg },
   { id: 'delilah', name: 'Dalila', originalName: 'דְּלִילָה', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Juges', date: '1100 av. J.-C.', books: ['Jg'], mentions: 10, image: delilahImg },
   { id: 'achsah', name: 'Aksa', originalName: 'עַכְסָה', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Juges', date: '1200 av. J.-C.', books: ['Jos', 'Jg'], mentions: 4, image: achsahImg },
+  { id: 'othniel', name: 'Otniel', originalName: 'עָתְנִיאֵל', testament: 'ancien', genre: 'homme', role: 'Juge', epoque: 'Juges', date: '1200 av. J.-C.', books: ['Jos', 'Jg'], mentions: 6, image: '' },
   { id: 'ruth', name: 'Ruth', originalName: 'רוּת', testament: 'ancien', genre: 'femme', role: 'Matriarche', epoque: 'Juges', date: '1100 av. J.-C.', books: ['Rt', 'Mt'], mentions: 12, image: ruthImg },
   { id: 'naomi', name: 'Noémi', originalName: 'נָעֳמִי', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Juges', date: '1100 av. J.-C.', books: ['Rt'], mentions: 21, image: naomiImg },
   { id: 'boaz', name: 'Booz', originalName: 'בֹּעַז', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Juges', date: '1100 av. J.-C.', books: ['Rt', 'Mt'], mentions: 24, image: boazImg },
@@ -250,9 +269,15 @@ export const figures: Figure[] = [
   { id: 'jonathan', name: 'Jonathan', originalName: 'יְהוֹנָתָן', testament: 'ancien', genre: 'homme', role: 'Chef', epoque: 'Royaume', date: '1010 av. J.-C.', books: ['1S', '2S'], mentions: 41, image: jonathanImg },
   { id: 'abigail', name: 'Abigaïl', originalName: 'אֲבִיגַיִל', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Royaume', date: '1000 av. J.-C.', books: ['1S', '2S'], mentions: 17, image: abigailImg },
   { id: 'david', name: 'David', originalName: 'דָּוִד', testament: 'ancien', genre: 'homme', role: 'Roi', epoque: 'Royaume', date: '1000 av. J.-C.', books: ['1S', '2S', 'Ps'], mentions: 1000, image: davidImg },
+  { id: 'nathan-prophete', name: 'Nathan', originalName: 'נָתָן', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Royaume', date: '990 av. J.-C.', books: ['2S', '1R', '1Ch'], mentions: 40, image: '' },
+  { id: 'absalom', name: 'Absalom', originalName: 'אַבְשָׁלוֹם', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Royaume', date: '980 av. J.-C.', books: ['2S'], mentions: 100, image: '' },
   { id: 'bathsheba', name: 'Bethsabée', originalName: 'בַּת־שֶׁבַע', testament: 'ancien', genre: 'femme', role: 'Reine', epoque: 'Royaume', date: '1000 av. J.-C.', books: ['2S', '1R'], mentions: 17, image: bathshebaImg },
   { id: 'solomon', name: 'Salomon', originalName: 'שְׁלֹמֹה', testament: 'ancien', genre: 'homme', role: 'Roi', epoque: 'Royaume', date: '970 av. J.-C.', books: ['1R', 'Pr', 'Ct'], mentions: 293, image: solomonImg },
+  { id: 'roboam', name: 'Roboam', originalName: 'רְחַבְעָם', testament: 'ancien', genre: 'homme', role: 'Roi', epoque: 'Royaume', date: '930 av. J.-C.', books: ['1R', '2Ch', 'Mt'], mentions: 50, image: '' },
+  { id: 'jeroboam', name: 'Jéroboam', originalName: 'יָרָבְעָם', testament: 'ancien', genre: 'homme', role: 'Roi', epoque: 'Royaume', date: '930 av. J.-C.', books: ['1R', '2Ch'], mentions: 100, image: '' },
   { id: 'jehoshaphat', name: 'Josaphat', originalName: 'יְהוֹשָׁפָט', testament: 'ancien', genre: 'homme', role: 'Roi', epoque: 'Royaume', date: '870 av. J.-C.', books: ['1R', '2Ch'], mentions: 84, image: jehoshaphatImg },
+  { id: 'achab', name: 'Achab', originalName: 'אַחְאָב', testament: 'ancien', genre: 'homme', role: 'Roi', epoque: 'Royaume', date: '870 av. J.-C.', books: ['1R', '2Ch', 'Mi'], mentions: 90, image: '' },
+  { id: 'jezabel', name: 'Jézabel', originalName: 'אִיזֶבֶל', testament: 'ancien', genre: 'femme', role: 'Reine', epoque: 'Royaume', date: '870 av. J.-C.', books: ['1R', '2R', 'Ap'], mentions: 22, image: '' },
   { id: 'hezekiah', name: 'Ézéchias', originalName: 'חִזְקִיָּהוּ', testament: 'ancien', genre: 'homme', role: 'Roi', epoque: 'Royaume', date: '715 av. J.-C.', books: ['2R', 'Es'], mentions: 130, image: hezekiahImg },
   { id: 'josiah', name: 'Josias', originalName: 'יֹאשִׁיָּהוּ', testament: 'ancien', genre: 'homme', role: 'Roi', epoque: 'Royaume', date: '640 av. J.-C.', books: ['2R', '2Ch'], mentions: 52, image: josiahImg },
 
@@ -261,29 +286,42 @@ export const figures: Figure[] = [
   { id: 'elisha', name: 'Élisée', originalName: 'אֱלִישָׁע', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Prophètes', date: '850 av. J.-C.', books: ['2R'], mentions: 58, image: elishaImg },
   { id: 'shunammite', name: 'La Sunamite', originalName: 'הַשּׁוּנַמִּית', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Prophètes', date: '850 av. J.-C.', books: ['2R'], mentions: 8, image: shunammiteImg },
   { id: 'jonah', name: 'Jonas', originalName: 'יוֹנָה', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Prophètes', date: '780 av. J.-C.', books: ['Jon'], mentions: 19, image: jonahImg },
+  { id: 'joel', name: 'Joël', originalName: 'יוֹאֵל', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Prophètes', date: '800 av. J.-C.', books: ['Jl', 'Ac'], mentions: 2, image: '' },
   { id: 'amos', name: 'Amos', originalName: 'עָמוֹס', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Prophètes', date: '760 av. J.-C.', books: ['Am'], mentions: 8, image: amosImg },
   { id: 'hosea', name: 'Osée', originalName: 'הוֹשֵׁעַ', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Prophètes', date: '750 av. J.-C.', books: ['Os'], mentions: 6, image: hoseaImg },
   { id: 'isaiah', name: 'Ésaïe', originalName: 'יְשַׁעְיָהוּ', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Prophètes', date: '740 av. J.-C.', books: ['Es', '2R'], mentions: 60, image: isaiahImg },
+  { id: 'michee', name: 'Michée', originalName: 'מִיכָה', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Prophètes', date: '730 av. J.-C.', books: ['Mi', 'Jr', 'Mt'], mentions: 5, image: '' },
   { id: 'huldah', name: 'Houlda', originalName: 'חֻלְדָּה', testament: 'ancien', genre: 'femme', role: 'Prophétesse', epoque: 'Prophètes', date: '640 av. J.-C.', books: ['2R', '2Ch'], mentions: 5, image: huldahImg },
+  { id: 'habacuc', name: 'Habacuc', originalName: 'חֲבַקּוּק', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Prophètes', date: '610 av. J.-C.', books: ['Ha', 'Rm'], mentions: 2, image: '' },
   { id: 'jeremiah', name: 'Jérémie', originalName: 'יִרְמְיָהוּ', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Prophètes', date: '627 av. J.-C.', books: ['Jr', 'Lm'], mentions: 147, image: jeremiahImg },
+  { id: 'baruch', name: 'Baruch', originalName: 'בָּרוּךְ', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Prophètes', date: '600 av. J.-C.', books: ['Jr', 'Ba'], mentions: 26, image: '' },
 
   // --- Exil et retour ---
   { id: 'nebuchadnezzar', name: 'Nabuchodonosor', originalName: 'נְבוּכַדְנֶאצַּר', testament: 'ancien', genre: 'homme', role: 'Roi', epoque: 'Exil et retour', date: '605 av. J.-C.', books: ['2R', 'Dn'], mentions: 91, image: nebuchadnezzarImg },
   { id: 'daniel', name: 'Daniel', originalName: 'דָּנִיֵּאל', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Exil et retour', date: '605 av. J.-C.', books: ['Dn'], mentions: 74, image: danielImg },
   { id: 'ezekiel', name: 'Ézéchiel', originalName: 'יְחֶזְקֵאל', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Exil et retour', date: '593 av. J.-C.', books: ['Ez'], mentions: 30, image: ezekielImg },
+  { id: 'tobie', name: 'Tobie', originalName: 'Τωβίας', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Exil et retour', date: '700 av. J.-C.', books: ['Tb'], mentions: 60, image: '' },
+  { id: 'judith', name: 'Judith', originalName: 'יְהוּדִית', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Exil et retour', date: '650 av. J.-C.', books: ['Jdt'], mentions: 50, image: '' },
   { id: 'cyrus', name: 'Cyrus le Grand', originalName: 'כּוֹרֶשׁ', testament: 'ancien', genre: 'homme', role: 'Roi', epoque: 'Exil et retour', date: '539 av. J.-C.', books: ['Esd', 'Es'], mentions: 23, image: cyrusImg },
+  { id: 'zorobabel', name: 'Zorobabel', originalName: 'זְרֻבָּבֶל', testament: 'ancien', genre: 'homme', role: 'Gouverneur', epoque: 'Exil et retour', date: '520 av. J.-C.', books: ['Esd', 'Ag', 'Za', 'Mt'], mentions: 25, image: '' },
+  { id: 'esdras', name: 'Esdras', originalName: 'עֶזְרָא', testament: 'ancien', genre: 'homme', role: 'Prêtre', epoque: 'Exil et retour', date: '458 av. J.-C.', books: ['Esd', 'Né'], mentions: 26, image: '' },
   { id: 'zechariah', name: 'Zacharie', originalName: 'זְכַרְיָה', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Exil et retour', date: '520 av. J.-C.', books: ['Za'], mentions: 13, image: zechariahImg },
   { id: 'vashti', name: 'Vasthi', originalName: 'וַשְׁתִּי', testament: 'ancien', genre: 'femme', role: 'Reine', epoque: 'Exil et retour', date: '483 av. J.-C.', books: ['Est'], mentions: 9, image: vashtiImg },
   { id: 'esther', name: 'Esther', originalName: 'אֶסְתֵּר', testament: 'ancien', genre: 'femme', role: 'Reine', epoque: 'Exil et retour', date: '479 av. J.-C.', books: ['Est'], mentions: 55, image: estherImg },
+  { id: 'mardochee', name: 'Mardochée', originalName: 'מָרְדֳּכַי', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Exil et retour', date: '480 av. J.-C.', books: ['Est'], mentions: 58, image: '' },
   { id: 'nehemiah', name: 'Néhémie', originalName: 'נְחֶמְיָה', testament: 'ancien', genre: 'homme', role: 'Gouverneur', epoque: 'Exil et retour', date: '445 av. J.-C.', books: ['Ne'], mentions: 46, image: nehemiahImg },
+  { id: 'malachie', name: 'Malachie', originalName: 'מַלְאָכִי', testament: 'ancien', genre: 'homme', role: 'Prophète', epoque: 'Exil et retour', date: '430 av. J.-C.', books: ['Ml'], mentions: 1, image: '' },
+  { id: 'judas-maccabee', name: 'Judas Maccabée', originalName: 'יְהוּדָה הַמַּכַּבִּי', testament: 'ancien', genre: 'homme', role: 'Chef', epoque: 'Exil et retour', date: '165 av. J.-C.', books: ['1M', '2M'], mentions: 120, image: '' },
 
   // --- Évangiles ---
   { id: 'jesus', name: 'Jésus-Christ', originalName: 'Ἰησοῦς', testament: 'nouveau', genre: 'homme', role: 'Autre', epoque: 'Évangiles', date: 'Ier siècle apr. J.-C.', books: ['Mt', 'Mc', 'Lc', 'Jn'], mentions: 1200, image: jesusImg },
   { id: 'mary', name: 'Marie', originalName: 'Μαρία', testament: 'nouveau', genre: 'femme', role: 'Autre', epoque: 'Évangiles', date: 'Ier siècle av. J.-C.', books: ['Lc', 'Jn'], mentions: 51, image: maryImg },
   { id: 'joseph-epoux-marie', name: 'Joseph (époux de Marie)', originalName: 'Ἰωσήφ', testament: 'nouveau', genre: 'homme', role: 'Autre', epoque: 'Évangiles', date: 'Ier siècle av. J.-C.', books: ['Mt', 'Lc'], mentions: 15, image: josephHusbandImg },
+  { id: 'herode-le-grand', name: 'Hérode le Grand', originalName: 'Ἡρῴδης', testament: 'nouveau', genre: 'homme', role: 'Roi', epoque: 'Évangiles', date: '4 av. J.-C.', books: ['Mt', 'Lc'], mentions: 9, image: '' },
   { id: 'elizabeth', name: 'Élisabeth', originalName: 'Ἐλισάβετ', testament: 'nouveau', genre: 'femme', role: 'Autre', epoque: 'Évangiles', date: 'Ier siècle av. J.-C.', books: ['Lc'], mentions: 9, image: elizabethImg },
   { id: 'jean-baptiste', name: 'Jean-Baptiste', originalName: 'Ἰωάννης', testament: 'nouveau', genre: 'homme', role: 'Prophète', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt', 'Lc'], mentions: 93, image: johnBaptistImg },
   { id: 'anne-prophetesse', name: 'Anne la prophétesse', originalName: 'Ἄννα', testament: 'nouveau', genre: 'femme', role: 'Prophétesse', epoque: 'Évangiles', date: 'Ier siècle av. J.-C.', books: ['Lc'], mentions: 3, image: annaImg },
+  { id: 'simeon', name: 'Siméon', originalName: 'Συμεών', testament: 'nouveau', genre: 'homme', role: 'Prophète', epoque: 'Évangiles', date: '4 av. J.-C.', books: ['Lc'], mentions: 2, image: '' },
   { id: 'andre', name: 'André', originalName: 'Ἀνδρέας', testament: 'nouveau', genre: 'homme', role: 'Apôtre', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt', 'Jn'], mentions: 13, image: andrewImg },
   { id: 'pierre', name: 'Pierre', originalName: 'Πέτρος', testament: 'nouveau', genre: 'homme', role: 'Apôtre', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt', 'Ac'], mentions: 195, image: peterImg },
   { id: 'jacques-zebedee', name: 'Jacques (fils de Zébédée)', originalName: 'Ἰάκωβος', testament: 'nouveau', genre: 'homme', role: 'Apôtre', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt', 'Ac'], mentions: 42, image: jamesZebedeeImg },
@@ -295,24 +333,37 @@ export const figures: Figure[] = [
   { id: 'jacques-alphee', name: 'Jacques (fils d\'Alphée)', originalName: 'Ἰάκωβος', testament: 'nouveau', genre: 'homme', role: 'Apôtre', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt'], mentions: 4, image: jamesAlphaeusImg },
   { id: 'thaddee', name: 'Thaddée (Jude, fils de Jacques)', originalName: 'Θαδδαῖος', testament: 'nouveau', genre: 'homme', role: 'Apôtre', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt', 'Lc'], mentions: 3, image: thaddeusImg },
   { id: 'simon-zelote', name: 'Simon le Zélote', originalName: 'Σίμων', testament: 'nouveau', genre: 'homme', role: 'Apôtre', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt', 'Lc'], mentions: 4, image: simonZealotImg },
+  { id: 'judas-iscariote', name: 'Judas Iscariote', originalName: 'Ἰούδας Ἰσκαριώτης', testament: 'nouveau', genre: 'homme', role: 'Apôtre', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt', 'Mc', 'Lc', 'Jn', 'Ac'], mentions: 22, image: judasImg },
+  { id: 'caiphe', name: 'Caïphe', originalName: 'Καϊάφας', testament: 'nouveau', genre: 'homme', role: 'Prêtre', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt', 'Jn', 'Ac'], mentions: 9, image: '' },
+  { id: 'ponce-pilate', name: 'Ponce Pilate', originalName: 'Πόντιος Πιλᾶτος', testament: 'nouveau', genre: 'homme', role: 'Gouverneur', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt', 'Mc', 'Lc', 'Jn', 'Ac', '1Tm'], mentions: 55, image: '' },
   { id: 'nicodeme', name: 'Nicodème', originalName: 'Νικόδημος', testament: 'nouveau', genre: 'homme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Jn'], mentions: 5, image: nicodemusImg },
   { id: 'lazare', name: 'Lazare', originalName: 'Λάζαρος', testament: 'nouveau', genre: 'homme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Jn'], mentions: 11, image: lazarusImg },
   { id: 'marthe', name: 'Marthe', originalName: 'Μάρθα', testament: 'nouveau', genre: 'femme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Lc', 'Jn'], mentions: 13, image: marthaImg },
   { id: 'marie-bethanie', name: 'Marie de Béthanie', originalName: 'Μαρία', testament: 'nouveau', genre: 'femme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Lc', 'Jn'], mentions: 8, image: maryBethanyImg },
   { id: 'marie-madeleine', name: 'Marie-Madeleine', originalName: 'Μαρία ἡ Μαγδαληνή', testament: 'nouveau', genre: 'femme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Lc', 'Jn'], mentions: 14, image: maryMagdaleneImg },
   { id: 'zachee', name: 'Zachée', originalName: 'Ζακχαῖος', testament: 'nouveau', genre: 'homme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Lc'], mentions: 4, image: zacchaeusImg },
+  { id: 'jaire', name: 'Jaïre', originalName: 'Ἰάϊρος', testament: 'nouveau', genre: 'homme', role: 'Autre', epoque: 'Évangiles', date: '29 apr. J.-C.', books: ['Mc', 'Lc'], mentions: 2, image: '' },
+  { id: 'bartimee', name: 'Bartimée', originalName: 'Βαρτιμαῖος', testament: 'nouveau', genre: 'homme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mc'], mentions: 1, image: '' },
   { id: 'jeanne', name: 'Jeanne', originalName: 'Ἰωάννα', testament: 'nouveau', genre: 'femme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Lc'], mentions: 2, image: joannaImg },
   { id: 'salome', name: 'Salomé', originalName: 'Σαλώμη', testament: 'nouveau', genre: 'femme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mc'], mentions: 3, image: salomeImg },
   { id: 'susanna', name: 'Suzanne', originalName: 'Σουσάννα', testament: 'nouveau', genre: 'femme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Lc'], mentions: 1, image: susannaImg },
   { id: 'photini', name: 'Photine (la Samaritaine)', originalName: 'Φωτεινή', testament: 'nouveau', genre: 'femme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Jn'], mentions: 1, image: photiniImg },
+  { id: 'simon-cyrene', name: 'Simon de Cyrène', originalName: 'Σίμων Κυρηναῖος', testament: 'nouveau', genre: 'homme', role: 'Autre', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt', 'Mc', 'Lc'], mentions: 3, image: '' },
+  { id: 'joseph-arimathie', name: "Joseph d'Arimathie", originalName: 'Ἰωσὴφ ἀπὸ Ἀριμαθαίας', testament: 'nouveau', genre: 'homme', role: 'Disciple', epoque: 'Évangiles', date: '30 apr. J.-C.', books: ['Mt', 'Mc', 'Lc', 'Jn'], mentions: 6, image: '' },
 
   // --- Église primitive ---
   { id: 'paul', name: 'Paul (Saul de Tarse)', originalName: 'Παῦλος', testament: 'nouveau', genre: 'homme', role: 'Apôtre', epoque: 'Église primitive', date: '45 apr. J.-C.', books: ['Ac', 'Rm', 'Ga'], mentions: 235, image: paulImg },
   { id: 'etienne', name: 'Étienne', originalName: 'Στέφανος', testament: 'nouveau', genre: 'homme', role: 'Disciple', epoque: 'Église primitive', date: '35 apr. J.-C.', books: ['Ac'], mentions: 7, image: stephenImg },
+  { id: 'philippe-diacre', name: 'Philippe le diacre', originalName: 'Φίλιππος', testament: 'nouveau', genre: 'homme', role: 'Missionnaire', epoque: 'Église primitive', date: '35 apr. J.-C.', books: ['Ac'], mentions: 16, image: '' },
+  { id: 'ananie', name: 'Ananie de Damas', originalName: 'Ἁνανίας', testament: 'nouveau', genre: 'homme', role: 'Disciple', epoque: 'Église primitive', date: '34 apr. J.-C.', books: ['Ac'], mentions: 6, image: '' },
+  { id: 'gamaliel', name: 'Gamaliel', originalName: 'Γαμαλιήλ', testament: 'nouveau', genre: 'homme', role: 'Autre', epoque: 'Église primitive', date: '35 apr. J.-C.', books: ['Ac'], mentions: 2, image: '' },
   { id: 'matthias', name: 'Matthias', originalName: 'Μαθθίας', testament: 'nouveau', genre: 'homme', role: 'Apôtre', epoque: 'Église primitive', date: '30 apr. J.-C.', books: ['Ac'], mentions: 2, image: matthiasImg },
+  { id: 'corneille', name: 'Corneille', originalName: 'Κορνήλιος', testament: 'nouveau', genre: 'homme', role: 'Disciple', epoque: 'Église primitive', date: '40 apr. J.-C.', books: ['Ac'], mentions: 10, image: '' },
   { id: 'barnabas', name: 'Barnabas', originalName: 'Βαρναβᾶς', testament: 'nouveau', genre: 'homme', role: 'Missionnaire', epoque: 'Église primitive', date: '45 apr. J.-C.', books: ['Ac'], mentions: 23, image: barnabasImg },
+  { id: 'marc', name: 'Marc', originalName: 'Μᾶρκος', testament: 'nouveau', genre: 'homme', role: 'Évangéliste', epoque: 'Église primitive', date: '50 apr. J.-C.', books: ['Ac', 'Col', '2Tm', '1P'], mentions: 10, image: '' },
   { id: 'silas', name: 'Silas', originalName: 'Σίλας', testament: 'nouveau', genre: 'homme', role: 'Missionnaire', epoque: 'Église primitive', date: '50 apr. J.-C.', books: ['Ac', '1Th'], mentions: 13, image: silasImg },
   { id: 'timothee', name: 'Timothée', originalName: 'Τιμόθεος', testament: 'nouveau', genre: 'homme', role: 'Missionnaire', epoque: 'Église primitive', date: '50 apr. J.-C.', books: ['Ac', '1Tm'], mentions: 24, image: timothyImg },
+  { id: 'tite', name: 'Tite', originalName: 'Τίτος', testament: 'nouveau', genre: 'homme', role: 'Missionnaire', epoque: 'Église primitive', date: '55 apr. J.-C.', books: ['2Co', 'Ga', 'Tt'], mentions: 13, image: '' },
   { id: 'luc', name: 'Luc', originalName: 'Λουκᾶς', testament: 'nouveau', genre: 'homme', role: 'Évangéliste', epoque: 'Église primitive', date: '60 apr. J.-C.', books: ['Lc', 'Ac'], mentions: 3, image: lukeImg },
   { id: 'apollos', name: 'Apollos', originalName: 'Ἀπολλώς', testament: 'nouveau', genre: 'homme', role: 'Évangéliste', epoque: 'Église primitive', date: '54 apr. J.-C.', books: ['Ac', '1Co'], mentions: 10, image: apollosImg },
   { id: 'priscille', name: 'Priscille', originalName: 'Πρίσκιλλα', testament: 'nouveau', genre: 'femme', role: 'Missionnaire', epoque: 'Église primitive', date: '50 apr. J.-C.', books: ['Ac', 'Rm'], mentions: 6, image: priscillaImg },
@@ -322,5 +373,7 @@ export const figures: Figure[] = [
   { id: 'eunice', name: 'Eunice', originalName: 'Εὐνίκη', testament: 'nouveau', genre: 'femme', role: 'Autre', epoque: 'Église primitive', date: '50 apr. J.-C.', books: ['Ac', '2Tm'], mentions: 1, image: eunicaImg },
   { id: 'nympha', name: 'Nympha', originalName: 'Νύμφα', testament: 'nouveau', genre: 'femme', role: 'Autre', epoque: 'Église primitive', date: '60 apr. J.-C.', books: ['Col'], mentions: 1, image: nymphaImg },
   { id: 'rhode', name: 'Rhode', originalName: 'Ῥόδη', testament: 'nouveau', genre: 'femme', role: 'Autre', epoque: 'Église primitive', date: '44 apr. J.-C.', books: ['Ac'], mentions: 1, image: rhodaImg },
-  { id: 'tabitha', name: 'Tabitha (Dorcas)', originalName: 'Ταβιθά', testament: 'nouveau', genre: 'femme', role: 'Disciple', epoque: 'Église primitive', date: '35 apr. J.-C.', books: ['Ac'], mentions: 3, image: tabithaImg }
+  { id: 'tabitha', name: 'Tabitha (Dorcas)', originalName: 'Ταβιθά', testament: 'nouveau', genre: 'femme', role: 'Disciple', epoque: 'Église primitive', date: '35 apr. J.-C.', books: ['Ac'], mentions: 3, image: tabithaImg },
+  { id: 'philemon', name: 'Philémon', originalName: 'Φιλήμων', testament: 'nouveau', genre: 'homme', role: 'Disciple', epoque: 'Église primitive', date: '60 apr. J.-C.', books: ['Phm'], mentions: 2, image: '' },
+  { id: 'onesime', name: 'Onésime', originalName: 'Ὀνήσιμος', testament: 'nouveau', genre: 'homme', role: 'Disciple', epoque: 'Église primitive', date: '60 apr. J.-C.', books: ['Phm', 'Col'], mentions: 2, image: '' },
 ];

@@ -1,6 +1,5 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 import { IonContent, IonPage } from '@ionic/react';
 import type { PrayerLanguage } from '../../data/prayers';
 import { useRemotePrayers } from '../../hooks/content/useRemotePrayers';
@@ -9,7 +8,7 @@ import WorldButton from '../../components/nav/WorldButton';
 import { tapHaptic } from '../../utils/haptics';
 import { RISE_IN, stagger, useBibleReducedMotion, useRevealOnce } from '../bible/bibleMotion';
 import PrierHeroBar from './PrierHeroBar';
-import PrierSearch from './PrierSearch';
+import { useOpenSearch } from '../accueil/searchContext';
 import { PRAYER_LANGUAGE_ORDER } from './prayerLanguages';
 import './PrayerList.css';
 
@@ -20,7 +19,7 @@ const initialOf = (title: string) => (title.replace(/^(l'|l’|le |la |les )/i, 
 
 const PrayerList: React.FC = () => {
   const navigate = useNavigate();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const openSearch = useOpenSearch();
   const prayers = useRemotePrayers();
   const reduceMotion = useBibleReducedMotion();
   const pageRef = useRef<HTMLDivElement>(null);
@@ -38,7 +37,7 @@ const PrayerList: React.FC = () => {
             <span className="prier-hero-numeral" aria-hidden="true">
               I
             </span>
-            <PrierHeroBar backLabel="Prier" onBack={() => navigate(-1)} onSearch={() => setIsSearchOpen(true)} />
+            <PrierHeroBar backLabel="Prier" onBack={() => navigate(-1)} onSearch={() => openSearch('prieres')} />
             <h1 className="prier-hero-title" data-p2>
               Prières de l'Église catholique
             </h1>
@@ -82,7 +81,6 @@ const PrayerList: React.FC = () => {
           </div>
         </div>
 
-        <AnimatePresence>{isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}</AnimatePresence>
         <WorldButton />
       </IonContent>
     </IonPage>

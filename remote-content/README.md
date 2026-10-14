@@ -75,7 +75,15 @@ version.
 - `figures.json` — un tableau, un objet par figure, identifié par `id`
   (voir `src/data/figures.ts` pour la liste complète des ids).
 - `figure-details.json` — biographies/chronologies détaillées, une clé par
-  id de figure.
+  id de figure. **C'est le seul fichier qui peut aussi ajouter** : une clé
+  pour une figure qui n'a pas encore de fiche dans l'app (ex. `"abel"`,
+  `"cain"`, `"ponce-pilate"`) crée sa fiche, sans nouvelle version. L'id doit
+  exister dans `src/data/figures.ts`. Copier la structure d'une fiche
+  existante (`alternateNames`, `reperes`, `biography`, `timeline`, `places`,
+  `churchTeaching`, `relatedFigures`) ; tous les champs sont facultatifs,
+  on peut publier une fiche partielle et la compléter ensuite. Hors ligne,
+  au tout premier lancement, ces fiches ajoutées restent vides jusqu'à ce
+  que l'app ait pu télécharger le fichier une fois.
 - `prayers.json` — les prières de l'Église, par `id`.
 - `saints.json` — l'intercession des saints, groupée par catégorie
   (`key`), chaque situation identifiée par `id`.

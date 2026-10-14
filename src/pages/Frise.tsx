@@ -1,43 +1,71 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 import { IonContent, IonPage } from '@ionic/react';
-import AccessibilityQuickSheet from '../components/AccessibilityQuickSheet';
-import { AccessibilityIcon } from '../components/nav/icons';
-import { useAccessibility } from '../hooks/useAccessibility';
 import { useFigures } from '../hooks/useFigures';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 import { FRISE, FRISE_EVENTS } from '../data/frise';
 import { tapHaptic } from '../utils/haptics';
 import './Frise.css';
 
-/** Écart horizontal entre deux événements sur la frise. */
-const SPACING = 96;
-/** Marge avant le premier et après le dernier événement. */
-const EDGE = 24;
-/** Quatre couloirs d'étiquettes (au-dessus/au-dessous, près/loin de la
- * bande), parcourus en boucle pour que les noms ne se chevauchent pas. */
-const LANES = ['up-far', 'down-near', 'up-near', 'down-far'] as const;
+// Frise de l'histoire sainte (maquette « Frise v2 ») : en-tête nuit avec
+// barre de progression des époques, ruban horizontal des 235 événements
+// (au-dessus / au-dessous de la bande de chaque époque), fiche de
+// l'événement choisi en bas avec « Avant / Après ».
 
-/** Demi-largeur typique d'une étiquette d'événement. */
-const LABEL_HALF_WIDTH = 48;
+const EASE = 'cubic-bezier(.2,.7,.2,1)';
+/** Écart entre deux événements d'une même époque. */
+const SLOT = 78;
+/** Marge avant le premier événement d'une époque. */
+const PADL = 16;
+/** Largeur d'une étiquette (centre utilisé pour recentrer le ruban). */
+const LABEL_W = 136;
 
-const eventX = (index: number) => EDGE + index * SPACING + SPACING / 2;
+/** Fond et poids (barre du haut) de chaque époque, dans l'ordre I → VIII. */
+const ERA_STYLE = [
+  { bg: 'linear-gradient(160deg,#4A3A26,#1E1A14)', w: 1 },
+  { bg: 'linear-gradient(160deg,#6A552E,#23201A)', w: 1.4 },
+  { bg: 'linear-gradient(160deg,#8A2A2F,#3A1014)', w: 1.4 },
+  { bg: 'linear-gradient(160deg,#7A2228,#2A0E10)', w: 2.2 },
+  { bg: 'linear-gradient(160deg,#4A3A5A,#1E1828)', w: 0.8 },
+  { bg: 'linear-gradient(160deg,#3E3A6A,#171830)', w: 1.6 },
+  { bg: 'linear-gradient(160deg,#24406B,#141C30)', w: 1.4 },
+  { bg: 'linear-gradient(160deg,#2E5585,#141C30)', w: 1 }
+];
 
-/** Bande de chaque période : de son premier à son dernier événement. */
-const PERIOD_BANDS = FRISE.map((period, p) => {
-  const firstIndex = FRISE_EVENTS.findIndex((e) => e.period.id === period.id);
-  return {
-    period,
-    firstIndex,
-    tone: p % 2 === 0 ? 'encre' : 'oxblood',
-    left: EDGE + firstIndex * SPACING,
-    width: period.events.length * SPACING
-  };
-});
+/** Tournants de l'histoire du salut : point doré, trait plus long. */
+const MAJOR = new Set([
+  'creation',
+  'deluge',
+  'appel-abram',
+  'mer-rouge',
+  'sinai',
+  'jerusalem',
+  'temple',
+  'prise-jerusalem',
+  'edit-cyrus',
+  'nativite',
+  'crucifixion',
+  'resurrection',
+  'pentecote',
+  'conversion-paul'
+]);
 
-/** Événement sélectionné, mémorisé pour retrouver sa place sur la frise en
- * revenant d'un chapitre biblique ou d'une fiche figure (la page est
- * démontée entre-temps) ou si le système recharge l'app. */
+/** Index de la période du Christ : avant elle, les années sont av. J.-C. */
+const CHRIST_PERIOD = FRISE.findIndex((p) => p.id === 'jesus');
+
+const eraWidth = (count: number) => Math.max(240, PADL + count * SLOT + 130);
+
+/** Position de chaque événement : période et rang dans la période. */
+const POSITIONS = FRISE_EVENTS.map((e) => ({
+  p: FRISE.indexOf(e.period),
+  j: e.period.events.findIndex((x) => x.id === e.id)
+}));
+
+/** Rang global (0 → 234) d'un événement d'après son id. */
+const INDEX_BY_ID = new Map(FRISE_EVENTS.map((e) => [e.id, e.index]));
+
+/** Événement sélectionné, mémorisé pour retrouver sa place en revenant d'un
+ * chapitre ou d'une fiche figure (la page est démontée entre-temps). */
 const SELECTED_KEY = 'frise-selected';
 
 function loadSelected(): number {
@@ -57,59 +85,88 @@ function saveSelected(index: number) {
   }
 }
 
+const STARS = (() => {
+  let s = 11;
+  const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  return Array.from({ length: 28 }, () => ({
+    left: `${(rnd() * 100).toFixed(1)}%`,
+    top: `${(rnd() * 100).toFixed(1)}%`,
+    duration: `${(2 + rnd() * 3).toFixed(2)}s`,
+    delay: `${(-rnd() * 4).toFixed(2)}s`
+  }));
+})();
+
 const Frise: React.FC = () => {
   const navigate = useNavigate();
+  const reduced = useReducedMotion();
   const { figures } = useFigures();
-  const { settings } = useAccessibility();
-  const [isA11yOpen, setIsA11yOpen] = useState(false);
   const [selected, setSelected] = useState(loadSelected);
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const periodsRef = useRef<HTMLDivElement>(null);
+  const [cur, setCur] = useState(() => POSITIONS[loadSelected()].p);
+
+  const ribbonRef = useRef<HTMLDivElement>(null);
+  const eraRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const headRef = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const figuresById = useMemo(() => new Map(figures.map((f) => [f.id, f])), [figures]);
   const event = FRISE_EVENTS[selected];
-  const totalWidth = EDGE * 2 + FRISE_EVENTS.length * SPACING;
+  const pos = POSITIONS[selected];
 
-  const centerOn = (index: number, behavior: ScrollBehavior) => {
-    const scroller = scrollerRef.current;
-    if (scroller) {
-      scroller.scrollTo({
-        // On centre l'étiquette (qui part du trait vers la droite), pas le trait.
-        left: eventX(index) + LABEL_HALF_WIDTH - scroller.clientWidth / 2,
-        behavior
-      });
-    }
-    // Sans animation : un second défilement doux simultané interromprait
-    // celui de la frise dans Chrome/WebView.
-    const periods = periodsRef.current;
-    const chip = periods?.querySelector<HTMLElement>('.frise-period-chip.is-active');
-    if (periods && chip) {
-      periods.scrollLeft = chip.offsetLeft + chip.offsetWidth / 2 - periods.clientWidth / 2;
-    }
+  /* --- Défilement du ruban --- */
+
+  const eventCenter = (index: number) => {
+    const { p, j } = POSITIONS[index];
+    const era = eraRefs.current[p];
+    return era ? era.offsetLeft + PADL + j * SLOT + LABEL_W / 2 - 8 : 0;
   };
 
-  // Garde l'événement choisi au centre de la frise, et sa période visible
-  // dans la rangée de raccourcis.
-  useEffect(() => {
-    centerOn(selected, settings.reduceMotion ? 'auto' : 'smooth');
-  }, [selected, settings.reduceMotion]);
+  const centerOn = useCallback((index: number, behavior: ScrollBehavior) => {
+    const ribbon = ribbonRef.current;
+    if (!ribbon) return;
+    ribbon.scrollTo({ left: Math.max(0, eventCenter(index) - ribbon.clientWidth / 2), behavior });
+  }, []);
 
-  // Quand on part vers un chapitre ou une fiche, Ionic masque la page
-  // (`display: none`), ce qui remet ses défilements à zéro ; à l'ouverture,
-  // la frise n'a pas encore sa largeur. Dans les deux cas elle change de
-  // taille en (ré)apparaissant : on se replace alors d'un coup, sans
-  // animation, sur l'événement choisi.
+  useEffect(() => {
+    centerOn(selected, reduced ? 'auto' : 'smooth');
+  }, [selected, reduced, centerOn]);
+
+  // Ionic masque la page en la quittant (défilement remis à zéro) et le ruban
+  // n'a pas sa largeur au montage : on se replace d'un coup quand il en change.
   const selectedRef = useRef(selected);
   selectedRef.current = selected;
   useEffect(() => {
-    const scroller = scrollerRef.current;
-    if (!scroller || typeof ResizeObserver === 'undefined') return;
+    const ribbon = ribbonRef.current;
+    if (!ribbon || typeof ResizeObserver === 'undefined') return;
     const observer = new ResizeObserver(() => {
-      if (scroller.clientWidth > 0) centerOn(selectedRef.current, 'auto');
+      if (ribbon.clientWidth > 0) centerOn(selectedRef.current, 'auto');
     });
-    observer.observe(scroller);
+    observer.observe(ribbon);
     return () => observer.disconnect();
-  }, []);
+  }, [centerOn]);
+
+  // Époque au centre du ruban → barre de progression du haut.
+  const rafRef = useRef(0);
+  const onRibbonScroll = () => {
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = 0;
+      const ribbon = ribbonRef.current;
+      if (!ribbon) return;
+      const c = ribbon.scrollLeft + ribbon.clientWidth / 2;
+      let n = 0;
+      eraRefs.current.forEach((el, i) => {
+        if (el && el.offsetLeft <= c) n = i;
+      });
+      setCur(n);
+    });
+  };
+  useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
+
+  const jumpToEra = (p: number) => {
+    tapHaptic();
+    const el = eraRefs.current[p];
+    ribbonRef.current?.scrollTo({ left: Math.max(0, (el?.offsetLeft ?? 0) - 22), behavior: reduced ? 'auto' : 'smooth' });
+  };
 
   const select = (index: number) => {
     if (index < 0 || index >= FRISE_EVENTS.length) return;
@@ -118,167 +175,246 @@ const Frise: React.FC = () => {
     saveSelected(index);
   };
 
+  /* --- Animations d'entrée et de la fiche --- */
+
+  useEffect(() => {
+    if (reduced) return;
+    headRef.current?.querySelectorAll('[data-hd]').forEach((n, i) =>
+      n.animate(
+        [
+          { opacity: 0, transform: 'translateY(12px)', filter: 'blur(5px)' },
+          { opacity: 1, transform: 'none', filter: 'blur(0)' }
+        ],
+        { duration: 850, delay: 100 + i * 110, easing: EASE, fill: 'backwards' }
+      )
+    );
+    ribbonRef.current?.animate([{ opacity: 0, transform: 'translateX(60px)' }, { opacity: 1, transform: 'none' }], {
+      duration: 1200,
+      delay: 350,
+      easing: EASE,
+      fill: 'backwards'
+    });
+    // Une seule fois, à l'ouverture de la page.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const firstCard = useRef(true);
+  useEffect(() => {
+    const base = firstCard.current ? 500 : 0;
+    firstCard.current = false;
+    if (reduced) return;
+    cardRef.current?.querySelectorAll('[data-dt]').forEach((n, i) =>
+      n.animate(
+        [
+          { opacity: 0, transform: 'translateY(10px)', filter: 'blur(4px)' },
+          { opacity: 1, transform: 'none', filter: 'blur(0)' }
+        ],
+        { duration: 700, delay: base + i * 60, easing: EASE, fill: 'backwards' }
+      )
+    );
+    cardRef.current?.querySelector('.fr-card-body')?.scrollTo({ top: 0 });
+  }, [selected, reduced]);
+
+  const eraBg = ERA_STYLE[pos.p]?.bg;
+  const meta = [
+    event.date ? `${event.date}${pos.p < CHRIST_PERIOD ? ' av. J.-C.' : ''}` : null,
+    event.ref?.display
+  ]
+    .filter(Boolean)
+    .join(' · ');
+  const linked = (event.figureIds ?? []).map((id) => figuresById.get(id)).filter((f) => !!f);
+
   return (
     <IonPage>
-      <IonContent fullscreen className="frise-content">
-        <header className="frise-topbar">
-          <span className="frise-topbar-wordmark">
-            Bibli<span className="frise-topbar-wordmark-accent">ae</span>
-          </span>
-          <button
-            type="button"
-            className={`frise-a11y-button${isA11yOpen ? ' is-active' : ''}`}
-            onClick={() => setIsA11yOpen(true)}
-            aria-label="Accessibilité"
-            aria-haspopup="dialog"
-            aria-expanded={isA11yOpen}
-          >
-            <AccessibilityIcon />
-          </button>
-        </header>
+      <IonContent fullscreen scrollY={false} className="fr-content">
+        <div className="fr">
+          {/* --- En-tête nuit et ruban --- */}
+          <header ref={headRef} className="fr-head">
+            <div className="fr-stars" aria-hidden="true">
+              {STARS.map((s, i) => (
+                <span key={i} style={{ left: s.left, top: s.top, animationDuration: s.duration, animationDelay: s.delay }} />
+              ))}
+            </div>
+            <span className="fr-rosace" aria-hidden="true" />
 
-        <AnimatePresence>
-          {isA11yOpen && <AccessibilityQuickSheet onClose={() => setIsA11yOpen(false)} />}
-        </AnimatePresence>
+            <div className="fr-top">
+              <button type="button" className="fr-back" onClick={() => navigate('/compendium/accueil')}>
+                <svg width="9" height="16" viewBox="0 0 9 16" fill="none" aria-hidden="true">
+                  <path d="M7.5 1L1.5 8l6 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                Accueil
+              </button>
+            </div>
+            <h1 className="fr-title" data-hd>
+              Frise de l'histoire sainte
+            </h1>
+            <div className="fr-sub" data-hd>
+              <span className="fr-kicker">Glissez dans le temps</span>
+              <span className="fr-direction">av. J.-C. → apr. J.-C.</span>
+            </div>
 
-        <div className="frise-intro">
-          <h1 className="frise-page-title">Frise</h1>
-          <p className="frise-page-subtitle">
-            L'histoire du salut de la Création à l'Apocalypse : {FRISE.length} périodes,{' '}
-            {FRISE_EVENTS.length} événements.
-          </p>
-        </div>
+            <div className="fr-eras" data-hd role="tablist" aria-label="Époques">
+              {FRISE.map((period, i) => (
+                <button
+                  key={period.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === cur}
+                  aria-label={`${period.numeral} · ${period.name}`}
+                  className={`fr-era${i === cur ? ' is-current' : i < cur ? ' is-past' : ''}`}
+                  style={{ flexGrow: ERA_STYLE[i]?.w ?? 1 }}
+                  onClick={() => jumpToEra(i)}
+                >
+                  <span className="fr-era-roman">{period.numeral}</span>
+                  <span className="fr-era-bar" />
+                </button>
+              ))}
+            </div>
 
-        <div className="frise-periods" ref={periodsRef}>
-          {PERIOD_BANDS.map(({ period, firstIndex }) => (
-            <button
-              key={period.id}
-              type="button"
-              className={`frise-period-chip${event.period.id === period.id ? ' is-active' : ''}`}
-              onClick={() => select(firstIndex)}
-            >
-              <span className="frise-period-chip-numeral">{period.numeral}</span>
-              {period.name}
-            </button>
-          ))}
-        </div>
+            <div ref={ribbonRef} className="fr-ribbon" onScroll={onRibbonScroll}>
+              <div className="fr-track">
+                {FRISE.map((period, i) => (
+                  <div
+                    key={period.id}
+                    ref={(el) => {
+                      eraRefs.current[i] = el;
+                    }}
+                    className={`fr-period${i === 0 ? ' is-first' : ''}${i === FRISE.length - 1 ? ' is-last' : ''}`}
+                    style={{ width: eraWidth(period.events.length) }}
+                  >
+                    <div className="fr-band" style={{ background: ERA_STYLE[i]?.bg }}>
+                      <span className="fr-band-roman">{period.numeral}</span>
+                      <span className="fr-band-name">{period.name}</span>
+                    </div>
+                    {period.events.map((e, j) => {
+                      const index = INDEX_BY_ID.get(e.id) ?? 0;
+                      const on = index === selected;
+                      const up = j % 2 === 0;
+                      const major = MAJOR.has(e.id);
+                      return (
+                        <button
+                          key={e.id}
+                          type="button"
+                          className={`fr-ev ${up ? 'is-up' : 'is-down'}${major ? ' is-major' : ''}${on ? ' is-on' : ''}`}
+                          style={{ left: PADL + j * SLOT }}
+                          onClick={() => select(index)}
+                          aria-pressed={on}
+                        >
+                          <span className="fr-ev-stem">
+                            <span className="fr-ev-dot" />
+                            {on && <span className="fr-ev-halo" />}
+                          </span>
+                          <span className="fr-ev-label">
+                            <span className="fr-ev-date">{e.date ?? '—'}</span>
+                            <span className="fr-ev-title">{e.title}</span>
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </header>
 
-        <section className="frise-panel">
-          <div className="frise-panel-head">
-            <span className="frise-panel-kicker">Glissez dans le temps</span>
-            <span className="frise-panel-direction">av. J.-C. → apr.</span>
-          </div>
-
-          <div className="frise-scroller" ref={scrollerRef}>
-            <div className="frise-track" style={{ width: totalWidth }}>
-              {PERIOD_BANDS.map(({ period, tone, left, width }) => (
-                <div key={period.id} className={`frise-band frise-band--${tone}`} style={{ left, width }}>
-                  <span className="frise-band-label">
-                    <span className="frise-band-numeral">{period.numeral}</span>
-                    {period.name}
+          {/* --- Fiche de l'événement --- */}
+          <div className="fr-card-wrap">
+            <article ref={cardRef} className="fr-card" aria-live="polite">
+              <span className="fr-card-ghost" aria-hidden="true">
+                {event.period.numeral}
+              </span>
+              <div className="fr-card-body">
+                <div className="fr-card-era" data-dt>
+                  <span className="fr-card-era-dot" style={{ background: eraBg }} />
+                  <span className="fr-card-era-name">
+                    {event.period.numeral} · {event.period.name}
                   </span>
                 </div>
-              ))}
-
-              {FRISE_EVENTS.map((e) => (
-                <button
-                  key={e.id}
-                  type="button"
-                  className={`frise-event frise-event--${LANES[e.index % LANES.length]}${
-                    e.index === selected ? ' is-selected' : ''
-                  }`}
-                  style={{ left: eventX(e.index) }}
-                  onClick={() => select(e.index)}
-                  aria-pressed={e.index === selected}
-                >
-                  <span className="frise-event-tick" aria-hidden="true" />
-                  <span className="frise-event-label">
-                    <span className="frise-event-date">{e.date ?? '—'}</span>
-                    <span className="frise-event-title">{e.title}</span>
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <article className="frise-card" key={event.id}>
-            <p className="frise-card-kicker">
-              {event.period.numeral} · {event.period.name}
-              <span className="frise-card-count">
-                {selected + 1} / {FRISE_EVENTS.length}
-              </span>
-            </p>
-            <h2 className="frise-card-title">{event.title}</h2>
-            <p className="frise-card-meta">
-              {event.date ?? '—'}
-              {event.ref && ` · ${event.ref.display}`}
-            </p>
-            <p className="frise-card-text">{event.text}</p>
-
-            {event.figureIds && event.figureIds.length > 0 && (
-              <div className="frise-card-figures">
-                {event.figureIds.map((id) => {
-                  const figure = figuresById.get(id);
-                  if (!figure) return null;
-                  return (
-                    <button
-                      key={id}
-                      type="button"
-                      className="frise-card-figure"
-                      onClick={() => {
-                        tapHaptic();
-                        navigate(`/figures/${id}`);
-                      }}
-                    >
-                      <span className="frise-card-figure-avatar">
-                        <img src={figure.image} alt="" />
-                      </span>
-                      <span className="frise-card-figure-name">{figure.name}</span>
-                    </button>
-                  );
-                })}
+                <h2 className="fr-card-title" data-dt>
+                  {event.title}
+                </h2>
+                {meta && (
+                  <p className="fr-card-meta" data-dt>
+                    {meta}
+                  </p>
+                )}
+                <p className="fr-card-text" data-dt>
+                  {event.text}
+                </p>
+                {(event.ref || linked.length > 0) && (
+                  <div className="fr-card-actions" data-dt>
+                    {event.ref && (
+                      <button
+                        type="button"
+                        className="fr-read"
+                        onClick={() => {
+                          tapHaptic();
+                          navigate(`/bible/${event.ref!.bookId}/${event.ref!.chapter}`);
+                        }}
+                      >
+                        <svg width="13" height="11" viewBox="0 0 18 16" fill="none" aria-hidden="true">
+                          <path
+                            d="M1 1.6h5.6A2.4 2.4 0 019 4v10.4a1.8 1.8 0 00-1.7-1.2H1V1.6zM17 1.6h-5.6A2.4 2.4 0 009 4v10.4a1.8 1.8 0 011.7-1.2H17V1.6z"
+                            stroke="currentColor"
+                            strokeWidth="1.3"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        Lire {event.ref.display}
+                      </button>
+                    )}
+                    {linked.map((f) => (
+                      <button
+                        key={f.id}
+                        type="button"
+                        className="fr-figure"
+                        onClick={() => {
+                          tapHaptic();
+                          navigate(`/figures/${f.id}`);
+                        }}
+                      >
+                        <span className="fr-figure-avatar" style={{ background: eraBg }}>
+                          {f.image ? <img src={f.image} alt="" /> : f.name.charAt(0)}
+                        </span>
+                        {f.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
 
-            <div className="frise-card-actions">
-              <button
-                type="button"
-                className="frise-card-prev"
-                onClick={() => select(selected - 1)}
-                disabled={selected === 0}
-                aria-label="Événement précédent"
-              >
-                ←
-              </button>
-              {event.ref && (
+              <div className="fr-card-nav">
                 <button
                   type="button"
-                  className="frise-card-read"
-                  onClick={() => {
-                    tapHaptic();
-                    navigate(`/bible/${event.ref!.bookId}/${event.ref!.chapter}`);
-                  }}
+                  className="fr-step"
+                  onClick={() => select(selected - 1)}
+                  disabled={selected === 0}
+                  aria-label="Événement précédent"
                 >
-                  Lire {event.ref.display}
+                  <svg width="8" height="14" viewBox="0 0 9 16" fill="none" aria-hidden="true">
+                    <path d="M7.5 1L1.5 8l6 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Avant
                 </button>
-              )}
-              <button
-                type="button"
-                className="frise-card-next"
-                onClick={() => select(selected + 1)}
-                disabled={selected === FRISE_EVENTS.length - 1}
-              >
-                Suivant →
-              </button>
-            </div>
-          </article>
-        </section>
-
-        <p className="frise-footnote">
-          Le temps se lit de gauche à droite, comme une frise d'école. La fiche du bas montre
-          l'événement choisi. Les dates sont des repères traditionnels, souvent discutés : « v. »
-          signifie « vers ».
-        </p>
+                <span className="fr-count">
+                  {selected + 1} / {FRISE_EVENTS.length}
+                </span>
+                <button
+                  type="button"
+                  className="fr-step"
+                  onClick={() => select(selected + 1)}
+                  disabled={selected === FRISE_EVENTS.length - 1}
+                  aria-label="Événement suivant"
+                >
+                  Après
+                  <svg width="8" height="14" viewBox="0 0 9 16" fill="none" aria-hidden="true">
+                    <path d="M1.5 1l6 7-6 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
       </IonContent>
     </IonPage>
   );

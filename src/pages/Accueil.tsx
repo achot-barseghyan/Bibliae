@@ -10,7 +10,7 @@ import { BOOKS, getBook } from '../data/bible';
 import { MYSTERY_ORDER } from '../data/rosary';
 import { LatinCrossIcon, SearchIcon } from '../components/nav/icons';
 import { tapHaptic } from '../utils/haptics';
-import AccueilSearch from './accueil/AccueilSearch';
+import { useOpenSearch } from './accueil/searchContext';
 import { SEARCH_SCOPES as SCOPES } from './accueil/searchIndex';
 import './Accueil.css';
 
@@ -152,8 +152,7 @@ const Accueil: React.FC = () => {
   const { feast } = useLiturgicalDay();
 
   const [scope, setScope] = useState(-1);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const closeSearch = useCallback(() => setSearchOpen(false), []);
+  const openGlobalSearch = useOpenSearch();
   const [activeFigure, setActiveFigure] = useState(0);
 
   const pageRef = useRef<HTMLDivElement>(null);
@@ -406,7 +405,7 @@ const Accueil: React.FC = () => {
 
   const openSearch = () => {
     tapHaptic();
-    setSearchOpen(true);
+    openGlobalSearch(scope >= 0 ? SCOPES[scope].key : null);
   };
 
   const go = (path: string) => {
@@ -695,7 +694,7 @@ const Accueil: React.FC = () => {
                         {figure.name.charAt(0)}
                       </span>
                       <span className="vedette-art" data-art>
-                        <img src={figure.image} alt="" draggable={false} />
+                        {figure.image && <img src={figure.image} alt="" draggable={false} />}
                       </span>
                       <span className="vedette-inner-rule" aria-hidden="true" />
                       <span className="vedette-caption">
@@ -791,7 +790,6 @@ const Accueil: React.FC = () => {
           </footer>
         </div>
       </IonContent>
-      <AccueilSearch open={searchOpen} initialScope={scope} onClose={closeSearch} />
     </IonPage>
   );
 };

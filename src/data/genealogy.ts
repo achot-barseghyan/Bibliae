@@ -42,12 +42,12 @@ const PEOPLE: GenealogyPerson[] = [
   { id: 'adam', name: 'Adam', gender: 'M', spouses: ['eve'] },
   { id: 'eve', name: 'Ève', gender: 'F' },
 
-  { id: 'g-cain', name: 'Caïn', gender: 'M', parents: ['adam', 'eve'] },
-  { id: 'g-abel', name: 'Abel', gender: 'M', parents: ['adam', 'eve'] },
-  { id: 'g-seth', name: 'Seth', gender: 'M', parents: ['adam', 'eve'] },
+  { id: 'cain', name: 'Caïn', gender: 'M', parents: ['adam', 'eve'] },
+  { id: 'abel', name: 'Abel', gender: 'M', parents: ['adam', 'eve'] },
+  { id: 'seth', name: 'Seth', gender: 'M', parents: ['adam', 'eve'] },
 
   // Lamek descendant de Caïn — Gn 4,18-24
-  { id: 'g-enoch-cain', name: 'Hénok', gender: 'M', parents: ['g-cain'] },
+  { id: 'g-enoch-cain', name: 'Hénok', gender: 'M', parents: ['cain'] },
   { id: 'g-irad', name: 'Irad', gender: 'M', parents: ['g-enoch-cain'] },
   { id: 'g-mehuyael', name: 'Mehouyaël', gender: 'M', parents: ['g-irad'] },
   { id: 'g-metushael', name: 'Metoushaël', gender: 'M', parents: ['g-mehuyael'] },
@@ -67,13 +67,13 @@ const PEOPLE: GenealogyPerson[] = [
 
   // Lamek père de Noé — Gn 5,25-31
   // À ne surtout pas confondre avec Lamek descendant de Caïn.
-  { id: 'g-enosh', name: 'Énosh', gender: 'M', parents: ['g-seth'] },
+  { id: 'g-enosh', name: 'Énosh', gender: 'M', parents: ['seth'] },
   { id: 'g-kenan', name: 'Qénân', gender: 'M', parents: ['g-enosh'] },
   { id: 'g-mahalalel', name: 'Mahalalel', gender: 'M', parents: ['g-kenan'] },
   { id: 'g-jared', name: 'Yared', gender: 'M', parents: ['g-mahalalel'] },
-  { id: 'g-enoch-jared', name: 'Hénok', gender: 'M', parents: ['g-jared'] },
-  { id: 'g-methuselah', name: 'Mathusalem', gender: 'M', parents: ['g-enoch-jared'] },
-  { id: 'g-lamek-noe', name: 'Lamek', gender: 'M', parents: ['g-methuselah'] },
+  { id: 'henok', name: 'Hénok', gender: 'M', parents: ['g-jared'] },
+  { id: 'mathusalem', name: 'Mathusalem', gender: 'M', parents: ['henok'] },
+  { id: 'g-lamek-noe', name: 'Lamek', gender: 'M', parents: ['mathusalem'] },
 
   { id: 'noe', name: 'Noé', gender: 'M', parents: ['g-lamek-noe'] },
 
@@ -136,7 +136,7 @@ const PEOPLE: GenealogyPerson[] = [
 
   // Enfants d'Abraham
   {
-    id: 'g-ismael',
+    id: 'ismael',
     name: 'Ismaël',
     gender: 'M',
     parents: ['abraham', 'hagar']
@@ -173,10 +173,10 @@ const PEOPLE: GenealogyPerson[] = [
     parents: ['g-bethuel']
   },
 
-  { id: 'g-laban', name: 'Laban', gender: 'M', parents: ['g-bethuel'] },
+  { id: 'laban', name: 'Laban', gender: 'M', parents: ['g-bethuel'] },
 
   {
-    id: 'g-esau',
+    id: 'esau',
     name: 'Ésaü',
     gender: 'M',
     parents: ['isaac', 'rebekah']
@@ -190,8 +190,8 @@ const PEOPLE: GenealogyPerson[] = [
     spouses: ['leah', 'rachel', 'g-bilha', 'g-zilpa']
   },
 
-  { id: 'leah', name: 'Léa', gender: 'F', parents: ['g-laban'] },
-  { id: 'rachel', name: 'Rachel', gender: 'F', parents: ['g-laban'] },
+  { id: 'leah', name: 'Léa', gender: 'F', parents: ['laban'] },
+  { id: 'rachel', name: 'Rachel', gender: 'F', parents: ['laban'] },
   { id: 'g-bilha', name: 'Bilha', gender: 'F' },
   { id: 'g-zilpa', name: 'Zilpa', gender: 'F' },
 
@@ -200,7 +200,7 @@ const PEOPLE: GenealogyPerson[] = [
   { id: 'g-simeon', name: 'Siméon', gender: 'M', parents: ['jacob', 'leah'] },
   { id: 'g-levi', name: 'Lévi', gender: 'M', parents: ['jacob', 'leah'] },
   {
-    id: 'g-juda',
+    id: 'juda',
     name: 'Juda',
     gender: 'M',
     parents: ['jacob', 'leah'],
@@ -227,7 +227,7 @@ const PEOPLE: GenealogyPerson[] = [
     spouses: ['g-asenath']
   },
 
-  { id: 'g-benjamin', name: 'Benjamin', gender: 'M', parents: ['jacob', 'rachel'] },
+  { id: 'benjamin', name: 'Benjamin', gender: 'M', parents: ['jacob', 'rachel'] },
 
   { id: 'g-asenath', name: 'Asenath', gender: 'F' },
   {
@@ -248,7 +248,7 @@ const PEOPLE: GenealogyPerson[] = [
     id: 'g-er',
     name: 'Er',
     gender: 'M',
-    parents: ['g-juda'],
+    parents: ['juda'],
     spouses: ['tamar']
   },
 
@@ -256,7 +256,7 @@ const PEOPLE: GenealogyPerson[] = [
     id: 'g-onan',
     name: 'Onan',
     gender: 'M',
-    parents: ['g-juda'],
+    parents: ['juda'],
     spouses: ['tamar']
   },
 
@@ -266,21 +266,21 @@ const PEOPLE: GenealogyPerson[] = [
     id: 'g-shelah-juda',
     name: 'Shéla',
     gender: 'M',
-    parents: ['g-juda']
+    parents: ['juda']
   },
 
   {
     id: 'g-peres',
     name: 'Pérès',
     gender: 'M',
-    parents: ['g-juda', 'tamar']
+    parents: ['juda', 'tamar']
   },
 
   {
     id: 'g-zerah',
     name: 'Zérah',
     gender: 'M',
-    parents: ['g-juda', 'tamar']
+    parents: ['juda', 'tamar']
   },
 
   // Job — filles nommées à la fin du livre
@@ -328,13 +328,13 @@ const PEOPLE: GenealogyPerson[] = [
     parents: ['g-amram', 'g-jokebed']
   },
 
-  { id: 'g-jethro', name: 'Jéthro', gender: 'M' },
+  { id: 'jethro', name: 'Jéthro', gender: 'M' },
 
   {
     id: 'zipporah',
     name: 'Séphora',
     gender: 'F',
-    parents: ['g-jethro']
+    parents: ['jethro']
   },
 
   { id: 'g-gershom', name: 'Gershom', gender: 'M', parents: ['moise', 'zipporah'] },
@@ -355,8 +355,8 @@ const PEOPLE: GenealogyPerson[] = [
   { id: 'g-jephunne', name: 'Jephunné', gender: 'M' },
   { id: 'caleb', name: 'Caleb', gender: 'M', parents: ['g-jephunne'] },
 
-  { id: 'achsah', name: 'Aksa', gender: 'F', parents: ['caleb'], spouses: ['g-othniel'] },
-  { id: 'g-othniel', name: 'Otniel', gender: 'M' },
+  { id: 'achsah', name: 'Aksa', gender: 'F', parents: ['caleb'], spouses: ['othniel'] },
+  { id: 'othniel', name: 'Otniel', gender: 'M' },
 
   // ============================================================
   // JUGES / RUTH / SAMUEL
@@ -549,8 +549,8 @@ const PEOPLE: GenealogyPerson[] = [
   // LIGNÉE ROYALE DE SALOMON — 1 Ch 3
   // ============================================================
 
-  { id: 'g-roboam', name: 'Roboam', gender: 'M', parents: ['solomon'] },
-  { id: 'g-abiyam', name: 'Abiyam', gender: 'M', parents: ['g-roboam'] },
+  { id: 'roboam', name: 'Roboam', gender: 'M', parents: ['solomon'] },
+  { id: 'g-abiyam', name: 'Abiyam', gender: 'M', parents: ['roboam'] },
   { id: 'g-asa', name: 'Asa', gender: 'M', parents: ['g-abiyam'] },
 
   { id: 'jehoshaphat', name: 'Josaphat', gender: 'M', parents: ['g-asa'] },
@@ -598,7 +598,7 @@ const PEOPLE: GenealogyPerson[] = [
   },
 
   {
-    id: 'g-zorobabel',
+    id: 'zorobabel',
     name: 'Zorobabel',
     gender: 'M',
     parents: ['g-salathiel']
@@ -608,7 +608,7 @@ const PEOPLE: GenealogyPerson[] = [
     id: 'g-abiud',
     name: 'Abiud',
     gender: 'M',
-    parents: ['g-zorobabel']
+    parents: ['zorobabel']
   },
 
   {

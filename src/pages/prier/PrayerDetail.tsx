@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 import { IonContent, IonPage } from '@ionic/react';
 import { LANGUAGE_LABELS, type PrayerLanguage } from '../../data/prayers';
 import { useRemotePrayer } from '../../hooks/content/useRemotePrayers';
@@ -9,7 +8,7 @@ import WorldButton from '../../components/nav/WorldButton';
 import { tapHaptic } from '../../utils/haptics';
 import { RISE_IN, stagger, useBibleReducedMotion, useRevealOnce } from '../bible/bibleMotion';
 import PrierHeroBar from './PrierHeroBar';
-import PrierSearch from './PrierSearch';
+import { useOpenSearch } from '../accueil/searchContext';
 import { PRAYER_LANGUAGE_ORDER } from './prayerLanguages';
 import './PrayerDetail.css';
 
@@ -22,7 +21,7 @@ const PrayerDetail: React.FC = () => {
   const { isBookmarked, toggle } = useBookmarks();
   const prayer = useRemotePrayer(prayerId);
   const [language, setLanguage] = useState<PrayerLanguage>('fr');
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const openSearch = useOpenSearch();
   const reduceMotion = useBibleReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -55,10 +54,9 @@ const PrayerDetail: React.FC = () => {
       <IonPage>
         <IonContent fullscreen className="prier-page">
           <div className="prier-hero prayer-detail-hero">
-            <PrierHeroBar backLabel="Prières" onBack={() => navigate(-1)} onSearch={() => setIsSearchOpen(true)} />
+            <PrierHeroBar backLabel="Prières" onBack={() => navigate(-1)} onSearch={() => openSearch('prieres')} />
           </div>
           <p className="prier-not-found">Prière introuvable.</p>
-          <AnimatePresence>{isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}</AnimatePresence>
           <WorldButton />
         </IonContent>
       </IonPage>
@@ -80,7 +78,7 @@ const PrayerDetail: React.FC = () => {
           <PrierHeroBar
             backLabel="Prières"
             onBack={() => navigate(-1)}
-            onSearch={() => setIsSearchOpen(true)}
+            onSearch={() => openSearch('prieres')}
             isBookmarked={isBookmarked(bookmarkKey)}
             onToggleBookmark={() => toggle(bookmarkKey)}
           />
@@ -145,7 +143,6 @@ const PrayerDetail: React.FC = () => {
           <span className="prier-glyph">{'✦︎'}</span>
         </div>
 
-        <AnimatePresence>{isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}</AnimatePresence>
         <WorldButton />
       </IonContent>
     </IonPage>

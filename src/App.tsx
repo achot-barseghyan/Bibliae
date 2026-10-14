@@ -3,6 +3,7 @@ import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { useApplyReducedMotion } from './hooks/useReducedMotion';
 import UpdateSheet from './components/UpdateSheet';
+import GlobalSearch from './pages/accueil/GlobalSearch';
 import { BibleReadingPrefsProvider } from './hooks/useBibleReadingPrefs';
 import CompendiumTabs from './navigation/CompendiumTabs';
 import Bible from './pages/Bible';
@@ -68,32 +69,34 @@ const App: React.FC = () => {
       <IonApp>
         <BibleReadingPrefsProvider>
           <IonReactRouter>
-            <IonRouterOutlet>
-              <Route path="/compendium/*" element={<CompendiumTabs />} />
-              <Route path="/bible/*" element={<Bible />} />
-              <Route path="/rosaire" element={<Rosaire />} />
-              <Route path="/prier/*" element={<Prier />} />
-              <Route path="/figures/:figureId" element={<FigureDetail />} />
-              <Route path="/evenements/:eventId" element={<EvenementDetail />} />
-              <Route path="/parcours" element={<Parcours />} />
-              <Route path="/paroisses" element={<Paroisses />} />
-              <Route path="/paroisses/:parishId" element={<ParoisseDetail />} />
-              <Route path="/pourquoi-croire" element={<PourquoiCroire />} />
-              <Route path="/saints" element={<Saints />} />
-              <Route path="/credo/:councilId" element={<CouncilText />} />
-              <Route path="/reglages" element={<Reglages />} />
-              <Route path="/a-propos" element={<APropos />} />
-              <Route path="/sources" element={<Sources />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/favoris" element={<Favoris />} />
-              <Route path="/liturgie" element={<JourLiturgique />} />
-              <Route path="/liturgie/:date" element={<JourLiturgique />} />
-              <Route path="/liturgie/:date/:part" element={<LiturgieLecture />} />
-              <Route path="/catechisme/:ref" element={<Catechisme />} />
-              <Route path="/" element={<Navigate to="/compendium/accueil" replace />} />
-            </IonRouterOutlet>
-            <LieuxOpeningNotice />
-          <UpdateSheet />
+            <GlobalSearch>
+              <IonRouterOutlet>
+                <Route path="/compendium/*" element={<CompendiumTabs />} />
+                <Route path="/bible/*" element={<Bible />} />
+                <Route path="/rosaire" element={<Rosaire />} />
+                <Route path="/prier/*" element={<Prier />} />
+                <Route path="/figures/:figureId" element={<FigureDetail />} />
+                <Route path="/evenements/:eventId" element={<EvenementDetail />} />
+                <Route path="/parcours" element={<Parcours />} />
+                <Route path="/paroisses" element={<Paroisses />} />
+                <Route path="/paroisses/:parishId" element={<ParoisseDetail />} />
+                <Route path="/pourquoi-croire" element={<PourquoiCroire />} />
+                <Route path="/saints" element={<Saints />} />
+                <Route path="/credo/:councilId" element={<CouncilText />} />
+                <Route path="/reglages" element={<Reglages />} />
+                <Route path="/a-propos" element={<APropos />} />
+                <Route path="/sources" element={<Sources />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/favoris" element={<Favoris />} />
+                <Route path="/liturgie" element={<JourLiturgique />} />
+                <Route path="/liturgie/:date" element={<JourLiturgique />} />
+                <Route path="/liturgie/:date/:part" element={<LiturgieLecture />} />
+                <Route path="/catechisme/:ref" element={<Catechisme />} />
+                <Route path="/" element={<Navigate to="/compendium/accueil" replace />} />
+              </IonRouterOutlet>
+              <LieuxOpeningNotice />
+              <UpdateSheet />
+            </GlobalSearch>
           </IonReactRouter>
         </BibleReadingPrefsProvider>
       </IonApp>

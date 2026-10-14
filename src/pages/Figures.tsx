@@ -65,6 +65,25 @@ const STARS = (() => {
   }));
 })();
 
+/** Préférence « afficher les figures sans illustration », gardée sur l'appareil. */
+const SHOW_UNILLUSTRATED_KEY = 'figures-show-unillustrated';
+
+function loadShowUnillustrated(): boolean {
+  try {
+    return localStorage.getItem(SHOW_UNILLUSTRATED_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function saveShowUnillustrated(value: boolean) {
+  try {
+    localStorage.setItem(SHOW_UNILLUSTRATED_KEY, value ? '1' : '0');
+  } catch {
+    // Stockage indisponible : la liste repartira masquée au prochain lancement.
+  }
+}
+
 /** Arche : portrait de la figure, ou son initiale sur le fond de l'époque. */
 const Arch: React.FC<{ figure: Figure; index: number }> = ({ figure, index }) => {
   const [broken, setBroken] = useState(false);
@@ -92,7 +111,15 @@ const Arch: React.FC<{ figure: Figure; index: number }> = ({ figure, index }) =>
 const Figures: React.FC = () => {
   const navigate = useNavigate();
   const reduced = useReducedMotion();
-  const { figures } = useFigures();
+  const { figures: allFigures } = useFigures();
+  // Les figures ajoutées avant leur portrait restent masquées par défaut (elles
+  // restent accessibles par la recherche, les liens et l'arbre généalogique).
+  const [showUnillustrated, setShowUnillustrated] = useState(loadShowUnillustrated);
+  const unillustratedCount = useMemo(() => allFigures.filter((f) => !f.image).length, [allFigures]);
+  const figures = useMemo(
+    () => (showUnillustrated ? allFigures : allFigures.filter((f) => f.image)),
+    [allFigures, showUnillustrated]
+  );
 
   const [era, setEra] = useState(-1);
   const [role, setRole] = useState(0);
@@ -154,7 +181,7 @@ const Figures: React.FC = () => {
     const total = totalRef.current;
     if (!page || !total) return;
     if (reduced) {
-      total.textContent = formatCount(figures.length);
+      total.textContent = formatCount(allFigures.length);
       return;
     }
     page.querySelectorAll('[data-in]').forEach((n, i) =>
@@ -166,7 +193,7 @@ const Figures: React.FC = () => {
         { duration: 1100, delay: 120 + i * 130, easing: EASE, fill: 'backwards' }
       )
     );
-    const target = figures.length;
+    const target = allFigures.length;
     const t0 = performance.now() + 500;
     let frame = 0;
     const tick = (now: number) => {
@@ -178,7 +205,7 @@ const Figures: React.FC = () => {
     return () => cancelAnimationFrame(frame);
     // Une fois par chargement de la base (le nombre peut changer avec la base locale).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [figures.length]);
+  }, [allFigures.length]);
 
   // Parallaxe du décor de l'en-tête.
   useEffect(() => {
@@ -206,7 +233,7 @@ const Figures: React.FC = () => {
   }, [reduced]);
 
   // Filtre changé alors qu'on est descendu : remonte au début des résultats.
-  const filterKey = `${era}|${role}|${q}|${view}`;
+  const filterKey = `${era}|${role}|${q}|${view}|${showUnillustrated}`;
   const firstRender = useRef(true);
   useEffect(() => {
     if (firstRender.current) {
@@ -282,7 +309,7 @@ const Figures: React.FC = () => {
                 Les <em>figures</em>
               </h1>
               <p className="fg-lede" data-in>
-                <span ref={totalRef}>{reduced ? formatCount(figures.length) : '0'}</span> fiches, de la Genèse à
+                <span ref={totalRef}>{reduced ? formatCount(allFigures.length) : '0'}</span> fiches, de la Genèse à
                 l'Apocalypse
               </p>
             </div>
@@ -398,6 +425,29 @@ const Figures: React.FC = () => {
               <span className="fg-count-main">{count}</span>
               <span className="fg-count-sort">{view === 'grid' ? 'par ordre biblique' : 'de A à Z'}</span>
             </div>
+
+            {unillustratedCount > 0 && (
+              <button
+                type="button"
+                className={`fg-unillustrated fg-res${showUnillustrated ? ' is-on' : ''}`}
+                style={{ '--r': 0 } as CSSProperties}
+                aria-pressed={showUnillustrated}
+                onClick={() => {
+                  tapHaptic();
+                  setShowUnillustrated((v) => {
+                    saveShowUnillustrated(!v);
+                    return !v;
+                  });
+                }}
+              >
+                <span className="fg-unillustrated-switch" aria-hidden="true">
+                  <span />
+                </span>
+                {showUnillustrated
+                  ? `${unillustratedCount} fiches sans illustration affichées`
+                  : `Afficher les ${unillustratedCount} fiches sans illustration`}
+              </button>
+            )}
 
             {view === 'grid' && ordered.length > 0 && (
               <div className="fg-grid">

@@ -8,7 +8,7 @@ import {
   SearchIcon
 } from '../../components/nav/icons';
 import AccessibilityQuickSheet from '../../components/AccessibilityQuickSheet';
-import BibleSearch from './BibleSearch';
+import { useOpenSearch } from '../accueil/searchContext';
 import { tapHaptic } from '../../utils/haptics';
 import './BibleHeader.css';
 
@@ -40,7 +40,7 @@ const BibleHeader: React.FC<BibleHeaderProps> = ({
   progressRef
 }) => {
   const [isA11yOpen, setIsA11yOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const openSearch = useOpenSearch();
 
   return (
     <>
@@ -126,11 +126,10 @@ const BibleHeader: React.FC<BibleHeaderProps> = ({
           </button>
           <button
             type="button"
-            className={`bible-header-button${isSearchOpen ? ' is-active' : ''}`}
-            onClick={() => setIsSearchOpen(true)}
+            className="bible-header-button"
+            onClick={() => openSearch('versets')}
             aria-label="Rechercher"
             aria-haspopup="dialog"
-            aria-expanded={isSearchOpen}
           >
             <SearchIcon size={19} />
           </button>
@@ -146,9 +145,6 @@ const BibleHeader: React.FC<BibleHeaderProps> = ({
         {isA11yOpen && <AccessibilityQuickSheet onClose={() => setIsA11yOpen(false)} />}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {isSearchOpen && <BibleSearch onClose={() => setIsSearchOpen(false)} />}
-      </AnimatePresence>
     </>
   );
 };

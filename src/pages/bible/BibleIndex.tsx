@@ -19,7 +19,7 @@ import WorldButton from '../../components/nav/WorldButton';
 import AccessibilityQuickSheet from '../../components/AccessibilityQuickSheet';
 import { AccessibilityIcon, ChevronDownIcon, SearchIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
-import BibleSearch from './BibleSearch';
+import { useOpenSearch } from '../accueil/searchContext';
 import ParcoursSelectorSheet from './ParcoursSelectorSheet';
 import PlanCard from './PlanCard';
 import ChapterLegend from './ChapterLegend';
@@ -133,7 +133,7 @@ const BibleIndex: React.FC = () => {
   }, [tab]);
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
   const [isA11yOpen, setIsA11yOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const openSearch = useOpenSearch();
 
   const heroRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
@@ -267,7 +267,7 @@ const BibleIndex: React.FC = () => {
                 <button
                   type="button"
                   className="bible-hero-icon"
-                  onClick={() => setIsSearchOpen(true)}
+                  onClick={() => openSearch('versets')}
                   aria-label="Rechercher"
                   aria-haspopup="dialog"
                 >
@@ -545,9 +545,6 @@ const BibleIndex: React.FC = () => {
         </AnimatePresence>
         <AnimatePresence>
           {isA11yOpen && <AccessibilityQuickSheet onClose={() => setIsA11yOpen(false)} />}
-        </AnimatePresence>
-        <AnimatePresence>
-          {isSearchOpen && <BibleSearch onClose={() => setIsSearchOpen(false)} />}
         </AnimatePresence>
         <WorldButton />
       </IonContent>

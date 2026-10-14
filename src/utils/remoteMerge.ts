@@ -47,3 +47,25 @@ export function mergeRecord<T extends object>(
   }
   return result;
 }
+
+/**
+ * Comme mergeRecord, mais une clé distante absente en local est **ajoutée**
+ * au lieu d'être ignorée. Réservé aux dictionnaires dont tous les champs sont
+ * facultatifs (ex. fiches détaillées des figures) : une entrée partielle y
+ * est une entrée valide. Permet de publier une fiche nouvelle sans
+ * nouvelle version de l'app.
+ */
+export function mergeRecordWithAdditions<T extends object>(
+  local: Record<string, T>,
+  remote: Record<string, Partial<T>> | null | undefined
+): Record<string, T> {
+  if (!remote) return local;
+  const result: Record<string, T> = { ...local };
+  for (const key of Object.keys(remote)) {
+    const entry = remote[key];
+    // Fichier édité à la main : on écarte ce qui n'est pas un objet.
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) continue;
+    result[key] = key in result ? { ...result[key], ...entry } : (entry as T);
+  }
+  return result;
+}

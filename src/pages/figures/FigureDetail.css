@@ -1183,6 +1183,20 @@
   filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.35));
 }
 
+/* Figure sans portrait : son initiale, dans le halo. */
+.ff-related-initial {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34px;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 54px;
+  line-height: 1;
+  color: #F0D58E;
+}
+
 .ff-related-name {
   margin-top: 9px;
   font-family: var(--font-cormorant);

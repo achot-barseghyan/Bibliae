@@ -58,10 +58,16 @@ function rowToFigure(row: FigureRow): Figure {
   };
 }
 
-async function seedIfEmpty(db: SQLiteDBConnection): Promise<void> {
-  const countResult = await db.query('SELECT COUNT(*) AS count FROM figures;');
-  const count = (countResult.values?.[0]?.count as number) ?? 0;
-  if (count > 0) return;
+/**
+ * Ajoute les figures embarquées absentes de la table. Pas seulement au
+ * premier lancement : une mise à jour de l'app peut apporter de nouvelles
+ * figures, que les installations existantes doivent aussi recevoir.
+ */
+async function seedMissing(db: SQLiteDBConnection): Promise<void> {
+  const existing = await db.query('SELECT id FROM figures;');
+  const known = new Set((existing.values ?? []).map((row) => (row as { id: string }).id));
+  const missing = seedFigures.filter((figure) => !known.has(figure.id));
+  if (missing.length === 0) return;
 
   const insertStatement = `
     INSERT INTO figures
@@ -69,7 +75,7 @@ async function seedIfEmpty(db: SQLiteDBConnection): Promise<void> {
     VALUES
       (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
   `;
-  const rows = seedFigures.map((figure) => [
+  const rows = missing.map((figure) => [
     figure.id,
     figure.name,
     figure.originalName,
@@ -91,7 +97,7 @@ let readyPromise: Promise<SQLiteDBConnection> | null = null;
 async function initFiguresDatabase(): Promise<SQLiteDBConnection> {
   const db = await getDatabase();
   await db.execute(CREATE_TABLE);
-  await seedIfEmpty(db);
+  await seedMissing(db);
   return db;
 }
 

@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 import { IonContent, IonPage } from '@ionic/react';
 import { useRemoteSaints } from '../../hooks/content/useRemoteSaints';
 import { ChevronRightIcon } from '../../components/nav/icons';
@@ -9,12 +8,12 @@ import { tapHaptic } from '../../utils/haptics';
 import NightStars from '../bible/NightStars';
 import { RISE_IN, stagger, useBibleReducedMotion, useRevealOnce } from '../bible/bibleMotion';
 import PrierHeroBar from './PrierHeroBar';
-import PrierSearch from './PrierSearch';
+import { useOpenSearch } from '../accueil/searchContext';
 import './SaintsList.css';
 
 const SaintsList: React.FC = () => {
   const navigate = useNavigate();
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const openSearch = useOpenSearch();
   const categories = useRemoteSaints();
   // Domaine affiché (null = tous).
   const [filter, setFilter] = useState<string | null>(null);
@@ -43,7 +42,7 @@ const SaintsList: React.FC = () => {
             <span className="prier-hero-numeral" aria-hidden="true">
               II
             </span>
-            <PrierHeroBar backLabel="Prier" onBack={() => navigate(-1)} onSearch={() => setIsSearchOpen(true)} />
+            <PrierHeroBar backLabel="Prier" onBack={() => navigate(-1)} onSearch={() => openSearch('saints')} />
             <h1 className="prier-hero-title">Demander l'intercession des saints</h1>
             <p className="prier-hero-text">
               Dis ce que tu traverses. À chaque situation, un saint qui l'a connue, et une prière pour la lui confier.
@@ -109,7 +108,6 @@ const SaintsList: React.FC = () => {
           </div>
         </div>
 
-        <AnimatePresence>{isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}</AnimatePresence>
         <WorldButton />
       </IonContent>
     </IonPage>

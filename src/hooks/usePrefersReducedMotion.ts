@@ -7,8 +7,13 @@ export function usePrefersReducedMotion(): boolean {
     const query = window.matchMedia?.('(prefers-reduced-motion: reduce)');
     if (!query) return;
     const onChange = () => setReduced(query.matches);
-    query.addEventListener('change', onChange);
-    return () => query.removeEventListener('change', onChange);
+    // Anciens WebView/Safari (et jsdom) : seulement addListener.
+    if (typeof query.addEventListener === 'function') {
+      query.addEventListener('change', onChange);
+      return () => query.removeEventListener('change', onChange);
+    }
+    query.addListener?.(onChange);
+    return () => query.removeListener?.(onChange);
   }, []);
   return reduced;
 }

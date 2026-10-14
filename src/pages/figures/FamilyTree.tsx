@@ -130,7 +130,7 @@ const FamilyTree: React.FC<FamilyTreeProps> = ({ figureId, figures }) => {
         ]
           .filter(Boolean)
           .join(' ');
-        const portrait = figure
+        const portrait = figure?.image
           ? `<img src="${figure.image}" alt="" draggable="false" />`
           : `<span class="family-tree-card-initial">${person.data.unnamed ? '?' : escapeHtml(person.data.name.charAt(0))}</span>`;
         return `

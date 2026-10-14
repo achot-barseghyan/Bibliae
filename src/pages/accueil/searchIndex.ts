@@ -3,6 +3,7 @@ import type { Figure } from '../../data/figures';
 import { EVENTS, eventPath } from '../../data/events';
 import { CHURCH_PRAYERS } from '../../data/prayers';
 import { CALENDAR_SAINTS } from '../../data/saintsCalendrier';
+import { INTERCESSION_CATEGORIES } from '../../data/saints';
 import type { VerseSearchResult } from '../../db/versesRepository';
 
 // Recherche de l'accueil (maquette « Accueil v2 ») : un index local sur les
@@ -80,6 +81,13 @@ function figureItems(figures: Figure[]): SearchItem[] {
 }
 
 const STATIC_ITEMS: SearchItem[] = [
+  // Livres de la Bible : « Jean », « Psaumes », « 1 Co »…
+  ...BOOKS.map((b) => ({
+    scope: SCOPE_INDEX.versets,
+    title: b.name,
+    sub: `${b.abbreviation} · ${b.chapters} chapitre${b.chapters > 1 ? 's' : ''}`,
+    path: `/bible/${b.id}`
+  })),
   ...EVENTS.map((e) => ({
     scope: SCOPE_INDEX.evenements,
     title: e.title,
@@ -100,7 +108,16 @@ const STATIC_ITEMS: SearchItem[] = [
       .join(' · '),
     path: '/saints',
     state: { saintId: s.id }
-  }))
+  })),
+  // Intercession (Prier › Saints) : la situation, puis le saint à prier.
+  ...INTERCESSION_CATEGORIES.flatMap((c) =>
+    c.items.map((item) => ({
+      scope: SCOPE_INDEX.saints,
+      title: item.situation,
+      sub: `${item.saintName} · ${c.label}`,
+      path: `/prier/saints/${item.id}`
+    }))
+  )
 ];
 
 export function buildIndex(figures: Figure[]): SearchItem[] {

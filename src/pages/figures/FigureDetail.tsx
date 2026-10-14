@@ -24,7 +24,7 @@ import { hasGenealogy } from '../../data/genealogy';
 import FamilyTree from './FamilyTree';
 import VersePreviewSheet from './VersePreviewSheet';
 import CouncilPreviewSheet from './CouncilPreviewSheet';
-import FigureSearch from './FigureSearch';
+import { useOpenSearch } from '../accueil/searchContext';
 import { tapHaptic } from '../../utils/haptics';
 import './FigureDetail.css';
 import WorldButton from '../../components/nav/WorldButton';
@@ -170,7 +170,7 @@ const FigureDetail: React.FC = () => {
   const { isBookmarked, toggle } = useBookmarks();
   const [activeRef, setActiveRef] = useState<ScriptureRef | null>(null);
   const [activeCouncil, setActiveCouncil] = useState<Council | null>(null);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const openSearch = useOpenSearch();
   const [isZoomOpen, setIsZoomOpen] = useState(false);
   const [altIndex, setAltIndex] = useState(0);
   const [activeSection, setActiveSection] = useState(0);
@@ -526,7 +526,7 @@ const FigureDetail: React.FC = () => {
                   className="ff-round-button"
                   onClick={() => {
                     tapHaptic();
-                    setIsSearchOpen(true);
+                    openSearch('figures');
                   }}
                   aria-label="Rechercher"
                 >
@@ -553,10 +553,11 @@ const FigureDetail: React.FC = () => {
                 <span className="ff-portrait-initial" aria-hidden="true">
                   {figure.name.charAt(0)}
                 </span>
-                <img src={figure.image} alt={figure.name} />
+                {figure.image && <img src={figure.image} alt={figure.name} />}
               </div>
               <span className="ff-portrait-rule" aria-hidden="true" />
-              <button
+              {figure.image && (
+                <button
                 type="button"
                 className="ff-portrait-zoom"
                 onClick={() => {
@@ -566,8 +567,12 @@ const FigureDetail: React.FC = () => {
                 aria-label={`Agrandir l'image : ${figure.name}`}
               >
                 <ZoomIcon size={17} />
-              </button>
+                </button>
+              )}
             </div>
+            {/* Sans illustration (figure ajoutée avant son portrait) : initiale
+                seule, ni zoom ni crédit d'artiste. */}
+            {figure.image && (
             <PhotoSlider
               images={[{ key: figure.image, src: figure.image }]}
               visible={isZoomOpen}
@@ -575,7 +580,9 @@ const FigureDetail: React.FC = () => {
               bannerVisible={false}
               maskOpacity={0.92}
             />
+            )}
 
+            {figure.image && (
             <div className="ff-credit">
               <span className="ff-credit-rule ff-credit-rule--left" aria-hidden="true" />
               <span className="ff-credit-text">
@@ -587,6 +594,7 @@ const FigureDetail: React.FC = () => {
               </span>
               <span className="ff-credit-rule ff-credit-rule--right" aria-hidden="true" />
             </div>
+            )}
 
             <div className="ff-identity">
               <h1 className="ff-name" data-in style={{ '--i': 1 } as CSSProperties}>
@@ -849,7 +857,11 @@ const FigureDetail: React.FC = () => {
                         style={{ background: RELATED_BACKGROUNDS[i % RELATED_BACKGROUNDS.length] }}
                       >
                         <span className="ff-related-glow" aria-hidden="true" />
-                        <img src={relatedFigure.image} alt="" />
+                        {relatedFigure.image ? (
+                          <img src={relatedFigure.image} alt="" />
+                        ) : (
+                          <span className="ff-related-initial">{relatedFigure.name.charAt(0)}</span>
+                        )}
                       </span>
                       <span className="ff-related-name">{relatedFigure.name}</span>
                       <span className="ff-related-role">{related.relation}</span>
@@ -873,9 +885,6 @@ const FigureDetail: React.FC = () => {
           {activeCouncil && (
             <CouncilPreviewSheet council={activeCouncil} onClose={() => setActiveCouncil(null)} />
           )}
-        </AnimatePresence>
-        <AnimatePresence>
-          {isSearchOpen && <FigureSearch figures={figures} onClose={() => setIsSearchOpen(false)} />}
         </AnimatePresence>
         <WorldButton />
       </IonContent>

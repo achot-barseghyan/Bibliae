@@ -1,6 +1,5 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 import { IonContent, IonPage } from '@ionic/react';
 import { useRemoteIntercession } from '../../hooks/content/useRemoteSaints';
 import { useBookmarks } from '../../hooks/useBookmarks';
@@ -8,7 +7,7 @@ import WorldButton from '../../components/nav/WorldButton';
 import NightStars from '../bible/NightStars';
 import { RISE_IN, stagger, useBibleReducedMotion, useRevealOnce } from '../bible/bibleMotion';
 import PrierHeroBar from './PrierHeroBar';
-import PrierSearch from './PrierSearch';
+import { useOpenSearch } from '../accueil/searchContext';
 import './SaintDetail.css';
 
 /** Initiale du saint, sans son titre (« Sainte Rita » → R, « Saint Joseph » → J). */
@@ -24,7 +23,7 @@ const SaintDetail: React.FC = () => {
   const { situationId = '' } = useParams<{ situationId: string }>();
   const { isBookmarked, toggle } = useBookmarks();
   const { item, category } = useRemoteIntercession(situationId);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const openSearch = useOpenSearch();
   const reduceMotion = useBibleReducedMotion();
   const pageRef = useRef<HTMLDivElement>(null);
 
@@ -38,10 +37,9 @@ const SaintDetail: React.FC = () => {
       <IonPage>
         <IonContent fullscreen className="prier-page">
           <div className="prier-hero saint-detail-hero">
-            <PrierHeroBar backLabel="Situations" onBack={() => navigate(-1)} onSearch={() => setIsSearchOpen(true)} />
+            <PrierHeroBar backLabel="Situations" onBack={() => navigate(-1)} onSearch={() => openSearch('saints')} />
           </div>
           <p className="prier-not-found">Situation introuvable.</p>
-          <AnimatePresence>{isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}</AnimatePresence>
           <WorldButton />
         </IonContent>
       </IonPage>
@@ -59,7 +57,7 @@ const SaintDetail: React.FC = () => {
             <PrierHeroBar
               backLabel="Situations"
               onBack={() => navigate(-1)}
-              onSearch={() => setIsSearchOpen(true)}
+              onSearch={() => openSearch('saints')}
               isBookmarked={isBookmarked(bookmarkKey)}
               onToggleBookmark={() => toggle(bookmarkKey)}
             />
@@ -115,7 +113,6 @@ const SaintDetail: React.FC = () => {
           </p>
         </div>
 
-        <AnimatePresence>{isSearchOpen && <PrierSearch onClose={() => setIsSearchOpen(false)} />}</AnimatePresence>
         <WorldButton />
       </IonContent>
     </IonPage>
