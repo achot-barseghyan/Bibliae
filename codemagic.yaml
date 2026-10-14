@@ -27,7 +27,11 @@ workflows:
       - name: Numéro de build
         script: |
           cd ios/App
-          LAST=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID" || echo 0)
+          TF=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APPLE_ID" 2>/dev/null || echo 0)
+          AS=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID" 2>/dev/null || echo 0)
+          LOCAL=$(agvtool what-version -terse)
+          LAST=$(printf '%s\n' "${TF:-0}" "${AS:-0}" "${LOCAL:-0}" | sort -n | tail -1)
+          echo "TestFlight=$TF AppStore=$AS local=$LOCAL -> build $(($LAST + 1))"
           agvtool new-version -all $(($LAST + 1))
       - name: Build IPA
         script: xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
