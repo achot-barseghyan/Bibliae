@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { IonPage } from '@ionic/react';
 import { CALENDAR_SAINTS, SAINT_CATEGORIES, type CalendarSaint } from '../../data/saintsCalendrier';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import { tapHaptic } from '../../utils/haptics';
 import './Saints.css';
 
@@ -93,6 +94,7 @@ const Saints: React.FC = () => {
   const listRef = useRef<HTMLDivElement>(null);
   const azRef = useRef<HTMLDivElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
   const sheetBodyRef = useRef<HTMLDivElement>(null);
   const wheelDrag = useRef<WheelDrag | null>(null);
   const railActive = useRef(false);
@@ -353,6 +355,8 @@ const Saints: React.FC = () => {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [sheetOpen]);
+
+  useSheetDrag(sheetRef, () => setSheetOpen(false), sheetOpen);
 
   const pickMode = (m: Mode) => {
     if (m === mode) return;
@@ -665,7 +669,7 @@ const Saints: React.FC = () => {
       {/* --- Notice --- */}
       <div className={`ls-sheet-layer${sheetOpen ? ' is-open' : ''}`} aria-hidden={!sheetOpen}>
         <div className="ls-sheet-scrim" onClick={() => setSheetOpen(false)} />
-        <div className="ls-sheet" role="dialog" aria-modal="true" aria-label={current.name}>
+        <div ref={sheetRef} className="ls-sheet" role="dialog" aria-modal="true" aria-label={current.name}>
           <button type="button" className="ls-sheet-handle" aria-label="Fermer" onClick={() => setSheetOpen(false)}>
             <span />
           </button>

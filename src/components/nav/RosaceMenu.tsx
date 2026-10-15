@@ -5,6 +5,7 @@ import BibleIcon from '../../assets/icons/at-icons_book.svg?react';
 import { SettingsIcon, BookmarkIcon, CalendarIcon } from './icons';
 import { tapHaptic } from '../../utils/haptics';
 import { useElementWidth } from '../../hooks/useElementWidth';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import './RosaceMenu.css';
 
 type WorldKey = 'compendium' | 'bible' | 'rosaire' | 'prier';
@@ -116,6 +117,7 @@ const RosaceMenu: React.FC<RosaceMenuProps> = ({ isOpen, onClose }) => {
   const activeWorld = activeWorldFromPath(location.pathname);
   const [sheetRef, width] = useElementWidth<HTMLDivElement>(402);
   const dx = (width - 402) / 2;
+  useSheetDrag(sheetRef, onClose, isOpen);
 
   // Le monde courant ne fait que refermer le menu ; l'accueil de l'app a son
   // propre bouton (« Accueil »).

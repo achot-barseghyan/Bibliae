@@ -1,7 +1,9 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { Annotation } from '../../hooks/useAnnotations';
 import { CloseIcon, ChevronRightIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import '../figures/VersePreviewSheet.css';
 import './ChapterNotesSheet.css';
 
@@ -27,6 +29,8 @@ const ChapterNotesSheet: React.FC<ChapterNotesSheetProps> = ({
   onSelect,
   onClose
 }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const transition = reduceMotion ? { duration: 0 } : { duration: 0.26, ease: EASE };
 
   return (
@@ -41,6 +45,7 @@ const ChapterNotesSheet: React.FC<ChapterNotesSheetProps> = ({
       transition={transition}
     >
       <motion.div
+        ref={sheetRef}
         className="verse-sheet chapter-notes-sheet"
         role="dialog"
         aria-modal="true"

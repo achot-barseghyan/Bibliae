@@ -1,7 +1,9 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { MYSTERY_ORDER, type MysterySetKey } from '../../data/rosary';
 import { useRemoteRosary } from '../../hooks/content/useRemoteRosary';
 import { useAccessibility } from '../../hooks/useAccessibility';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import './MysteryPickerSheet.css';
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
@@ -13,6 +15,8 @@ interface MysteryPickerSheetProps {
 }
 
 const MysteryPickerSheet: React.FC<MysteryPickerSheetProps> = ({ active, onSelect, onClose }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const { settings } = useAccessibility();
   const { mysterySets } = useRemoteRosary();
   const transition = settings.reduceMotion ? { duration: 0 } : { duration: 0.32, ease: EASE };
@@ -37,14 +41,7 @@ const MysteryPickerSheet: React.FC<MysteryPickerSheetProps> = ({ active, onSelec
         animate={{ y: 0 }}
         exit={{ y: '100%' }}
         transition={transition}
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
-        dragElastic={{ top: 0, bottom: 0.6 }}
-        onDragEnd={(_event, info) => {
-          if (info.offset.y > 80 || info.velocity.y > 600) {
-            onClose();
-          }
-        }}
+        ref={sheetRef}
       >
         <div className="mystery-sheet-handle" aria-hidden="true" />
 

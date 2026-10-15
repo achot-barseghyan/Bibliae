@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Book } from '../../data/bible';
@@ -11,6 +11,7 @@ import { CloseIcon, CheckIcon, BookIcon, NoteIcon, BookmarkIcon, ShareIcon, Chev
 import { tapHaptic } from '../../utils/haptics';
 import { shareText } from '../../utils/share';
 import NoteSheet from '../../components/annotate/NoteSheet';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import '../figures/VersePreviewSheet.css';
 import './ParcoursActionsSheet.css';
 import './ChapterActionSheet.css';
@@ -34,6 +35,8 @@ const ChapterActionSheet: React.FC<ChapterActionSheetProps> = ({
   onClose,
   onJustCompleted
 }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const navigate = useNavigate();
   const { settings } = useAccessibility();
   const { activeParcours, isRead, markRead, unmarkRead, positionFor, savePosition, clearPosition } =
@@ -158,14 +161,7 @@ const ChapterActionSheet: React.FC<ChapterActionSheetProps> = ({
         animate={{ y: 0 }}
         exit={{ y: '100%' }}
         transition={transition}
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
-        dragElastic={{ top: 0, bottom: 0.6 }}
-        onDragEnd={(_event, info) => {
-          if (info.offset.y > 80 || info.velocity.y > 600) {
-            onClose();
-          }
-        }}
+        ref={sheetRef}
       >
         <div className="verse-sheet-handle" aria-hidden="true" />
 

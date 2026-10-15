@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { checkForUpdate, rememberDismiss, type UpdatePrompt } from '../services/appUpdate';
 import { isReducedMotion } from '../services/reducedMotion';
+import { useSheetDrag } from '../hooks/useSheetDrag';
 import { LatinCrossIcon } from './nav/icons';
 import { tapHaptic } from '../utils/haptics';
 import './UpdateSheet.css';
@@ -102,6 +103,9 @@ const UpdateSheet: React.FC = () => {
     setOpen(false);
   }, [prompt]);
 
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, dismiss, open && !forced);
+
   // Bouton retour Android : ferme (« plus tard »), ou ne fait rien si obligatoire.
   useEffect(() => {
     if (!open) return;
@@ -137,7 +141,7 @@ const UpdateSheet: React.FC = () => {
     <div className={`us${open ? ' is-open' : ''}`} inert={!open} aria-hidden={!open}>
       <div className="us-backdrop" onClick={dismiss} />
 
-      <div className="us-sheet" role="dialog" aria-modal="true" aria-labelledby="us-title">
+      <div ref={sheetRef} className="us-sheet" role="dialog" aria-modal="true" aria-labelledby="us-title">
         <div className="us-hero">
           <div className="us-stars" aria-hidden="true">
             {STARS.map((s, i) => (

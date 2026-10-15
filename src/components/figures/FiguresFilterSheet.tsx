@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { EPOQUES, ROLES, type Epoque, type Figure, type Role } from '../../data/figures';
 import { useAccessibility } from '../../hooks/useAccessibility';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import './FiguresFilterSheet.css';
 
 export interface Filters {
@@ -37,6 +38,8 @@ const FiguresFilterSheet: React.FC<FiguresFilterSheetProps> = ({
   onClose,
   resultCount
 }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const { settings } = useAccessibility();
   const overlayTransition = settings.reduceMotion
     ? { duration: 0 }
@@ -94,6 +97,7 @@ const FiguresFilterSheet: React.FC<FiguresFilterSheetProps> = ({
       transition={overlayTransition}
     >
       <motion.div
+        ref={sheetRef}
         className="filters-sheet"
         initial={{ y: '100%' }}
         animate={{ y: 0 }}

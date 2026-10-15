@@ -20,6 +20,12 @@
   overflow: hidden;
 }
 
+/* Aperçu d'un verset : reste dans le bas de l'écran ; un long passage défile
+   dans la feuille au lieu de la pousser jusqu'en haut. */
+.verse-sheet--preview {
+  max-height: min(60vh, 520px);
+}
+
 .verse-sheet-handle {
   flex: 0 0 auto;
   width: 44px;

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { CloseIcon } from '../nav/icons';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import '../../pages/figures/VersePreviewSheet.css';
 import './NoteSheet.css';
 
@@ -16,6 +17,8 @@ interface NoteSheetProps {
 }
 
 const NoteSheet: React.FC<NoteSheetProps> = ({ quote, initialText, reduceMotion, onSave, onClose }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const [text, setText] = useState(initialText);
   const transition = reduceMotion ? { duration: 0 } : { duration: 0.26, ease: EASE };
   const truncatedQuote = quote.length > 90 ? `${quote.slice(0, 90)}…` : quote;
@@ -32,6 +35,7 @@ const NoteSheet: React.FC<NoteSheetProps> = ({ quote, initialText, reduceMotion,
       transition={transition}
     >
       <motion.div
+        ref={sheetRef}
         className="verse-sheet"
         role="dialog"
         aria-modal="true"

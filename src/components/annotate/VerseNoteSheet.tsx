@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { HighlightColor } from '../../services/appDataStore';
 import { HIGHLIGHT_COLORS, highlightColorInfo } from '../../services/annotationColors';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import './VerseNoteSheet.css';
 
 const EASE = [0.22, 0.8, 0.28, 1] as const;
@@ -52,6 +53,8 @@ const VerseNoteSheet: React.FC<VerseNoteSheetProps> = ({
   onShowAll,
   onClose
 }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const isExisting = initialText.trim().length > 0;
   const [mode, setMode] = useState<'read' | 'write'>(isExisting && updatedAt ? 'read' : 'write');
   const [text, setText] = useState(initialText);
@@ -77,6 +80,7 @@ const VerseNoteSheet: React.FC<VerseNoteSheetProps> = ({
         transition={veilTransition}
       />
       <motion.div
+        ref={sheetRef}
         className="verse-note-sheet"
         slot="fixed"
         role="dialog"

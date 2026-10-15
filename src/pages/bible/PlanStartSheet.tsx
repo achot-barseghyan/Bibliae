@@ -1,7 +1,9 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { PLAN_TITLE } from '../../data/readingPlan';
 import { useAccessibility } from '../../hooks/useAccessibility';
 import { tapHaptic } from '../../utils/haptics';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import '../figures/VersePreviewSheet.css';
 import './ReadingPlan.css';
 
@@ -15,6 +17,8 @@ interface PlanStartSheetProps {
 
 /** Feuille proposée au démarrage du plan : suivre ses chapitres dans un parcours dédié, ou garder le parcours actif. */
 const PlanStartSheet: React.FC<PlanStartSheetProps> = ({ activeName, hasPlanParcours, onChoose }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, () => onChoose(false));
   const { settings } = useAccessibility();
   const transition = settings.reduceMotion ? { duration: 0 } : { duration: 0.26, ease: EASE };
 
@@ -30,6 +34,7 @@ const PlanStartSheet: React.FC<PlanStartSheetProps> = ({ activeName, hasPlanParc
       transition={transition}
     >
       <motion.div
+        ref={sheetRef}
         className="verse-sheet plan-start-sheet"
         role="dialog"
         aria-modal="true"

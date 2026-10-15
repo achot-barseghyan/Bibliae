@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import CompassRose from './CompassRose';
@@ -6,6 +6,7 @@ import { LIEUX_AVAILABLE } from '../config/features';
 import { isLieuxNoticeDue, markLieuxNoticeShown } from '../services/lieuxNotice';
 import { useAccessibility } from '../hooks/useAccessibility';
 import { tapHaptic } from '../utils/haptics';
+import { useSheetDrag } from '../hooks/useSheetDrag';
 import './LieuxOpeningNotice.css';
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
@@ -43,6 +44,9 @@ const LieuxOpeningNotice: React.FC = () => {
     if (discover) navigate('/compendium/lieux');
   };
 
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, () => close(false), isOpen);
+
   const transition = settings.reduceMotion ? { duration: 0 } : { duration: 0.32, ease: EASE };
 
   return (
@@ -58,6 +62,7 @@ const LieuxOpeningNotice: React.FC = () => {
           transition={transition}
         >
           <motion.div
+            ref={sheetRef}
             className="lieux-notice-sheet"
             role="dialog"
             aria-modal="true"

@@ -1,9 +1,11 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import type { Council } from '../../data/councils';
 import { useAccessibility } from '../../hooks/useAccessibility';
 import { useBookmarks } from '../../hooks/useBookmarks';
 import { BookmarkIcon, CloseIcon } from '../../components/nav/icons';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import './VersePreviewSheet.css';
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
@@ -14,6 +16,8 @@ interface CouncilPreviewSheetProps {
 }
 
 const CouncilPreviewSheet: React.FC<CouncilPreviewSheetProps> = ({ council, onClose }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const navigate = useNavigate();
   const { settings } = useAccessibility();
   const { isBookmarked, toggle } = useBookmarks();
@@ -41,14 +45,7 @@ const CouncilPreviewSheet: React.FC<CouncilPreviewSheetProps> = ({ council, onCl
         animate={{ y: 0 }}
         exit={{ y: '100%' }}
         transition={transition}
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
-        dragElastic={{ top: 0, bottom: 0.6 }}
-        onDragEnd={(_event, info) => {
-          if (info.offset.y > 80 || info.velocity.y > 600) {
-            onClose();
-          }
-        }}
+        ref={sheetRef}
       >
         <div className="verse-sheet-handle" aria-hidden="true" />
 

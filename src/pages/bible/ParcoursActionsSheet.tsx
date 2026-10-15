@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useReadingProgress } from '../../hooks/useReadingProgress';
 import { useAccessibility } from '../../hooks/useAccessibility';
@@ -6,6 +6,7 @@ import type { Parcours } from '../../hooks/useReadingProgress';
 import type { HighlightColor } from '../../services/appDataStore';
 import { CloseIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import '../figures/VersePreviewSheet.css';
 import './ParcoursActionsSheet.css';
 
@@ -20,6 +21,8 @@ interface ParcoursActionsSheetProps {
 }
 
 const ParcoursActionsSheet: React.FC<ParcoursActionsSheetProps> = ({ parcours, onClose }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const { settings } = useAccessibility();
   const { parcours: allParcours, forParcours, rename, recolor, resetProgress, archive, remove } =
     useReadingProgress();
@@ -42,6 +45,7 @@ const ParcoursActionsSheet: React.FC<ParcoursActionsSheetProps> = ({ parcours, o
       transition={transition}
     >
       <motion.div
+        ref={sheetRef}
         className="verse-sheet parcours-actions-sheet"
         role="dialog"
         aria-modal="true"

@@ -1,9 +1,11 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useReadingProgress } from '../../hooks/useReadingProgress';
 import { useAccessibility } from '../../hooks/useAccessibility';
 import type { Parcours } from '../../hooks/useReadingProgress';
 import { CloseIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import '../figures/VersePreviewSheet.css';
 import './ParcoursCompletionSheet.css';
 
@@ -21,6 +23,8 @@ interface ParcoursCompletionSheetProps {
 
 /** Confirmation sobre affichée une seule fois à l'achèvement d'un parcours — pas de confettis. */
 const ParcoursCompletionSheet: React.FC<ParcoursCompletionSheetProps> = ({ parcours, onClose, onCreateNew }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const { settings } = useAccessibility();
   const { forParcours, archive } = useReadingProgress();
   const transition = settings.reduceMotion ? { duration: 0 } : { duration: 0.26, ease: EASE };
@@ -38,6 +42,7 @@ const ParcoursCompletionSheet: React.FC<ParcoursCompletionSheetProps> = ({ parco
       transition={transition}
     >
       <motion.div
+        ref={sheetRef}
         className="verse-sheet parcours-completion-sheet"
         role="dialog"
         aria-modal="true"

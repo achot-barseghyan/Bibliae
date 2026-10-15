@@ -1,8 +1,10 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import AccessibilityPanel from './AccessibilityPanel';
 import ReadingPrefsSection from './ReadingPrefsSection';
 import ReadingPreview from './ReadingPreview';
 import { useAccessibility } from '../hooks/useAccessibility';
+import { useSheetDrag } from '../hooks/useSheetDrag';
 import './AccessibilityQuickSheet.css';
 
 const EASE = [0.2, 0.8, 0.2, 1] as const;
@@ -17,6 +19,8 @@ interface AccessibilityQuickSheetProps {
 // garde sa palette crème fixe (voir AccessibilityQuickSheet.css) ; seul
 // l'aperçu (ReadingPreview) reflète le thème choisi.
 const AccessibilityQuickSheet: React.FC<AccessibilityQuickSheetProps> = ({ onClose }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const { settings } = useAccessibility();
 
   const fade = settings.reduceMotion ? { duration: 0 } : { duration: 0.5 };
@@ -42,14 +46,7 @@ const AccessibilityQuickSheet: React.FC<AccessibilityQuickSheetProps> = ({ onClo
         animate={{ y: 0 }}
         exit={{ y: '105%' }}
         transition={slide}
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
-        dragElastic={{ top: 0, bottom: 0.6 }}
-        onDragEnd={(_event, info) => {
-          if (info.offset.y > 80 || info.velocity.y > 600) {
-            onClose();
-          }
-        }}
+        ref={sheetRef}
       >
         <div className="a11y-quick-hero">
           <span className="a11y-quick-rosace" aria-hidden="true" />

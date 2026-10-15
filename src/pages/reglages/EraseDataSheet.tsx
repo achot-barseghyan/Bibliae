@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useAccessibility } from '../../hooks/useAccessibility';
 import { CloseIcon } from '../../components/nav/icons';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import '../figures/VersePreviewSheet.css';
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
@@ -10,6 +12,8 @@ interface EraseDataSheetProps {
 }
 
 const EraseDataSheet: React.FC<EraseDataSheetProps> = ({ onChoice }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, () => onChoice('cancel'));
   const { settings } = useAccessibility();
   const transition = settings.reduceMotion ? { duration: 0 } : { duration: 0.32, ease: EASE };
 
@@ -33,14 +37,7 @@ const EraseDataSheet: React.FC<EraseDataSheetProps> = ({ onChoice }) => {
         animate={{ y: 0 }}
         exit={{ y: '100%' }}
         transition={transition}
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
-        dragElastic={{ top: 0, bottom: 0.6 }}
-        onDragEnd={(_event, info) => {
-          if (info.offset.y > 80 || info.velocity.y > 600) {
-            onChoice('cancel');
-          }
-        }}
+        ref={sheetRef}
       >
         <div className="verse-sheet-handle" aria-hidden="true" />
 

@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useReadingProgress } from '../../hooks/useReadingProgress';
@@ -7,6 +8,7 @@ import { useAccessibility } from '../../hooks/useAccessibility';
 import { FROM_BIBLE } from './usePlanBack';
 import { ChevronRightIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import '../figures/VersePreviewSheet.css';
 import './ParcoursSelectorSheet.css';
 
@@ -19,6 +21,8 @@ interface ParcoursSelectorSheetProps {
 
 /** Feuille basse ouverte par le bandeau de parcours actif : sélection immédiate, ou accès à l'écran complet. */
 const ParcoursSelectorSheet: React.FC<ParcoursSelectorSheetProps> = ({ onClose }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const navigate = useNavigate();
   const { settings } = useAccessibility();
   const { parcours, activeParcours, progress, activate } = useReadingProgress();
@@ -44,6 +48,7 @@ const ParcoursSelectorSheet: React.FC<ParcoursSelectorSheetProps> = ({ onClose }
       transition={transition}
     >
       <motion.div
+        ref={sheetRef}
         className="verse-sheet parcours-selector-sheet"
         role="dialog"
         aria-modal="true"

@@ -8,6 +8,7 @@ import { useAccessibility } from '../../hooks/useAccessibility';
 import { useBookmarks } from '../../hooks/useBookmarks';
 import { AccessibilityIcon, BookmarkIcon, ChevronDownIcon, CloseIcon } from '../../components/nav/icons';
 import AccessibilityQuickSheet from '../../components/AccessibilityQuickSheet';
+import { useSheetDrag } from '../../hooks/useSheetDrag';
 import './VersePreviewSheet.css';
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
@@ -18,6 +19,8 @@ interface VersePreviewSheetProps {
 }
 
 const VersePreviewSheet: React.FC<VersePreviewSheetProps> = ({ refData, onClose }) => {
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSheetDrag(sheetRef, onClose);
   const navigate = useNavigate();
   const { settings } = useAccessibility();
   const { isBookmarked, toggle } = useBookmarks();
@@ -60,7 +63,7 @@ const VersePreviewSheet: React.FC<VersePreviewSheetProps> = ({ refData, onClose 
         transition={transition}
       >
         <motion.div
-          className="verse-sheet"
+          className="verse-sheet verse-sheet--preview"
           role="dialog"
           aria-modal="true"
           aria-label={refData.display}
@@ -69,14 +72,7 @@ const VersePreviewSheet: React.FC<VersePreviewSheetProps> = ({ refData, onClose 
           animate={{ y: 0 }}
           exit={{ y: '100%' }}
           transition={transition}
-          drag="y"
-          dragConstraints={{ top: 0, bottom: 0 }}
-          dragElastic={{ top: 0, bottom: 0.6 }}
-          onDragEnd={(_event, info) => {
-            if (info.offset.y > 80 || info.velocity.y > 600) {
-              onClose();
-            }
-          }}
+          ref={sheetRef}
         >
           <div className="verse-sheet-handle" aria-hidden="true" />
 
