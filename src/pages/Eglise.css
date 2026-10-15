@@ -298,85 +298,108 @@
   color: var(--eg-ivoire);
 }
 
-/* --- Accès directs : trois vitraux en arc --- */
+/* --- Accès directs : quatre cartes --- */
 
 .eglise-tiles {
   position: relative;
   margin-top: -62px;
-  padding: 0 18px;
+  padding: 0 16px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
+  perspective: 800px;
 }
 
 .eglise-content .eglise-tile {
   position: relative;
-  display: block;
-  height: 132px;
-  border-radius: 60px 60px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  height: 176px;
+  padding: 18px 16px 16px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 16px 28px -16px rgba(35, 32, 26, 0.6), inset 0 0 0 1px rgba(181, 137, 46, 0.7);
-  color: var(--eg-ivoire);
-  transition: transform 400ms cubic-bezier(.2, .7, .2, 1);
+  background: var(--eg-tile-bg);
+  box-shadow: 0 20px 32px -20px rgba(20, 16, 12, 0.7);
+  text-align: left;
+  transition: transform 500ms cubic-bezier(.2, .7, .2, 1);
+  will-change: transform;
 }
 
 .eglise-content .eglise-tile:active {
-  transform: translateY(-6px);
+  transform: scale(0.97);
 }
 
-.eglise-content .eglise-tile--jesus {
-  background: linear-gradient(180deg, #8A2A2F, #4A1418);
+.eglise-tile--jesus,
+.eglise-tile--saints {
+  --eg-tile-ink: var(--eg-ivoire);
+  --eg-tile-sub: rgba(244, 237, 220, 0.7);
+  --eg-tile-accent: var(--eg-or-clair);
 }
 
-.eglise-content .eglise-tile--saints {
-  background: linear-gradient(180deg, #2E4A72, #1B2640);
+.eglise-tile--ordres,
+.eglise-tile--paroisse {
+  --eg-tile-ink: var(--color-encre);
+  --eg-tile-sub: rgba(35, 32, 26, 0.62);
+  --eg-tile-accent: var(--color-oxblood);
 }
 
-.eglise-content .eglise-tile--paroisse {
-  --eg-tile-glow: rgba(255, 252, 240, 1);
-  background: linear-gradient(180deg, #F7E7C2, #D9B66A);
-  color: var(--color-oxblood);
+.eglise-tile--jesus {
+  --eg-tile-bg: #6B1E23;
 }
 
-.eglise-tile-frame {
-  position: absolute;
-  inset: 5px;
-  border-radius: 55px 55px 8px 8px;
-  box-shadow: inset 0 0 0 0.5px rgba(240, 213, 142, 0.55);
+.eglise-tile--saints {
+  --eg-tile-bg: #1B2640;
 }
 
-.eglise-tile-glow {
-  position: absolute;
-  left: 50%;
-  top: 40px;
-  width: 80px;
-  height: 80px;
-  margin: -40px 0 0 -40px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--eg-tile-glow, rgba(240, 213, 142, 0.7)), transparent 68%);
-  animation: eglise-breath 5s ease-in-out infinite;
+.eglise-tile--ordres {
+  --eg-tile-bg: var(--eg-ivoire);
+}
+
+.eglise-tile--paroisse {
+  --eg-tile-bg: #D9B66A;
+}
+
+.eglise-tile-top {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .eglise-tile-glyph {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 24px;
-  text-align: center;
   font-family: var(--font-cormorant);
-  font-size: 30px;
+  font-weight: 300;
+  font-size: 40px;
   line-height: 1;
+  color: var(--eg-tile-accent);
+  transition: transform 500ms cubic-bezier(.2, .7, .2, 1);
 }
 
-.eglise-tile-label {
-  position: absolute;
-  left: 6px;
-  right: 6px;
-  bottom: 16px;
-  text-align: center;
+.eglise-tile-num {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--eg-tile-sub);
+}
+
+.eglise-tile-title {
   font-family: var(--font-cormorant);
-  font-size: 17px;
-  line-height: 1.05;
+  font-weight: 400;
+  font-size: calc(23px * var(--a11y-scale));
+  line-height: 1.04;
+  color: var(--eg-tile-ink);
+  text-wrap: balance;
+}
+
+.eglise-tile-desc {
+  margin-top: 6px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(13.5px * var(--a11y-scale));
+  line-height: 1.3;
+  color: var(--eg-tile-sub);
+  text-wrap: pretty;
 }
 
 /* --- Pourquoi croire --- */
@@ -1091,7 +1114,6 @@
   .eglise-rays,
   .eglise-rosace-glow,
   .eglise-rosace > div,
-  .eglise-tile-glow,
   .eglise-pourquoi-mark,
   .eglise-pilgrim span,
   .eglise-candle-halo,

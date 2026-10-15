@@ -152,19 +152,55 @@ const ARC_LENGTH = 408.4;
 const ARC_RADIUS = 130;
 
 interface Tile {
-  label: string;
+  title: string;
+  description: string;
   glyph: string;
   path: string;
   /** État passé à la page, ex. l'étape du parcours à ouvrir. */
   state?: { stepId: string };
-  variant: 'jesus' | 'saints' | 'paroisse';
+  variant: 'jesus' | 'saints' | 'ordres' | 'paroisse';
 }
 
 const TILES: Tile[] = [
-  { label: 'Jésus', glyph: '✚', path: '/parcours', state: { stepId: 'jesus' }, variant: 'jesus' },
-  { label: 'Les saints', glyph: '✦', path: '/saints', variant: 'saints' },
-  { label: 'Une paroisse', glyph: '⌂', path: '/paroisses', variant: 'paroisse' }
+  {
+    title: 'Jésus',
+    description: "Qui il est, ce qu'il a dit",
+    glyph: '✚',
+    path: '/parcours',
+    state: { stepId: 'jesus' },
+    variant: 'jesus'
+  },
+  { title: 'Les saints', description: 'Un saint pour chaque jour', glyph: '✦', path: '/saints', variant: 'saints' },
+  { title: 'Ordres & communautés', description: 'Moines, frères et sœurs', glyph: '☩', path: '/ordres', variant: 'ordres' },
+  {
+    title: 'Trouver une paroisse',
+    description: 'Messes et accueil près de toi',
+    glyph: '⌂',
+    path: '/paroisses',
+    variant: 'paroisse'
+  }
 ];
+
+/** Inclinaison d'une tuile sous la souris (le toucher garde l'effet d'appui). */
+const tiltTile = (e: React.PointerEvent<HTMLButtonElement>) => {
+  if (e.pointerType !== 'mouse') return;
+  const n = e.currentTarget;
+  const r = n.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width - 0.5;
+  const y = (e.clientY - r.top) / r.height - 0.5;
+  n.style.transition = 'transform 120ms';
+  n.style.transform = `rotateY(${(x * 14).toFixed(1)}deg) rotateX(${(-y * 14).toFixed(1)}deg) scale(1.02)`;
+  const g = n.querySelector<HTMLElement>('[data-glyph]');
+  if (g) g.style.transform = `translate(${(x * 10).toFixed(1)}px, ${(y * 10).toFixed(1)}px)`;
+};
+
+const untiltTile = (e: React.PointerEvent<HTMLButtonElement>) => {
+  const n = e.currentTarget;
+  n.style.transition = '';
+  n.style.transform = '';
+  const g = n.querySelector<HTMLElement>('[data-glyph]');
+  if (g) g.style.transform = '';
+};
 
 /** Ciel étoilé déterministe du haut de page. */
 const STARS = (() => {
@@ -307,6 +343,14 @@ const Eglise: React.FC = () => {
       n.animate([{ opacity: 0, transform: 'translateY(50px) scale(.9)' }, { opacity: 1, transform: 'none' }], {
         duration: 1200,
         delay: 750 + i * 130,
+        easing: EASE,
+        fill: 'backwards'
+      })
+    );
+    root.querySelectorAll('[data-glyph]').forEach((n, i) =>
+      n.animate([{ opacity: 0, transform: 'translateY(16px) rotate(-30deg)' }, { opacity: 1, transform: 'none' }], {
+        duration: 900,
+        delay: 1000 + i * 130,
         easing: EASE,
         fill: 'backwards'
       })
@@ -467,20 +511,26 @@ const Eglise: React.FC = () => {
 
           {/* --- Accès directs --- */}
           <nav className="eglise-tiles" aria-label="Accès directs">
-            {TILES.map((t) => (
+            {TILES.map((tile, i) => (
               <button
-                key={t.path}
+                key={tile.path}
                 type="button"
                 data-tile=""
-                className={`eglise-tile eglise-tile--${t.variant}`}
-                onClick={() => go(t.path, t.state)}
+                className={`eglise-tile eglise-tile--${tile.variant}`}
+                onClick={() => go(tile.path, tile.state)}
+                onPointerMove={reduced ? undefined : tiltTile}
+                onPointerLeave={untiltTile}
               >
-                <span className="eglise-tile-frame" aria-hidden="true" />
-                <span className="eglise-tile-glow" aria-hidden="true" />
-                <span className="eglise-tile-glyph" aria-hidden="true">
-                  {t.glyph}
+                <span className="eglise-tile-top">
+                  <span data-glyph="" className="eglise-tile-glyph" aria-hidden="true">
+                    {tile.glyph}
+                  </span>
+                  <span className="eglise-tile-num" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
                 </span>
-                <span className="eglise-tile-label">{t.label}</span>
+                <span className="eglise-tile-title">{tile.title}</span>
+                <span className="eglise-tile-desc">{tile.description}</span>
               </button>
             ))}
           </nav>
