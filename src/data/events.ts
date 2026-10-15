@@ -42,7 +42,7 @@ export interface BibleEvent {
 }
 
 /** Séparation Ancien / Nouveau Testament sur la frise, en %. */
-export const TESTAMENT_SPLIT_X = 38;
+export const TESTAMENT_SPLIT_X = 28;
 
 const IMAGES = import.meta.glob<string>('../assets/events/**/*.webp', {
   eager: true,

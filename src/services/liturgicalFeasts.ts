@@ -3,15 +3,30 @@
 // romain en usage en France (Épiphanie fixée au dimanche entre le 2 et
 // le 8 janvier).
 
-export type FeastId = 'noel' | 'bapteme-du-seigneur' | 'vendredi-saint' | 'paques' | 'pentecote';
+export type FeastId =
+  | 'noel'
+  | 'bapteme-du-seigneur'
+  | 'careme'
+  | 'vendredi-saint'
+  | 'paques'
+  | 'ascension'
+  | 'pentecote'
+  | 'assomption';
 
 export const FEAST_LABELS: Record<FeastId, string> = {
   noel: 'Noël',
   'bapteme-du-seigneur': 'Baptême du Seigneur',
+  careme: 'Carême',
   'vendredi-saint': 'Vendredi saint',
   paques: 'Pâques',
-  pentecote: 'Pentecôte'
+  ascension: 'Ascension',
+  pentecote: 'Pentecôte',
+  assomption: 'Assomption'
 };
+
+/** Fêtes qui couvrent un temps plutôt qu'un jour, et sa durée en jours :
+ * le Carême va du mercredi des Cendres au samedi saint. */
+const FEAST_SPANS: Partial<Record<FeastId, number>> = { careme: 46 };
 
 const DAY_MS = 86_400_000;
 
@@ -48,37 +63,53 @@ function baptismOfTheLord(year: number): Date {
   return addDays(epiphany, epiphany.getUTCDate() >= 7 ? 1 : 7);
 }
 
-/** Date de la fête pour une année civile donnée. */
+/** Date de la fête (premier jour, pour un temps) pour une année civile donnée. */
 export function feastDate(feast: FeastId, year: number): Date {
   switch (feast) {
     case 'noel':
       return utcDate(year, 12, 25);
     case 'bapteme-du-seigneur':
       return baptismOfTheLord(year);
+    case 'careme':
+      return addDays(easterSunday(year), -46);
     case 'vendredi-saint':
       return addDays(easterSunday(year), -2);
     case 'paques':
       return easterSunday(year);
+    case 'ascension':
+      return addDays(easterSunday(year), 39);
     case 'pentecote':
       return addDays(easterSunday(year), 49);
+    case 'assomption':
+      return utcDate(year, 8, 15);
   }
 }
 
-/** Jours entiers jusqu'à la prochaine occurrence de la fête (0 le jour même). */
-export function daysUntilFeast(feast: FeastId, today: Date = new Date()): number {
+/** Écart en jours entre aujourd'hui et le premier jour de l'occurrence en
+ * cours ou à venir : négatif si l'on est déjà dans le temps qu'elle couvre. */
+function offsetToFeast(feast: FeastId, today: Date): number {
   const start = utcDate(today.getFullYear(), today.getMonth() + 1, today.getDate());
+  const span = FEAST_SPANS[feast] ?? 1;
   for (const year of [start.getUTCFullYear(), start.getUTCFullYear() + 1]) {
-    const date = feastDate(feast, year);
-    if (date >= start) return Math.round((date.getTime() - start.getTime()) / DAY_MS);
+    const offset = daysBetween(start, feastDate(feast, year));
+    if (offset > -span) return offset;
   }
   // Inatteignable : chaque fête revient au plus tard l'année suivante.
   return 0;
 }
 
-/** « Noël dans 75 jours », « Pâques demain », « Noël · aujourd'hui ». */
+/** Jours entiers jusqu'à la prochaine occurrence de la fête (0 le jour même,
+ * et pendant tout le temps qu'elle couvre). */
+export function daysUntilFeast(feast: FeastId, today: Date = new Date()): number {
+  return Math.max(0, offsetToFeast(feast, today));
+}
+
+/** « Noël dans 75 jours », « Pâques demain », « Noël · aujourd'hui »,
+ * « Carême · en cours ». */
 export function feastCountdownLabel(feast: FeastId, today: Date = new Date()): string {
   const label = FEAST_LABELS[feast];
-  const days = daysUntilFeast(feast, today);
+  const days = offsetToFeast(feast, today);
+  if (days < 0) return `${label} · en cours`;
   if (days === 0) return `${label} · aujourd'hui`;
   if (days === 1) return `${label} demain`;
   return `${label} dans ${days} jours`;

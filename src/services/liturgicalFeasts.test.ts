@@ -14,6 +14,19 @@ describe('liturgicalFeasts', () => {
   it('dérive les fêtes mobiles de Pâques', () => {
     expect(iso(feastDate('vendredi-saint', 2027))).toBe('2027-03-26');
     expect(iso(feastDate('pentecote', 2027))).toBe('2027-05-16');
+    expect(iso(feastDate('careme', 2027))).toBe('2027-02-10');
+    expect(iso(feastDate('ascension', 2027))).toBe('2027-05-06');
+    expect(iso(feastDate('assomption', 2027))).toBe('2027-08-15');
+  });
+
+  it('compte le Carême comme en cours jusqu’au samedi saint', () => {
+    // Cendres le 18 février 2026, samedi saint le 4 avril.
+    expect(feastCountdownLabel('careme', new Date(2026, 1, 17))).toBe('Carême demain');
+    expect(feastCountdownLabel('careme', new Date(2026, 1, 18))).toBe("Carême · aujourd'hui");
+    expect(feastCountdownLabel('careme', new Date(2026, 2, 10))).toBe('Carême · en cours');
+    expect(daysUntilFeast('careme', new Date(2026, 3, 4))).toBe(0);
+    // Cendres 2027 le 10 février.
+    expect(daysUntilFeast('careme', new Date(2026, 3, 5))).toBe(311);
   });
 
   it('place le Baptême du Seigneur après l’Épiphanie', () => {
