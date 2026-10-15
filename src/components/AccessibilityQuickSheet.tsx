@@ -1,16 +1,11 @@
 import { motion } from 'framer-motion';
 import AccessibilityPanel from './AccessibilityPanel';
 import ReadingPrefsSection from './ReadingPrefsSection';
-import { READING_FONTS, READING_THEMES } from './readingPrefsOptions';
+import ReadingPreview from './ReadingPreview';
 import { useAccessibility } from '../hooks/useAccessibility';
-import { useBibleReadingPrefs } from '../hooks/useBibleReadingPrefs';
 import './AccessibilityQuickSheet.css';
 
 const EASE = [0.2, 0.8, 0.2, 1] as const;
-
-// Lignes visibles dans l'aperçu selon la taille (1 à 4) : assez pour que
-// le changement de taille se voie sans faire grandir l'en-tête à l'excès.
-const PREVIEW_LINES = [3, 4, 4, 5];
 
 interface AccessibilityQuickSheetProps {
   onClose: () => void;
@@ -18,21 +13,11 @@ interface AccessibilityQuickSheetProps {
 
 // Feuille « Réglages · Lecture » (maquette Réglages lecture v2) partagée
 // entre le monde Figures et le monde Bible (voir BibleHeader et Figures.tsx) :
-// même contenu que la page /reglages, dans un raccourci pratique. L'aperçu
-// calcule ses couleurs depuis READING_THEMES/READING_FONTS plutôt que depuis
-// les jetons CSS (redéfinis par le thème choisi) afin de rester correct quel
-// que soit l'écran d'où la feuille est ouverte ; la feuille elle-même garde
-// sa palette crème fixe (voir AccessibilityQuickSheet.css).
+// même contenu que la page /reglages, dans un raccourci pratique. La feuille
+// garde sa palette crème fixe (voir AccessibilityQuickSheet.css) ; seul
+// l'aperçu (ReadingPreview) reflète le thème choisi.
 const AccessibilityQuickSheet: React.FC<AccessibilityQuickSheetProps> = ({ onClose }) => {
   const { settings } = useAccessibility();
-  const { prefs } = useBibleReadingPrefs();
-
-  const activeFont = READING_FONTS.find((font) => font.key === prefs.font) ?? READING_FONTS[0];
-  const activeTheme = READING_THEMES.find((theme) => theme.key === prefs.theme) ?? READING_THEMES[0];
-
-  const scaleIndex = Math.min(Math.max(settings.textScale - 1, 0), 3);
-  const previewLines =
-    PREVIEW_LINES[scaleIndex] + (prefs.font === 'inter' && scaleIndex > 0 ? 1 : 0);
 
   const fade = settings.reduceMotion ? { duration: 0 } : { duration: 0.5 };
   const slide = settings.reduceMotion ? { duration: 0 } : { duration: 0.65, ease: EASE };
@@ -89,33 +74,7 @@ const AccessibilityQuickSheet: React.FC<AccessibilityQuickSheetProps> = ({ onClo
             </button>
           </div>
 
-          <div className="a11y-quick-preview" style={{ background: activeTheme.bg }}>
-            <span className="a11y-quick-preview-shine" aria-hidden="true" />
-            <div className="a11y-quick-preview-top">
-              <span className="a11y-quick-preview-kicker" style={{ color: activeTheme.accent }}>
-                Aperçu
-              </span>
-              <span className="a11y-quick-preview-meta" style={{ color: activeTheme.muted }}>
-                {activeFont.label} · {activeTheme.label}
-              </span>
-            </div>
-            <p
-              className="a11y-quick-preview-text"
-              style={
-                {
-                  fontFamily: activeFont.family,
-                  color: settings.contrast ? activeTheme.hi : activeTheme.text,
-                  '--pv-lines': previewLines
-                } as React.CSSProperties
-              }
-            >
-              <sup className="a11y-quick-preview-verse-number" style={{ color: activeTheme.accent }}>
-                1
-              </sup>
-              Voici à quoi ressemblera le texte pendant la lecture, avec la police, la taille et
-              le thème choisis ci-dessous.
-            </p>
-          </div>
+          <ReadingPreview className="a11y-quick-preview" />
         </div>
 
         <div className="a11y-quick-scroll">

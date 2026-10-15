@@ -28,7 +28,7 @@ import { useOpenSearch } from '../accueil/searchContext';
 import { tapHaptic } from '../../utils/haptics';
 import './FigureDetail.css';
 import WorldButton from '../../components/nav/WorldButton';
-import { ARTIST_NAME, ARTIST_SHOP_URL } from '../../data/credits';
+import { ARTIST_NAME, ARTIST_SHOP_URL, UNCREDITED_FIGURE_IDS } from '../../data/credits';
 import { isReducedMotion } from '../../services/reducedMotion';
 
 const EASE = 'cubic-bezier(.2,.7,.2,1)';
@@ -202,21 +202,30 @@ const FigureDetail: React.FC = () => {
   }, [detail?.alternateNames, figure?.originalName]);
 
   // Les autres noms défilent un à un sous le nom français.
+  const altRotatedRef = useRef(false);
   useEffect(() => {
     setAltIndex(0);
+    altRotatedRef.current = false;
     if (altNames.length < 2 || reduced) return;
     const timer = window.setInterval(() => {
+      altRotatedRef.current = true;
       setAltIndex((i) => (i + 1) % altNames.length);
-      altRef.current?.animate(
-        [
-          { opacity: 0, transform: 'translateY(8px)', filter: 'blur(4px)' },
-          { opacity: 1, transform: 'none', filter: 'blur(0)' }
-        ],
-        { duration: 700, easing: EASE }
-      );
     }, 2800);
     return () => window.clearInterval(timer);
   }, [altNames, reduced]);
+
+  // Fondu du nom qui vient d'apparaître (après le rendu : altRef pointe
+  // alors sur la nouvelle ligne de la pile).
+  useEffect(() => {
+    if (!altRotatedRef.current) return;
+    altRef.current?.animate(
+      [
+        { opacity: 0, transform: 'translateY(8px)', filter: 'blur(4px)' },
+        { opacity: 1, transform: 'none', filter: 'blur(0)' }
+      ],
+      { duration: 700, easing: EASE }
+    );
+  }, [altIndex]);
 
   // --- Sections (seules celles dont le contenu existe) ---------------------
 
@@ -582,7 +591,7 @@ const FigureDetail: React.FC = () => {
             />
             )}
 
-            {figure.image && (
+            {figure.image && !UNCREDITED_FIGURE_IDS.has(figure.id) && (
             <div className="ff-credit">
               <span className="ff-credit-rule ff-credit-rule--left" aria-hidden="true" />
               <span className="ff-credit-text">
@@ -601,11 +610,21 @@ const FigureDetail: React.FC = () => {
                 {figure.name}
               </h1>
               {altName && (
-                <div className="ff-altname" data-in style={{ '--i': 2 } as CSSProperties}>
-                  {scriptLabel(altName) && <span className="ff-altname-script">{scriptLabel(altName)}</span>}
-                  <span ref={altRef} className="ff-altname-text">
-                    {altName}
-                  </span>
+                // Tous les noms sont empilés dans la même case : elle prend la
+                // hauteur du plus long, et le passage d'un nom d'une ligne à un
+                // nom de trois lignes ne fait plus sauter la page en dessous.
+                <div className="ff-altname-stack" data-in style={{ '--i': 2 } as CSSProperties}>
+                  {altNames.map((name, i) => {
+                    const isActive = i === altIndex % altNames.length;
+                    return (
+                      <div key={i} className={`ff-altname${isActive ? '' : ' is-hidden'}`} aria-hidden={!isActive}>
+                        {scriptLabel(name) && <span className="ff-altname-script">{scriptLabel(name)}</span>}
+                        <span ref={isActive ? altRef : undefined} className="ff-altname-text">
+                          {name}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
               <div className="ff-pills" data-in style={{ '--i': 3 } as CSSProperties}>

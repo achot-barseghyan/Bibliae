@@ -17,6 +17,9 @@
   margin: 0;
 }
 
+.reglages-preview {
+  margin: 12px 28px 8px;
+}
 
 /* Les sections Réglages v2 (AccessibilityPanel, ReadingPrefsSection) ont
    des marges de feuille (18px) ; on les aligne ici sur l'en-tête de page. */

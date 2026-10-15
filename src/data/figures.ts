@@ -106,6 +106,7 @@ import susannaImg from '../assets/images/women/Susanna.webp';
 import tabithaImg from '../assets/images/women/Tabitha (Dorcas).webp';
 import tamarImg from '../assets/images/women/Tamar.webp';
 import zipporahImg from '../assets/images/women/Zipporah.webp';
+import serpentImg from '../assets/images/other/Serpent.webp';
 
 export type Testament = 'ancien' | 'nouveau';
 export type Genre = 'homme' | 'femme';
@@ -210,6 +211,7 @@ export const figures: Figure[] = [
   // --- Origines ---
   { id: 'adam', name: 'Adam', originalName: 'אָדָם', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Origines', date: '4000 av. J.-C.', books: ['Gn', 'Rm'], mentions: 29, image: adamImg },
   { id: 'eve', name: 'Ève', originalName: 'חַוָּה', testament: 'ancien', genre: 'femme', role: 'Autre', epoque: 'Origines', date: '4000 av. J.-C.', books: ['Gn', '2Co'], mentions: 18, image: eveImg },
+  { id: 'serpent', name: 'Le Serpent', originalName: 'נָחָשׁ', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Origines', date: '4000 av. J.-C.', books: ['Gn', '2Co', 'Ap'], mentions: 9, image: serpentImg },
   { id: 'cain', name: 'Caïn', originalName: 'קַיִן', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Origines', date: '3950 av. J.-C.', books: ['Gn', 'He', '1Jn'], mentions: 18, image: '' },
   { id: 'abel', name: 'Abel', originalName: 'הֶבֶל', testament: 'ancien', genre: 'homme', role: 'Autre', epoque: 'Origines', date: '3950 av. J.-C.', books: ['Gn', 'Mt', 'He'], mentions: 12, image: '' },
   { id: 'seth', name: 'Seth', originalName: 'שֵׁת', testament: 'ancien', genre: 'homme', role: 'Patriarche', epoque: 'Origines', date: '3870 av. J.-C.', books: ['Gn', 'Lc'], mentions: 9, image: '' },

@@ -27,3 +27,11 @@
   flex: 0 0 auto;
   color: var(--encre-60);
 }
+
+.info-links-version {
+  margin: 20px 0 0;
+  text-align: center;
+  font-family: var(--font-inter);
+  font-size: var(--taille-surtitre);
+  color: var(--encre-60);
+}

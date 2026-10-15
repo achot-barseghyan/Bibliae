@@ -22,6 +22,10 @@ const FAST_SWIPE_MS = 300;
 const FAST_SWIPE_PX = 30;
 /** Déplacement à partir duquel un appui devient un glissement. */
 const DRAG_SLOP_PX = 6;
+/** Un geste compte comme horizontal tant que |dy| < |dx| / ce rapport
+ * (≈ 55° depuis l'horizontale) : un glissement un peu en diagonale, naturel
+ * au pouce, change quand même d'événement. */
+const HORIZONTAL_BIAS = 0.7;
 const FRISE_SWIPE_PX = 24;
 /** Au-delà, une carte est hors champ : on ne la calcule plus. */
 const VISIBLE_RANGE = 2.5;
@@ -173,7 +177,10 @@ interface Gesture {
   startY: number;
   startPos: number;
   startTime: number;
+  startScroll: number;
   dragging: boolean;
+  /** Geste vertical : on fait défiler la page nous-mêmes (touch-action: none). */
+  scrolling: boolean;
 }
 
 const Evenements: React.FC = () => {
@@ -186,6 +193,8 @@ const Evenements: React.FC = () => {
   const [entering] = useState(() => !entrancePlayed && !reduceMotion);
   const [entryIndex] = useState(active);
   const stageRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLIonContentElement>(null);
+  const scrollElRef = useRef<HTMLElement | null>(null);
   const [stage, setStage] = useState({ width: 360, height: CARD_H + STAGE_MARGIN });
   const scale = Math.min(1, Math.max(MIN_SCALE, (stage.height - STAGE_MARGIN) / CARD_H));
 
@@ -220,6 +229,9 @@ const Evenements: React.FC = () => {
 
   useEffect(() => {
     entrancePlayed = true;
+    contentRef.current?.getScrollElement().then((el) => {
+      scrollElRef.current = el;
+    });
   }, []);
 
   /** Place chaque carte selon sa distance d au centre (en pas de carte). */
@@ -306,7 +318,9 @@ const Evenements: React.FC = () => {
       startY: e.clientY,
       startPos: posRef.current,
       startTime: performance.now(),
-      dragging: false
+      startScroll: scrollElRef.current?.scrollTop ?? 0,
+      dragging: false,
+      scrolling: false
     };
   };
 
@@ -315,14 +329,22 @@ const Evenements: React.FC = () => {
     if (!g || g.pointerId !== e.pointerId) return;
     const dx = e.clientX - g.startX;
     const dy = e.clientY - g.startY;
+    // La scène est en touch-action: none (sur iOS, pan-y laissait le
+    // défilement natif voler les glissements un peu en diagonale, annulés
+    // par un pointercancel) : on tranche nous-mêmes la direction.
+    if (g.scrolling) {
+      if (scrollElRef.current) scrollElRef.current.scrollTop = g.startScroll - dy;
+      return;
+    }
     if (!g.dragging) {
-      if (Math.abs(dx) > DRAG_SLOP_PX && Math.abs(dx) > Math.abs(dy)) {
-        g.dragging = true;
-        e.currentTarget.setPointerCapture(e.pointerId);
-        e.currentTarget.classList.add('is-dragging');
-      } else {
+      if (Math.max(Math.abs(dx), Math.abs(dy)) <= DRAG_SLOP_PX) return;
+      e.currentTarget.setPointerCapture(e.pointerId);
+      if (Math.abs(dy) * HORIZONTAL_BIAS > Math.abs(dx)) {
+        g.scrolling = true;
         return;
       }
+      g.dragging = true;
+      e.currentTarget.classList.add('is-dragging');
     }
     let pos = g.startPos - dx / ((CARD_W + GAP) * scaleRef.current);
     // Résistance au-delà des extrémités.
@@ -340,6 +362,7 @@ const Evenements: React.FC = () => {
     gestureRef.current = null;
     e.currentTarget.classList.remove('is-dragging');
 
+    if (g.scrolling) return;
     if (g.dragging) {
       const dx = e.clientX - g.startX;
       const fast = !cancelled && performance.now() - g.startTime < FAST_SWIPE_MS && Math.abs(dx) > FAST_SWIPE_PX;
@@ -393,7 +416,7 @@ const Evenements: React.FC = () => {
       window.removeEventListener('pointercancel', onUp);
       if (up.type === 'pointercancel') return;
       const dx = up.clientX - start.x;
-      if (Math.abs(dx) > FRISE_SWIPE_PX && Math.abs(dx) > Math.abs(up.clientY - start.y)) {
+      if (Math.abs(dx) > FRISE_SWIPE_PX && Math.abs(up.clientY - start.y) * HORIZONTAL_BIAS < Math.abs(dx)) {
         friseSwipedRef.current = true;
         goTo(activeRef.current - Math.sign(dx));
       }
@@ -415,7 +438,7 @@ const Evenements: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent fullscreen className="ev-content">
+      <IonContent ref={contentRef} fullscreen className="ev-content">
         <div className={`ev-page${entering ? ' is-entering' : ''}${reduceMotion ? ' is-reduced' : ''}`}>
           <header className="ev-header">
             <div>

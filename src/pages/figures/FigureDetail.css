@@ -479,13 +479,24 @@
   color: var(--ff-velin);
 }
 
-.ff-altname {
+/* Pile des autres noms : une seule case de grille pour tous, de la hauteur
+   du plus long ; seul le nom courant est visible. */
+.ff-altname-stack {
   margin-top: 14px;
+  display: grid;
+}
+
+.ff-altname {
+  grid-area: 1 / 1;
   min-height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
+}
+
+.ff-altname.is-hidden {
+  visibility: hidden;
 }
 
 .ff-altname-script {
