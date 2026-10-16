@@ -9,7 +9,7 @@ import { useLiturgicalDay } from '../../hooks/useLiturgicalDay';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useSheetDrag } from '../../hooks/useSheetDrag';
 import { todayIso, type LiturgicalItem, type OrdoData } from '../../services/liturgicalCalendar';
-import { ChevronLeftIcon, AccessibilityIcon } from '../../components/nav/icons';
+import { ChevronLeftIcon, AccessibilityIcon, BookIcon } from '../../components/nav/icons';
 import AccessibilityQuickSheet from '../../components/AccessibilityQuickSheet';
 import { tapHaptic } from '../../utils/haptics';
 import {
@@ -181,64 +181,55 @@ function saveReadingPosition(position: ReadingPosition) {
   }
 }
 
-/** Lignes d'une strophe avec retrait suspendu, signes liturgiques en rouge. */
-function Lines({ lines, keyPrefix }: { lines: string[]; keyPrefix: string }) {
-  return (
-    <>
-      {lines.map((l, k) => (
-        <div className="lec-line" key={k}>
-          {renderRubrics(l, `${keyPrefix}-${k}`)}
-        </div>
-      ))}
-    </>
-  );
-}
-
 interface BlockViewProps {
   block: LiturgyBlock;
   id: string;
+  /** Messe : les dialogues (conclusion des lectures) sont encadrés. */
+  isMass: boolean;
   gloriaOpen: boolean;
   onToggleGloria: () => void;
 }
 
-function BlockView({ block: b, id, gloriaOpen, onToggleGloria }: BlockViewProps) {
+function BlockView({ block: b, id, isMass, gloriaOpen, onToggleGloria }: BlockViewProps) {
   switch (b.t) {
     case 'rub':
       return <p className="lec-rubric">{b.x}</p>;
     case 'ant':
       return (
-        <div className="lec-antienne">
+        <p className="lec-antienne">
           <span className="lec-sign">Ant.</span>
           <span className="lec-antienne-text">{renderRubrics(b.x, `${id}-ant`)}</span>
-        </div>
+        </p>
       );
     case 'R':
       return (
-        <div className="lec-response">
-          <span className="lec-sign" aria-label="Répons">R/</span>
+        <p className="lec-response">
+          <span className="lec-sign" aria-label="Répons">℟</span>
           <span className="lec-response-text">{renderRubrics(b.x, `${id}-r`)}</span>
-        </div>
+        </p>
       );
     case 'vr':
       return (
-        <div className="lec-dialogue">
-          <div className="lec-text">{renderRubrics(b.a, `${id}-a`)}</div>
-          <div className="lec-dialogue-answer">
-            <span className="lec-sign" aria-hidden="true">—</span>
-            <span className="lec-text lec-dialogue-answer-text">{renderRubrics(b.b, `${id}-b`)}</span>
-          </div>
+        <div className={`lec-dialogue${isMass ? ' is-boxed' : ''}`}>
+          <p className="lec-text">
+            <span className="lec-sign lec-sign-versicle" aria-label="Verset">℣</span>
+            {renderRubrics(b.a, `${id}-a`)}
+          </p>
+          <p className="lec-text">
+            <span className="lec-sign" aria-label="Répons">℟</span>
+            <span className="lec-dialogue-answer-text">{renderRubrics(b.b, `${id}-b`)}</span>
+          </p>
         </div>
       );
     case 'st':
+      // Chaque verset en un paragraphe continu, numéro en exposant.
       return (
         <div className="lec-stanza">
           {b.verses.map((v, k) => (
-            <div className="lec-verse" key={k}>
-              <span className="lec-verse-number">{v.n}</span>
-              <div>
-                <Lines lines={v.lines} keyPrefix={`${id}-${k}`} />
-              </div>
-            </div>
+            <p className="lec-text" key={k}>
+              {v.n && <sup className="lec-verse-number">{v.n}</sup>}
+              {renderRubrics(v.lines.join(' '), `${id}-${k}`)}
+            </p>
           ))}
         </div>
       );
@@ -253,7 +244,11 @@ function BlockView({ block: b, id, gloriaOpen, onToggleGloria }: BlockViewProps)
           </button>
           {gloriaOpen && (
             <div className="lec-gloria-body">
-              <Lines lines={GLORIA_LINES} keyPrefix={`${id}-gl`} />
+              {GLORIA_LINES.map((l) => (
+                <p className="lec-text" key={l}>
+                  {l}
+                </p>
+              ))}
             </div>
           )}
         </div>
@@ -539,6 +534,7 @@ const LiturgieLecture: React.FC = () => {
                           key={id}
                           block={b}
                           id={id}
+                          isMass={isMass}
                           gloriaOpen={!!openGlorias[id]}
                           onToggleGloria={() => setOpenGlorias((g) => ({ ...g, [id]: !g[id] }))}
                         />
@@ -561,10 +557,26 @@ const LiturgieLecture: React.FC = () => {
                     {bibleTarget && (
                       <button
                         type="button"
-                        className="jour-gospel-button lec-bible-button"
-                        onClick={() => navigate(`/bible/${bibleTarget.bookId}/${bibleTarget.chapter}`)}
+                        className="lec-bible-card"
+                        onClick={() => {
+                          tapHaptic();
+                          navigate(`/bible/${bibleTarget.bookId}/${bibleTarget.chapter}`);
+                        }}
                       >
-                        Ouvrir dans la Bible
+                        <span className="lec-bible-icon" aria-hidden="true">
+                          <BookIcon size={18} />
+                        </span>
+                        <span className="lec-bible-texts">
+                          <span className="lec-bible-kicker">Ouvrir dans la Bible</span>
+                          <span className="lec-bible-line">
+                            {/* Messe : « Ps 32 (33) » plutôt que la liste complète des versets. */}
+                            <span className="lec-bible-ref">{isMass ? p.name : t.ref}</span>
+                            <span className="lec-bible-hint"> · Lire le chapitre en entier</span>
+                          </span>
+                        </span>
+                        <span className="lec-bible-arrow" aria-hidden="true">
+                          →
+                        </span>
                       </button>
                     )}
 

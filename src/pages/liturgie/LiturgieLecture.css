@@ -474,9 +474,9 @@ html[data-reading-theme='nuit'] .lec-page {
 /* Blocs */
 
 .lec-text,
-.lec-line,
-.lec-antienne-text,
-.lec-response-text {
+.lec-antienne,
+.lec-response {
+  margin: 0;
   font-family: var(--font-lecture);
   font-size: calc(19.5px * var(--a11y-scale));
   line-height: calc(1.5 * var(--a11y-leading));
@@ -484,16 +484,16 @@ html[data-reading-theme='nuit'] .lec-page {
   text-wrap: pretty;
 }
 
-.lec-line {
-  padding-left: 1.1em;
-  text-indent: -1.1em;
-}
-
+/* Signes ℣ ℟ « Ant. » : à la taille du texte, sur sa ligne. */
 .lec-sign {
+  margin-right: 6px;
   font-family: var(--font-eb-garamond);
   font-weight: 500;
-  font-size: 15px;
   color: var(--color-oxblood);
+}
+
+.lec-sign-versicle {
+  margin-right: 8px;
 }
 
 .lec-rubric {
@@ -511,10 +511,6 @@ html[data-reading-theme='nuit'] .lec-page {
   padding: 12px 16px 13px;
   border-radius: 12px;
   background: var(--color-papier-enfonce);
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 10px;
-  align-items: baseline;
 }
 
 .lec-antienne-text {
@@ -523,9 +519,6 @@ html[data-reading-theme='nuit'] .lec-page {
 
 .lec-response {
   margin-top: 18px;
-  display: grid;
-  grid-template-columns: 30px minmax(0, 1fr);
-  align-items: baseline;
 }
 
 .lec-response-text {
@@ -541,17 +534,11 @@ html[data-reading-theme='nuit'] .lec-page {
   gap: 10px;
 }
 
-.lec-verse {
-  display: grid;
-  grid-template-columns: 22px minmax(0, 1fr);
-}
-
 .lec-verse-number {
-  padding-top: 5px;
-  font-family: var(--font-inter);
-  font-size: 9.5px;
-  font-weight: 500;
-  color: var(--color-or);
+  margin-right: 3px;
+  font-size: 0.6em;
+  font-weight: 600;
+  color: var(--color-oxblood);
 }
 
 .lec-prose {
@@ -565,15 +552,11 @@ html[data-reading-theme='nuit'] .lec-page {
   gap: 4px;
 }
 
-.lec-dialogue-answer {
-  display: grid;
-  grid-template-columns: 22px minmax(0, 1fr);
-  align-items: baseline;
-}
-
-.lec-dialogue-answer .lec-sign {
-  font-weight: 400;
-  font-size: 16px;
+.lec-dialogue.is-boxed {
+  margin-top: 22px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--color-papier-enfonce);
 }
 
 .lec-dialogue-answer-text {
@@ -614,11 +597,82 @@ html[data-reading-theme='nuit'] .lec-page {
 }
 
 .lec-gloria-body {
-  padding: 0 0 12px 22px;
+  padding: 0 0 12px;
 }
 
-.lec-bible-button {
+/* Carte « Ouvrir dans la Bible » */
+
+.lec-bible-card {
+  width: 100%;
   margin-top: 28px;
+  padding: 16px 14px 16px 18px;
+  border: none;
+  border-radius: 18px;
+  background: var(--color-papier-enfonce);
+  box-shadow: inset 0 0 0 1px rgba(181, 137, 46, 0.45);
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 50px;
+  gap: 18px;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+}
+
+.lec-bible-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #6b1e23;
+  color: #f4eddc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lec-bible-texts {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lec-bible-kicker {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(10px * var(--a11y-scale));
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+.lec-bible-line {
+  line-height: 1.25;
+}
+
+.lec-bible-ref {
+  font-family: var(--font-cormorant);
+  font-size: calc(22px * var(--a11y-scale));
+  color: var(--color-encre);
+}
+
+.lec-bible-hint {
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(15px * var(--a11y-scale));
+  color: var(--encre-60);
+}
+
+.lec-bible-arrow {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--lec-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  color: var(--lec-gold);
 }
 
 .lec-source {
@@ -646,7 +700,7 @@ html[data-reading-theme='nuit'] .lec-page {
   position: relative;
   background: var(--color-papier);
   border-top: 0.5px solid rgba(181, 137, 46, 0.7);
-  padding: 10px 14px calc(env(safe-area-inset-bottom, 0px) + 10px);
+  padding: 10px 14px calc(env(safe-area-inset-bottom, 0px) + 14px);
 }
 
 .lec-bar-row {
