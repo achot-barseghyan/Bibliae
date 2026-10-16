@@ -330,7 +330,8 @@
 }
 
 .eglise-tile--jesus,
-.eglise-tile--saints {
+.eglise-tile--saints,
+.eglise-tile--abbayes {
   --eg-tile-ink: var(--eg-ivoire);
   --eg-tile-sub: rgba(244, 237, 220, 0.7);
   --eg-tile-accent: var(--eg-or-clair);
@@ -357,6 +358,10 @@
 
 .eglise-tile--paroisse {
   --eg-tile-bg: #D9B66A;
+}
+
+.eglise-tile--abbayes {
+  --eg-tile-bg: #23201A;
 }
 
 .eglise-tile-top {

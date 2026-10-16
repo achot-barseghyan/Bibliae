@@ -1,0 +1,856 @@
+/* Page de lecture d'une messe ou d'une heure — maquette « Office et Messe v2 ».
+   Le texte suit le thème, la police, la taille et l'interlignage choisis dans
+   Réglages > Lecture (variables de theme/variables.css) ; l'en-tête nuit de
+   l'office garde sa palette fixe. */
+
+.lec-page {
+  --lec-night: #141c30;
+  --lec-cream: #f4eddc;
+  --lec-gold: #f0d58e;
+  --lec-gold-dim: #d9b66a;
+  --lec-pill: #23201a;
+  --lec-pill-hover: #3a1a1e;
+
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-papier);
+}
+
+html[data-reading-theme='nuit'] .lec-page {
+  --lec-pill: #34302a;
+  --lec-pill-hover: #3f2a2c;
+}
+
+/* --- En-tête --- */
+
+.lec-hero {
+  flex: none;
+  position: relative;
+  overflow: hidden;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) 16px 14px;
+}
+
+.lec-hero.is-office {
+  background: var(--lec-night);
+  color: var(--lec-cream);
+}
+
+.lec-hero.is-mass {
+  border-bottom: 0.5px solid var(--filet-sections);
+  color: var(--color-encre);
+}
+
+.lec-hero-glow {
+  position: absolute;
+  left: -30%;
+  right: -30%;
+  bottom: -150px;
+  height: 240px;
+  background: radial-gradient(closest-side, var(--lec-glow), transparent 100%);
+  pointer-events: none;
+}
+
+.lec-hero-season {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--lec-season);
+}
+
+.lec-hero-nav {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: center;
+}
+
+.lec-round {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: inherit;
+  background: none;
+}
+
+.is-office .lec-round {
+  background: rgba(244, 237, 220, 0.1);
+}
+
+.is-mass .lec-round {
+  box-shadow: inset 0 0 0 0.5px var(--filet-barres);
+}
+
+.lec-round-end {
+  justify-self: end;
+}
+
+.lec-hero-date {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+.is-office .lec-hero-date {
+  color: var(--lec-gold-dim);
+}
+
+.lec-hero-titles {
+  position: relative;
+  margin-top: 6px;
+  text-align: center;
+}
+
+.lec-hero-title {
+  margin: 0;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.is-office .lec-hero-title {
+  font-weight: 300;
+  font-style: italic;
+  font-size: 44px;
+}
+
+.is-mass .lec-hero-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 30px;
+}
+
+.lec-hero-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--lec-season);
+}
+
+.lec-hero-subtitle {
+  margin: 6px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(14.5px * var(--a11y-scale));
+  color: var(--encre-72);
+}
+
+.is-office .lec-hero-subtitle {
+  color: rgba(244, 237, 220, 0.72);
+}
+
+/* Sélecteur à parts égales (messe) */
+
+.lec-segments {
+  position: relative;
+  margin-top: 16px;
+  min-height: 40px;
+  padding: 3px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  background: var(--color-papier-enfonce);
+  display: grid;
+}
+
+.lec-segments-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  border-radius: 17px;
+  background: var(--lec-pill);
+  transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.lec-segment {
+  position: relative;
+  min-width: 0;
+  min-height: 34px;
+  padding: 0 2px;
+  border: none;
+  background: none;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--encre-72);
+  cursor: pointer;
+  transition: color 400ms;
+}
+
+.lec-segment.is-active {
+  color: var(--lec-gold);
+}
+
+/* Fil de prière (office, messe à nombreuses parties) */
+
+.lec-rail {
+  position: relative;
+  margin-top: 18px;
+  height: 28px;
+}
+
+.lec-rail-track,
+.lec-rail-fill {
+  position: absolute;
+  left: 14px;
+  top: 13.5px;
+  height: 1px;
+}
+
+.lec-rail-track {
+  right: 14px;
+  background: rgba(244, 237, 220, 0.22);
+}
+
+.lec-rail-fill {
+  top: 13px;
+  height: 2px;
+  background: var(--lec-gold);
+  transition: width 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.lec-rail-dots {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lec-rail-dot {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.lec-rail-dot span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(244, 237, 220, 0.35);
+  transition: all 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.lec-rail-dot.is-done span {
+  background: var(--lec-gold);
+}
+
+.lec-rail-dot.is-current span {
+  width: 12px;
+  height: 12px;
+  background: var(--lec-gold);
+  box-shadow: 0 0 0 4px rgba(240, 213, 142, 0.25);
+}
+
+.is-mass .lec-rail-track {
+  background: var(--filet-barres);
+}
+
+.is-mass .lec-rail-fill,
+.is-mass .lec-rail-dot.is-done span,
+.is-mass .lec-rail-dot.is-current span {
+  background: var(--color-oxblood);
+}
+
+.is-mass .lec-rail-dot span {
+  background: var(--filet-barres);
+}
+
+.is-mass .lec-rail-dot.is-current span {
+  box-shadow: 0 0 0 4px rgba(107, 30, 35, 0.18);
+}
+
+.lec-step {
+  position: relative;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lec-step-button {
+  flex: 0 1 auto;
+  min-width: 0;
+  min-height: 36px;
+  padding: 0;
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.lec-step-name {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(10px * var(--a11y-scale));
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+.lec-step-sub {
+  flex: 0 10 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(14px * var(--a11y-scale));
+  color: var(--encre-72);
+}
+
+.lec-step-caret {
+  font-size: 10px;
+  color: var(--color-oxblood);
+}
+
+.lec-step-pos {
+  flex: none;
+  font-family: var(--font-inter);
+  font-size: calc(10px * var(--a11y-scale));
+  letter-spacing: 0.12em;
+  color: var(--encre-60);
+}
+
+.is-office .lec-step-name,
+.is-office .lec-step-caret {
+  color: var(--lec-gold);
+}
+
+.is-office .lec-step-sub {
+  color: rgba(244, 237, 220, 0.7);
+}
+
+.is-office .lec-step-pos {
+  color: rgba(244, 237, 220, 0.6);
+}
+
+/* --- Texte --- */
+
+.lec-swiper {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+}
+
+.lec-slide {
+  height: 100%;
+}
+
+.lec-body {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 24px 26px 44px;
+  box-sizing: border-box;
+  background: var(--color-papier);
+}
+
+.lec-kicker {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+.lec-name-row {
+  margin-top: 6px;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.lec-name {
+  margin: 6px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: calc(32px * var(--a11y-scale));
+  line-height: 1.05;
+  color: var(--color-encre);
+}
+
+.lec-name-row .lec-name {
+  margin: 0;
+}
+
+.lec-name-sub {
+  font-family: var(--font-eb-garamond);
+  font-size: calc(16px * var(--a11y-scale));
+  color: var(--encre-60);
+}
+
+.lec-divider {
+  display: block;
+  margin-top: 14px;
+  width: 36px;
+  height: 1px;
+  background: var(--color-or);
+}
+
+.lec-intro {
+  margin: 14px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(16px * var(--a11y-scale));
+  line-height: 1.45;
+  color: var(--encre-60);
+  text-wrap: pretty;
+}
+
+/* Évangile : carte sombre */
+
+.lec-gospel-card {
+  position: relative;
+  overflow: hidden;
+  margin: -4px -8px 0;
+  padding: 22px 20px;
+  border-radius: 16px;
+  background: radial-gradient(100% 80% at 90% 0%, #3a1a1e 0%, #23201a 70%);
+  box-shadow: 0 22px 36px -24px rgba(35, 32, 26, 0.8);
+}
+
+.lec-gospel-cross {
+  position: absolute;
+  right: -6px;
+  top: -34px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 160px;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(240, 213, 142, 0.25);
+  pointer-events: none;
+}
+
+.lec-gospel-card .lec-kicker {
+  position: relative;
+  color: var(--lec-gold);
+}
+
+.lec-gospel-card .lec-name {
+  position: relative;
+  color: var(--lec-cream);
+}
+
+.lec-gospel-card .lec-intro {
+  position: relative;
+  margin-top: 12px;
+  color: rgba(244, 237, 220, 0.8);
+}
+
+/* Blocs */
+
+.lec-text,
+.lec-line,
+.lec-antienne-text,
+.lec-response-text {
+  font-family: var(--font-lecture);
+  font-size: calc(19.5px * var(--a11y-scale));
+  line-height: calc(1.5 * var(--a11y-leading));
+  color: var(--color-encre);
+  text-wrap: pretty;
+}
+
+.lec-line {
+  padding-left: 1.1em;
+  text-indent: -1.1em;
+}
+
+.lec-sign {
+  font-family: var(--font-eb-garamond);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--color-oxblood);
+}
+
+.lec-rubric {
+  margin: 26px 0 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: calc(9.5px * var(--a11y-scale));
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+.lec-antienne {
+  margin-top: 16px;
+  padding: 12px 16px 13px;
+  border-radius: 12px;
+  background: var(--color-papier-enfonce);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+}
+
+.lec-antienne-text {
+  font-style: italic;
+}
+
+.lec-response {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: baseline;
+}
+
+.lec-response-text {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-oxblood);
+}
+
+.lec-stanza {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lec-verse {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+}
+
+.lec-verse-number {
+  padding-top: 5px;
+  font-family: var(--font-inter);
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--color-or);
+}
+
+.lec-prose {
+  margin: 16px 0 0;
+}
+
+.lec-dialogue {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lec-dialogue-answer {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: baseline;
+}
+
+.lec-dialogue-answer .lec-sign {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.lec-dialogue-answer-text {
+  font-weight: 500;
+}
+
+.lec-gloria {
+  margin-top: 18px;
+  border-top: 0.5px solid var(--filet-sections);
+  border-bottom: 0.5px solid var(--filet-sections);
+}
+
+.lec-gloria-toggle {
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.lec-gloria-title {
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(16px * var(--a11y-scale));
+  color: var(--color-oxblood);
+}
+
+.lec-gloria-action {
+  font-family: var(--font-inter);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-or);
+}
+
+.lec-gloria-body {
+  padding: 0 0 12px 22px;
+}
+
+.lec-bible-button {
+  margin-top: 28px;
+}
+
+.lec-source {
+  margin: 34px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-inter);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--encre-60);
+}
+
+.lec-source span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  color: var(--color-or);
+}
+
+/* --- Barre du bas : précédent, suite --- */
+
+.lec-bar {
+  flex: none;
+  position: relative;
+  background: var(--color-papier);
+  border-top: 0.5px solid rgba(181, 137, 46, 0.7);
+  padding: 10px 14px calc(env(safe-area-inset-bottom, 0px) + 10px);
+}
+
+.lec-bar-row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.lec-bar-prev {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  box-shadow: inset 0 0 0 0.5px var(--encre-42);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-encre);
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.lec-bar-prev:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.lec-bar-next {
+  min-width: 0;
+  height: 46px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 23px;
+  background: var(--lec-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+html[data-reading-theme='nuit'] .lec-bar-next {
+  box-shadow: inset 0 0 0 0.5px rgba(240, 213, 142, 0.35);
+}
+
+.lec-bar-next:active {
+  background: var(--lec-pill-hover);
+}
+
+.lec-bar-next-kicker {
+  flex: none;
+  font-family: var(--font-inter);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.6);
+}
+
+.lec-bar-next-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 19px;
+  color: var(--lec-gold);
+}
+
+.lec-bar-next-arrow {
+  flex: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--lec-cream);
+}
+
+/* --- Sommaire --- */
+
+.lec-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: rgba(15, 21, 38, 0.55);
+}
+
+.lec-sheet {
+  position: relative;
+  max-height: 85%;
+  overflow-y: auto;
+  background: var(--color-papier);
+  border-radius: 22px 22px 0 0;
+  padding: 10px 18px calc(env(safe-area-inset-bottom, 0px) + 26px);
+}
+
+.lec-sheet-handle {
+  display: block;
+  margin: 0 auto;
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--filet-barres);
+}
+
+.lec-sheet-header {
+  margin-top: 14px;
+  padding: 0 4px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lec-sheet-title {
+  margin: 0;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 26px;
+  color: var(--color-encre);
+}
+
+.lec-sheet-pos {
+  flex: none;
+  font-family: var(--font-inter);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--encre-60);
+}
+
+.lec-sheet-list {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lec-sheet-item {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 4px;
+  border: none;
+  border-bottom: 0.5px solid var(--filet-tableaux);
+  background: none;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+}
+
+.lec-sheet-number {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px var(--encre-42);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-cormorant);
+  font-size: 15px;
+  color: var(--encre-60);
+}
+
+.lec-sheet-item.is-done .lec-sheet-number {
+  background: var(--color-or);
+  box-shadow: none;
+  color: #f4eddc;
+}
+
+.lec-sheet-item.is-current .lec-sheet-number {
+  background: var(--color-oxblood);
+  box-shadow: none;
+  color: #f4eddc;
+}
+
+.lec-sheet-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--color-encre);
+}
+
+.lec-sheet-item.is-current .lec-sheet-name {
+  font-weight: 600;
+}
+
+.lec-sheet-sub {
+  max-width: 40vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--encre-60);
+}

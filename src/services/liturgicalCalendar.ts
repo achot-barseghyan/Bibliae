@@ -29,6 +29,13 @@ export interface LiturgicalItem {
   /** Titre propre d'une hymne ("Le soir peut revenir"), affiché sous le
    * libellé générique de l'onglet. */
   title?: string | null;
+  /** Formule d'annonce d'une lecture de la messe (« Lecture de la lettre de
+   * saint Paul apôtre aux Éphésiens »), en texte brut. */
+  intro?: string | null;
+  /** Refrain du psaume de la messe (HTML), repris entre les strophes. */
+  refrain?: string | null;
+  /** Acclamation de l'Évangile (HTML : « Alléluia. … »). */
+  acclamation?: string | null;
 }
 
 export interface OrdoData {
@@ -428,20 +435,73 @@ async function fetchAelfOffices(date: string): Promise<Record<string, Liturgical
   return valid.length > 0 ? Object.fromEntries(valid) : null;
 }
 
-async function fetchAelfOfficesWithCache(date: string): Promise<Record<string, LiturgicalItem[]> | null> {
-  const cacheKey = `${OFFICES_CACHE_KEY_PREFIX}${date}`;
-  const fresh = await fetchAelfOffices(date);
+/** Réponse fraîche mise en cache, sinon dernière version en cache, sinon
+ * `null` (l'appelant garde alors la version CatéGPT). */
+async function withAelfCache<T>(cacheKey: string, fresh: T | null): Promise<T | null> {
   if (fresh) {
     Preferences.set({ key: cacheKey, value: JSON.stringify(fresh) }).catch(() => {});
     return fresh;
   }
   try {
     const { value } = await Preferences.get({ key: cacheKey });
-    if (value) return JSON.parse(value) as Record<string, LiturgicalItem[]>;
+    if (value) return JSON.parse(value) as T;
   } catch {
-    // Cache illisible : on retombe sur la version CatéGPT ci-dessous.
+    // Cache illisible : on retombe sur la version CatéGPT.
   }
   return null;
+}
+
+async function fetchAelfOfficesWithCache(date: string): Promise<Record<string, LiturgicalItem[]> | null> {
+  return withAelfCache(`${OFFICES_CACHE_KEY_PREFIX}${date}`, await fetchAelfOffices(date));
+}
+
+// --- Messe : compléments AELF ---
+//
+// CatéGPT donne les textes de la messe, mais ni la formule d'annonce des
+// lectures, ni l'acclamation de l'Évangile, que l'AELF fournit. On les
+// rattache aux parties CatéGPT par nature et par ordre (1re lecture ↔
+// lecture_1…), sans toucher aux textes eux-mêmes.
+const MASS_EXTRAS_CACHE_KEY_PREFIX = 'liturgical-mass-extras:';
+
+interface MassExtras {
+  readings: Array<{ intro: string | null }>;
+  psalm: { refrain: string | null } | null;
+  gospel: { intro: string | null; acclamation: string | null } | null;
+}
+
+async function fetchAelfMassExtras(date: string): Promise<MassExtras | null> {
+  const raw = (await fetchAelfOfficeRaw('messes', date)) as unknown;
+  const lectures = Array.isArray(raw) ? (raw[0] as { lectures?: unknown } | undefined)?.lectures : null;
+  if (!Array.isArray(lectures)) return null;
+  const all = lectures as Array<Record<string, unknown>>;
+  const plain = (value: unknown) => {
+    const text = asText(value);
+    return text ? text.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim() || null : null;
+  };
+  const psalm = all.find((l) => l.type === 'psaume' || l.type === 'cantique');
+  const gospel = all.find((l) => l.type === 'evangile');
+  return {
+    readings: all.filter((l) => typeof l.type === 'string' && l.type.startsWith('lecture')).map((l) => ({ intro: plain(l.intro_lue) })),
+    psalm: psalm ? { refrain: asText(psalm.refrain_psalmique) } : null,
+    gospel: gospel ? { intro: plain(gospel.intro_lue), acclamation: asText(gospel.verset_evangile) } : null
+  };
+}
+
+const MASS_READING_KEYS = new Set(['reading', 'first_reading', 'second_reading']);
+
+function withMassExtras(mass: LiturgicalItem[], extras: MassExtras): LiturgicalItem[] {
+  let readingIndex = 0;
+  return mass.map((item) => {
+    if (MASS_READING_KEYS.has(item.key)) {
+      const intro = extras.readings[readingIndex++]?.intro ?? null;
+      return intro ? { ...item, intro } : item;
+    }
+    if (item.key === 'psalm' && extras.psalm?.refrain) return { ...item, refrain: extras.psalm.refrain };
+    if (item.key === 'gospel' && extras.gospel) {
+      return { ...item, intro: extras.gospel.intro, acclamation: extras.gospel.acclamation };
+    }
+    return item;
+  });
 }
 
 /**
@@ -453,18 +513,22 @@ async function fetchAelfOfficesWithCache(date: string): Promise<Record<string, L
  * mis en cache pour cette date.
  */
 export async function fetchFeastForDate(date: string): Promise<FeastFetchResult> {
-  const [result, aelfOffices] = await Promise.all([
+  const [result, aelfOffices, massExtras] = await Promise.all([
     cachedFetch<RawFeastResponse>(
       `${CACHE_KEY_PREFIX}${date}`,
       `${API_BASE}/api/v1/feast?date=${date}&locale=fr`
     ),
-    fetchAelfOfficesWithCache(date)
+    fetchAelfOfficesWithCache(date),
+    fetchAelfMassExtras(date).then((fresh) => withAelfCache(`${MASS_EXTRAS_CACHE_KEY_PREFIX}${date}`, fresh))
   ]);
 
   const feast = result.data ? toFeastOfDay(result.data) : null;
   if (feast && aelfOffices) {
     feast.offices = { ...feast.offices, ...aelfOffices };
     feast.collect = feast.offices.lauds?.find((item) => item.key === 'collect')?.text ?? feast.collect;
+  }
+  if (feast && massExtras) {
+    feast.mass = withMassExtras(feast.mass, massExtras);
   }
 
   return {

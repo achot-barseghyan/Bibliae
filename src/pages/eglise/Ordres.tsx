@@ -11,6 +11,7 @@ import {
 } from '../../data/ordres';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useSheetDrag } from '../../hooks/useSheetDrag';
+import { ExternalArrowIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
 import './Ordres.css';
 
@@ -243,7 +244,7 @@ const Ordres: React.FC = () => {
           <div data-in="" className="oc-rosace" aria-hidden="true">
             <span className="oc-rosace-glow" />
             <span className="oc-rosace-ticks" />
-            <span className="oc-rosace-core">✚</span>
+            <span className="oc-rosace-core">✚︎</span>
           </div>
           <p data-in="" className="oc-hero-kicker">
             Vie consacrée · familles d'Église
@@ -475,7 +476,7 @@ const Ordres: React.FC = () => {
             )}
 
             <a className="oc-btn oc-btn--outline" href={wikiUrl(cur.name)} target="_blank" rel="noopener noreferrer">
-              Lire sur Wikipédia <span aria-hidden="true">↗</span>
+              Lire sur Wikipédia <ExternalArrowIcon />
             </a>
 
             <div className="oc-sheet-nav">

@@ -158,26 +158,33 @@ interface Tile {
   path: string;
   /** État passé à la page, ex. l'étape du parcours à ouvrir. */
   state?: { stepId: string };
-  variant: 'jesus' | 'saints' | 'ordres' | 'paroisse';
+  variant: 'jesus' | 'saints' | 'ordres' | 'paroisse' | 'abbayes';
 }
 
 const TILES: Tile[] = [
   {
     title: 'Jésus',
     description: "Qui il est, ce qu'il a dit",
-    glyph: '✚',
+    glyph: '✚︎',
     path: '/parcours',
     state: { stepId: 'jesus' },
     variant: 'jesus'
   },
-  { title: 'Les saints', description: 'Un saint pour chaque jour', glyph: '✦', path: '/saints', variant: 'saints' },
-  { title: 'Ordres & communautés', description: 'Moines, frères et sœurs', glyph: '☩', path: '/ordres', variant: 'ordres' },
+  { title: 'Les saints', description: 'Un saint pour chaque jour', glyph: '✦︎', path: '/saints', variant: 'saints' },
+  { title: 'Ordres & communautés', description: 'Moines, frères et sœurs', glyph: '☩︎', path: '/ordres', variant: 'ordres' },
   {
     title: 'Trouver une paroisse',
     description: 'Messes et accueil près de toi',
-    glyph: '⌂',
+    glyph: '⌂︎',
     path: '/paroisses',
     variant: 'paroisse'
+  },
+  {
+    title: 'Abbayes & monastères',
+    description: 'Lieux de prière en France',
+    glyph: '✠︎',
+    path: '/abbayes',
+    variant: 'abbayes'
   }
 ];
 

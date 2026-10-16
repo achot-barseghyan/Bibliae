@@ -10,6 +10,7 @@ import Bible from './pages/Bible';
 import Rosaire from './pages/Rosaire';
 import Prier from './pages/Prier';
 import FigureDetail from './pages/figures/FigureDetail';
+import Abbayes from './pages/eglise/Abbayes';
 import Ordres from './pages/eglise/Ordres';
 import Parcours from './pages/eglise/Parcours';
 import Paroisses from './pages/eglise/Paroisses';
@@ -22,7 +23,8 @@ import APropos from './pages/reglages/APropos';
 import Sources from './pages/reglages/Sources';
 import Contact from './pages/reglages/Contact';
 import Favoris from './pages/Favoris';
-import JourLiturgique, { LiturgieLecture } from './pages/JourLiturgique';
+import JourLiturgique from './pages/JourLiturgique';
+import LiturgieLecture from './pages/liturgie/LiturgieLecture';
 import EvenementDetail from './pages/evenements/EvenementDetail';
 import Catechisme from './pages/Catechisme';
 import LieuxOpeningNotice from './components/LieuxOpeningNotice';
@@ -84,6 +86,7 @@ const App: React.FC = () => {
                 <Route path="/pourquoi-croire" element={<PourquoiCroire />} />
                 <Route path="/saints" element={<Saints />} />
                 <Route path="/ordres" element={<Ordres />} />
+                <Route path="/abbayes" element={<Abbayes />} />
                 <Route path="/credo/:councilId" element={<CouncilText />} />
                 <Route path="/reglages" element={<Reglages />} />
                 <Route path="/a-propos" element={<APropos />} />

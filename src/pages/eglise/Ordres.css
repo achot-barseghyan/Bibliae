@@ -979,7 +979,8 @@
   color: var(--color-encre);
 }
 
-.oc-btn--outline span {
+.oc-btn--outline span,
+.oc-btn--outline svg {
   color: var(--color-or);
 }
 

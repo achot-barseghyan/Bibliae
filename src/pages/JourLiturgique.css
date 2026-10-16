@@ -2,32 +2,6 @@
   --background: var(--color-papier);
 }
 
-.jour-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: calc(env(safe-area-inset-top, 0px) + 14px) 12px 8px;
-}
-
-.jour-header-back,
-.jour-header-today {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  border-radius: 50%;
-  color: var(--color-encre);
-  cursor: pointer;
-}
-
-.jour-header-today.is-active {
-  color: var(--color-oxblood);
-  background: var(--color-papier-enfonce);
-}
-
 .jour-divider {
   width: 140px;
   height: 1px;
@@ -78,105 +52,7 @@
   text-align: left;
 }
 
-/* --- Page de lecture (messe / heure), occupe toute la page Ionic --- */
-
-.jour-detail {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  background: var(--color-papier);
-}
-
-.jour-header-titles {
-  text-align: center;
-}
-
-.jour-header-subtitle {
-  font-family: var(--font-inter);
-  font-weight: 600;
-  font-size: calc(13px * var(--a11y-scale));
-  letter-spacing: var(--tracking-min);
-  text-transform: uppercase;
-  color: var(--color-oxblood);
-  margin: 0;
-}
-
-.jour-detail-tabs {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  background: var(--color-papier-enfonce);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.jour-detail-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.jour-detail-tab {
-  flex: 0 0 auto;
-  min-height: 30px;
-  padding: 0 12px;
-  border-radius: 8px;
-  border: 1px solid var(--filet-barres);
-  background: none;
-  font-family: var(--font-inter);
-  font-weight: 400;
-  font-size: var(--taille-cartouche);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-min);
-  color: var(--color-encre);
-  cursor: pointer;
-}
-
-.jour-detail-tab.is-active {
-  font-weight: 600;
-  border-color: var(--color-oxblood);
-  background: var(--color-papier);
-  color: var(--color-oxblood);
-}
-
-.jour-detail-swiper {
-  flex: 1 1 auto;
-  min-height: 0;
-  width: 100%;
-}
-
-.jour-detail-slide {
-  height: 100%;
-}
-
-.jour-detail-body {
-  height: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  /* marge basse : laisse la place à la croix flottante (WorldButton) */
-  padding: 26px 24px calc(env(safe-area-inset-bottom, 0px) + 110px);
-}
-
-.jour-detail-heading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.jour-detail-heading .jour-section-kicker {
-  border-top: none;
-  padding-top: 0;
-}
-
-.jour-detail-ref {
-  font-family: var(--font-cormorant);
-  font-weight: 400;
-  font-size: calc(27px * var(--a11y-scale));
-  color: var(--color-encre);
-  margin: 8px 0 0;
-}
+/* --- Page de lecture (liturgie/LiturgieLecture) : bloc latin, commémoraison --- */
 
 .jour-detail-paragraph {
   font-family: var(--font-lecture);
@@ -192,27 +68,9 @@
   white-space: pre-line;
 }
 
-.jour-verse-number {
-  font-family: var(--font-inter);
-  font-size: var(--taille-surtitre);
-  color: var(--color-oxblood);
-  vertical-align: super;
-  margin-right: 4px;
-}
-
-.jour-antienne-label {
-  font-weight: 600;
-  color: var(--color-oxblood);
-}
-
 .jour-rubric {
   color: var(--color-oxblood);
   font-style: normal;
-}
-
-.jour-antienne-text {
-  font-weight: 600;
-  font-style: italic;
 }
 
 .jour-latin-block {
@@ -235,10 +93,6 @@
   margin-top: 22px;
   padding-top: 16px;
   border-top: 1px solid var(--filet-barres);
-}
-
-.jour-detail-actions {
-  margin-top: 22px;
 }
 
 /* --- Hors ligne : bandeau (contenu en cache affiché) --- */
