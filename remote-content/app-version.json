@@ -1,25 +1,25 @@
 {
-  "latest": "1.3.0",
+  "latest": "1.3.2",
   "minimum": "1.0.0",
   "stores": {
     "android": "https://play.google.com/store/apps/details?id=com.bibliae.app",
-    "ios": ""
+    "ios": "https://apps.apple.com/app/id6822832756"
   },
   "news": [
     {
-      "glyph": "◈",
-      "title": "Une nouvelle frise",
-      "body": "235 événements de l'histoire sainte, de la Création à l'Église naissante, époque par époque."
+      "glyph": "❡",
+      "title": "La messe et les heures, comme dans le bréviaire",
+      "body": "Antiennes, numéros de versets, répons et « Gloire au Père » repliable : une nouvelle page de lecture pour chaque office."
     },
     {
-      "glyph": "✦",
-      "title": "50 nouvelles figures",
-      "body": "Caïn, Melkisédek, Jézabel, Ponce Pilate, Marc… avec leur biographie, leur chronologie et leurs lieux."
+      "glyph": "⁂",
+      "title": "D'une lecture à l'autre",
+      "body": "Glissez pour passer à la lecture suivante, et retrouvez votre place en revenant."
     },
     {
-      "glyph": "⌕",
-      "title": "Une seule recherche, partout",
-      "body": "Chaque loupe ouvre la même recherche : versets, livres, figures, prières et saints."
+      "glyph": "✚",
+      "title": "Abbayes & monastères",
+      "body": "Une centaine de lieux de prière en France, avec recherche et filtres par famille monastique."
     }
   ]
 }
