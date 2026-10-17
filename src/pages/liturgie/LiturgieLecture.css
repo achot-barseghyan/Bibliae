@@ -374,6 +374,15 @@ html[data-reading-theme='nuit'] .lec-page {
   padding: 24px 26px 44px;
   box-sizing: border-box;
   background: var(--color-papier);
+  /* Ionic pose `-webkit-touch-callout: none` sur tout (`*`), ce qui empêche
+     sous iOS de lancer une sélection par appui long. */
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.lec-body,
+.lec-body * {
+  -webkit-touch-callout: default;
 }
 
 .lec-kicker {
@@ -536,8 +545,16 @@ html[data-reading-theme='nuit'] .lec-page {
 
 .lec-verse-number {
   margin-right: 3px;
-  font-size: 0.6em;
+  font-size: 0.75em;
   font-weight: 600;
+  /* Posé sur la ligne de base du texte plutôt qu'en exposant (normalize.css
+     d'Ionic remonte les <sup> de 0,5em) ; chiffres alignés, les chiffres
+     elzéviriens de Cormorant paraissant minuscules. */
+  vertical-align: baseline;
+  position: static;
+  top: auto;
+  font-variant-numeric: lining-nums;
+  line-height: 0;
   color: var(--color-oxblood);
 }
 
@@ -772,6 +789,10 @@ html[data-reading-theme='nuit'] .lec-bar-next {
   font-weight: 500;
   font-size: 19px;
   color: var(--lec-gold);
+  /* Les bas de casse de Cormorant tombent sous le centre de la boîte :
+     on les remonte au centre optique, à hauteur des capitales de « Suite ». */
+  position: relative;
+  top: -2px;
 }
 
 .lec-bar-next-arrow {
@@ -779,6 +800,8 @@ html[data-reading-theme='nuit'] .lec-bar-next {
   font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
   color: var(--lec-cream);
+  position: relative;
+  top: -1.5px;
 }
 
 /* --- Sommaire --- */

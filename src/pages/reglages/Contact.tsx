@@ -6,6 +6,7 @@ import './InfoPage.css';
 import WorldButton from '../../components/nav/WorldButton';
 
 const CONTACT_EMAIL = 'contact@bibliae.app';
+const CONTACT_URL = 'https://bibliae.app/contact';
 
 const Contact: React.FC = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const Contact: React.FC = () => {
             Une question, une erreur à signaler, une suggestion ? Écrivez-nous.
           </p>
 
-          <a className="info-page-contact-button" href={`mailto:${CONTACT_EMAIL}`}>
+          <a className="info-page-contact-button" href={CONTACT_URL} target="_blank" rel="noopener noreferrer">
             {CONTACT_EMAIL}
           </a>
         </div>

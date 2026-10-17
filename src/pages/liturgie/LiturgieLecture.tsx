@@ -227,7 +227,8 @@ function BlockView({ block: b, id, isMass, gloriaOpen, onToggleGloria }: BlockVi
         <div className="lec-stanza">
           {b.verses.map((v, k) => (
             <p className="lec-text" key={k}>
-              {v.n && <sup className="lec-verse-number">{v.n}</sup>}
+              {v.sign && renderRubrics(v.sign, `${id}-${k}-s`)}
+              {v.n &&<sup className="lec-verse-number">{v.n}</sup>}
               {renderRubrics(v.lines.join(' '), `${id}-${k}`)}
             </p>
           ))}
@@ -492,6 +493,10 @@ const LiturgieLecture: React.FC = () => {
             slidesPerView={1}
             spaceBetween={0}
             resistanceRatio={0.65}
+            // Par défaut Swiper annule le pointerdown et capte le glisser à la
+            // souris, ce qui empêche de sélectionner le texte des lectures.
+            simulateTouch={false}
+            touchStartPreventDefault={false}
             onSlideChange={(swiper) => changeIndex(swiper.activeIndex)}
           >
             {tabs.map((t, i) => {

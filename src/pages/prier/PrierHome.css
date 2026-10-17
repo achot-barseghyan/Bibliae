@@ -128,6 +128,9 @@
 
 .prier-home-card--prayers {
   border-radius: 90px 20px 20px 20px;
+  /* Sous 40px, l'arrondi de 90px rogne le début de la première ligne quand
+     le contenu remplit la carte (texte agrandi). */
+  padding-top: 40px;
   background: linear-gradient(160deg, #8a2a2f, #4a1418);
 }
 

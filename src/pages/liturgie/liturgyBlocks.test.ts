@@ -25,6 +25,20 @@ describe('textBlocks', () => {
     ]);
   });
 
+  it('reconnaît le numéro de verset placé après un R/', () => {
+    const html =
+      '<p>R/ <span class="verse_number">2</span> Ô Seigneur, notre Dieu,<br />\nqu\'il est grand ton nom par toute la terre !<br /><span class="verse_number">3</span> par la bouche des enfants</p>';
+    expect(textBlocks(html)).toEqual([
+      {
+        t: 'st',
+        verses: [
+          { n: '2', sign: 'R/', lines: ['Ô Seigneur, notre Dieu,', "qu'il est grand ton nom par toute la terre !"] },
+          { n: '3', lines: ['par la bouche des enfants'] }
+        ]
+      }
+    ]);
+  });
+
   it('isole le répons R/ et la conclusion des lectures', () => {
     expect(
       textBlocks('<p>Et maintenant, Seigneur, permets-nous de prier :</p><br />R/ <p>Pour ta plus grande gloire !</p>')

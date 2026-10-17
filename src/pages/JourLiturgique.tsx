@@ -306,7 +306,10 @@ const JourLiturgique: React.FC = () => {
     );
     pending.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [hasContent, date, ordo, hours.length]);
+    // Sur `active` et non sur `date` : les données du nouveau jour arrivent
+    // après le changement de date, avec parfois d'autres parties (2ᵉ lecture
+    // le dimanche) qui resteraient sinon invisibles.
+  }, [active, hours.length]);
 
   // Changement de jour : le numéro et le titre se redessinent.
   const firstRender = useRef(true);

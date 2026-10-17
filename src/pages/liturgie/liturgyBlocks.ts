@@ -10,6 +10,8 @@ export interface Verse {
   /** Numéro de verset, vide si la source n'en donne pas. */
   n: string;
   lines: string[];
+  /** Signe R/ ou V/ qui précède le numéro (« R/ 2 Ô Seigneur… »). */
+  sign?: string;
 }
 
 export type LiturgyBlock =
@@ -37,7 +39,8 @@ const READING_CONCLUSIONS: Array<[RegExp, string, string]> = [
 
 const RESPONSE_PREFIX = /^(?:R\/|℟\.?)\s*/;
 const VERSICLE_PREFIX = /^(?:V\/|℣\.?)\s*/;
-const VERSE_START = /^(\d{1,3})\s+(.+)$/;
+// Le numéro peut suivre un signe R/ ou V/ (refrain en tête de strophe).
+const VERSE_START = /^(?:(R\/|℟\.?|V\/|℣\.?)\s*)?(\d{1,3})\s+(.+)$/;
 
 /** Espace fine insécable avant ; : ! ? » et après « : la ponctuation ne
  * part jamais seule en début de ligne. */
@@ -64,7 +67,9 @@ function stanzaBlock(lines: string[]): LiturgyBlock | null {
   for (const line of lines) {
     const m = line.match(VERSE_START);
     if (m) {
-      verses.push({ n: String(parseInt(m[1], 10)), lines: [m[2]] });
+      const verse: Verse = { n: String(parseInt(m[2], 10)), lines: [m[3]] };
+      if (m[1]) verse.sign = m[1];
+      verses.push(verse);
     } else if (verses.length > 0) {
       verses[verses.length - 1].lines.push(line);
     } else {
