@@ -7,6 +7,9 @@ import App from './App';
 import { Capacitor } from '@capacitor/core';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { playBibliaeSplash } from './splash/bibliaeSplash';
+import { installSearchKeyboardDismiss } from './utils/searchKeyboard';
+
+installSearchKeyboardDismiss();
 
 // Réglages lus avant tout : l'animation de lancement et le premier rendu
 // doivent déjà respecter « Réduire les animations ».

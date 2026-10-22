@@ -3,7 +3,9 @@ import SpotlightTour, { type TourStep } from './SpotlightTour';
 
 const STEPS: TourStep[] = [
   {
-    selector: '.app-tab-bar .rosace-bar',
+    // La rangée d'onglets seulement : `.rosace-bar` englobe aussi le vide
+    // transparent au-dessus du fronton.
+    selector: '.app-tab-bar .rosace-bar-tabs',
     title: 'Le Compendium',
     text: "Figures, Événements, Frise et Église sont les quatre sections du Compendium, l'index de la Bible.",
     shape: 'pill',

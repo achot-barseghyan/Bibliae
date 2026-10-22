@@ -17,10 +17,16 @@ import { useReadingPlan } from '../../hooks/useReadingPlan';
 import { useAnnotations } from '../../hooks/useAnnotations';
 import WorldButton from '../../components/nav/WorldButton';
 import AccessibilityQuickSheet from '../../components/AccessibilityQuickSheet';
-import { AccessibilityIcon, ChevronDownIcon, SearchIcon } from '../../components/nav/icons';
+import { AccessibilityIcon, CheckIcon, ChevronDownIcon, SearchIcon } from '../../components/nav/icons';
 import { tapHaptic } from '../../utils/haptics';
 import { useOpenSearch } from '../accueil/searchContext';
 import ParcoursSelectorSheet from './ParcoursSelectorSheet';
+import ParcoursCreateSheet from './ParcoursCreateSheet';
+import ParcoursCompletionSheet from './ParcoursCompletionSheet';
+import ChapterSelectionBar from './ChapterSelectionBar';
+import ChapterUndoToast from './ChapterUndoToast';
+import SelectToggle from './SelectToggle';
+import { useChapterSelection } from './useChapterSelection';
 import PlanCard from './PlanCard';
 import ChapterLegend from './ChapterLegend';
 import NightStars from './NightStars';
@@ -63,7 +69,8 @@ const TABS: { key: IndexTab; label: string; count: number }[] = [
   { key: 'nouveau', label: 'Nouveau Testament', count: booksByTestament('nouveau').length }
 ];
 
-const PSALM_COUNT = getBook('ps')?.chapters ?? 150;
+const PSALMS_BOOK = getBook('ps');
+const PSALM_COUNT = PSALMS_BOOK?.chapters ?? 150;
 const TOTAL_CHAPTERS = BOOKS.reduce((sum, b) => sum + b.chapters, 0);
 const OLD_COUNT = booksByTestament('ancien').length;
 const NEW_COUNT = booksByTestament('nouveau').length;
@@ -80,10 +87,25 @@ const RING_C = 169.6;
 const BibleIndex: React.FC = () => {
   const navigate = useNavigate();
   const reduceMotion = useBibleReducedMotion();
-  const { activeParcours, forParcours, positionFor, progress, otherReaderOf } = useReadingProgress();
+  const { parcours, activeParcours, forParcours, positionFor, progress, otherReaderOf } = useReadingProgress();
   const { annotations } = useAnnotations();
   const plan = useReadingPlan();
   const [tab, setTab] = useState<IndexTab>(() => loadIndexView()?.tab ?? 'ancien');
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [completedParcoursId, setCompletedParcoursId] = useState<string | null>(null);
+
+  // Sélection multiple dans le psautier : même geste et même barre que l'écran Livre.
+  const psalmSelect = useChapterSelection(PSALMS_BOOK, {
+    onOpen: (n) => {
+      tapHaptic();
+      navigate(`/bible/ps/${n}`);
+    },
+    onCompleted: setCompletedParcoursId
+  });
+  const { selection: psalmSelection, exitSelection: exitPsalmSelection } = psalmSelect;
+  useEffect(() => {
+    if (tab !== 'psaumes') exitPsalmSelection();
+  }, [tab, exitPsalmSelection]);
   const contentRef = useRef<HTMLIonContentElement>(null);
   const tabRef = useRef(tab);
   tabRef.current = tab;
@@ -231,11 +253,14 @@ const BibleIndex: React.FC = () => {
   };
 
   const tabIndex = TABS.findIndex((t) => t.key === tab);
-  // Psaume où reprendre : même règle que la grille d'un livre (BibleBook).
+  const completedParcours = completedParcoursId ? parcours.find((p) => p.id === completedParcoursId) ?? null : null;
+  // Psaume « en cours » : les psaumes lus n'étant pas forcément contigus
+  // (sélection multiple), c'est le premier psaume non lu dès que le psautier
+  // est entamé ; avant cela, la position de lecture s'il y en a une.
   let psalmCurrent: number | null = null;
-  if (position?.bookId === 'ps' && !readPsalms.has(position.chapter)) {
-    psalmCurrent = position.chapter;
-  } else if (readPsalms.size > 0 && readPsalms.size < PSALM_COUNT) {
+  if (readPsalms.size === 0) {
+    if (position?.bookId === 'ps') psalmCurrent = position.chapter;
+  } else if (readPsalms.size < PSALM_COUNT) {
     for (let n = 1; n <= PSALM_COUNT; n++) {
       if (!readPsalms.has(n)) {
         psalmCurrent = n;
@@ -416,9 +441,30 @@ const BibleIndex: React.FC = () => {
           </div>
         </div>
 
-        <div className="bible-index-list" ref={listRef}>
+        <div
+          className="bible-index-list"
+          ref={listRef}
+          style={psalmSelection ? { paddingBottom: psalmSelection.size === 1 ? 420 : 320 } : undefined}
+        >
           {tab === 'psaumes' ? (
             <>
+              <div className="bible-book-grid-heading bible-psalm-toolbar" data-row>
+                <span className="bible-book-grid-title">Psaumes</span>
+                <span className="bible-book-grid-rule" />
+                {activeParcours && (
+                  <>
+                    <span className="bible-book-grid-count">
+                      {readPsalms.size} / {PSALM_COUNT}
+                    </span>
+                    <SelectToggle active={!!psalmSelection} onClick={psalmSelect.toggleSelection} />
+                  </>
+                )}
+              </div>
+              <div
+                role={psalmSelection ? 'group' : undefined}
+                aria-label={psalmSelection ? 'Psaumes à sélectionner' : undefined}
+                {...psalmSelect.containerProps}
+              >
               {PSALTER.map((part) => {
                 const length = part.to - part.from + 1;
                 let read = 0;
@@ -435,26 +481,34 @@ const BibleIndex: React.FC = () => {
                       {activeParcours && <span className="bible-section-percent">{Math.round((read / length) * 100)} %</span>}
                     </div>
                     {/* Mêmes cases que la grille d'un livre (BibleBook). */}
-                    <div className="bible-chapter-grid bible-psalm-grid">
+                    <div className={`bible-chapter-grid bible-psalm-grid${psalmSelection ? ' is-selecting' : ''}`}>
                       {Array.from({ length }, (_, i) => {
                         const n = part.from + i;
-                        const isCurrent = n === psalmCurrent;
+                        // En sélection, la case « en cours » redevient une case ordinaire.
+                        const isCurrent = !psalmSelection && n === psalmCurrent;
+                        const isPsalmRead = !!activeParcours && readPsalms.has(n);
+                        const isSelected = !!psalmSelection?.has(n);
                         const other =
                           activeParcours && !isCurrent ? otherReaderOf('ps', n, activeParcours.id) : undefined;
                         const classes = ['bible-chapter-cell'];
                         if (isCurrent) classes.push('is-current');
-                        else if (activeParcours && readPsalms.has(n)) classes.push('is-read', `is-read--${activeParcours.color}`);
+                        else if (activeParcours && isPsalmRead) classes.push('is-read', `is-read--${activeParcours.color}`);
+                        if (isSelected) classes.push('is-selected');
                         return (
                           <button
                             key={n}
                             type="button"
                             data-row
+                            data-n={n}
                             className={classes.join(' ')}
-                            onClick={() => {
-                              tapHaptic();
-                              navigate(`/bible/ps/${n}`);
-                            }}
-                            aria-label={`Psaume ${n}`}
+                            onClick={(e) => psalmSelect.handleKeyboardClick(e, n)}
+                            role={psalmSelection ? 'checkbox' : undefined}
+                            aria-checked={psalmSelection ? isSelected : undefined}
+                            aria-label={
+                              psalmSelection
+                                ? `Psaume ${n}, ${isPsalmRead ? 'lu' : 'non lu'}${isSelected ? ', sélectionné' : ''}`
+                                : `Psaume ${n}`
+                            }
                           >
                             {n}
                             {other && (
@@ -464,6 +518,11 @@ const BibleIndex: React.FC = () => {
                               />
                             )}
                             {annotatedPsalms.has(n) && <span className="bible-chapter-cell-note" aria-hidden="true" />}
+                            {isSelected && (
+                              <span className="bible-chapter-cell-check" aria-hidden="true">
+                                <CheckIcon size={10} />
+                              </span>
+                            )}
                           </button>
                         );
                       })}
@@ -471,6 +530,7 @@ const BibleIndex: React.FC = () => {
                   </section>
                 );
               })}
+              </div>
               <div className="bible-psalm-legend">
                 <ChapterLegend readColor={activeParcours?.color} />
               </div>
@@ -545,6 +605,51 @@ const BibleIndex: React.FC = () => {
         </AnimatePresence>
         <AnimatePresence>
           {isA11yOpen && <AccessibilityQuickSheet onClose={() => setIsA11yOpen(false)} />}
+        </AnimatePresence>
+        <AnimatePresence>
+          {PSALMS_BOOK && psalmSelection && (
+            <ChapterSelectionBar
+              book={PSALMS_BOOK}
+              selection={psalmSelection}
+              unreadChapters={Array.from({ length: PSALM_COUNT }, (_, i) => i + 1).filter((n) => !readPsalms.has(n))}
+              resumeChapter={psalmCurrent}
+              isChapterRead={(n) => readPsalms.has(n)}
+              onChangeSelection={psalmSelect.setSelection}
+              onMark={psalmSelect.applyMark}
+              onRead={(n) => {
+                exitPsalmSelection();
+                navigate(`/bible/ps/${n}`);
+              }}
+              onClose={exitPsalmSelection}
+            />
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {psalmSelect.toast && (
+            <ChapterUndoToast
+              message={psalmSelect.toast.message}
+              reduceMotion={reduceMotion}
+              onUndo={psalmSelect.undo}
+              onClose={psalmSelect.dismissToast}
+            />
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {completedParcours && (
+            <ParcoursCompletionSheet
+              parcours={completedParcours}
+              onClose={() => setCompletedParcoursId(null)}
+              onCreateNew={() => {
+                setCompletedParcoursId(null);
+                setIsCreateOpen(true);
+              }}
+            />
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {isCreateOpen && (
+            <ParcoursCreateSheet onClose={() => setIsCreateOpen(false)} onCreated={() => setIsCreateOpen(false)} />
+          )}
         </AnimatePresence>
         <WorldButton />
       </IonContent>

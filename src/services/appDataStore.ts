@@ -942,6 +942,80 @@ export function unmarkChapterRead(parcoursId: string, bookId: string, chapter: n
   });
 }
 
+/** État d'un livre dans un parcours, pris avant une action groupée pour pouvoir l'annuler. */
+export interface BookReadsSnapshot {
+  parcoursId: string;
+  bookId: string;
+  reads: ChapterRead[];
+  completedAt: string | null;
+}
+
+/**
+ * Marque (ou démarque) plusieurs chapitres d'un livre en une seule
+ * transaction. Les chapitres déjà lus voient leur `readAt` mis à jour (même
+ * horodatage pour tout le lot). Renvoie l'instantané d'avant l'action pour
+ * `restoreBookReads`.
+ */
+export function setChaptersRead(
+  parcoursId: string,
+  bookId: string,
+  chapters: number[],
+  read: boolean,
+  source: ReadingSource = 'manual'
+): { snapshot: BookReadsSnapshot; justCompleted: boolean } {
+  const now = new Date().toISOString();
+  const before = cache.parcours.find((p) => p.id === parcoursId);
+  const snapshot: BookReadsSnapshot = {
+    parcoursId,
+    bookId,
+    reads: cache.chapterReads.filter((c) => c.parcoursId === parcoursId && c.bookId === bookId),
+    completedAt: before?.completedAt ?? null
+  };
+  let justCompleted = false;
+  setAppData((prev) => {
+    const parcours = prev.parcours.find((p) => p.id === parcoursId);
+    if (!parcours) return prev;
+    const keys = new Set(chapters.map((chapter) => chapterReadKey({ parcoursId, bookId, chapter })));
+    const others = prev.chapterReads.filter((c) => !keys.has(chapterReadKey(c)));
+
+    if (!read) {
+      return {
+        ...prev,
+        chapterReads: others,
+        parcours: prev.parcours.map((p) => (p.id === parcoursId && p.completedAt ? { ...p, completedAt: null } : p))
+      };
+    }
+
+    const chapterReads = [
+      ...others,
+      ...Array.from(new Set(chapters)).map((chapter) => ({ parcoursId, bookId, chapter, readAt: now, source }))
+    ];
+    let parcoursList = prev.parcours;
+    if (!parcours.completedAt) {
+      const { read: readCount, total } = progressForParcours(parcours, chapterReads);
+      if (total > 0 && readCount >= total) {
+        justCompleted = true;
+        parcoursList = prev.parcours.map((p) => (p.id === parcoursId ? { ...p, completedAt: now } : p));
+      }
+    }
+    return { ...prev, chapterReads, parcours: parcoursList };
+  });
+  return { snapshot, justCompleted };
+}
+
+/** Annule une action groupée : rétablit exactement les lectures du livre et l'achèvement du parcours. */
+export function restoreBookReads(snapshot: BookReadsSnapshot): void {
+  const { parcoursId, bookId, reads, completedAt } = snapshot;
+  setAppData((prev) => ({
+    ...prev,
+    chapterReads: [
+      ...prev.chapterReads.filter((c) => !(c.parcoursId === parcoursId && c.bookId === bookId)),
+      ...reads
+    ],
+    parcours: prev.parcours.map((p) => (p.id === parcoursId ? { ...p, completedAt } : p))
+  }));
+}
+
 /** Une seule position de lecture par parcours : ouvrir un autre chapitre la déplace. */
 export function setReadingPosition(
   parcoursId: string,

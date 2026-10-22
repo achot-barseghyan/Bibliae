@@ -296,6 +296,7 @@ const Ordres: React.FC = () => {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={mode === 'ordre' ? 'Ordre, sigle, fondateur, ville…' : 'Communauté, fondateur, ville…'}
                 aria-label={mode === 'ordre' ? 'Chercher un ordre' : 'Chercher une communauté'}
+                enterKeyHint="search"
               />
             </label>
           </div>

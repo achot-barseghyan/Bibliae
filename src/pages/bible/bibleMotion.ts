@@ -78,6 +78,16 @@ export function fillRing(circle: SVGCircleElement | null, circumference: number,
   });
 }
 
+/** Fait glisser un anneau déjà rempli de sa valeur actuelle vers `ratio`. */
+export function moveRing(circle: SVGCircleElement | null, circumference: number, ratio: number, duration: number, reduce: boolean) {
+  if (!circle) return;
+  const from = circle.style.strokeDashoffset || String(circumference);
+  const to = String(circumference * (1 - Math.max(0, Math.min(1, ratio))));
+  circle.style.strokeDashoffset = to;
+  if (reduce || from === to) return;
+  circle.animate([{ strokeDashoffset: from }, { strokeDashoffset: to }], { duration, easing: BIBLE_EASE });
+}
+
 const NOT_PLAYED = Symbol('not-played');
 
 /**

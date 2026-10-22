@@ -627,3 +627,8 @@
 .bible-resume-wrap--plan .plan-card {
   margin: 0;
 }
+
+/* En-tête du psautier : total lu et bouton Sélectionner, comme sur l'écran Livre. */
+.bible-psalm-toolbar {
+  padding: 26px 24px 0;
+}

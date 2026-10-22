@@ -278,6 +278,7 @@ const Abbayes: React.FC = () => {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Abbaye, ville…"
                   aria-label="Chercher une abbaye"
+                  enterKeyHint="search"
                 />
               </label>
               <label className={`am-region-select${region ? ' is-active' : ''}`}>

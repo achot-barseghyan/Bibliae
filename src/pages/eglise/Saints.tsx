@@ -473,6 +473,7 @@ const Saints: React.FC = () => {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Nom, patronage…"
                 aria-label="Chercher un saint"
+                enterKeyHint="search"
               />
             </label>
             <div className="ls-seg" role="tablist" aria-label="Affichage">

@@ -5,11 +5,14 @@ const STORAGE_KEY = 'bibliae:chapter-menu-tour-seen';
 
 const STEPS: TourStep[] = [
   {
-    selector: '.bible-book-body .bible-chapter-grid',
-    title: 'Les actions d’un chapitre',
-    text: 'Appui long sur un chapitre pour le marquer lu ou en cours, lui ajouter une note, le mettre en favori, le partager ou tout réinitialiser — sans l’ouvrir.',
+    // Le premier chapitre plutôt que toute la grille : celle-ci est plus
+    // haute que l'écran et passait sous la carte du tour.
+    selector: '.bible-book-body .bible-chapter-grid > :first-child',
+    title: 'Sélectionner des chapitres',
+    text: 'Appui long sur un chapitre pour le sélectionner, puis glissez sans lever le doigt pour en prendre plusieurs et les marquer lus d’un geste. Avec un seul chapitre : note, favori, partage.',
     shape: 'pill',
-    padding: 8
+    padding: 6,
+    scrollIntoView: true
   }
 ];
 

@@ -11,18 +11,19 @@ import ParcoursBandeau from './ParcoursBandeau';
 import ParcoursSelectorSheet from './ParcoursSelectorSheet';
 import ParcoursCreateSheet from './ParcoursCreateSheet';
 import ParcoursCompletionSheet from './ParcoursCompletionSheet';
-import ChapterActionSheet from './ChapterActionSheet';
+import ChapterSelectionBar from './ChapterSelectionBar';
+import ChapterUndoToast from './ChapterUndoToast';
+import SelectToggle from './SelectToggle';
 import ChapterMenuTour from './ChapterMenuTour';
 import ChapterLegend from './ChapterLegend';
 import WorldButton from '../../components/nav/WorldButton';
-import { ChevronLeftIcon } from '../../components/nav/icons';
+import { CheckIcon, ChevronLeftIcon } from '../../components/nav/icons';
 import { CATEGORY_GRADIENT } from './bibleSections';
-import { RISE_IN, countUp, fillRing, stagger, useBibleReducedMotion, useRevealOnce } from './bibleMotion';
+import { useChapterSelection } from './useChapterSelection';
+import { RISE_IN, countUp, fillRing, moveRing, stagger, useBibleReducedMotion, useRevealOnce } from './bibleMotion';
 import './BibleBook.css';
 
 const RING_C = 389.6;
-const LONG_PRESS_MS = 450;
-const MOVE_CANCEL_PX = 10;
 
 const BibleBook: React.FC = () => {
   const navigate = useNavigate();
@@ -34,13 +35,28 @@ const BibleBook: React.FC = () => {
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [completedParcoursId, setCompletedParcoursId] = useState<string | null>(null);
-  const [menuChapter, setMenuChapter] = useState<number | null>(null);
   const reduceMotion = useBibleReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<SVGCircleElement>(null);
   const countRef = useRef<HTMLSpanElement>(null);
   const hasPlayedIntroRef = useRef(false);
+
+  const {
+    selection,
+    setSelection,
+    exitSelection,
+    toggleSelection,
+    applyMark,
+    toast,
+    undo,
+    dismissToast,
+    handleKeyboardClick,
+    containerProps
+  } = useChapterSelection(book, {
+    onOpen: (chapter) => book && navigate(`/bible/${book.id}/${chapter}`),
+    onCompleted: setCompletedParcoursId
+  });
 
   const bookReadCount =
     book && activeParcours ? forParcours(activeParcours.id).filter((c) => c.bookId === book.id).length : 0;
@@ -56,15 +72,21 @@ const BibleBook: React.FC = () => {
     );
   });
 
-  // Anneau et compteur : animés à l'ouverture, mis à jour sans animation ensuite.
+  // Anneau et compteur : remplis à l'ouverture, puis glissent vers la
+  // nouvelle valeur (900 ms) après un marquage.
   useEffect(() => {
     if (!book) return;
-    const animate = !reduceMotion && !hasPlayedIntroRef.current;
-    hasPlayedIntroRef.current = true;
-    fillRing(ringRef.current, RING_C, bookReadCount / book.chapters, 250, !animate);
-    // Pas d'annulation au nettoyage : StrictMode rejoue l'effet aussitôt, et
-    // couper le compteur le figerait sur sa valeur finale sans l'animer.
-    countUp(countRef.current, bookReadCount, 250, !animate);
+    const ratio = bookReadCount / book.chapters;
+    if (!hasPlayedIntroRef.current) {
+      hasPlayedIntroRef.current = true;
+      fillRing(ringRef.current, RING_C, ratio, 250, reduceMotion);
+      // Pas d'annulation au nettoyage : StrictMode rejoue l'effet aussitôt, et
+      // couper le compteur le figerait sur sa valeur finale sans l'animer.
+      countUp(countRef.current, bookReadCount, 250, reduceMotion);
+      return;
+    }
+    moveRing(ringRef.current, RING_C, ratio, 900, reduceMotion);
+    if (countRef.current) countRef.current.textContent = String(bookReadCount);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [book?.id, bookReadCount]);
 
@@ -75,78 +97,6 @@ const BibleBook: React.FC = () => {
       ),
     [annotations]
   );
-
-  // --- Gestes de la grille : tap ouvre le chapitre ; appui long ouvre un menu
-  // d'actions sans l'ouvrir. La navigation est déclenchée directement au
-  // relâchement du pointeur plutôt que via l'événement `click` natif : sur
-  // certains appareils ce dernier arrive trop tard (après un appui long), ce
-  // qui rouvrait le chapitre au relâchement. `onClick` ne sert donc plus qu'à
-  // l'activation clavier (Entrée/Espace).
-  const pressTimer = useRef<number | undefined>(undefined);
-  const pressStart = useRef<{ x: number; y: number } | null>(null);
-  const pressChapterRef = useRef<number | null>(null);
-  const longPressEngagedRef = useRef(false);
-
-  const handlePointerMove = (e: PointerEvent) => {
-    if (!pressStart.current || longPressEngagedRef.current) return;
-    const dx = e.clientX - pressStart.current.x;
-    const dy = e.clientY - pressStart.current.y;
-    if (Math.hypot(dx, dy) > MOVE_CANCEL_PX) {
-      // Mouvement avant la fin du délai : l'utilisateur fait défiler la page, pas un appui long.
-      window.clearTimeout(pressTimer.current);
-      pressStart.current = null;
-    }
-  };
-
-  const cleanupGesture = () => {
-    window.clearTimeout(pressTimer.current);
-    pressTimer.current = undefined;
-    pressStart.current = null;
-    pressChapterRef.current = null;
-    window.removeEventListener('pointermove', handlePointerMove);
-    window.removeEventListener('pointerup', handlePointerUp);
-    window.removeEventListener('pointercancel', handlePointerCancel);
-  };
-
-  const handlePointerCancel = () => {
-    longPressEngagedRef.current = false;
-    cleanupGesture();
-  };
-
-  const handlePointerUp = () => {
-    const wasTap = pressStart.current !== null && !longPressEngagedRef.current;
-    const chapter = pressChapterRef.current;
-    cleanupGesture();
-    longPressEngagedRef.current = false;
-    if (wasTap && chapter !== null && book) {
-      navigate(`/bible/${book.id}/${chapter}`);
-    }
-  };
-
-  const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>, chapter: number) => {
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
-    if (!book) return;
-    pressStart.current = { x: e.clientX, y: e.clientY };
-    pressChapterRef.current = chapter;
-    longPressEngagedRef.current = false;
-    window.addEventListener('pointermove', handlePointerMove);
-    window.addEventListener('pointerup', handlePointerUp);
-    window.addEventListener('pointercancel', handlePointerCancel);
-    pressTimer.current = window.setTimeout(() => {
-      if (!pressStart.current) return;
-      longPressEngagedRef.current = true;
-      tapHaptic();
-      setMenuChapter(chapter);
-    }, LONG_PRESS_MS);
-  };
-
-  const handleKeyboardClick = (e: React.MouseEvent<HTMLButtonElement>, chapter: number) => {
-    // Les taps/clics pointeur sont déjà traités dans handlePointerUp ; ce
-    // handler ne doit réagir qu'à une activation clavier (Entrée/Espace),
-    // reconnaissable à detail === 0.
-    if (e.detail !== 0 || !book) return;
-    navigate(`/bible/${book.id}/${chapter}`);
-  };
 
   if (!book) {
     return (
@@ -254,28 +204,45 @@ const BibleBook: React.FC = () => {
 
         <ParcoursBandeau onOpenSelector={() => setIsSelectorOpen(true)} />
 
-        <div className="bible-book-body" ref={bodyRef}>
+        <div
+          className="bible-book-body"
+          ref={bodyRef}
+          style={selection ? { paddingBottom: selection.size === 1 ? 420 : 320 } : undefined}
+        >
           <div className="bible-book-grid-heading">
             <span className="bible-book-grid-title">Chapitres</span>
             <span className="bible-book-grid-rule" />
             {activeParcours && (
-              <span className="bible-book-grid-count">
-                {readInBook} / {book.chapters}
-              </span>
+              <>
+                <span className="bible-book-grid-count">
+                  {readInBook} / {book.chapters}
+                </span>
+                <SelectToggle active={!!selection} onClick={toggleSelection} />
+              </>
             )}
           </div>
 
-          <div className="bible-chapter-grid">
+          <div
+            className={`bible-chapter-grid${selection ? ' is-selecting' : ''}`}
+            role={selection ? 'group' : undefined}
+            aria-label={selection ? 'Chapitres à sélectionner' : undefined}
+            {...containerProps}
+          >
             {Array.from({ length: book.chapters }, (_, index) => {
               const chapter = index + 1;
-              const isCurrent = chapter === resumeChapter;
+              // En sélection, la case « en cours » redevient une case ordinaire
+              // pour ne pas être confondue avec une case sélectionnée.
+              const isCurrent = !selection && chapter === resumeChapter;
+              const isChapterRead = activeParcours ? isReadActive(chapter) : false;
+              const isSelected = !!selection?.has(chapter);
               const other =
                 activeParcours && !isCurrent ? otherReaderOf(book.id, chapter, activeParcours.id) : undefined;
               const hasNote = annotatedSourceIds.has(`${book.id}-${chapter}`);
 
               const classes = ['bible-chapter-cell'];
               if (isCurrent) classes.push('is-current');
-              else if (activeParcours && isReadActive(chapter)) classes.push('is-read', `is-read--${activeParcours.color}`);
+              else if (activeParcours && isChapterRead) classes.push('is-read', `is-read--${activeParcours.color}`);
+              if (isSelected) classes.push('is-selected');
 
               return (
                 <button
@@ -283,10 +250,16 @@ const BibleBook: React.FC = () => {
                   type="button"
                   className={classes.join(' ')}
                   data-chapter={chapter}
+                  data-n={chapter}
                   data-cell
-                  onPointerDown={(e) => handlePointerDown(e, chapter)}
+                  role={selection ? 'checkbox' : undefined}
+                  aria-checked={selection ? isSelected : undefined}
+                  aria-label={
+                    selection
+                      ? `Chapitre ${chapter}, ${isChapterRead ? 'lu' : 'non lu'}${isSelected ? ', sélectionné' : ''}`
+                      : undefined
+                  }
                   onClick={(e) => handleKeyboardClick(e, chapter)}
-                  onContextMenu={(e) => e.preventDefault()}
                 >
                   {chapter}
                   {other && (
@@ -296,13 +269,20 @@ const BibleBook: React.FC = () => {
                     />
                   )}
                   {hasNote && <span className="bible-chapter-cell-note" aria-hidden="true" />}
+                  {isSelected && (
+                    <span className="bible-chapter-cell-check" aria-hidden="true">
+                      <CheckIcon size={10} />
+                    </span>
+                  )}
                 </button>
               );
             })}
           </div>
 
           <ChapterLegend readColor={activeParcours?.color} />
-          <p className="bible-book-hint">Appui long sur un chapitre pour le marquer lu sans l'ouvrir.</p>
+          <p className="bible-book-hint">
+            Appui long sur un chapitre pour le sélectionner, puis glissez pour en marquer plusieurs lus d'un geste.
+          </p>
         </div>
 
         <ChapterMenuTour />
@@ -331,12 +311,31 @@ const BibleBook: React.FC = () => {
         </AnimatePresence>
 
         <AnimatePresence>
-          {menuChapter !== null && (
-            <ChapterActionSheet
+          {selection && (
+            <ChapterSelectionBar
               book={book}
-              chapterNumber={menuChapter}
-              onClose={() => setMenuChapter(null)}
-              onJustCompleted={(parcoursId) => setCompletedParcoursId(parcoursId)}
+              selection={selection}
+              unreadChapters={Array.from({ length: book.chapters }, (_, i) => i + 1).filter((n) => !isReadActive(n))}
+              resumeChapter={resumeChapter}
+              isChapterRead={isReadActive}
+              onChangeSelection={setSelection}
+              onMark={applyMark}
+              onRead={(chapter) => {
+                exitSelection();
+                navigate(`/bible/${book.id}/${chapter}`);
+              }}
+              onClose={exitSelection}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {toast && (
+            <ChapterUndoToast
+              message={toast.message}
+              reduceMotion={reduceMotion}
+              onUndo={undo}
+              onClose={dismissToast}
             />
           )}
         </AnimatePresence>

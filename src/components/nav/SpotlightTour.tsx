@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAccessibility } from '../../hooks/useAccessibility';
 import './NavigationTour.css';
@@ -9,6 +9,8 @@ export interface TourStep {
   text: string;
   shape: 'pill' | 'circle';
   padding: number;
+  /** Fait défiler la page jusqu'à l'élément s'il est hors de l'écran. */
+  scrollIntoView?: boolean;
 }
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
@@ -20,13 +22,16 @@ interface SpotlightRect {
   height: number;
 }
 
-function measure(step: TourStep): SpotlightRect | null {
+/** `origin` : coin du bloc conteneur des éléments fixes. Sur ordinateur, le
+ * cadre centré de l'app (desktopFrame.css) en est un, décalé dans la fenêtre,
+ * alors que getBoundingClientRect se repère sur la fenêtre. */
+function measure(step: TourStep, origin: { top: number; left: number }): SpotlightRect | null {
   const el = document.querySelector(step.selector);
   if (!el) return null;
   const rect = el.getBoundingClientRect();
   return {
-    top: rect.top - step.padding,
-    left: rect.left - step.padding,
+    top: rect.top - origin.top - step.padding,
+    left: rect.left - origin.left - step.padding,
     width: rect.width + step.padding * 2,
     height: rect.height + step.padding * 2
   };
@@ -45,6 +50,8 @@ const SpotlightTour: React.FC<SpotlightTourProps> = ({ steps, isOpen, onClose, c
   const { settings } = useAccessibility();
   const [stepIndex, setStepIndex] = useState(0);
   const [rect, setRect] = useState<SpotlightRect | null>(null);
+  // Le voile couvre tout le bloc conteneur (`inset: 0`) : son coin en donne l'origine.
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   const step = steps[stepIndex];
   const isLast = stepIndex === steps.length - 1;
@@ -52,17 +59,37 @@ const SpotlightTour: React.FC<SpotlightTourProps> = ({ steps, isOpen, onClose, c
   useEffect(() => {
     if (!isOpen) return;
 
-    const update = () => setRect(measure(step));
-    update();
-    // Le premier rendu peut survenir avant que l'élément ciblé n'ait sa taille
-    // finale (polices, safe-area) : on remesure une fois de plus.
-    const raf = requestAnimationFrame(update);
+    const update = () => setRect(measure(step, overlayRef.current?.getBoundingClientRect() ?? { top: 0, left: 0 }));
+    // Pendant une seconde et demie, on remesure à chaque image : l'élément
+    // ciblé peut apparaître après l'ouverture du tour (contenu chargé) ou
+    // bouger le temps du défilement. Le défilement d'IonContent se fait dans
+    // son shadow DOM et n'émet aucun évènement `scroll` visible d'ici.
+    // Un défilement demandé pendant l'animation d'entrée de la page est ignoré :
+    // on le redemande tant que l'élément reste hors de la moitié haute de
+    // l'écran (le bas est occupé par la carte).
+    let lastScroll = -Infinity;
+    let raf = 0;
+    const start = performance.now();
+    const track = () => {
+      const now = performance.now();
+      const el = step.scrollIntoView ? document.querySelector(step.selector) : null;
+      if (el && now - lastScroll > 400) {
+        const r = el.getBoundingClientRect();
+        if (r.top < 0 || r.bottom > window.innerHeight * 0.6) {
+          el.scrollIntoView({ block: 'center', behavior: settings.reduceMotion ? 'auto' : 'smooth' });
+          lastScroll = now;
+        }
+      }
+      update();
+      if (now - start < 2500) raf = requestAnimationFrame(track);
+    };
+    track();
     window.addEventListener('resize', update);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', update);
     };
-  }, [isOpen, step]);
+  }, [isOpen, step, settings.reduceMotion]);
 
   if (!isOpen) return null;
 
@@ -79,6 +106,7 @@ const SpotlightTour: React.FC<SpotlightTourProps> = ({ steps, isOpen, onClose, c
   return (
     <AnimatePresence>
       <motion.div
+        ref={overlayRef}
         className="tour-overlay"
         role="dialog"
         aria-modal="true"

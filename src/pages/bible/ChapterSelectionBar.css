@@ -1,0 +1,288 @@
+/* --- Barre d'action du mode sélection (écran Livre) --- */
+.chapter-select-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 210;
+  max-height: 86vh;
+  overflow-y: auto;
+  padding: 20px 18px calc(env(safe-area-inset-bottom, 0px) + 22px);
+  background: #23201a;
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
+  box-shadow: 0 -18px 40px -20px rgba(0, 0, 0, 0.55);
+  color: #f4eddc;
+}
+
+.chapter-select-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chapter-select-count {
+  flex: 1;
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #f0d58e;
+}
+
+.chapter-select-status {
+  font-family: var(--font-inter);
+  font-size: 10px;
+  color: rgba(244, 237, 220, 0.72);
+}
+
+.chapter-select-close {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin: -14px -12px -14px -8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: rgba(244, 237, 220, 0.72);
+  cursor: pointer;
+}
+
+.chapter-select-title {
+  margin: 10px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 1.2;
+  color: #f4eddc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chapter-select-title.is-empty {
+  opacity: 0.55;
+}
+
+/* Actions d'un seul chapitre */
+.chapter-select-actions {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.chapter-select-action {
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(244, 237, 220, 0.07);
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f4eddc;
+  cursor: pointer;
+}
+
+.chapter-select-glyph {
+  font-family: var(--font-cormorant);
+  font-size: 18px;
+  line-height: 1;
+  color: #f0d58e;
+}
+
+/* Raccourcis */
+.chapter-select-section {
+  margin-top: 14px;
+}
+
+.chapter-select-label {
+  margin: 0 0 8px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 220, 0.5);
+}
+
+.chapter-select-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chapter-select-chip {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid rgba(240, 213, 142, 0.42);
+  border-radius: 16px;
+  background: none;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f4eddc;
+  cursor: pointer;
+  transition: opacity 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Cible tactile de 44 px sans grossir la pastille. */
+  position: relative;
+}
+
+.chapter-select-chip::after {
+  content: '';
+  position: absolute;
+  inset: -6px -3px;
+}
+
+.chapter-select-chip:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Marquage */
+.chapter-select-marks {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.chapter-select-mark {
+  flex: 1 1 0;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 12px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.chapter-select-mark:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.chapter-select-mark--read {
+  flex-grow: 1.5;
+  background: #f0d58e;
+  color: #23201a;
+}
+
+.chapter-select-mark--read svg {
+  color: #6b1e23;
+}
+
+.chapter-select-mark--unread {
+  background: rgba(244, 237, 220, 0.08);
+  color: #f4eddc;
+}
+
+.chapter-select-mark--danger {
+  flex-grow: 1.5;
+  background: #e6a9a2;
+  color: #23201a;
+}
+
+.chapter-select-reset {
+  display: block;
+  min-height: 44px;
+  margin: 6px auto -8px;
+  padding: 0 12px;
+  border: none;
+  background: none;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #e6a9a2;
+  cursor: pointer;
+}
+
+.chapter-select-confirm p {
+  margin: 14px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.4;
+  color: rgba(244, 237, 220, 0.85);
+}
+
+.chapter-select-bar button:focus-visible {
+  outline: 2px solid #f0d58e;
+  outline-offset: 2px;
+}
+
+/* --- Toast d'annulation --- */
+.chapter-undo-toast {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: calc(var(--rosace-bar-h, env(safe-area-inset-bottom, 0px)) + 16px);
+  z-index: 220;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 4px 4px 16px;
+  border-radius: 14px;
+  background: #23201a;
+  box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.6);
+}
+
+.chapter-undo-toast-text {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  color: #f4eddc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chapter-undo-toast-undo,
+.chapter-undo-toast-close {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.chapter-undo-toast-undo {
+  padding: 0 10px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f0d58e;
+}
+
+.chapter-undo-toast-close {
+  color: rgba(244, 237, 220, 0.6);
+}

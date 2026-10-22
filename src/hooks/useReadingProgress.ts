@@ -16,12 +16,15 @@ import {
   recolorParcours,
   renameParcours,
   resetParcoursProgress,
+  restoreBookReads,
   setActiveParcours,
+  setChaptersRead,
   setReadingPosition,
   subscribeAppData,
   totalChaptersForScope,
   unmarkChapterRead,
   updateParcoursScope,
+  type BookReadsSnapshot,
   type ChapterRead,
   type HighlightColor,
   type Parcours,
@@ -83,6 +86,12 @@ export function useReadingProgress() {
     (parcoursId: string, bookId: string, chapter: number) => unmarkChapterRead(parcoursId, bookId, chapter),
     []
   );
+  const markManyRead = useCallback(
+    (parcoursId: string, bookId: string, chapters: number[], read: boolean) =>
+      setChaptersRead(parcoursId, bookId, chapters, read, 'manual'),
+    []
+  );
+  const restoreBook = useCallback((snapshot: BookReadsSnapshot) => restoreBookReads(snapshot), []);
   const savePosition = useCallback(
     (parcoursId: string, bookId: string, chapter: number, scrollRatio: number) =>
       setReadingPosition(parcoursId, bookId, chapter, scrollRatio),
@@ -113,6 +122,8 @@ export function useReadingProgress() {
     updateScope,
     markRead,
     unmarkRead,
+    markManyRead,
+    restoreBook,
     savePosition,
     clearPosition,
     nextColor,
@@ -120,4 +131,4 @@ export function useReadingProgress() {
   };
 }
 
-export type { Parcours, ChapterRead, ReadingPosition, ReadingScope, ReadingSource };
+export type { BookReadsSnapshot, Parcours, ChapterRead, ReadingPosition, ReadingScope, ReadingSource };
