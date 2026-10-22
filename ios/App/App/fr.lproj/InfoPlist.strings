@@ -1,0 +1,3 @@
+/* Localisation française */
+"CFBundleDisplayName" = "Bibliae";
+"NSLocationWhenInUseUsageDescription" = "Bibliae utilise ta position pour trouver les paroisses proches de chez toi.";
