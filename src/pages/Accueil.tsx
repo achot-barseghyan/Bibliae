@@ -6,6 +6,7 @@ import { useFigures } from '../hooks/useFigures';
 import { useReadingProgress } from '../hooks/useReadingProgress';
 import { useLiturgicalDay } from '../hooks/useLiturgicalDay';
 import { useReducedMotion } from '../hooks/useReducedMotion';
+import { useScrollMemory } from '../hooks/useScrollMemory';
 import { BOOKS, getBook } from '../data/bible';
 import { MYSTERY_ORDER } from '../data/rosary';
 import { LatinCrossIcon, SearchIcon } from '../components/nav/icons';
@@ -319,6 +320,7 @@ const Accueil: React.FC = () => {
   }, [onScroll, aboutWords]);
 
   const contentRef = useRef<HTMLIonContentElement>(null);
+  useScrollMemory(contentRef, 'accueil');
 
   // --- Carrousel des figures ----------------------------------------------
 

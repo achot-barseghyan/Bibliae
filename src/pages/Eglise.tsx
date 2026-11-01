@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useNavigationType } from 'react-router-dom';
 import { IonContent, IonPage } from '@ionic/react';
 import { tapHaptic } from '../utils/haptics';
 import { useReducedMotion } from '../hooks/useReducedMotion';
+import { useScrollMemory } from '../hooks/useScrollMemory';
 import { CHAPTERS, OBJECTIONS } from '../data/pourquoiCroire';
 import './Eglise.css';
 
@@ -223,15 +224,26 @@ const STARS = (() => {
   });
 })();
 
+// Onglet et question ouverte, gardés pour la session : au retour (depuis le
+// Catéchisme par exemple), la page retrouve la même hauteur, donc la même
+// position de défilement.
+const qaMemory: { tab: QaTab; open: number } = { tab: 'bases', open: 0 };
+
 const Eglise: React.FC = () => {
   const navigate = useNavigate();
+  const isBack = useNavigationType() === 'POP';
   const reduced = useReducedMotion();
 
-  const [tab, setTab] = useState<QaTab>('bases');
-  const [open, setOpen] = useState(0);
+  const [tab, setTab] = useState<QaTab>(() => (isBack ? qaMemory.tab : 'bases'));
+  const [open, setOpen] = useState(() => (isBack ? qaMemory.open : 0));
+  useEffect(() => {
+    qaMemory.tab = tab;
+    qaMemory.open = open;
+  }, [tab, open]);
   const [stage, setStage] = useState(0);
 
   const contentRef = useRef<HTMLIonContentElement>(null);
+  useScrollMemory(contentRef, 'eglise');
   const rootRef = useRef<HTMLDivElement>(null);
   const rosaceRef = useRef<HTMLDivElement>(null);
   const heroTextRef = useRef<HTMLDivElement>(null);
