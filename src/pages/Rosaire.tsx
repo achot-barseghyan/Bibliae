@@ -1,17 +1,19 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, type PanInfo } from 'framer-motion';
 import { IonContent, IonPage } from '@ionic/react';
-import { buildSequence, type BeadImageKey } from '../data/rosary';
+import { buildSequence, mysterySetForToday, MYSTERY_ORDER, type BeadImageKey } from '../data/rosary';
 import { useRemoteRosary } from '../hooks/content/useRemoteRosary';
 import { useRosaryProgress } from '../hooks/useRosaryProgress';
 import { useAccessibility } from '../hooks/useAccessibility';
-import { ChevronUpIcon, ChevronDownIcon, RefreshIcon, InfoIcon } from '../components/nav/icons';
+import { ChevronUpIcon, ChevronDownIcon, RefreshIcon } from '../components/nav/icons';
 import WorldButton from '../components/nav/WorldButton';
 import { tapHaptic } from '../utils/haptics';
 import { BEAD_IMAGES } from './rosaire/beadImages';
-import MysteryPickerSheet from './rosaire/MysteryPickerSheet';
+import RosaryConfigSheet from './rosaire/RosaryConfigSheet';
+import { rosaryMinutes, rosaryStepContent } from './rosaire/rosaryStep';
 import VersePreviewSheet from './figures/VersePreviewSheet';
 import type { ScriptureRef } from '../data/figureDetails';
+import './bible/bibleTheme.css';
 import './Rosaire.css';
 
 // Assez de grains pour couvrir toute la hauteur de l'écran : le rail est
@@ -22,11 +24,14 @@ const SLOT_SPACING = 46;
 // Longueur de chaîne ajoutée là où la séquence marque un espace (gapBefore).
 const GAP_SPACING = 30;
 const RAIL_WIDTH = 110; // doit correspondre à la largeur de .rosaire-rail
-// Décalage horizontal doux et continu (basé sur l'index global, pas sur la
-// position dans la fenêtre visible) pour que le chapelet garde une allure de
-// vrai collier qui ondule légèrement, sans que la courbe ne « saute » quand
-// on avance d'un grain.
-const curveOffset = (index: number) => Math.sin(index * 0.5) * 18;
+// Décalage horizontal doux et continu (basé sur la position le long de la
+// chaîne, pas sur la position dans la fenêtre visible) pour que le chapelet
+// garde une allure de vrai collier qui ondule légèrement, sans que la courbe
+// ne « saute » quand on avance d'un grain. Pas sur l'index : les étapes sans
+// grain feraient avancer la vague sans grain dessiné, et le fil tirerait un
+// trait droit entre deux grains éloignés dans la vague. Un demi-radian par
+// espacement de grain courant.
+const curveOffset = (chainPosition: number) => Math.sin((chainPosition / SLOT_SPACING) * 0.5) * 18;
 
 // Le crucifix et le médaillon sont de vraies pièces du chapelet, nettement
 // plus grandes que les grains courants, comme sur un chapelet réel.
@@ -37,8 +42,20 @@ function beadSize(bead: BeadImageKey | null, distance: number): number {
   return Math.max(14, 32 - distance * 2);
 }
 
+const TEXT_EASE = [0.2, 0.7, 0.2, 1] as const;
+
+/** Réglages du chapelet (icône « curseurs » de la maquette). */
+const SlidersIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" aria-hidden="true">
+    <path d="M1.5 4h8M12.5 4h2M1.5 8h2.5M7 8h7.5M1.5 12h9M13.5 12h1" />
+    <circle cx="11" cy="4" r="1.5" />
+    <circle cx="5.5" cy="8" r="1.5" />
+    <circle cx="12" cy="12" r="1.5" />
+  </svg>
+);
+
 const Rosaire: React.FC = () => {
-  const { mysterySet, stepIndex, setStepIndex, setMysterySet } = useRosaryProgress();
+  const { mysterySet, stepIndex, config, setStepIndex, setMysterySet, setConfig } = useRosaryProgress();
   const { settings } = useAccessibility();
   const { mysterySets, prayers } = useRemoteRosary();
   const todayLabel = new Date().toLocaleDateString('fr-FR', {
@@ -47,9 +64,11 @@ const Rosaire: React.FC = () => {
     month: 'long'
   });
   const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [meditationRef, setMeditationRef] = useState<ScriptureRef | null>(null);
+  const contentRef = useRef<HTMLIonContentElement>(null);
 
-  const sequence = useMemo(() => buildSequence(), []);
+  const sequence = useMemo(() => buildSequence(config), [config]);
   // Position de chaque grain le long de la chaîne, espaces compris.
   const chainPositions = useMemo(() => {
     const positions: number[] = [];
@@ -58,11 +77,19 @@ const Rosaire: React.FC = () => {
         positions.push(0);
         return;
       }
-      // Une étape sans grain se place au milieu d'un espace de chaîne.
+      // Les étapes sans grain qui se suivent (Gloire au Père, Fatima,
+      // annonce du mystère suivant…) se partagent un seul espace de chaîne,
+      // réparties à égale distance entre les deux grains qui l'encadrent.
       const onBareChain = bead.bead === null || sequence[i - 1].bead === null;
-      const step = onBareChain
-        ? (SLOT_SPACING + GAP_SPACING) / 2
-        : SLOT_SPACING + (bead.gapBefore ? GAP_SPACING : 0);
+      let step = SLOT_SPACING + (bead.gapBefore ? GAP_SPACING : 0);
+      if (onBareChain) {
+        let start = i - 1;
+        while (start > 0 && sequence[start].bead === null) start -= 1;
+        let end = i;
+        while (end < sequence.length - 1 && sequence[end].bead === null) end += 1;
+        // Sans grain après (fin du chapelet), on compte un grain virtuel.
+        step = (SLOT_SPACING + GAP_SPACING) / (end - start + (sequence[end].bead === null ? 1 : 0));
+      }
       positions.push(positions[i - 1] + step);
     });
     return positions;
@@ -71,20 +98,50 @@ const Rosaire: React.FC = () => {
   const clampedIndex = Math.min(stepIndex, total - 1);
   const current = sequence[clampedIndex];
   const mysteryLabel = mysterySets[mysterySet];
-  const prayer = prayers[current.prayerKey];
-  const mysteryTitle =
-    current.mysteryIndex !== null ? mysteryLabel.mysteries[current.mysteryIndex] : null;
-  const mysteryRef =
-    current.mysteryIndex !== null ? mysteryLabel.refs?.[current.mysteryIndex] ?? null : null;
-  const openMeditation = () => {
-    if (!mysteryRef) return;
+  const content = rosaryStepContent(current, mysteryLabel, prayers, config);
+  const todaySet = mysterySetForToday(new Date(), config.calendrier);
+  const configSummary = `${total} étapes · ${rosaryMinutes(sequence, prayers)} min`;
+  const openMeditation = (ref: ScriptureRef) => {
     tapHaptic();
-    setMeditationRef(mysteryRef);
+    setMeditationRef(ref);
   };
 
   const goTo = (index: number) => {
     setStepIndex(Math.max(0, Math.min(total - 1, index)));
   };
+
+  // Sens du dernier pas, pour faire arriver le texte d'en haut ou d'en bas.
+  const previousIndexRef = useRef(clampedIndex);
+  const direction = clampedIndex >= previousIndexRef.current ? 1 : -1;
+  useEffect(() => {
+    previousIndexRef.current = clampedIndex;
+    contentRef.current?.scrollToTop(0);
+  }, [clampedIndex, mysterySet]);
+
+  // Le rail (fixe) ne passe pas sur le bandeau de nuit : il est rogné au bas
+  // du bandeau, qui remonte avec le défilement, puis fondu sur 48 px.
+  const heroRef = useRef<HTMLElement>(null);
+  const [railTop, setRailTop] = useState(0);
+  const updateRailTop = () => {
+    const bottom = heroRef.current?.getBoundingClientRect().bottom ?? 0;
+    setRailTop(Math.max(0, Math.round(bottom)));
+  };
+  useLayoutEffect(() => {
+    updateRailTop();
+    window.addEventListener('resize', updateRailTop);
+    return () => window.removeEventListener('resize', updateRailTop);
+  });
+  const railMask = `linear-gradient(to bottom, transparent ${railTop}px, #000 ${railTop + 48}px)`;
+
+  // Chaque bloc du texte arrive l'un après l'autre, en sortant du flou.
+  const reveal = (order: number) =>
+    settings.reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: -16 * direction, filter: 'blur(5px)' },
+          animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
+          transition: { duration: 0.75, delay: order * 0.07, ease: TEXT_EASE }
+        };
 
   // Framer Motion capture le pointeur pendant un pan, donc le pointerup final
   // (même loin du grain de départ) redéclenche un clic sur ce grain — sans
@@ -127,7 +184,7 @@ const Rosaire: React.FC = () => {
       distance,
       size: beadSize(sequence[index].bead, distance),
       opacity: Math.max(0.12, 1 - (distance / RAIL_RADIUS) * 0.9),
-      leftPercent: 50 + curveOffset(index),
+      leftPercent: 50 + curveOffset(chainPositions[index]),
       // valeur soustraite à 50% pour obtenir le `top` réel du grain
       // (voir plus bas) ; positif = grain plus haut à l'écran.
       downPx: chainPositions[index] - chainPositions[clampedIndex]
@@ -154,156 +211,256 @@ const Rosaire: React.FC = () => {
     });
   }
 
-  const transition = settings.reduceMotion ? { duration: 0 } : { duration: 0.22, ease: [0.4, 0, 0.2, 1] as const };
-
   return (
     <IonPage>
-      <IonContent fullscreen className="rosaire-content">
-        <header className="rosaire-header">
-          <button
-            type="button"
-            className="rosaire-reset"
-            disabled={clampedIndex === 0}
-            onClick={() => {
-              tapHaptic();
-              goTo(0);
-            }}
-            aria-label="Recommencer le chapelet"
-          >
-            <RefreshIcon size={16} />
-            Recommencer
-          </button>
-        </header>
+      <IonContent
+        fullscreen
+        className="rosaire-content"
+        ref={contentRef}
+        scrollEvents
+        onIonScroll={updateRailTop}
+      >
+        <section className="rosaire-hero" ref={heroRef}>
+          <div className="rosaire-hero-sky" aria-hidden="true">
+            <span className="bible-rays rosaire-rays" />
+          </div>
+          <header className="rosaire-header">
+            <button
+              type="button"
+              className="rosaire-reset"
+              disabled={clampedIndex === 0}
+              onClick={() => {
+                tapHaptic();
+                goTo(0);
+              }}
+              aria-label="Recommencer le chapelet"
+            >
+              <RefreshIcon size={14} />
+              Recommencer
+            </button>
+            <button
+              type="button"
+              className="rosaire-settings"
+              onClick={() => {
+                tapHaptic();
+                setIsPickerOpen(false);
+                setIsConfigOpen(true);
+              }}
+              aria-label="Réglages du chapelet"
+              aria-haspopup="dialog"
+            >
+              <SlidersIcon />
+            </button>
+          </header>
+
+          <div className="rosaire-hero-text">
+            <p className="rosaire-day">{todayLabel}</p>
+
+            <div className="rosaire-sets">
+              <button
+                type="button"
+                className="rosaire-mystery-set"
+                onClick={() => setIsPickerOpen((open) => !open)}
+                aria-expanded={isPickerOpen}
+                aria-haspopup="listbox"
+              >
+                {mysteryLabel.label}
+                <ChevronDownIcon
+                  size={14}
+                  className={`rosaire-mystery-set-chevron${isPickerOpen ? ' is-open' : ''}`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {isPickerOpen && (
+                  <>
+                    <div className="rosaire-sets-dismiss" onClick={() => setIsPickerOpen(false)} aria-hidden="true" />
+                    <motion.div
+                      className="rosaire-sets-menu"
+                      role="listbox"
+                      aria-label="Choisir la série de mystères"
+                      initial={settings.reduceMotion ? false : { opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={settings.reduceMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: -6 }}
+                      transition={{ duration: 0.2, ease: TEXT_EASE }}
+                    >
+                      {MYSTERY_ORDER.map((key) => (
+                        <button
+                          key={key}
+                          type="button"
+                          role="option"
+                          aria-selected={key === mysterySet}
+                          className={`rosaire-sets-row${key === mysterySet ? ' is-active' : ''}`}
+                          onClick={() => {
+                            tapHaptic();
+                            if (key !== mysterySet) setMysterySet(key);
+                            setIsPickerOpen(false);
+                          }}
+                        >
+                          <span className="rosaire-sets-row-text">
+                            <span className="rosaire-sets-row-name">{mysterySets[key].label}</span>
+                            <span className="rosaire-sets-row-days">{mysterySets[key].days}</span>
+                          </span>
+                          {key === todaySet && <span className="rosaire-sets-row-today">Aujourd'hui</span>}
+                        </button>
+                      ))}
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <div className="rosaire-hero-progress">
+              <span className="rosaire-hero-days">{mysteryLabel.days}</span>
+              <span className="rosaire-hero-count">
+                {clampedIndex + 1} / {total}
+              </span>
+            </div>
+            <span className="rosaire-hero-track" aria-hidden="true">
+              <span
+                className="rosaire-hero-fill"
+                style={{ transform: `scaleX(${(clampedIndex + 1) / total})` }}
+              />
+            </span>
+          </div>
+        </section>
 
         <div className="rosaire-layout">
           <div className="rosaire-text">
-            <p className="rosaire-day">{todayLabel}</p>
+            <div key={`${mysterySet}-${clampedIndex}`}>
+              <motion.p className="rosaire-eyebrow" {...reveal(0)}>
+                {content.eyebrow}
+              </motion.p>
+              <motion.h1 className="rosaire-prayer-name" {...reveal(1)}>
+                {content.title}
+              </motion.h1>
+              {content.mystery && (
+                <motion.div className="rosaire-mystery-meta" {...reveal(2)}>
+                  {content.mystery.ref && (
+                    <button
+                      type="button"
+                      className="rosaire-mystery-ref"
+                      onClick={() => content.mystery?.ref && openMeditation(content.mystery.ref)}
+                      aria-label={`Méditer ${content.mystery.ref.display}`}
+                    >
+                      {content.mystery.ref.display}
+                    </button>
+                  )}
+                  {content.mystery.fruit && (
+                    <span className="rosaire-mystery-fruit">
+                      <span className="rosaire-mystery-star" aria-hidden="true">{'✦︎'}</span>
+                      {content.mystery.fruit}
+                    </span>
+                  )}
+                </motion.div>
+              )}
+              <div className={`rosaire-paragraphs${content.source ? ' is-rappel' : ''}`}>
+                {content.paragraphs.map((paragraph, i) => (
+                  <motion.p className="rosaire-prayer-text" key={i} {...reveal(i + 3)}>
+                    {paragraph}
+                  </motion.p>
+                ))}
+              </div>
+              {content.source && (
+                <motion.a
+                  className="rosaire-source"
+                  href={content.source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  {...reveal(content.paragraphs.length + 3)}
+                >
+                  {content.source.label}
+                  <span aria-hidden="true"> ↗</span>
+                </motion.a>
+              )}
+            </div>
 
-            <button
-              type="button"
-              className="rosaire-mystery-set"
-              onClick={() => setIsPickerOpen(true)}
-            >
-              {mysteryLabel.label}
-              <ChevronDownIcon size={14} className="rosaire-mystery-set-chevron" />
-            </button>
-
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={clampedIndex}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={transition}
-              >
-                {mysteryTitle && (
-                  <div className="rosaire-mystery-row">
-                    {mysteryRef ? (
-                      <button
-                        type="button"
-                        className="rosaire-mystery-title"
-                        onClick={openMeditation}
-                        aria-label={`${mysteryTitle} : méditer ${mysteryRef.display}`}
-                      >
-                        {(current.mysteryIndex as number) + 1}. {mysteryTitle}
-                        <InfoIcon size={14} className="rosaire-mystery-info" />
-                      </button>
-                    ) : (
-                      <span className="rosaire-mystery-title">
-                        {(current.mysteryIndex as number) + 1}. {mysteryTitle}
-                      </span>
-                    )}
-                  </div>
-                )}
-                {mysteryTitle && <hr className="rosaire-divider" />}
-                <h1 className="rosaire-prayer-name">{prayer.name}</h1>
-                {prayer.text &&
-                  prayer.text.split('\n\n').map((paragraph, i) => (
-                    <p className="rosaire-prayer-text" key={i}>
-                      {paragraph}
-                    </p>
-                  ))}
-              </motion.div>
-            </AnimatePresence>
-
-            <p className="rosaire-progress">
-              {clampedIndex + 1} / {total} · glissez
-            </p>
+            <p className="rosaire-progress">Glissez le long du chapelet</p>
           </div>
         </div>
 
-        <motion.div className="rosaire-rail" onPanEnd={handlePanEnd}>
-            {threads.map((thread) => (
-              <div
-                key={`thread-${thread.key}`}
-                className="rosaire-thread"
-                style={{
-                  top: thread.top,
-                  left: thread.left,
-                  width: thread.length,
-                  opacity: thread.opacity,
-                  transform: `translate(-50%, -50%) rotate(${thread.angle}deg)`
-                }}
-              />
-            ))}
-            {beadSlots.map((slot) => {
-              if (!slot || slot.bead.bead === null) return null;
-              const isCrucifix = slot.bead.bead === 'crucifix';
-              // Le crucifix pend un peu plus bas que sa place « logique »
-              // dans la chaîne, comme sur un vrai chapelet.
-              const verticalNudge = isCrucifix ? 50 : 0;
-              const top = `calc(50% - ${slot.downPx - verticalNudge}px)`;
-              const left = isCrucifix
-                ? `calc(${slot.leftPercent}% - 13px)`
-                : `${slot.leftPercent}%`;
-              return (
-                // Un <button> natif imbriqué dans la zone de pan empêchait
-                // Framer Motion de reconnaître le geste de glissement quand
-                // il démarrait sur un grain (aucun souci sur une <div>).
-                <motion.div
-                  role="button"
-                  tabIndex={0}
-                  key={slot.index}
-                  className={`rosaire-bead${slot.distance === 0 ? ' is-current' : ''}${
-                    isCrucifix ? ' rosaire-bead--crucifix' : ''
-                  }`}
+        {/* Le masque est posé sur un calque plein écran : sur le rail
+            lui-même, il rognerait aussi le crucifix et les halos qui
+            débordent de ses 110 px de large. */}
+        <div
+          className="rosaire-rail-mask"
+          style={{ clipPath: `inset(${railTop}px 0 0 0)`, WebkitMaskImage: railMask, maskImage: railMask }}
+        >
+          <motion.div className="rosaire-rail" onPanEnd={handlePanEnd}>
+              {threads.map((thread) => (
+                <div
+                  key={`thread-${thread.key}`}
+                  className="rosaire-thread"
                   style={{
-                    top,
-                    left,
-                    opacity: slot.opacity,
-                    zIndex: isCrucifix || slot.bead.bead === 'medaille' ? 1 : 0
+                    top: thread.top,
+                    left: thread.left,
+                    width: thread.length,
+                    opacity: thread.opacity,
+                    transform: `translate(-50%, -50%) rotate(${thread.angle}deg)`
                   }}
-                  onClick={() => handleBeadClick(slot.index)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      handleBeadClick(slot.index);
-                    }
-                  }}
-                  aria-label={`Grain ${slot.index + 1} sur ${total}`}
-                  aria-current={slot.distance === 0 ? 'step' : undefined}
-                >
-                  <img
-                    src={BEAD_IMAGES[slot.bead.bead]}
-                    alt=""
+                />
+              ))}
+              {beadSlots.map((slot) => {
+                if (!slot || slot.bead.bead === null) return null;
+                const isCrucifix = slot.bead.bead === 'crucifix';
+                // Le crucifix pend un peu plus bas que sa place « logique »
+                // dans la chaîne, comme sur un vrai chapelet.
+                const verticalNudge = isCrucifix ? 50 : 0;
+                const top = `calc(50% - ${slot.downPx - verticalNudge}px)`;
+                const left = isCrucifix
+                  ? `calc(${slot.leftPercent}% - 13px)`
+                  : `${slot.leftPercent}%`;
+                return (
+                  // Un <button> natif imbriqué dans la zone de pan empêchait
+                  // Framer Motion de reconnaître le geste de glissement quand
+                  // il démarrait sur un grain (aucun souci sur une <div>).
+                  <motion.div
+                    role="button"
+                    tabIndex={0}
+                    key={slot.index}
+                    className={`rosaire-bead${slot.distance === 0 ? ' is-current' : ''}${
+                      isCrucifix ? ' rosaire-bead--crucifix' : ''
+                    }`}
                     style={{
-                      width: slot.size,
-                      height: slot.size,
-                      transform: isCrucifix ? 'rotate(45deg)' : undefined
+                      top,
+                      left,
+                      opacity: slot.opacity,
+                      zIndex: isCrucifix || slot.bead.bead === 'medaille' ? 1 : 0
                     }}
-                  />
-                </motion.div>
-              );
-            })}
-        </motion.div>
+                    onClick={() => handleBeadClick(slot.index)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleBeadClick(slot.index);
+                      }
+                    }}
+                    aria-label={`Grain ${slot.index + 1} sur ${total}`}
+                    aria-current={slot.distance === 0 ? 'step' : undefined}
+                  >
+                    <img
+                      src={BEAD_IMAGES[slot.bead.bead]}
+                      alt=""
+                      style={{
+                        width: slot.size,
+                        height: slot.size,
+                        transform: isCrucifix ? 'rotate(45deg)' : undefined
+                      }}
+                    />
+                  </motion.div>
+                );
+              })}
+          </motion.div>
+        </div>
 
         <footer className="rosaire-pager">
+          {/* Sur le rail, les grains suivants sont au-dessus : la flèche du
+              haut avance, celle du bas recule. Après la dernière prière, on
+              revient au début du chapelet. */}
           <button
             type="button"
             className="rosaire-pager-button"
-            disabled={clampedIndex >= total - 1}
-            onClick={() => goTo(clampedIndex + 1)}
-            aria-label="Grain suivant"
+            onClick={() => goTo(clampedIndex >= total - 1 ? 0 : clampedIndex + 1)}
+            aria-label={clampedIndex >= total - 1 ? 'Revenir au début' : 'Grain suivant'}
           >
             <ChevronUpIcon size={18} />
           </button>
@@ -319,11 +476,12 @@ const Rosaire: React.FC = () => {
         </footer>
 
         <AnimatePresence>
-          {isPickerOpen && (
-            <MysteryPickerSheet
-              active={mysterySet}
-              onSelect={setMysterySet}
-              onClose={() => setIsPickerOpen(false)}
+          {isConfigOpen && (
+            <RosaryConfigSheet
+              config={config}
+              summary={configSummary}
+              onChange={setConfig}
+              onClose={() => setIsConfigOpen(false)}
             />
           )}
         </AnimatePresence>

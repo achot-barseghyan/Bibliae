@@ -3,7 +3,7 @@
     "joyeux": {
       "key": "joyeux",
       "label": "Mystères Joyeux",
-      "days": "Lundi · Jeudi",
+      "days": "Lundi · Samedi",
       "mysteries": [
         "L'Annonciation",
         "La Visitation",
@@ -49,16 +49,65 @@
         }
       ]
     },
+    "lumineux": {
+      "key": "lumineux",
+      "label": "Mystères Lumineux",
+      "days": "Jeudi",
+      "mysteries": [
+        "Le Baptême au Jourdain",
+        "Les Noces de Cana",
+        "L'Annonce du Royaume de Dieu",
+        "La Transfiguration",
+        "L'Institution de l'Eucharistie"
+      ],
+      "refs": [
+        {
+          "display": "Mt 3, 13-17",
+          "bookId": "mt",
+          "chapter": 3,
+          "verseStart": 13,
+          "verseEnd": 17
+        },
+        {
+          "display": "Jn 2, 1-12",
+          "bookId": "jn",
+          "chapter": 2,
+          "verseStart": 1,
+          "verseEnd": 12
+        },
+        {
+          "display": "Mc 1, 14-15",
+          "bookId": "mc",
+          "chapter": 1,
+          "verseStart": 14,
+          "verseEnd": 15
+        },
+        {
+          "display": "Lc 9, 28-36",
+          "bookId": "lc",
+          "chapter": 9,
+          "verseStart": 28,
+          "verseEnd": 36
+        },
+        {
+          "display": "Mt 26, 26-29",
+          "bookId": "mt",
+          "chapter": 26,
+          "verseStart": 26,
+          "verseEnd": 29
+        }
+      ]
+    },
     "douloureux": {
       "key": "douloureux",
       "label": "Mystères Douloureux",
       "days": "Mardi · Vendredi",
       "mysteries": [
-        "L'Agonie de Jésus au jardin des Oliviers",
+        "L'Agonie à Gethsémani",
         "La Flagellation",
         "Le Couronnement d'épines",
-        "Le Portement de croix",
-        "La Crucifixion et la mort de Jésus"
+        "La Montée au Calvaire",
+        "La Mort en croix"
       ],
       "refs": [
         {
@@ -101,12 +150,12 @@
     "glorieux": {
       "key": "glorieux",
       "label": "Mystères Glorieux",
-      "days": "Mercredi · Samedi · Dimanche",
+      "days": "Mercredi · Dimanche",
       "mysteries": [
         "La Résurrection",
         "L'Ascension",
         "La Pentecôte",
-        "Assomption de Marie",
+        "L'Assomption de Marie",
         "Le Couronnement de Marie"
       ],
       "refs": [
@@ -168,6 +217,14 @@
     "gloire-au-pere": {
       "name": "Gloire au Père",
       "text": "Gloire au Père, et au Fils, et au Saint-Esprit,\ncomme il était au commencement, maintenant et toujours,\npour les siècles des siècles.\n\nAmen."
+    },
+    "fatima": {
+      "name": "Prière de Fatima",
+      "text": "Ô mon Jésus, pardonnez-nous nos péchés,\npréservez-nous du feu de l'enfer,\net conduisez au Ciel toutes les âmes,\nspécialement celles qui ont le plus besoin\nde votre miséricorde."
+    },
+    "intention": {
+      "name": "Intention de la dizaine",
+      "text": "Confiez à Marie une intention pour cette dizaine.\n\nPour vous-même, pour votre famille et vos amis, pour ceux qui souffrent, pour le Pape, les évêques et les prêtres, pour les défunts, pour une personne en particulier, pour vos ennemis."
     },
     "salve-regina": {
       "name": "Salve Regina",

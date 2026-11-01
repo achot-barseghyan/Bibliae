@@ -1,5 +1,5 @@
 import { useCallback, useSyncExternalStore } from 'react';
-import type { MysterySetKey } from '../data/rosary';
+import type { MysterySetKey, RosaryConfig } from '../data/rosary';
 import { getAppDataSnapshot, setAppData, subscribeAppData } from '../services/appDataStore';
 
 export function useRosaryProgress() {
@@ -23,5 +23,16 @@ export function useRosaryProgress() {
     }));
   }, []);
 
-  return { mysterySet: progress.mysterySet, stepIndex: progress.stepIndex, setStepIndex, setMysterySet };
+  const setConfig = useCallback((rosaryConfig: RosaryConfig) => {
+    setAppData((prev) => ({ ...prev, settings: { ...prev.settings, rosaryConfig } }));
+  }, []);
+
+  return {
+    mysterySet: progress.mysterySet,
+    stepIndex: progress.stepIndex,
+    config: appData.settings.rosaryConfig,
+    setStepIndex,
+    setMysterySet,
+    setConfig
+  };
 }

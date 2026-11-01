@@ -1,6 +1,6 @@
 import { Preferences } from '@capacitor/preferences';
-import type { MysterySetKey } from '../data/rosary';
-import { MYSTERY_ORDER, mysterySetForToday } from '../data/rosary';
+import type { MysterySetKey, RosaryConfig } from '../data/rosary';
+import { DEFAULT_ROSARY_CONFIG, MYSTERY_ORDER, mysterySetForToday, sanitizeRosaryConfig } from '../data/rosary';
 import type { PrayerLanguage } from '../data/prayers';
 import { BOOKS, booksByTestament } from '../data/bible';
 import { PLAN_DAYS, PLAN_ID, PLAN_LENGTH } from '../data/readingPlan';
@@ -35,6 +35,8 @@ export interface AppDataSettings {
   accessibility: AccessibilitySettings;
   bibleReading: BibleReadingPrefs;
   rosaryProgress: RosaryProgress;
+  /** Déroulé du chapelet (prières facultatives, affichage). */
+  rosaryConfig: RosaryConfig;
 }
 
 // Annotations de texte : surlignage/soulignage/note ancrés sur le contenu
@@ -159,14 +161,17 @@ export const defaultBibleReadingPrefs: BibleReadingPrefs = {
   theme: 'papier'
 };
 
-function defaultRosaryProgress(): RosaryProgress {
-  return { mysterySet: mysterySetForToday(), stepIndex: 0 };
+function defaultRosaryProgress(liturgicalSundays = DEFAULT_ROSARY_CONFIG.calendrier): RosaryProgress {
+  return { mysterySet: mysterySetForToday(new Date(), liturgicalSundays), stepIndex: 0 };
 }
 
-/** Série inconnue (ex. « lumineux », retiré) : on repart sur celle du jour. */
-function sanitizeRosaryProgress(raw: Partial<RosaryProgress> | undefined): RosaryProgress {
-  const progress = { ...defaultRosaryProgress(), ...raw };
-  return MYSTERY_ORDER.includes(progress.mysterySet) ? progress : defaultRosaryProgress();
+/** Série inconnue : on repart sur celle du jour. */
+function sanitizeRosaryProgress(
+  raw: Partial<RosaryProgress> | undefined,
+  liturgicalSundays = DEFAULT_ROSARY_CONFIG.calendrier
+): RosaryProgress {
+  const progress = { ...defaultRosaryProgress(liturgicalSundays), ...raw };
+  return MYSTERY_ORDER.includes(progress.mysterySet) ? progress : defaultRosaryProgress(liturgicalSundays);
 }
 
 function generateParcoursId(): string {
@@ -201,7 +206,8 @@ function defaultAppData(): AppData {
     settings: {
       accessibility: { ...defaultAccessibilitySettings },
       bibleReading: { ...defaultBibleReadingPrefs },
-      rosaryProgress: defaultRosaryProgress()
+      rosaryProgress: defaultRosaryProgress(),
+      rosaryConfig: { ...DEFAULT_ROSARY_CONFIG }
     }
   };
 }
@@ -390,6 +396,7 @@ function sanitize(value: unknown): AppData {
     return defaultAppData();
   }
   const settings = value.settings as Partial<AppDataSettings>;
+  const rosaryConfig = sanitizeRosaryConfig(settings.rosaryConfig);
   const rawAnnotations = (value as { annotations?: unknown }).annotations;
   const rawParcours = (value as { parcours?: unknown }).parcours;
   const rawChapterReads = (value as { chapterReads?: unknown }).chapterReads;
@@ -408,7 +415,8 @@ function sanitize(value: unknown): AppData {
     settings: {
       accessibility: { ...defaultAccessibilitySettings, ...settings.accessibility },
       bibleReading: { ...defaultBibleReadingPrefs, ...settings.bibleReading },
-      rosaryProgress: sanitizeRosaryProgress(settings.rosaryProgress)
+      rosaryProgress: sanitizeRosaryProgress(settings.rosaryProgress, rosaryConfig.calendrier),
+      rosaryConfig
     }
   };
 }
