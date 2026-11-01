@@ -7,6 +7,11 @@ import PLAN_TEXT from './planBibleUnAn';
 
 export const PLAN_ID = 'bible-1-an';
 export const PLAN_TITLE = 'La Bible en 1 an';
+/** Source du plan (répartition des lectures jour par jour). */
+export const PLAN_SOURCE = {
+  name: 'TopBible (TopChrétien)',
+  url: 'https://topbible.topchretien.com/plans-de-lecture/la-bible-en-1-an/'
+};
 export const PLAN_LENGTH = 365;
 /** Jour 366 : pas une ligne de données, l'écran « Félicitations ». */
 export const PLAN_FINALE_DAY = PLAN_LENGTH + 1;

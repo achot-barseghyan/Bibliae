@@ -358,6 +358,24 @@
   text-wrap: pretty;
 }
 
+.plan-hero-source {
+  margin: 10px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(14px * var(--a11y-scale));
+  color: rgba(244, 237, 220, 0.6);
+}
+
+.plan-hero-source a {
+  color: #f0d58e;
+  text-underline-offset: 3px;
+}
+
+.plan-hero-source a:focus-visible {
+  outline: 2px solid #f0d58e;
+  outline-offset: 2px;
+}
+
 .plan-hero-cta {
   margin-top: 28px;
   display: flex;

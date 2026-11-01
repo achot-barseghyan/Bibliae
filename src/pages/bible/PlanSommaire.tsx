@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { IonContent, IonPage } from '@ionic/react';
 import WorldButton from '../../components/nav/WorldButton';
 import { ChevronDownIcon, ChevronLeftIcon } from '../../components/nav/icons';
-import { PLAN_FINALE_DAY, PLAN_GROUPS, PLAN_LENGTH, PLAN_TITLE, planDayLabel } from '../../data/readingPlan';
+import { PLAN_FINALE_DAY, PLAN_GROUPS, PLAN_LENGTH, PLAN_SOURCE, PLAN_TITLE, planDayLabel } from '../../data/readingPlan';
 import { useReadingPlan } from '../../hooks/useReadingPlan';
 import { tapHaptic } from '../../utils/haptics';
 import NightStars from './NightStars';
@@ -120,6 +120,12 @@ const PlanSommaire: React.FC = () => {
             <p className="plan-hero-text" data-in>
               Chaque jour, trois lectures prises dans trois parties de la Bible : de la Genèse aux Chroniques,
               d'Esdras à Malachie, et le Nouveau Testament avec les Psaumes.
+            </p>
+            <p className="plan-hero-source" data-in>
+              Plan d'après{' '}
+              <a href={PLAN_SOURCE.url} target="_blank" rel="noopener noreferrer">
+                {PLAN_SOURCE.name}
+              </a>
             </p>
 
             <div className="plan-dial" data-in>
