@@ -1,3 +1,4 @@
+import { Capacitor, CapacitorHttp } from '@capacitor/core';
 import { Preferences } from '@capacitor/preferences';
 import { CHURCH_PRAYERS } from '../data/prayers';
 
@@ -199,7 +200,12 @@ export interface FeastFetchResult {
 // pour les 7 heures du calendrier ordinaire (Novus Ordo) : le calendrier
 // traditionnel (`vom`) n'a pas d'équivalent Vetus Ordo dans cette API et
 // continue de venir de CatéGPT.
-const AELF_API_BASE = 'https://api.aelf.org/v1';
+//
+// L'AELF ne renvoie pas d'en-tête CORS : un `fetch` depuis la WebView est
+// bloqué (on retombait alors silencieusement sur la version CatéGPT). Sur
+// mobile, on passe donc par CapacitorHttp (requête native) ; en dev web, par
+// le proxy Vite `/aelf-api` (voir vite.config.ts).
+const AELF_API_BASE = Capacitor.isNativePlatform() ? 'https://api.aelf.org/v1' : '/aelf-api/v1';
 const OFFICES_CACHE_KEY_PREFIX = 'liturgical-offices:';
 const AELF_OFFICE_ENDPOINTS: Record<string, string> = {
   matins: 'lectures',
@@ -401,16 +407,26 @@ function mapAelfOffice(hourKey: string, raw: Record<string, unknown>): Liturgica
 }
 
 async function fetchAelfOfficeRaw(endpoint: string, date: string): Promise<Record<string, unknown> | null> {
+  const url = `${AELF_API_BASE}/${endpoint}/${date}/france`;
   try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
-    const response = await fetch(`${AELF_API_BASE}/${endpoint}/${date}/france`, {
-      signal: controller.signal,
-      cache: 'no-store'
-    });
-    clearTimeout(timer);
-    if (!response.ok) return null;
-    const data = (await response.json()) as Record<string, unknown>;
+    let data: Record<string, unknown>;
+    if (Capacitor.isNativePlatform()) {
+      const response = await CapacitorHttp.get({
+        url,
+        connectTimeout: FETCH_TIMEOUT_MS,
+        readTimeout: FETCH_TIMEOUT_MS,
+        responseType: 'json'
+      });
+      if (response.status < 200 || response.status >= 300) return null;
+      data = (typeof response.data === 'string' ? JSON.parse(response.data) : response.data) as Record<string, unknown>;
+    } else {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+      const response = await fetch(url, { signal: controller.signal, cache: 'no-store' });
+      clearTimeout(timer);
+      if (!response.ok) return null;
+      data = (await response.json()) as Record<string, unknown>;
+    }
     const payload = data[endpoint];
     return payload && typeof payload === 'object' ? (payload as Record<string, unknown>) : null;
   } catch {

@@ -40,7 +40,16 @@ export default defineConfig({
   ],
   server: {
     host: true,
-    port: 5173
+    port: 5173,
+    // L'API AELF n'autorise pas les requêtes cross-origin : en dev web, on
+    // passe par le serveur Vite (sur mobile, CapacitorHttp contourne le CORS).
+    proxy: {
+      '/aelf-api': {
+        target: 'https://api.aelf.org',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/aelf-api/, '')
+      }
+    }
   },
   test: {
     globals: true,
