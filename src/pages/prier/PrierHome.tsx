@@ -4,6 +4,7 @@ import { IonContent, IonPage } from '@ionic/react';
 import { useBookmarks } from '../../hooks/useBookmarks';
 import { useRemotePrayers } from '../../hooks/content/useRemotePrayers';
 import { useRemoteSaints } from '../../hooks/content/useRemoteSaints';
+import { MASS_MOMENTS, MASS_PARTS } from '../../data/messe';
 import WorldButton from '../../components/nav/WorldButton';
 import { tapHaptic } from '../../utils/haptics';
 import NightStars from '../bible/NightStars';
@@ -44,6 +45,14 @@ const PrierHome: React.FC = () => {
       count: `${situationCount} situations · ${categories.length} domaines`,
       path: '/prier/saints',
       variant: 'saints'
+    },
+    {
+      roman: 'III',
+      title: 'Les prières de la messe',
+      description: "Ce que l'on dit, chante et fait à la messe, dans l'ordre, avec les textes complets et les gestes.",
+      count: `${MASS_MOMENTS.length} moments · ${MASS_PARTS.length} temps`,
+      path: '/prier/messe',
+      variant: 'messe'
     }
   ];
 

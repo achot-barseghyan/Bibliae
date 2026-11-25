@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { itemBlocks, textBlocks } from './liturgyBlocks';
+import { ACCENT_CLOSE, ACCENT_OPEN } from './liturgyText';
 
 // Extraits réels des réponses AELF / CatéGPT (16 octobre 2026).
 
@@ -13,15 +14,17 @@ describe('textBlocks', () => {
   it('regroupe les vers sous leur numéro de verset, strophe par strophe', () => {
     const html =
       '<p><span class="verse_number">1</span> Venez, crions de j<u>o</u>ie pour le Seigneur,<br />\nacclamons notre Roch<u>e</u>r, notre salut !<br /><span class="verse_number">2</span> Allons jusqu\'à lu<u>i</u> en rendant grâce,<br />\npar nos hymnes de f<u>ê</u>te acclamons-le !<br /><br /><span class="verse_number">3</span> Oui, le grand Die<u>u</u>, c\'est le Seigneur,</p>';
+    // Les syllabes accentuées (<u>) sont gardées entre deux repères.
+    const u = (s: string) => `${ACCENT_OPEN}${s}${ACCENT_CLOSE}`;
     expect(textBlocks(html)).toEqual([
       {
         t: 'st',
         verses: [
-          { n: '1', lines: ['Venez, crions de joie pour le Seigneur,', 'acclamons notre Rocher, notre salut !'] },
-          { n: '2', lines: ["Allons jusqu'à lui en rendant grâce,", 'par nos hymnes de fête acclamons-le !'] }
+          { n: '1', lines: [`Venez, crions de j${u('o')}ie pour le Seigneur,`, `acclamons notre Roch${u('e')}r, notre salut\u202F!`] },
+          { n: '2', lines: [`Allons jusqu'à lu${u('i')} en rendant grâce,`, `par nos hymnes de f${u('ê')}te acclamons-le\u202F!`] }
         ]
       },
-      { t: 'st', verses: [{ n: '3', lines: ["Oui, le grand Dieu, c'est le Seigneur,"] }] }
+      { t: 'st', verses: [{ n: '3', lines: [`Oui, le grand Die${u('u')}, c'est le Seigneur,`] }] }
     ]);
   });
 

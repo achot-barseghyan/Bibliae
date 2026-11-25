@@ -20,7 +20,7 @@ export const COMPENDIUM_TABS: NavTab[] = [
     path: '/compendium/eglise',
     label: 'Église',
     Icon: EgliseIcon,
-    routes: ['/compendium/eglise', '/parcours', '/paroisses', '/pourquoi-croire', '/saints', '/credo', '/catechisme']
+    routes: ['/compendium/eglise', '/eglise', '/parcours', '/paroisses', '/pourquoi-croire', '/saints', '/credo', '/catechisme']
   }
 ];
 

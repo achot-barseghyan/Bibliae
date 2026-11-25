@@ -4,6 +4,7 @@ import AccessibilityPanel from '../components/AccessibilityPanel';
 import ReadingPrefsSection from '../components/ReadingPrefsSection';
 import ReadingPreview from '../components/ReadingPreview';
 import BackupSection from './reglages/BackupSection';
+import DailyPrayersSection from './reglages/DailyPrayersSection';
 import InfoLinksSection from './reglages/InfoLinksSection';
 import './Reglages.css';
 
@@ -18,6 +19,7 @@ const Reglages: React.FC = () => {
         <ReadingPreview className="reglages-preview" />
         <AccessibilityPanel />
         <ReadingPrefsSection />
+        <DailyPrayersSection />
         <BackupSection />
         <InfoLinksSection />
         <WorldButton />

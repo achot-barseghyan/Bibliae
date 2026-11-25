@@ -113,6 +113,17 @@ const SOURCE_GROUPS: Array<{ title: string; entries: SourceEntry[] }> = [
     ]
   },
   {
+    title: 'Figures',
+    entries: [
+      {
+        title: 'New Advent · Catholic Encyclopedia (1907-1913)',
+        description:
+          'Compléments historiques et traditions anciennes des fiches, reformulés à partir des articles de l’encyclopédie. Le récit biblique renvoie à la Bible Crampon.',
+        link: { label: 'newadvent.org', url: 'https://www.newadvent.org/cathen/' }
+      }
+    ]
+  },
+  {
     title: 'Images',
     entries: [
       {

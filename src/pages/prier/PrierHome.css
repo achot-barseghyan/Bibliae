@@ -1,4 +1,4 @@
-/* Accueil de Prier : bougie sur fond de nuit, deux cartes de section. */
+/* Accueil de Prier : bougie sur fond de nuit, trois cartes de section. */
 
 .prier-home-hero {
   padding-bottom: 56px;
@@ -137,6 +137,13 @@
 .prier-home-card--saints {
   border-radius: 20px 90px 20px 20px;
   background: linear-gradient(160deg, #2e4a72, #141c30);
+}
+
+.prier-home-card--messe {
+  border-radius: 20px 20px 90px 20px;
+  /* Même raison que l'arrondi de la carte I, ici en bas à droite. */
+  padding-bottom: 34px;
+  background: linear-gradient(160deg, #c29a45, #5a3a10);
 }
 
 @media (hover: hover) {

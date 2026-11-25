@@ -12,6 +12,7 @@ import { MYSTERY_ORDER } from '../data/rosary';
 import { LatinCrossIcon, SearchIcon } from '../components/nav/icons';
 import { tapHaptic } from '../utils/haptics';
 import { useOpenSearch } from './accueil/searchContext';
+import PrayerMomentCard from './accueil/PrayerMomentCard';
 import { SEARCH_SCOPES as SCOPES } from './accueil/searchIndex';
 import './Accueil.css';
 
@@ -614,9 +615,9 @@ const Accueil: React.FC = () => {
             </div>
           </nav>
 
-          {/* --- Jour liturgique --- */}
-          {feast && feastColor && (
-            <section className="accueil-section">
+          {/* --- Jour liturgique, prière du moment --- */}
+          <section className="accueil-section">
+            {feast && feastColor && (
               <button
                 type="button"
                 className="liturgie-card"
@@ -641,8 +642,9 @@ const Accueil: React.FC = () => {
                   </span>
                 </span>
               </button>
-            </section>
-          )}
+            )}
+            <PrayerMomentCard onOpen={(moment) => go(`/priere/${moment}`)} />
+          </section>
 
           {/* --- Figures en vedette --- */}
           {weeklyFigures.length > 0 && (

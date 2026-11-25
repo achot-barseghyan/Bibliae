@@ -685,6 +685,29 @@ const FigureDetail: React.FC = () => {
                 </p>
               )}
             </div>
+            {detail?.biography && (
+              <div className="ff-life-sources" data-rv="0">
+                <p className="ff-life-sources-title">Sources</p>
+                <ul className="ff-life-sources-list">
+                  <li>
+                    Bible Crampon (1923)
+                    <span className="ff-life-sources-note"> · récit biblique et versets cités</span>
+                  </li>
+                  {detail.sources?.map((source) => (
+                    <li key={source.url ?? source.title}>
+                      {source.url ? (
+                        <a href={source.url} target="_blank" rel="noopener noreferrer">
+                          {source.title}
+                        </a>
+                      ) : (
+                        source.title
+                      )}
+                      {source.note && <span className="ff-life-sources-note"> · {source.note}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </section>
 
           {/* --- Chronologie --- */}

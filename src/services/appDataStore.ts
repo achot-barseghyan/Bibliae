@@ -4,6 +4,12 @@ import { DEFAULT_ROSARY_CONFIG, MYSTERY_ORDER, mysterySetForToday, sanitizeRosar
 import type { PrayerLanguage } from '../data/prayers';
 import { BOOKS, booksByTestament } from '../data/bible';
 import { PLAN_DAYS, PLAN_ID, PLAN_LENGTH } from '../data/readingPlan';
+import type { CustomPrayer, DailyPrayerSettings } from '../data/dailyPrayers';
+import {
+  DEFAULT_DAILY_PRAYER_SETTINGS,
+  sanitizeCustomPrayers,
+  sanitizeDailyPrayerSettings
+} from '../data/dailyPrayers';
 
 export const APP_DATA_VERSION = 3;
 
@@ -37,6 +43,8 @@ export interface AppDataSettings {
   rosaryProgress: RosaryProgress;
   /** Déroulé du chapelet (prières facultatives, affichage). */
   rosaryConfig: RosaryConfig;
+  /** Plages horaires des prières du matin et du soir, étapes affichées. */
+  dailyPrayers: DailyPrayerSettings;
 }
 
 // Annotations de texte : surlignage/soulignage/note ancrés sur le contenu
@@ -146,6 +154,8 @@ export interface AppData {
   readingPositions: ReadingPosition[];
   planProgress: PlanProgress[];
   planReads: PlanRead[];
+  /** Prières du matin et du soir écrites par l'utilisateur. */
+  customPrayers: CustomPrayer[];
   settings: AppDataSettings;
 }
 
@@ -203,11 +213,13 @@ function defaultAppData(): AppData {
     readingPositions: [],
     planProgress: [],
     planReads: [],
+    customPrayers: [],
     settings: {
       accessibility: { ...defaultAccessibilitySettings },
       bibleReading: { ...defaultBibleReadingPrefs },
       rosaryProgress: defaultRosaryProgress(),
-      rosaryConfig: { ...DEFAULT_ROSARY_CONFIG }
+      rosaryConfig: { ...DEFAULT_ROSARY_CONFIG },
+      dailyPrayers: { ...DEFAULT_DAILY_PRAYER_SETTINGS }
     }
   };
 }
@@ -403,6 +415,7 @@ function sanitize(value: unknown): AppData {
   const rawReadingPositions = (value as { readingPositions?: unknown }).readingPositions;
   const rawPlanProgress = (value as { planProgress?: unknown }).planProgress;
   const rawPlanReads = (value as { planReads?: unknown }).planReads;
+  const rawCustomPrayers = (value as { customPrayers?: unknown }).customPrayers;
   return {
     version: APP_DATA_VERSION,
     bookmarks: Array.from(new Set(value.bookmarks)),
@@ -412,11 +425,13 @@ function sanitize(value: unknown): AppData {
     readingPositions: sanitizeReadingPositions(rawReadingPositions),
     planProgress: sanitizePlanProgress(rawPlanProgress),
     planReads: sanitizePlanReads(rawPlanReads),
+    customPrayers: sanitizeCustomPrayers(rawCustomPrayers),
     settings: {
       accessibility: { ...defaultAccessibilitySettings, ...settings.accessibility },
       bibleReading: { ...defaultBibleReadingPrefs, ...settings.bibleReading },
       rosaryProgress: sanitizeRosaryProgress(settings.rosaryProgress, rosaryConfig.calendrier),
-      rosaryConfig
+      rosaryConfig,
+      dailyPrayers: sanitizeDailyPrayerSettings(settings.dailyPrayers)
     }
   };
 }
@@ -524,7 +539,8 @@ function chapterReadKey(c: { parcoursId: string; bookId: string; chapter: number
  * annotations (par id) et des parcours (par id, jamais activés par l'import —
  * le parcours actif courant n'est jamais changé silencieusement) ; pour les
  * chapitres lus et les positions de lecture, l'entrée la plus récente
- * (`readAt`/`updatedAt`) l'emporte à clé égale. Réglages de l'appareil
+ * (`readAt`/`updatedAt`) l'emporte à clé égale ; de même pour les prières
+ * personnelles (par id, `updatedAt`). Réglages de l'appareil
  * conservés tels quels.
  */
 export function mergeAppData(incoming: AppData): {
@@ -587,6 +603,12 @@ export function mergeAppData(incoming: AppData): {
     currentDay: computeCurrentDay(planReads, p.planId)
   }));
 
+  const customPrayerMap = new Map(cache.customPrayers.map((p) => [p.id, p]));
+  for (const incomingPrayer of sanitized.customPrayers) {
+    const existing = customPrayerMap.get(incomingPrayer.id);
+    if (!existing || incomingPrayer.updatedAt > existing.updatedAt) customPrayerMap.set(incomingPrayer.id, incomingPrayer);
+  }
+
   cache = {
     version: APP_DATA_VERSION,
     bookmarks: Array.from(merged),
@@ -596,6 +618,7 @@ export function mergeAppData(incoming: AppData): {
     readingPositions: Array.from(readingPositionMap.values()),
     planProgress,
     planReads,
+    customPrayers: Array.from(customPrayerMap.values()),
     settings: cache.settings
   };
   persist();

@@ -1,5 +1,5 @@
 import type { LiturgicalItem } from '../../services/liturgicalCalendar';
-import { htmlParagraphs, htmlToLines } from './liturgyText';
+import { htmlParagraphs, htmlToLines, stripAccentMarks } from './liturgyText';
 
 // Découpe le texte d'une partie (messe ou heure) en blocs mis en forme
 // comme dans le bréviaire (maquette Office et Messe v2) : antiennes en
@@ -55,7 +55,7 @@ function stanzaBlock(lines: string[]): LiturgyBlock | null {
 
   if (single !== null) {
     for (const [pattern, a, b] of READING_CONCLUSIONS) {
-      if (pattern.test(single)) return { t: 'vr', a, b };
+      if (pattern.test(stripAccentMarks(single))) return { t: 'vr', a, b };
     }
     if (RESPONSE_PREFIX.test(single)) return { t: 'R', x: single.replace(RESPONSE_PREFIX, '') };
   }
@@ -84,7 +84,7 @@ function stanzaBlock(lines: string[]): LiturgyBlock | null {
 
 /** HTML → blocs : un paragraphe `<p>` ou une ligne vide sépare les strophes. */
 export function textBlocks(html: string): LiturgyBlock[] {
-  return htmlParagraphs(html)
+  return htmlParagraphs(html, true)
     .flatMap((p) => p.split(/\n{2,}/))
     .map((stanza) =>
       stanza
@@ -105,7 +105,7 @@ function splitPsalmRefrain(html: string): { refrain: string | null; rest: string
 }
 
 function oneLine(html: string): string {
-  return frenchSpacing(htmlToLines(html).replace(/\n+/g, ' ').trim());
+  return frenchSpacing(htmlToLines(html, true).replace(/\n+/g, ' ').trim());
 }
 
 /** Blocs d'une partie, avec antiennes, doxologie et refrains autour du texte. */

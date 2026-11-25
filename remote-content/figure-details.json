@@ -49,7 +49,7 @@
       [
         {
           "type": "text",
-          "text": "Vers l'âge de trente ans, il reçoit le baptême de Jean au Jourdain, puis commence une prédication publique de trois ans environ "
+          "text": "Vers l'âge de trente ans, il reçoit le baptême de Jean au Jourdain, puis commence une prédication publique, dont la durée, déduite de l'évangile de Jean, est estimée à trois ans environ "
         },
         {
           "type": "ref",
@@ -321,7 +321,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "La Bible ne dit rien de la fin de sa vie. Une tradition largement répandue au début du Ve siècle situe sa mort à Jérusalem et sa sépulture à Gethsémani : en 451, l'évêque Juvénal de Jérusalem atteste la présence de son tombeau et invoque une tradition ancienne selon laquelle son corps a été élevé au ciel. Une autre tradition, moins solidement appuyée, place sa mort à Éphèse."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « The Blessed Virgin Mary »",
+        "url": "https://www.newadvent.org/cathen/15464b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -552,7 +565,62 @@
           "type": "text",
           "text": ". Selon la tradition chrétienne ancienne, il finit sa vie à Rome, où il est martyrisé sous l'empereur Néron, crucifié la tête en bas à sa propre demande."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Fils de Jona, Simon est marié et vit à Capharnaüm, où Jésus guérit sa belle-mère "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Mt 8, 14-15",
+            "bookId": "mt",
+            "chapter": 8,
+            "verseStart": 14,
+            "verseEnd": 15
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Sous Hérode Agrippa Ier, il est emprisonné à Jérusalem puis délivré "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 12, 3-17",
+            "bookId": "ac",
+            "chapter": 12,
+            "verseStart": 3,
+            "verseEnd": 17
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et il prend la parole au concile des apôtres "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 15, 7-11",
+            "bookId": "ac",
+            "chapter": 15,
+            "verseStart": 7,
+            "verseEnd": 11
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Selon la tradition, il travaille longuement à Antioche, et Marc met par écrit à Rome ce qu'il y a prêché, d'après le témoignage de Papias et de Clément d'Alexandrie. Clément d'Alexandrie rapporte aussi que sa femme mourut martyre."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Peter, Prince of the Apostles »",
+        "url": "https://www.newadvent.org/cathen/11744a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -756,7 +824,46 @@
           "type": "text",
           "text": ". Arrêté à Jérusalem puis transféré à Rome après avoir fait appel à César, il y est, selon la tradition, décapité sous l'empereur Néron."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Il hérite la citoyenneté romaine de son père "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 22, 28",
+            "bookId": "ac",
+            "chapter": 22,
+            "verseStart": 28
+          }
+        },
+        {
+          "type": "text",
+          "text": " et projette de se rendre en Espagne "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Rm 15, 24",
+            "bookId": "rm",
+            "chapter": 15,
+            "verseStart": 24
+          }
+        },
+        {
+          "type": "text",
+          "text": ", voyage que Clément de Rome et le Canon de Muratori rendent probable. La tradition ancienne situe son martyre aux Eaux Salviennes, aujourd'hui Tre Fontane, près de Rome, et sa sépulture sur la voie d'Ostie, à l'emplacement de la basilique Saint-Paul-hors-les-Murs."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Paul »",
+        "url": "https://www.newadvent.org/cathen/11567b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -927,7 +1034,7 @@
       [
         {
           "type": "text",
-          "text": "Fils de Zacharie, prêtre du Temple, et d'Élisabeth, sa naissance est annoncée par l'ange Gabriel ; elle survient six mois avant celle de Jésus, dont Marie sa cousine vient visiter Élisabeth "
+          "text": "Fils de Zacharie, prêtre du Temple, et d'Élisabeth, sa naissance est annoncée par l'ange Gabriel ; elle survient six mois avant celle de Jésus, et Marie, parente d'Élisabeth, vient alors lui rendre visite "
         },
         {
           "type": "ref",
@@ -1010,7 +1117,46 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son père appartient à la classe sacerdotale d'Abia "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Lc 1, 5",
+            "bookId": "lc",
+            "chapter": 1,
+            "verseStart": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et une tradition attestée avant les croisades situe sa naissance à Aïn Karim, à quelques kilomètres de Jérusalem. L'historien juif Flavius Josèphe confirme sa popularité, situe sa mort dans la forteresse de Machéronte et donne le nom de Salomé à la fille d'Hérodiade. Il rapporte aussi que les Juifs virent dans la défaite d'Hérode face à Arétas, le père de sa première épouse répudiée, un châtiment divin de cette exécution. Après sa mort, ses disciples viennent prendre son corps et le déposent dans un tombeau "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Mc 6, 29",
+            "bookId": "mc",
+            "chapter": 6,
+            "verseStart": 29
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. John the Baptist »",
+        "url": "https://www.newadvent.org/cathen/08486b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -1154,7 +1300,7 @@
       [
         {
           "type": "text",
-          "text": "Les évangiles le désignent comme « le disciple que Jésus aimait », présent à la Cène et au pied de la croix, où Jésus mourant lui confie sa mère Marie "
+          "text": "La tradition l'identifie au « disciple que Jésus aimait », que l'évangile de Jean ne nomme jamais : présent à la Cène et au pied de la croix, ce disciple reçoit de Jésus mourant la garde de sa mère Marie "
         },
         {
           "type": "ref",
@@ -1168,7 +1314,7 @@
         },
         {
           "type": "text",
-          "text": ". Il est aussi le premier apôtre à courir jusqu'au tombeau vide le matin de Pâques "
+          "text": ". Ce même disciple court avec Pierre au tombeau vide, le matin de Pâques, et y arrive le premier "
         },
         {
           "type": "ref",
@@ -1203,7 +1349,47 @@
           "type": "text",
           "text": ". La tradition chrétienne lui attribue le quatrième Évangile, trois épîtres et l'Apocalypse, écrite selon lui alors qu'il était exilé sur l'île de Patmos, et le dit mort de vieillesse à Éphèse, seul apôtre à ne pas avoir subi le martyre."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Fils de Zébédée, il a pour mère une femme que le rapprochement des Évangiles identifie à Salomé. Il a probablement été d'abord disciple de Jean-Baptiste "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jn 1, 35-40",
+            "bookId": "jn",
+            "chapter": 1,
+            "verseStart": 35,
+            "verseEnd": 40
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et Paul le nomme parmi les « colonnes » de l'Église de Jérusalem "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ga 2, 9",
+            "bookId": "ga",
+            "chapter": 2,
+            "verseStart": 9
+          }
+        },
+        {
+          "type": "text",
+          "text": ". La tradition place son exil à Patmos sous l'empereur Domitien. Tertullien rapporte qu'il fut auparavant plongé à Rome dans l'huile bouillante, devant la porte Latine, sans en souffrir. Selon Irénée, il écrit son Évangile à Éphèse et y vit jusque sous le règne de Trajan ; la tradition y place sa mort vers la fin du Ier siècle."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. John the Evangelist »",
+        "url": "https://www.newadvent.org/cathen/08492a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -1398,7 +1584,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom grec laisse penser qu'il était un Juif hellénisé, et sa prédication rencontre surtout l'opposition des synagogues de ces Juifs de langue grecque "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 6, 9",
+            "bookId": "ac",
+            "chapter": 6,
+            "verseStart": 9
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Hors de la Bible, la tradition rapporte que son tombeau, longtemps oublié, fut retrouvé en 415 à Caphar Gamala, au nord de Jérusalem, après une révélation reçue par le prêtre Lucien, et que ses reliques furent portées à l'église du mont Sion puis, en 460, à la basilique élevée par l'impératrice Eudocie près de la porte de Damas, à l'endroit où la tradition place sa lapidation."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Stephen »",
+        "url": "https://www.newadvent.org/cathen/14286b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -1485,7 +1697,7 @@
       [
         {
           "type": "text",
-          "text": "Originaire de Magdala, un village de pêcheurs sur les rives du lac de Galilée, Marie est guérie par Jésus, qui la délivre de sept démons "
+          "text": "Son surnom la rattache sans doute à Magdala, village des rives du lac de Galilée. Marie est guérie par Jésus, qui la délivre de sept démons "
         },
         {
           "type": "ref",
@@ -1540,7 +1752,20 @@
           "type": "text",
           "text": ", ce qui lui vaut, dans la tradition, le titre d'« apôtre des apôtres ». Bien qu'elle ait longtemps été confondue en Occident avec la pécheresse anonyme de Luc 7 et avec Marie de Béthanie, l'Église catholique a officiellement distingué ces figures depuis la réforme liturgique de 1969."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "La suite de sa vie n'est connue que par des traditions tardives et divergentes. L'Église grecque rapporte qu'elle se retira à Éphèse avec la Vierge Marie et y mourut, ses reliques étant transférées à Constantinople en 886. Une tradition française la fait au contraire aborder à Marseille avec Lazare et ses compagnons pour évangéliser la Provence, et rattache ses reliques à Vézelay."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Mary Magdalen »",
+        "url": "https://www.newadvent.org/cathen/09761a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -1728,7 +1953,33 @@
           "type": "text",
           "text": ". Dans le Nouveau Testament, Paul le présente comme la figure inversée du Christ, « nouvel Adam »."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Après la naissance de Seth, la Genèse lui attribue encore d'autres fils et filles "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 5, 4",
+            "bookId": "gn",
+            "chapter": 5,
+            "verseStart": 4
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Le rapprochement de son nom avec le mot hébreu désignant le sol souligne que l'homme est tiré de la terre."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Adam »",
+        "url": "https://www.newadvent.org/cathen/01129a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -1869,7 +2120,61 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Fils de Lémek et petit-fils de Mathusalem "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 5, 25-29",
+            "bookId": "gn",
+            "chapter": 5,
+            "verseStart": 25,
+            "verseEnd": 29
+          }
+        },
+        {
+          "type": "text",
+          "text": ", il devient après le déluge le premier cultivateur de la vigne. Lorsqu'il s'enivre, Cham voit sa nudité et le rapporte à ses frères, tandis que Sem et Japhet le couvrent d'un manteau "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 9, 20-27",
+            "bookId": "gn",
+            "chapter": 9,
+            "verseStart": 20,
+            "verseEnd": 27
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il meurt à 950 ans "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 9, 29",
+            "bookId": "gn",
+            "chapter": 9,
+            "verseStart": 29
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Les Pères de l'Église voient en lui une figure du Sauveur, par qui le genre humain est sauvé et réconcilié avec Dieu."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Noah »",
+        "url": "https://www.newadvent.org/cathen/11088a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -2038,7 +2343,89 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Fils de Térah, il quitte d'abord Ur avec lui pour Harân, où Térah meurt "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 11, 31-32",
+            "bookId": "gn",
+            "chapter": 11,
+            "verseStart": 31,
+            "verseEnd": 32
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Une famine le conduit ensuite en Égypte, où il fait passer Sara pour sa sœur par crainte d'être tué "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 12, 10-20",
+            "bookId": "gn",
+            "chapter": 12,
+            "verseStart": 10,
+            "verseEnd": 20
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et il renouvelle ce stratagème à Guérar auprès du roi Abimélek "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 20, 1-18",
+            "bookId": "gn",
+            "chapter": 20,
+            "verseStart": 1,
+            "verseEnd": 18
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Avant sa mort, il fait chercher en Mésopotamie Rébecca pour épouse d'Isaac "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 24, 1-4",
+            "bookId": "gn",
+            "chapter": 24,
+            "verseStart": 1,
+            "verseEnd": 4
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Isaac et Ismaël l'ensevelissent ensemble "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 25, 9",
+            "bookId": "gn",
+            "chapter": 25,
+            "verseStart": 9
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Abraham »",
+        "url": "https://www.newadvent.org/cathen/01051a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -2262,7 +2649,59 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Circoncis le huitième jour "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 21, 4",
+            "bookId": "gn",
+            "chapter": 21,
+            "verseStart": 4
+          }
+        },
+        {
+          "type": "text",
+          "text": ", il grandit auprès de son père, établi à Bersabée. Il a une préférence pour Ésaü, tandis que Rébecca préfère Jacob "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 25, 28",
+            "bookId": "gn",
+            "chapter": 25,
+            "verseStart": 28
+          }
+        },
+        {
+          "type": "text",
+          "text": ". La tradition chrétienne voit dans son obéissance sur le mont Moriah une préfiguration du sacrifice du Christ. Il repose dans la grotte de Makpéla "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 49, 31",
+            "bookId": "gn",
+            "chapter": 49,
+            "verseStart": 31
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Isaac »",
+        "url": "https://www.newadvent.org/cathen/08175a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -2466,7 +2905,90 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom, compris comme « celui qui supplante », rappelle sa naissance, le talon d'Ésaü dans la main "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 25, 25-26",
+            "bookId": "gn",
+            "chapter": 25,
+            "verseStart": 25,
+            "verseEnd": 26
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Sur le chemin du retour, il se réconcilie avec son frère "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 33, 1-16",
+            "bookId": "gn",
+            "chapter": 33,
+            "verseStart": 1,
+            "verseEnd": 16
+          }
+        },
+        {
+          "type": "text",
+          "text": ", puis ensevelit Rachel, morte en donnant naissance à Benjamin, sur la route d'Éphrata "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 35, 16-20",
+            "bookId": "gn",
+            "chapter": 35,
+            "verseStart": 16,
+            "verseEnd": 20
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Avant de mourir, il annonce à ses fils le destin de leurs descendants "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 49, 1-28",
+            "bookId": "gn",
+            "chapter": 49,
+            "verseStart": 1,
+            "verseEnd": 28
+          }
+        },
+        {
+          "type": "text",
+          "text": " ; selon sa volonté, il est enterré au pays de Canaan "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 50, 12-13",
+            "bookId": "gn",
+            "chapter": 50,
+            "verseStart": 12,
+            "verseEnd": 13
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Jacob »",
+        "url": "https://www.newadvent.org/cathen/08261a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -2674,7 +3196,60 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Né à Harân, il reçoit de Pharaon le nom égyptien de Çafnath-Panéah et épouse Asnath, fille du prêtre d'On, l'antique Héliopolis "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 41, 45",
+            "bookId": "gn",
+            "chapter": 41,
+            "verseStart": 45
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il fait installer sa famille au pays de Goshen "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 47, 1-6",
+            "bookId": "gn",
+            "chapter": 47,
+            "verseStart": 1,
+            "verseEnd": 6
+          }
+        },
+        {
+          "type": "text",
+          "text": " et fait embaumer son père "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 50, 2",
+            "bookId": "gn",
+            "chapter": 50,
+            "verseStart": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Le récit biblique ne nomme jamais le pharaon qu'il sert, ce qui empêche de dater précisément sa carrière."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Joseph »",
+        "url": "https://www.newadvent.org/cathen/08506a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -2883,7 +3458,74 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Du mariage avec Séphora naît son premier fils, Gersom "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ex 2, 22",
+            "bookId": "ex",
+            "chapter": 2,
+            "verseStart": 22
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Durant la marche au désert, Aaron et Miriam murmurent contre lui "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Nb 12, 1-15",
+            "bookId": "nb",
+            "chapter": 12,
+            "verseStart": 1,
+            "verseEnd": 15
+          }
+        },
+        {
+          "type": "text",
+          "text": " et, lors de l'épreuve des serpents brûlants, il dresse le serpent d'airain "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Nb 21, 4-9",
+            "bookId": "nb",
+            "chapter": 21,
+            "verseStart": 4,
+            "verseEnd": 9
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il adresse au peuple ses derniers discours, rapportés dans le Deutéronome. Il est enterré au pays de Moab, sans que personne ne connaisse son tombeau "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Dt 34, 6",
+            "bookId": "dt",
+            "chapter": 34,
+            "verseStart": 6
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Moses »",
+        "url": "https://www.newadvent.org/cathen/10596a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -3127,7 +3769,115 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Arrière-petit-fils de Booz et de Ruth, il gagne l'amitié de Jonathan "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1S 18, 1-4",
+            "bookId": "1s",
+            "chapter": 18,
+            "verseStart": 1,
+            "verseEnd": 4
+          }
+        },
+        {
+          "type": "text",
+          "text": " et épouse Mikal, fille de Saül "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1S 18, 27",
+            "bookId": "1s",
+            "chapter": 18,
+            "verseStart": 27
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Pourchassé par le roi, il vit en proscrit et échappe à la mort chez Akish, roi de Gat, en simulant la folie "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1S 21, 11-16",
+            "bookId": "1s",
+            "chapter": 21,
+            "verseStart": 11,
+            "verseEnd": 16
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il pleure Saül et Jonathan dans une élégie "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2S 1, 17-27",
+            "bookId": "2s",
+            "chapter": 1,
+            "verseStart": 17,
+            "verseEnd": 27
+          }
+        },
+        {
+          "type": "text",
+          "text": ", règne sept ans et demi à Hébron puis trente-trois ans à Jérusalem "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2S 5, 5",
+            "bookId": "2s",
+            "chapter": 5,
+            "verseStart": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et affronte la révolte de son fils Absalom "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2S 15, 1-12",
+            "bookId": "2s",
+            "chapter": 15,
+            "verseStart": 1,
+            "verseEnd": 12
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Enseveli dans la cité de David, il a encore un tombeau connu au temps de Pierre "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 2, 29",
+            "bookId": "ac",
+            "chapter": 2,
+            "verseStart": 29
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Le Martyrologe romain le mentionne le 29 décembre, et les Pères voient dans sa vie une préfiguration de celle du Christ."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « King David »",
+        "url": "https://www.newadvent.org/cathen/04642b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -3337,7 +4087,73 @@
           "type": "text",
           "text": ". La tradition lui attribue les Proverbes, l'Ecclésiaste et le Cantique des Cantiques."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Il porte aussi le nom de Yedidya, « aimé du Seigneur » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2S 12, 25",
+            "bookId": "2s",
+            "chapter": 12,
+            "verseStart": 25
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et règne quarante ans "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1R 11, 42",
+            "bookId": "1r",
+            "chapter": 11,
+            "verseStart": 42
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Sa politique extérieure est faite d'alliances et de paix : il épouse une fille de Pharaon, qui reçoit Guézer en dot "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1R 9, 16",
+            "bookId": "1r",
+            "chapter": 9,
+            "verseStart": 16
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et conclut un traité avec Hiram de Tyr, qui lui fournit bois et artisans "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1R 5, 15-26",
+            "bookId": "1r",
+            "chapter": 5,
+            "verseStart": 15,
+            "verseEnd": 26
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il finance aussi ses grandes constructions par la corvée."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Solomon »",
+        "url": "https://www.newadvent.org/cathen/14135b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -3493,7 +4309,59 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « le Seigneur est salut ». Fils d'Amots, sans doute issu d'une grande famille de Jérusalem, il est marié à une femme qu'il appelle « la prophétesse » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Is 8, 3",
+            "bookId": "is",
+            "chapter": 8,
+            "verseStart": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": " et a au moins deux fils aux noms symboliques "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Is 7, 3",
+            "bookId": "is",
+            "chapter": 7,
+            "verseStart": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Une tradition ancienne, reprise par le Talmud, Justin et de nombreux Pères, rapporte qu'il survécut à Ézéchias et mourut scié en deux sous Manassé, ce que beaucoup lisent en filigrane de "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "He 11, 37",
+            "bookId": "he",
+            "chapter": 11,
+            "verseStart": 37
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Son tombeau passait pour être à Panéas, d'où ses reliques auraient été portées à Constantinople en 442 ; le Martyrologe romain le commémore le 6 juillet."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Isaias »",
+        "url": "https://www.newadvent.org/cathen/08179b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -3672,7 +4540,47 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « le Seigneur est Dieu ». Vêtu de peaux, une ceinture de cuir autour des reins "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2R 1, 8",
+            "bookId": "2r",
+            "chapter": 1,
+            "verseStart": 8
+          }
+        },
+        {
+          "type": "text",
+          "text": ", il mène une vie de nomade, entre torrents et grottes. Le livre des Chroniques lui attribue encore une lettre avertissant Joram, roi de Juda "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2Ch 21, 12-15",
+            "bookId": "2ch",
+            "chapter": 21,
+            "verseStart": 12,
+            "verseEnd": 15
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Sur le mont Carmel, plusieurs lieux restent vénérés en son souvenir par les chrétiens comme par les musulmans."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Elijah »",
+        "url": "https://www.newadvent.org/cathen/05381b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -3880,7 +4788,47 @@
           "type": "text",
           "text": ", reprise par Jésus pour se désigner lui-même."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « Dieu est mon juge ». Encore jeune, il est déporté par Nabuchodonosor sous le roi Joaqim, vers 605 av. J.-C. selon la chronologie habituelle "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Dn 1, 1-6",
+            "bookId": "dn",
+            "chapter": 1,
+            "verseStart": 1,
+            "verseEnd": 6
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Après la mort de Nabuchodonosor, le texte laisse entendre qu'il vit longtemps retiré, jusqu'à ce que le festin de Balthazar le ramène sur le devant de la scène, déjà très âgé ; il reste en faveur sous Darius et sous Cyrus "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Dn 6, 29",
+            "bookId": "dn",
+            "chapter": 6,
+            "verseStart": 29
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Une tradition médiévale place son tombeau à Suse, et le Martyrologe romain le commémore le 21 juillet."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Daniel »",
+        "url": "https://www.newadvent.org/cathen/04620a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -4072,7 +5020,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom n'apparaît que cinq fois dans la Bible, et presque tout ce qui la concerne se trouve dans les chapitres 2 à 4 de la Genèse. La parole de Dieu au serpent annonce une inimitié entre lui et la femme, entre sa descendance et celle de la femme "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 3, 15",
+            "bookId": "gn",
+            "chapter": 3,
+            "verseStart": 15
+          }
+        },
+        {
+          "type": "text",
+          "text": ", que la tradition catholique lit comme la promesse d'un Rédempteur."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Eve »",
+        "url": "https://www.newadvent.org/cathen/05646b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -4254,7 +5228,74 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Le même épisode se reproduit à Guérar, auprès du roi Abimélek "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 20, 1-18",
+            "bookId": "gn",
+            "chapter": 20,
+            "verseStart": 1,
+            "verseEnd": 18
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Jalouse d'Agar, elle la maltraite puis obtient d'Abraham qu'il la chasse avec Ismaël "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 21, 9-14",
+            "bookId": "gn",
+            "chapter": 21,
+            "verseStart": 9,
+            "verseEnd": 14
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Elle est enterrée dans la grotte de Makpéla "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 23, 19",
+            "bookId": "gn",
+            "chapter": 23,
+            "verseStart": 19
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et le prophète Isaïe la présente comme la mère du peuple élu "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Is 51, 2",
+            "bookId": "is",
+            "chapter": 51,
+            "verseStart": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Sara »",
+        "url": "https://www.newadvent.org/cathen/13468a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -4645,7 +5686,60 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Il suit probablement Abraham en Égypte, puisqu'il remonte avec lui vers le Néguev "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 13, 1",
+            "bookId": "gn",
+            "chapter": 13,
+            "verseStart": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": ". À Sodome, il accueille les deux anges et, pour protéger ses hôtes, va jusqu'à offrir ses filles à la foule "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 19, 1-8",
+            "bookId": "gn",
+            "chapter": 19,
+            "verseStart": 1,
+            "verseEnd": 8
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Jésus rappelle le sort de sa femme "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Lc 17, 32",
+            "bookId": "lc",
+            "chapter": 17,
+            "verseStart": 32
+          }
+        },
+        {
+          "type": "text",
+          "text": " ; Flavius Josèphe, Clément de Rome et Irénée rapportent que la colonne de sel resta longtemps visible."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Lot »",
+        "url": "https://www.newadvent.org/cathen/09366a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -5386,7 +6480,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Les Pères de l'Église le tiennent pour une personne historique. Une tradition ancienne situe sa demeure dans le Hauran, d'autres en Idumée, et le fait qu'il offre lui-même les sacrifices "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jb 1, 5",
+            "bookId": "jb",
+            "chapter": 1,
+            "verseStart": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": " a conduit à le placer bien avant Moïse. Le Martyrologe latin le mentionne le 10 mai, le grec le 6 mai."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Job »",
+        "url": "https://www.newadvent.org/cathen/08413a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -5739,7 +6859,60 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Arrière-petit-fils de Lévi, il a quatre-vingt-trois ans lors de la mission auprès de Pharaon "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ex 7, 7",
+            "bookId": "ex",
+            "chapter": 7,
+            "verseStart": 7
+          }
+        },
+        {
+          "type": "text",
+          "text": " et épouse Élishéba, sœur de Nahshon, qui lui donne quatre fils "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ex 6, 23",
+            "bookId": "ex",
+            "chapter": 6,
+            "verseStart": 23
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Son sacerdoce est contesté par Coré et ses partisans, puis confirmé par Dieu "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Nb 16, 1-35",
+            "bookId": "nb",
+            "chapter": 16,
+            "verseStart": 1,
+            "verseEnd": 35
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Aaron »",
+        "url": "https://www.newadvent.org/cathen/01003a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -6264,7 +7437,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Après la mort de Moïse, il est « rempli de l'esprit de sagesse » et le peuple lui obéit "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Dt 34, 9",
+            "bookId": "dt",
+            "chapter": 34,
+            "verseStart": 9
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Son nom étant le même que celui de Jésus, plusieurs Pères, à la suite d'Origène, voient en lui une figure du Sauveur."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Josue (Joshua) »",
+        "url": "https://www.newadvent.org/cathen/08524a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -6456,7 +7655,73 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Moïse le désigne parmi les commissaires chargés de partager le pays "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Nb 34, 19",
+            "bookId": "nb",
+            "chapter": 34,
+            "verseStart": 19
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Le district d'Hébron lui revient, mais la ville elle-même est attribuée aux prêtres "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jos 21, 11-13",
+            "bookId": "jos",
+            "chapter": 21,
+            "verseStart": 11,
+            "verseEnd": 13
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Son titre de Qenizite laisse penser qu'il n'était pas israélite de naissance, mais adopté dans la tribu de Juda. Il est loué dans le Siracide "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Si 46, 9",
+            "bookId": "si",
+            "chapter": 46,
+            "verseStart": 9
+          }
+        },
+        {
+          "type": "text",
+          "text": " et dans le premier livre des Maccabées "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1M 2, 56",
+            "bookId": "1m",
+            "chapter": 2,
+            "verseStart": 56
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Caleb »",
+        "url": "https://www.newadvent.org/cathen/03157a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -6629,7 +7894,60 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Descendant d'Aaron par Itamar, il reçoit un avertissement divin : le sacerdoce sera retiré à sa maison "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1S 2, 27-36",
+            "bookId": "1s",
+            "chapter": 2,
+            "verseStart": 27,
+            "verseEnd": 36
+          }
+        },
+        {
+          "type": "text",
+          "text": ". La parole s'accomplit plus d'un siècle plus tard, quand Salomon écarte son descendant Abiatar "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1R 2, 27",
+            "bookId": "1r",
+            "chapter": 2,
+            "verseStart": 27
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Samuel lui succède comme juge "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1S 7, 15",
+            "bookId": "1s",
+            "chapter": 7,
+            "verseStart": 15
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Heli (Eli) »",
+        "url": "https://www.newadvent.org/cathen/07204b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -7007,7 +8325,74 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « celui qui abat ». Il vit à Ophra et bâtit un autel après l'apparition de l'ange "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jg 6, 24",
+            "bookId": "jg",
+            "chapter": 6,
+            "verseStart": 24
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Avant l'attaque, il se glisse de nuit dans le camp ennemi et y entend raconter un songe qui le rassure "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jg 7, 9-15",
+            "bookId": "jg",
+            "chapter": 7,
+            "verseStart": 9,
+            "verseEnd": 15
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il poursuit ensuite Zébah et Çalmunna, les capture et les met à mort, et punit au passage Soukkot et Penouël "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jg 8, 10-21",
+            "bookId": "jg",
+            "chapter": 8,
+            "verseStart": 10,
+            "verseEnd": 21
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il meurt dans une heureuse vieillesse et est enterré dans le tombeau de son père "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jg 8, 32",
+            "bookId": "jg",
+            "chapter": 8,
+            "verseStart": 32
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Gideon »",
+        "url": "https://www.newadvent.org/cathen/06402c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -7092,7 +8477,7 @@
       },
       {
         "label": "Œuvre",
-        "value": "Cantique de Débora (Jg 5), un des plus anciens textes bibliques"
+        "value": "Cantique de Débora (Jg 5), tenu pour l'un des plus anciens textes bibliques"
       },
       {
         "label": "Occurrences",
@@ -7171,7 +8556,7 @@
       [
         {
           "type": "text",
-          "text": "Débora et Baraq célèbrent la victoire par un chant, l'un des textes poétiques les plus anciens de la Bible, exaltant l'intervention de Dieu pour son peuple "
+          "text": "Débora et Baraq célèbrent la victoire par un chant, tenu par les exégètes pour l'un des textes poétiques les plus anciens de la Bible, exaltant l'intervention de Dieu pour son peuple "
         },
         {
           "type": "ref",
@@ -7187,7 +8572,46 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Elle est juge au sens propre : les Israélites viennent lui soumettre leurs litiges "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jg 4, 5",
+            "bookId": "jg",
+            "chapter": 4,
+            "verseStart": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": ", alors que le titre désigne surtout des libérateurs et des chefs militaires pour les autres personnages du livre. Son chant la présente comme « une mère en Israël » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jg 5, 7",
+            "bookId": "jg",
+            "chapter": 5,
+            "verseStart": 7
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Debbora »",
+        "url": "https://www.newadvent.org/cathen/04663a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -7386,7 +8810,48 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom est rapproché du mot hébreu désignant le soleil. L'ange revient auprès de ses parents et disparaît dans la flamme de leur holocauste "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jg 13, 9-20",
+            "bookId": "jg",
+            "chapter": 13,
+            "verseStart": 9,
+            "verseEnd": 20
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Après la trahison de l'énigme, sa femme est donnée à un compagnon de noces. Samson se venge, les Philistins la brûlent avec son père, puis il se retire dans le rocher d'Étam "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jg 15, 1-8",
+            "bookId": "jg",
+            "chapter": 15,
+            "verseStart": 1,
+            "verseEnd": 8
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Samson »",
+        "url": "https://www.newadvent.org/cathen/13423a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -7800,7 +9265,7 @@
         },
         {
           "type": "text",
-          "text": ". Booz l'épouse, et leur fils Obed devient le grand-père de Jessé, père de David "
+          "text": ". Booz l'épouse après qu'un parent plus proche a renoncé à son droit, et leur fils Obed devient le père de Jessé, et donc le grand-père de David "
         },
         {
           "type": "ref",
@@ -7830,7 +9295,47 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son histoire a d'autant plus de relief qu'elle est moabite, un peuple que la Loi exclut de l'assemblée du Seigneur "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Dt 23, 4",
+            "bookId": "dt",
+            "chapter": 23,
+            "verseStart": 4
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Elle devient pourtant l'aïeule du fondateur de la monarchie hébraïque, et la généalogie finale du livre relie David à Pérès, fils de Juda "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Rt 4, 18-22",
+            "bookId": "rt",
+            "chapter": 4,
+            "verseStart": 18,
+            "verseEnd": 22
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Book of Ruth »",
+        "url": "https://www.newadvent.org/cathen/13276a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -8180,7 +9685,7 @@
       [
         {
           "type": "text",
-          "text": "De leur union naît Obed, grand-père de Jessé et arrière-grand-père de David "
+          "text": "De leur union naît Obed, père de Jessé et grand-père de David "
         },
         {
           "type": "ref",
@@ -8587,7 +10092,34 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Il juge Israël tous les jours de sa vie, parcourant chaque année Béthel, Guilgal et Mitspa, avant de revenir à Rama "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1S 7, 15-17",
+            "bookId": "1s",
+            "chapter": 7,
+            "verseStart": 15,
+            "verseEnd": 17
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « First and Second Samuel »",
+        "url": "https://www.newadvent.org/cathen/08647b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -8819,7 +10351,61 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son épouse se nomme Ahinoam "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1S 14, 50",
+            "bookId": "1s",
+            "chapter": 14,
+            "verseStart": 50
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Après sa mort, les Philistins lui coupent la tête et exposent son corps sur les murs de Beth-Shân ; les habitants de Yabesh de Galaad viennent de nuit le reprendre, avec ceux de ses fils, pour leur donner sépulture "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1S 31, 8-13",
+            "bookId": "1s",
+            "chapter": 31,
+            "verseStart": 8,
+            "verseEnd": 13
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Trois de ses fils périssent avec lui, et Ishbaal, qui tente de maintenir sa dynastie, est assassiné par deux de ses chefs "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2S 4, 5-8",
+            "bookId": "2s",
+            "chapter": 4,
+            "verseStart": 5,
+            "verseEnd": 8
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Saul »",
+        "url": "https://www.newadvent.org/cathen/13486d.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -9737,7 +11323,87 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « le Seigneur fortifie ». Monté sur le trône à vingt-cinq ans, il règne vingt-neuf ans ; sa mère se nomme Abi "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2R 18, 2",
+            "bookId": "2r",
+            "chapter": 18,
+            "verseStart": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il rétablit la célébration de la Pâque "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2Ch 30, 1-5",
+            "bookId": "2ch",
+            "chapter": 30,
+            "verseStart": 1,
+            "verseEnd": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": " et secoue le joug assyrien que son père avait accepté "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2R 18, 7",
+            "bookId": "2r",
+            "chapter": 18,
+            "verseStart": 7
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il reçoit aussi une ambassade de Mérodak-Baladan, roi de Babylone "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2R 20, 12-13",
+            "bookId": "2r",
+            "chapter": 20,
+            "verseStart": 12,
+            "verseEnd": 13
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il est enseveli avec honneur dans les tombeaux des fils de David "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2Ch 32, 33",
+            "bookId": "2ch",
+            "chapter": 32,
+            "verseStart": 33
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Ezechias »",
+        "url": "https://www.newadvent.org/cathen/05737a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -9922,7 +11588,47 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « le Seigneur soutient ». Petit-fils de Manassé, il a pour mère Yedida "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2R 22, 1",
+            "bookId": "2r",
+            "chapter": 22,
+            "verseStart": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": " et règne trente et un ans. Les treize années qui suivent sa réforme ne sont pas racontées par le livre des Rois, qui retient surtout sa piété. Le récit parallèle des Chroniques, très proche, le montre lui aussi tué à Meguiddo "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2Ch 35, 20-24",
+            "bookId": "2ch",
+            "chapter": 35,
+            "verseStart": 20,
+            "verseEnd": 24
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Josias »",
+        "url": "https://www.newadvent.org/cathen/08523a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -10088,7 +11794,102 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « Dieu est salut ». Avant de suivre Élie, il tue ses bœufs, les fait cuire avec le bois de sa charrue et partage ce repas d'adieu "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1R 19, 21",
+            "bookId": "1r",
+            "chapter": 19,
+            "verseStart": 21
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il assainit un potage empoisonné "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2R 4, 38-41",
+            "bookId": "2r",
+            "chapter": 4,
+            "verseStart": 38,
+            "verseEnd": 41
+          }
+        },
+        {
+          "type": "text",
+          "text": ", punit la cupidité de son serviteur Guéhazi "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2R 5, 20-27",
+            "bookId": "2r",
+            "chapter": 5,
+            "verseStart": 20,
+            "verseEnd": 27
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et fait envoyer un fils de prophète oindre Jéhu roi d'Israël "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2R 9, 1-10",
+            "bookId": "2r",
+            "chapter": 9,
+            "verseStart": 1,
+            "verseEnd": 10
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il meurt après avoir annoncé au roi Joas ses victoires sur les Syriens "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2R 13, 14-20",
+            "bookId": "2r",
+            "chapter": 13,
+            "verseStart": 14,
+            "verseEnd": 20
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et le Siracide célèbre les prodiges accomplis durant sa vie et jusque dans sa mort "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Si 48, 14",
+            "bookId": "si",
+            "chapter": 48,
+            "verseStart": 14
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Eliseus (Elisha) »",
+        "url": "https://www.newadvent.org/cathen/05386c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -10424,7 +12225,47 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom est d'ordinaire compris comme « colombe ». Hors de son livre, l'Ancien Testament ne le cite qu'une fois "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2R 14, 25",
+            "bookId": "2r",
+            "chapter": 14,
+            "verseStart": 25
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Saint Jérôme signale qu'on montrait encore son tombeau à Gath-Hépher, et rapporte aussi une tradition ancienne qui fait de lui le fils de la veuve de Sarepta ressuscité par Élie, tradition sans autre fondement qu'une ressemblance de mots. Jésus reprend ses trois jours dans le poisson comme signe de sa propre résurrection "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Mt 12, 39-40",
+            "bookId": "mt",
+            "chapter": 12,
+            "verseStart": 39,
+            "verseEnd": 40
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Jonah »",
+        "url": "https://www.newadvent.org/cathen/08497b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -10600,7 +12441,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son village de Teqoa, à une vingtaine de kilomètres au sud de Jérusalem, est un bourg de bergers, et les images de son livre, tirées de la vie rurale, en gardent la marque. Son nom ne doit pas être confondu avec celui du père d'Isaïe, malgré la ressemblance en grec et en latin. On ignore comment son ministère prend fin : seules des légendes tardives et peu sûres évoquent son martyre sous les coups d'Amatsia et de son fils."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Amos »",
+        "url": "https://www.newadvent.org/cathen/01435a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -10759,7 +12613,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Fils de Beéri "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Os 1, 1",
+            "bookId": "os",
+            "chapter": 1,
+            "verseStart": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": ", il semble appartenir au royaume du Nord, dont il connaît bien les lieux et qu'il appelle « le pays », parlant rarement de Juda et jamais nommément de Jérusalem. Il vit la période troublée qui suit la prospérité de Jéroboam II, faite d'assassinats et de révolutions de palais. Les commentateurs discutent depuis l'Antiquité la nature exacte de son mariage avec Gomer."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Osee »",
+        "url": "https://www.newadvent.org/cathen/11337a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -11060,7 +12940,74 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Il tente d'abord de se dérober à sa vocation "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jr 1, 6",
+            "bookId": "jr",
+            "chapter": 1,
+            "verseStart": 6
+          }
+        },
+        {
+          "type": "text",
+          "text": " et, à cause de sa prédication sur le Temple, il manque d'être mis à mort par la foule "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jr 26, 1-16",
+            "bookId": "jr",
+            "chapter": 26,
+            "verseStart": 1,
+            "verseEnd": 16
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Après la chute de Jérusalem, il n'est pas emmené à Babylone mais reste à Mitspa "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jr 40, 6",
+            "bookId": "jr",
+            "chapter": 40,
+            "verseStart": 6
+          }
+        },
+        {
+          "type": "text",
+          "text": ", avant d'être entraîné en Égypte par les Judéens qui s'y réfugient "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jr 43, 6-7",
+            "bookId": "jr",
+            "chapter": 43,
+            "verseStart": 6,
+            "verseEnd": 7
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Selon une tradition mentionnée d'abord par Tertullien, il y meurt lapidé par ses propres compatriotes."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Jeremias »",
+        "url": "https://www.newadvent.org/cathen/08334a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -11246,7 +13193,47 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Hors de la Bible, les sources anciennes le disent fils aîné de Nabopolassar, marié à une princesse mède pour garantir la paix, et lui donnent quarante-trois ans de règne. Dans la Bible, il traite Jérémie avec égard "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jr 39, 11-14",
+            "bookId": "jr",
+            "chapter": 39,
+            "verseStart": 11,
+            "verseEnd": 14
+          }
+        },
+        {
+          "type": "text",
+          "text": " et confie le gouvernement du pays à Godolias, ami du prophète "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jr 40, 5",
+            "bookId": "jr",
+            "chapter": 40,
+            "verseStart": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Une tradition babylonienne, rapportée par Eusèbe, veut qu'il ait annoncé à la fin de sa vie la ruine prochaine de l'empire chaldéen."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Nabuchodonosor »",
+        "url": "https://www.newadvent.org/cathen/10666c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -11411,7 +13398,60 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « Dieu est fort » ou « celui que Dieu rend fort ». Il s'installe avec les exilés à Tel-Aviv, près du Kebar "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Éz 3, 15",
+            "bookId": "ez",
+            "chapter": 3,
+            "verseStart": 15
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et semble y passer le reste de sa vie. Lorsque sa femme meurt, Dieu lui interdit d'en porter le deuil, signe adressé aux exilés "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Éz 24, 15-18",
+            "bookId": "ez",
+            "chapter": 24,
+            "verseStart": 15,
+            "verseEnd": 18
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Son ministère s'étend sur au moins vingt-deux ans "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Éz 29, 17",
+            "bookId": "ez",
+            "chapter": 29,
+            "verseStart": 17
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Ezekiel »",
+        "url": "https://www.newadvent.org/cathen/05737b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -11747,7 +13787,87 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « le Seigneur se souvient ». Son aïeul Iddo est l'un des chefs des prêtres revenus d'exil avec Zorobabel "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Né 12, 4",
+            "bookId": "ne",
+            "chapter": 12,
+            "verseStart": 4
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et lui-même est sans doute le Zacharie cité comme chef de cette famille "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Né 12, 16",
+            "bookId": "ne",
+            "chapter": 12,
+            "verseStart": 16
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il commence à prophétiser deux mois après Aggée "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ag 1, 1",
+            "bookId": "ag",
+            "chapter": 1,
+            "verseStart": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": " et, ensemble, ils poussent à la reconstruction du Temple "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Esd 5, 1-2",
+            "bookId": "esd",
+            "chapter": 5,
+            "verseStart": 1,
+            "verseEnd": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il ne faut pas le confondre avec le Zacharie, fils de Yehoyada, assassiné dans le Temple "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2Ch 24, 20-22",
+            "bookId": "2ch",
+            "chapter": 24,
+            "verseStart": 20,
+            "verseEnd": 22
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Zacharias »",
+        "url": "https://www.newadvent.org/cathen/15741b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -12036,7 +14156,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Fille d'Abihaïl, elle porte aussi le nom hébreu d'Édissa (Hadassa), « myrte » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Est 2, 7",
+            "bookId": "est",
+            "chapter": 2,
+            "verseStart": 7
+          }
+        },
+        {
+          "type": "text",
+          "text": ", tandis qu'Esther est rapproché du mot « étoile ». Sa famille avait été déportée de Jérusalem au temps du roi Jékonias. Des traditions juives placent son tombeau à Hamadan, l'antique Ecbatane, et les Pères de l'Église voient en elle une figure de la Vierge Marie."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Esther »",
+        "url": "https://www.newadvent.org/cathen/05549a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -12203,7 +14349,89 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Fils de Hakalia "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Né 1, 1",
+            "bookId": "ne",
+            "chapter": 1,
+            "verseStart": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": ", il se heurte à l'opposition de Sanballat et de Tobie, inquiets de voir Jérusalem se relever "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Né 6, 1-14",
+            "bookId": "ne",
+            "chapter": 6,
+            "verseStart": 1,
+            "verseEnd": 14
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Après la lecture de la Loi, le peuple célèbre la fête des Tentes "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Né 8, 13-18",
+            "bookId": "ne",
+            "chapter": 8,
+            "verseStart": 13,
+            "verseEnd": 18
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Revenu pour une seconde mission "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Né 13, 6-7",
+            "bookId": "ne",
+            "chapter": 13,
+            "verseStart": 6,
+            "verseEnd": 7
+          }
+        },
+        {
+          "type": "text",
+          "text": ", il sévit contre les mariages avec des étrangères et chasse un petit-fils du grand prêtre Éliashib, gendre de Sanballat "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Né 13, 23-28",
+            "bookId": "ne",
+            "chapter": 13,
+            "verseStart": 23,
+            "verseEnd": 28
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Book of Nehemiah »",
+        "url": "https://www.newadvent.org/cathen/10737c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -12289,7 +14517,7 @@
       },
       {
         "label": "Métier",
-        "value": "Charpentier, artisan du bois (grec tektōn)"
+        "value": "« Charpentier » (Mt 13, 55) ; le grec tektōn désigne un artisan, sens exact discuté"
       },
       {
         "label": "Épouse",
@@ -12316,7 +14544,7 @@
       [
         {
           "type": "text",
-          "text": "Descendant du roi David, Joseph est un artisan du bois établi à Nazareth, fiancé à Marie. Lorsqu'il découvre qu'elle attend un enfant avant qu'ils n'aient vécu ensemble, il envisage de rompre discrètement leurs fiançailles pour ne pas l'exposer publiquement, jusqu'à ce qu'un ange lui apparaisse en songe pour lui révéler l'origine divine de cet enfant "
+          "text": "Descendant du roi David, Joseph est un artisan établi à Nazareth, fiancé à Marie. Lorsqu'il découvre qu'elle attend un enfant avant qu'ils n'aient vécu ensemble, il envisage de rompre discrètement leurs fiançailles pour ne pas l'exposer publiquement, jusqu'à ce qu'un ange lui apparaisse en songe pour lui révéler l'origine divine de cet enfant "
         },
         {
           "type": "ref",
@@ -12386,7 +14614,59 @@
           "type": "text",
           "text": ". Il n'est plus mentionné par la suite : son absence lors du ministère public de Jésus conduit la tradition à considérer qu'il est mort avant que celui-ci ne commence, sans que les Évangiles ne le précisent explicitement."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Les généalogies lui donnent pour père Jacob chez Matthieu "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Mt 1, 16",
+            "bookId": "mt",
+            "chapter": 1,
+            "verseStart": 16
+          }
+        },
+        {
+          "type": "text",
+          "text": " et Éli chez Luc "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Lc 3, 23",
+            "bookId": "lc",
+            "chapter": 3,
+            "verseStart": 23
+          }
+        },
+        {
+          "type": "text",
+          "text": ", divergence que les auteurs anciens ont tenté d'expliquer. Bethléem, la ville de David, est sans doute son lieu de naissance, et ses contemporains appellent Jésus « le fils du charpentier » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Mt 13, 55",
+            "bookId": "mt",
+            "chapter": 13,
+            "verseStart": 55
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Le mot grec employé, tektōn, désigne un artisan, sans qu'on sache exactement quel était son métier ni sa condition sociale. L'idée d'un Joseph veuf et âgé lors de ses fiançailles vient de la tradition et d'écrits apocryphes, comme l'Histoire de Joseph le charpentier ; la Bible n'en dit rien. Elle ne rapporte pas non plus sa mort, sur laquelle les traditions divergent. Pie IX le déclare patron de l'Église catholique en 1870."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Joseph »",
+        "url": "https://www.newadvent.org/cathen/08504a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -12570,7 +14850,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Le texte ne précise pas sa parenté exacte avec Marie ; une tradition rapportée tardivement fait de leurs mères deux sœurs, sans qu'on puisse le vérifier. Les Évangiles ne la mentionnent plus après la naissance et la circoncision de Jean. L'Église latine la fête le 5 novembre, les Grecs le 8 septembre."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Elizabeth »",
+        "url": "https://www.newadvent.org/cathen/05387b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -12714,7 +15007,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Une légende postérieure, étrangère au texte biblique, lui confie l'éducation de la jeune Marie au Temple."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Anna »",
+        "url": "https://www.newadvent.org/cathen/01530c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -12879,7 +15185,33 @@
           "type": "text",
           "text": ". Selon une tradition ancienne rapportée par les Pères de l'Église, André porte ensuite l'Évangile en Asie Mineure et en Grèce, où il meurt martyr à Patras, crucifié sur une croix en forme de X que l'on appelle depuis « croix de saint André »."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom vient du mot grec évoquant la virilité et le courage. Fils de Jonas, il partage à Capharnaüm la maison de Pierre "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Mc 1, 29",
+            "bookId": "mc",
+            "chapter": 1,
+            "verseStart": 29
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Les auteurs anciens divergent sur ses missions : Eusèbe, s'appuyant semble-t-il sur Origène, lui assigne la Scythie ; d'autres récits le font passer par la Cappadoce, la Bithynie, Byzance, la Thrace et la Macédoine. Sa fête est célébrée le 30 novembre en Orient comme en Occident. La tradition rapporte que ses reliques furent transférées de Patras à Constantinople, puis à Amalfi au début du XIIIe siècle."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Andrew »",
+        "url": "https://www.newadvent.org/cathen/01471a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -13089,7 +15421,47 @@
           "type": "text",
           "text": ". Une tradition médiévale, bien postérieure au Nouveau Testament, situe ses reliques à Compostelle, en Espagne, où son tombeau présumé est depuis devenu un grand lieu de pèlerinage."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Sa mère, Salomé, fait partie des femmes qui assistent Jésus de leurs biens "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Mc 15, 40-41",
+            "bookId": "mc",
+            "chapter": 15,
+            "verseStart": 40,
+            "verseEnd": 41
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et plusieurs auteurs l'identifient à la sœur de Marie citée en "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jn 19, 25",
+            "bookId": "jn",
+            "chapter": 19,
+            "verseStart": 25
+          }
+        },
+        {
+          "type": "text",
+          "text": ", ce qui ferait de Jacques et de Jean des cousins de Jésus. Clément d'Alexandrie, cité par Eusèbe, rapporte que son accusateur, ému par son témoignage, se convertit et fut décapité avec lui. Il est appelé « le Majeur » pour le distinguer de l'autre apôtre du nom de Jacques."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. James the Greater »",
+        "url": "https://www.newadvent.org/cathen/08279b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -13273,7 +15645,48 @@
           "type": "text",
           "text": ". Selon la tradition patristique, il prêche ensuite en Asie Mineure et meurt martyr à Hiérapolis, en Phrygie."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Il faisait partie de l'entourage de Jean-Baptiste lorsque celui-ci désigna Jésus comme l'Agneau de Dieu, et son nom occupe la cinquième place dans les listes des Douze "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Mt 10, 2-4",
+            "bookId": "mt",
+            "chapter": 10,
+            "verseStart": 2,
+            "verseEnd": 4
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Vers 190, l'évêque Polycrate d'Éphèse atteste qu'il est enterré à Hiérapolis avec deux de ses filles, une troisième reposant à Éphèse. La tradition tend cependant à le confondre avec le diacre Philippe, père de quatre filles prophétesses "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 21, 8-9",
+            "bookId": "ac",
+            "chapter": 21,
+            "verseStart": 8,
+            "verseEnd": 9
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Philip the Apostle »",
+        "url": "https://www.newadvent.org/cathen/11799a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -13429,7 +15842,20 @@
           "type": "text",
           "text": "Les Évangiles ne rapportent aucun autre épisode qui lui soit propre. Selon une tradition patristique ancienne, relayée par des récits apocryphes tardifs, Barthélemy aurait porté l'Évangile jusqu'en Arménie, où il serait mort martyr, écorché vif — élément qui appartient à la tradition et non au texte biblique."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « fils de Talmaï » et n'est peut-être qu'un patronyme, ce qui rend possible son identification avec Nathanaël. D'après Eusèbe, le maître d'Origène, Pantène, apprend en Inde que Barthélemy y a prêché et laissé l'Évangile de Matthieu. D'autres traditions citent la Mésopotamie, la Perse, l'Égypte, la Lycaonie, la Phrygie et les rives de la mer Noire. Sa mort, située à Albanopolis en Arménie, reste incertaine : il aurait été soit décapité, soit écorché vif et crucifié la tête en bas sur ordre d'Astyage."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Bartholomew »",
+        "url": "https://www.newadvent.org/cathen/02313c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -13587,7 +16013,34 @@
           "type": "text",
           "text": ". La tradition chrétienne ancienne, attestée dès le IIe siècle par des auteurs comme Papias et Irénée de Lyon, lui attribue la rédaction du premier Évangile canonique, destiné à l'origine à des chrétiens issus du judaïsme ; cette attribution reste toutefois discutée par l'exégèse historico-critique moderne, qui situe sa rédaction finale après sa mort."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Sans doute galiléen, bien qu'Eusèbe le dise syrien, il est présent à l'Ascension puis prie avec les Onze et Marie à la chambre haute "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 1, 13-14",
+            "bookId": "ac",
+            "chapter": 1,
+            "verseStart": 13,
+            "verseEnd": 14
+          }
+        },
+        {
+          "type": "text",
+          "text": ". La suite de sa vie n'est connue que par des données imprécises ou légendaires. Selon Irénée, il prêche aux Hébreux, quinze ans d'après Clément d'Alexandrie, et Eusèbe précise qu'il leur laisse son Évangile avant de partir vers d'autres pays. Le Martyrologe romain situe son martyre en Éthiopie, sans qu'on sache comment il meurt ; Héracléon, cité par Clément, nie même ce martyre, contre le reste des témoignages anciens."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Matthew »",
+        "url": "https://www.newadvent.org/cathen/10056b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -13740,7 +16193,20 @@
           "type": "text",
           "text": ". Selon une tradition ancienne, il évangélise ensuite la Parthie puis l'Inde, où des communautés chrétiennes se réclament encore aujourd'hui de sa fondation."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Les Actes de Thomas, écrit du début du IIIe siècle aux détails souvent extravagants, le font partir pour l'Inde avec le marchand Abban et le mettent en scène auprès du roi Gondopharès, dont une inscription de Takht-i-Bahi atteste qu'il a réellement régné au Ier siècle. Éphrem, Ambroise et Jérôme connaissent cette prédication en Inde, et ses reliques sont vénérées à Édesse. Il est en revanche difficile d'étayer la croyance selon laquelle il serait allé jusqu'à Mylapore, près de Madras, pour y mourir martyr."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Thomas the Apostle »",
+        "url": "https://www.newadvent.org/cathen/14658b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -13884,7 +16350,59 @@
           "type": "text",
           "text": "En l'absence de tout récit biblique propre, l'essentiel de ce qui lui est attribué relève de la tradition postérieure : celle-ci lui prête un ministère en Judée ou en Perse et une mort par lapidation ou crucifixion, selon des sources tardives et peu fiables, qu'il convient de recevoir avec prudence."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "La tradition catholique juge pourtant le plus probable qu'il ne fasse qu'un avec Jacques, « frère du Seigneur » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ga 1, 19",
+            "bookId": "ga",
+            "chapter": 1,
+            "verseStart": 19
+          }
+        },
+        {
+          "type": "text",
+          "text": ", qui prend la parole à l'assemblée de Jérusalem "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 15, 13",
+            "bookId": "ac",
+            "chapter": 15,
+            "verseStart": 13
+          }
+        },
+        {
+          "type": "text",
+          "text": " et auquel Paul fait visite "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 21, 18",
+            "bookId": "ac",
+            "chapter": 21,
+            "verseStart": 18
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Dans cette hypothèse, il faudrait aussi lui rapporter les récits de la mort de ce Jacques, évêque de Jérusalem, transmis par Flavius Josèphe et par Hégésippe. Faute de preuve complète, cette identification reste une hypothèse."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. James the Less »",
+        "url": "https://www.newadvent.org/cathen/08280a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -14026,7 +16544,33 @@
           "type": "text",
           "text": "Les Évangiles ne rapportent rien de plus à son sujet. La tradition patristique, ainsi que des textes apocryphes plus tardifs, lui attribuent une mission conjointe avec l'apôtre Simon le Zélote en Mésopotamie ou en Arménie, où tous deux seraient morts martyrs ; certains lui attribuent aussi l'épître de Jude, attribution elle-même discutée."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "La plupart des commentateurs catholiques l'identifient à l'auteur de l'épître qui se présente comme « frère de Jacques » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jude 1, 1",
+            "bookId": "jude",
+            "chapter": 1,
+            "verseStart": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": ", évêque de Jérusalem. Hégésippe, cité par Eusèbe, rapporte que deux de ses petits-enfants vivaient encore sous le règne de Trajan."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Epistle of Saint Jude »",
+        "url": "https://www.newadvent.org/cathen/08542b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -14157,7 +16701,20 @@
           "type": "text",
           "text": ". Aucun épisode individuel ne lui est consacré dans le Nouveau Testament : son surnom laisse seulement deviner un zèle particulier pour la Loi juive, sans que l'on puisse affirmer avec certitude son appartenance au mouvement politique des zélotes, qui ne prend clairement forme qu'après sa mort."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Ses deux surnoms traduisent le même mot hébreu signifiant « le zélé » ; saint Jérôme a cru à tort qu'ils renvoyaient à Cana. Les traditions le concernant sont nombreuses et incertaines : les Grecs le font prêcher sur les bords de la mer Noire, en Égypte et jusqu'en Bretagne, tandis que la Passion latine de Simon et Jude le fait mourir martyr en Perse, à Suanir. L'Occident le fête le 28 octobre, les Grecs et les Coptes le 10 mai."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Simon the Apostle »",
+        "url": "https://www.newadvent.org/cathen/13796b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -14305,7 +16862,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Jésus l'appelle « le docteur d'Israël » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jn 3, 10",
+            "bookId": "jn",
+            "chapter": 3,
+            "verseStart": 10
+          }
+        },
+        {
+          "type": "text",
+          "text": ". L'importance de son offrande suggère un homme aisé, sans doute influent au Sanhédrin. La date de sa mort reste inconnue, et le Martyrologe romain commémore la découverte de ses reliques, avec celles de saint Étienne."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Nicodemus »",
+        "url": "https://www.newadvent.org/cathen/11066b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -14469,7 +17052,25 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Une tradition, qui n'apparaît pas avant le milieu du XIe siècle, le fait aborder en Provence avec ses sœurs dans une barque sans voile ni rames, puis devenir le premier évêque de Marseille, avant que son corps soit transféré à Autun. Elle n'a pas de fondement solide : elle provient sans doute d'une confusion avec un évêque Lazare, dont une épitaphe du Ve siècle a été retrouvée dans la crypte de Saint-Victor. La tradition grecque rapporte, de son côté, que son corps fut transporté à Constantinople."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Lazarus »",
+        "url": "https://www.newadvent.org/cathen/09096a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      },
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Lazarus of Bethany »",
+        "url": "https://www.newadvent.org/cathen/09097a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -14624,7 +17225,59 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "L'Évangile précise que Jésus « aimait Marthe, et sa sœur Marie, et Lazare » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jn 11, 5",
+            "bookId": "jn",
+            "chapter": 11,
+            "verseStart": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et c'est à elle qu'il adresse la parole : « Je suis la résurrection et la vie » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jn 11, 25",
+            "bookId": "jn",
+            "chapter": 11,
+            "verseStart": 25
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Après cet échange, elle va discrètement appeler sa sœur "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jn 11, 28",
+            "bookId": "jn",
+            "chapter": 11,
+            "verseStart": 28
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Si Luc et Jean la montrent sous deux jours différents, son portrait reste étonnamment semblable chez les deux évangélistes."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Martha »",
+        "url": "https://www.newadvent.org/cathen/09721b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -15561,7 +18214,20 @@
           "type": "text",
           "text": "Le Nouveau Testament ne mentionne plus Matthias ensuite. Selon des traditions chrétiennes anciennes, tardives et divergentes, non bibliques, il aurait prêché en Cappadoce, près de la mer Caspienne, ou encore en Éthiopie."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « don du Seigneur », et une tradition le compte parmi les soixante-dix disciples. D'autres traditions sur sa fin le disent crucifié ; d'autres encore, lapidé à Jérusalem puis décapité. Sainte Hélène aurait fait porter ses reliques à Rome, mais l'attribution reste douteuse, son histoire ayant pu se mêler à celle d'un évêque de Jérusalem du même nom. Clément d'Alexandrie cite des enseignements mis sous son nom."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Matthias »",
+        "url": "https://www.newadvent.org/cathen/10066a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -15730,7 +18396,62 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Une tradition tardive, rapportée par Clément d'Alexandrie et Eusèbe, le compte parmi les soixante-dix disciples. Il porte avec Saul à Jérusalem la collecte d'Antioche, lors de la famine "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 11, 29-30",
+            "bookId": "ac",
+            "chapter": 11,
+            "verseStart": 29,
+            "verseEnd": 30
+          }
+        },
+        {
+          "type": "text",
+          "text": ". À Lystres, la foule le prend pour Jupiter et Paul pour Mercure "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 14, 11-13",
+            "bookId": "ac",
+            "chapter": 14,
+            "verseStart": 11,
+            "verseEnd": 13
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Paul lui reproche aussi, à Antioche, son attitude face aux convertis de la gentilité "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ga 2, 11-13",
+            "bookId": "ga",
+            "chapter": 2,
+            "verseStart": 11,
+            "verseEnd": 13
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Diverses traditions le font premier évêque de Milan, prédicateur à Alexandrie et à Rome, et martyr à Chypre. Tertullien lui attribue, probablement à tort, l'épître aux Hébreux."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « St. Barnabas »",
+        "url": "https://www.newadvent.org/cathen/02300a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -16127,7 +18848,72 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Paul lui confie des missions à Thessalonique "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1 Th 3, 2",
+            "bookId": "1th",
+            "chapter": 3,
+            "verseStart": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": " et en Macédoine "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 19, 22",
+            "bookId": "ac",
+            "chapter": 19,
+            "verseStart": 22
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et l'associe en tête de plusieurs de ses lettres "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ph 1, 1",
+            "bookId": "ph",
+            "chapter": 1,
+            "verseStart": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": ". L'épître aux Hébreux évoque sa libération "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "He 13, 23",
+            "bookId": "he",
+            "chapter": 13,
+            "verseStart": 23
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Selon l'ancien Martyrologe romain, il meurt évêque d'Éphèse ; une tradition précise qu'il resta célibataire et que, à plus de quatre-vingts ans, il fut mortellement frappé par des païens."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Epistles to Timothy and Titus »",
+        "url": "https://www.newadvent.org/cathen/14727b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -16302,7 +19088,20 @@
           "type": "text",
           "text": ". Les passages des Actes rédigés à la première personne du pluriel sont traditionnellement lus comme les moments où l'auteur accompagne lui-même Paul. Cette attribution demeure une tradition ancienne et largement reçue, non une affirmation explicite du texte biblique lui-même."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom est sans doute une abréviation de Lucanus, et Eusèbe le dit originaire d'Antioche. Un ancien prologue à son Évangile le dit non marié, auteur de son livre en Achaïe, et mort à soixante-quatorze ans en Bithynie, sans doute par erreur de copie pour la Béotie. Épiphane le fait prêcher en Dalmatie, en Gaule, en Italie et en Macédoine, mais on discute s'il est mort martyr. Le prologue de son Évangile exclut qu'il ait été l'un des soixante-dix disciples ou le compagnon de Cléophas sur la route d'Emmaüs."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Gospel of Saint Luke »",
+        "url": "https://www.newadvent.org/cathen/09420a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -16665,7 +19464,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Les historiens datent l'édit de Claude de 49 ou 50. La suite du parcours du couple reste une reconstitution : il aurait hébergé Paul à Éphèse, serait reparti pour Rome après l'émeute de l'orfèvre Démétrius, puis serait revenu à Éphèse lors de la persécution de Néron, ce que suggèrent les salutations de Paul dans sa dernière lettre "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2 Tm 4, 19",
+            "bookId": "2tm",
+            "chapter": 4,
+            "verseStart": 19
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Le Martyrologe romain les commémore le 8 juillet."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Aquila and Priscilla »",
+        "url": "https://www.newadvent.org/cathen/01661b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -17554,7 +20379,59 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom est rapproché d'un verbe signifiant « acquérir », en écho à la parole d'Ève lors de sa naissance "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 4, 1",
+            "bookId": "gn",
+            "chapter": 4,
+            "verseStart": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Le texte ne dit pas comment Dieu manifeste sa préférence, mais la première lettre de Jean l'explique par les œuvres mauvaises de Caïn "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1Jn 3, 12",
+            "bookId": "1jn",
+            "chapter": 3,
+            "verseStart": 12
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Le seul autre événement rapporté de sa vie est la fondation d'une ville, nommée Hénok d'après son fils "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 4, 17",
+            "bookId": "gn",
+            "chapter": 4,
+            "verseStart": 17
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Cain »",
+        "url": "https://www.newadvent.org/cathen/03142b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -17722,7 +20599,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom hébreu évoque un souffle, sans doute à cause de la brièveté de sa vie. Le texte ne lui connaît pas de descendance, et Ève reçoit Seth « à la place d'Abel » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 4, 25",
+            "bookId": "gn",
+            "chapter": 4,
+            "verseStart": 25
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Les Pères le rangent parmi les martyrs, et saint Augustin fait de lui le type de l'homme régénéré. Plusieurs traditions disent que Dieu agrée son sacrifice par un feu du ciel, et le Coran rapporte qu'un corbeau montre à Caïn comment l'ensevelir."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Abel (Son of Adam) »",
+        "url": "https://www.newadvent.org/cathen/01035c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -17975,7 +20878,59 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Fils de Yéred, il a soixante-cinq ans à la naissance de Mathusalem "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 5, 21",
+            "bookId": "gn",
+            "chapter": 5,
+            "verseStart": 21
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Le texte ne dit pas de lui « il mourut », comme des autres patriarches, ce que le Siracide souligne aussi "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Si 49, 14",
+            "bookId": "si",
+            "chapter": 49,
+            "verseStart": 14
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il ne faut pas le confondre avec les autres Hénok de la Genèse, comme le fils de Caïn "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 4, 17",
+            "bookId": "gn",
+            "chapter": 4,
+            "verseStart": 17
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Henoch »",
+        "url": "https://www.newadvent.org/cathen/07218a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -18062,7 +21017,7 @@
       [
         {
           "type": "text",
-          "text": "Les longévités des patriarches d'avant le déluge expriment, dans le langage des récits des origines, la plénitude de vie reçue de Dieu, qui va ensuite décroissant. Luc le nomme parmi les ancêtres de Jésus "
+          "text": "Une lecture courante voit dans les longévités des patriarches d'avant le déluge l'expression, propre aux récits des origines, d'une plénitude de vie reçue de Dieu, qui va ensuite décroissant. Luc le nomme parmi les ancêtres de Jésus "
         },
         {
           "type": "ref",
@@ -18077,7 +21032,34 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Il a cent quatre-vingt-sept ans à la naissance de Lamek et vit encore sept cent quatre-vingt-deux ans "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 5, 25-26",
+            "bookId": "gn",
+            "chapter": 5,
+            "verseStart": 25,
+            "verseEnd": 26
+          }
+        },
+        {
+          "type": "text",
+          "text": ". D'après ces chiffres, sa mort coïncide avec l'année du déluge. Le sens de son nom reste discuté, « homme du javelot » étant l'une des hypothèses."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Methuselah »",
+        "url": "https://www.newadvent.org/cathen/10048b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -18185,7 +21167,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « roi de justice ». Flavius Josèphe, comme beaucoup d'autres, identifie Salem à Jérusalem et ajoute qu'il ravitaille l'armée d'Abram. Les rabbins l'ont identifié à Sem, fils de Noé. Le silence de l'Écriture sur sa naissance et sa mort est lu par la tradition chrétienne comme une image de l'éternité du sacerdoce du Christ."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Melchisedech »",
+        "url": "https://www.newadvent.org/cathen/10156b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -18347,7 +21342,86 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Abraham a quatre-vingt-six ans à sa naissance "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 16, 16",
+            "bookId": "gn",
+            "chapter": 16,
+            "verseStart": 16
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Sa mère lui fait épouser une Égyptienne "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 21, 21",
+            "bookId": "gn",
+            "chapter": 21,
+            "verseStart": 21
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il est père de douze chefs "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 25, 12-16",
+            "bookId": "gn",
+            "chapter": 25,
+            "verseStart": 12,
+            "verseEnd": 16
+          }
+        },
+        {
+          "type": "text",
+          "text": " et d'une fille qu'Ésaü prendra pour femme "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 28, 9",
+            "bookId": "gn",
+            "chapter": 28,
+            "verseStart": 9
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il meurt à cent trente-sept ans "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 25, 17",
+            "bookId": "gn",
+            "chapter": 25,
+            "verseStart": 17
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Ismael (Ishmael) »",
+        "url": "https://www.newadvent.org/cathen/08192a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -18546,7 +21620,61 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "La lutte des deux frères commence dans le sein de Rébecca "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 25, 22-23",
+            "bookId": "gn",
+            "chapter": 25,
+            "verseStart": 22,
+            "verseEnd": 23
+          }
+        },
+        {
+          "type": "text",
+          "text": ". À quarante ans, il épouse deux Hittites, Yehoudith et Basmath, au grand chagrin de ses parents "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 26, 34-35",
+            "bookId": "gn",
+            "chapter": 26,
+            "verseStart": 34,
+            "verseEnd": 35
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il ensevelit Isaac avec Jacob "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 35, 29",
+            "bookId": "gn",
+            "chapter": 35,
+            "verseStart": 29
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Esau »",
+        "url": "https://www.newadvent.org/cathen/05527c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -18891,7 +22019,61 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom se rattache au verbe hébreu « louer », à cause de la parole de Léa lors de sa naissance. C'est lui qui persuade Jacob de laisser partir Benjamin pour le second voyage en Égypte "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 43, 3-10",
+            "bookId": "gn",
+            "chapter": 43,
+            "verseStart": 3,
+            "verseEnd": 10
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il a cinq fils : Er, Onan et Shéla de la fille de Shoua "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Gn 38, 1-5",
+            "bookId": "gn",
+            "chapter": 38,
+            "verseStart": 1,
+            "verseEnd": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": ", Pérès et Zérah de Tamar. C'est par Pérès que Matthieu fait passer la lignée messianique "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Mt 1, 3",
+            "bookId": "mt",
+            "chapter": 1,
+            "verseStart": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Juda »",
+        "url": "https://www.newadvent.org/cathen/08536a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -19105,7 +22287,34 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « fils de la droite » ; Ben-Oni, le nom donné par sa mère, signifie « fils de ma douleur ». Après la perte de Joseph, Jacob reporte sur lui son affection et ne le laisse partir pour l'Égypte qu'à grand regret. Après la mort de Saül, la tribu de Benjamin reste fidèle à son fils Ishbaal "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2S 2, 8-9",
+            "bookId": "2s",
+            "chapter": 2,
+            "verseStart": 8,
+            "verseEnd": 9
+          }
+        },
+        {
+          "type": "text",
+          "text": ", jusqu'à ce que David règne sur tout Israël."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Benjamin »",
+        "url": "https://www.newadvent.org/cathen/02480b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -19462,7 +22671,85 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Fils de Béor, il jouit d'une telle réputation que Balaq assure que celui qu'il bénit est béni et celui qu'il maudit est maudit "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Nb 22, 6",
+            "bookId": "nb",
+            "chapter": 22,
+            "verseStart": 6
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il consulte Dieu, qui lui interdit d'abord de partir "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Nb 22, 12",
+            "bookId": "nb",
+            "chapter": 22,
+            "verseStart": 12
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Durant ses oracles, il s'écrie : « Que je meure de la mort des justes ! » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Nb 23, 10",
+            "bookId": "nb",
+            "chapter": 23,
+            "verseStart": 10
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Son souvenir revient chez Michée "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Mi 6, 5",
+            "bookId": "mi",
+            "chapter": 6,
+            "verseStart": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": " et dans l'Apocalypse "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ap 2, 14",
+            "bookId": "ap",
+            "chapter": 2,
+            "verseStart": 14
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Balaam »",
+        "url": "https://www.newadvent.org/cathen/02214b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -20034,7 +23321,46 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « donné par Dieu ». L'Écriture ne dit rien de son origine : il apparaît pour la première fois lorsque David projette de bâtir le Temple, honneur qu'il réserve à son fils "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2S 7, 13",
+            "bookId": "2s",
+            "chapter": 7,
+            "verseStart": 13
+          }
+        },
+        {
+          "type": "text",
+          "text": ". La date de sa mort n'est pas connue, et le Siracide le mentionne au début de son éloge de David "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Si 47, 1",
+            "bookId": "si",
+            "chapter": 47,
+            "verseStart": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Nathan »",
+        "url": "https://www.newadvent.org/cathen/10711a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -20204,7 +23530,60 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom est interprété comme « père de paix ». Troisième fils de David, né à Hébron "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2S 3, 3",
+            "bookId": "2s",
+            "chapter": 3,
+            "verseStart": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": ", il s'exile trois ans à Gueshour après le meurtre d'Amnon "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2S 13, 37-38",
+            "bookId": "2s",
+            "chapter": 13,
+            "verseStart": 37,
+            "verseEnd": 38
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Ses trois fils meurent avant lui, et il laisse une fille "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2S 14, 27",
+            "bookId": "2s",
+            "chapter": 14,
+            "verseStart": 27
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Le tombeau d'Absalom que l'on montre à l'est du Cédron, de style gréco-juif, est vraisemblablement bien postérieur."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Absalom »",
+        "url": "https://www.newadvent.org/cathen/01058c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -20508,7 +23887,86 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Fils de Nebat et de Çerua "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1R 11, 26",
+            "bookId": "1r",
+            "chapter": 11,
+            "verseStart": 26
+          }
+        },
+        {
+          "type": "text",
+          "text": ", il est placé jeune par Salomon à la tête des corvées d'Éphraïm et de Manassé "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1R 11, 28",
+            "bookId": "1r",
+            "chapter": 11,
+            "verseStart": 28
+          }
+        },
+        {
+          "type": "text",
+          "text": ", et il connaît ainsi le mécontentement du peuple. Sans attendre la mort de Salomon, il se révolte, échoue, et se réfugie auprès de Shishaq en Égypte "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1R 11, 40",
+            "bookId": "1r",
+            "chapter": 11,
+            "verseStart": 40
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Le prophète Ahiyya lui annonce le châtiment de sa maison "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1R 14, 7-11",
+            "bookId": "1r",
+            "chapter": 14,
+            "verseStart": 7,
+            "verseEnd": 11
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il meurt après vingt-deux ans de règne "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1R 14, 20",
+            "bookId": "1r",
+            "chapter": 14,
+            "verseStart": 20
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Jeroboam »",
+        "url": "https://www.newadvent.org/cathen/08340a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -20865,7 +24323,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Des sources antiques font de son père Ethbaal un grand prêtre d'Astarté, et ce mariage vise sans doute à renforcer la maison d'Omri contre les Syriens. Elle entretient quatre cent cinquante prophètes de Baal et quatre cents d'Ashéra "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1R 18, 19",
+            "bookId": "1r",
+            "chapter": 18,
+            "verseStart": 19
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Après la mort d'Achab, elle continue d'influencer ses fils Ochozias et Joram, et, par sa fille Athalie, le royaume de Juda."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Jezabel »",
+        "url": "https://www.newadvent.org/cathen/08404a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -21036,7 +24520,34 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "On ne sait rien de sa vie. Ses références au Temple et à l'autel situent son ministère en Juda, sans doute à Jérusalem, et ses appels aux prêtres "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jl 1, 13-14",
+            "bookId": "jl",
+            "chapter": 1,
+            "verseStart": 13,
+            "verseEnd": 14
+          }
+        },
+        {
+          "type": "text",
+          "text": " laissent penser qu'il était lui-même de famille sacerdotale."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Joel »",
+        "url": "https://www.newadvent.org/cathen/08419a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -21339,7 +24850,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom est d'ordinaire compris comme « étreinte ». On ne possède aucune information sûre sur sa naissance, sa famille ou sa vie, et les légendes abondent. Les anciennes Vies des prophètes le disent de la tribu de Siméon, originaire de Bethsocher ; il aurait fui à Ostrakiné devant Nabuchodonosor, serait revenu travailler la terre et serait mort deux ans avant l'édit de Cyrus. Les Églises grecque et latine le fêtent le 15 janvier."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Habacuc (Habakkuk) »",
+        "url": "https://www.newadvent.org/cathen/07097a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -21506,7 +25030,60 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « béni ». Fils de Nériya "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jr 32, 12",
+            "bookId": "jr",
+            "chapter": 32,
+            "verseStart": 12
+          }
+        },
+        {
+          "type": "text",
+          "text": ", il est très probablement le frère de Seraya, chambellan du roi Sédécias "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jr 51, 59",
+            "bookId": "jr",
+            "chapter": 51,
+            "verseStart": 59
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il connaît aussi le découragement, auquel répond un oracle personnel de Jérémie "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jr 45, 1-5",
+            "bookId": "jr",
+            "chapter": 45,
+            "verseStart": 1,
+            "verseEnd": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Selon une tradition hébraïque rapportée par saint Jérôme, Jérémie et lui meurent en Égypte, mais cela s'accorde mal avec le début de son livre, qui le situe à Babylone. Le lieu, la date et les circonstances de sa mort restent inconnus."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Baruch »",
+        "url": "https://www.newadvent.org/cathen/02319c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -21707,7 +25284,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « le Seigneur est bon ». La somme que son fils va recouvrer se monte à dix talents d'argent, déposés chez Gabélus à Ragès de Médie "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Tb 4, 21",
+            "bookId": "tb",
+            "chapter": 4,
+            "verseStart": 21
+          }
+        },
+        {
+          "type": "text",
+          "text": "."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Book of Tobias »",
+        "url": "https://www.newadvent.org/cathen/14749c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -21903,7 +25506,46 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « Juive », et Achior, l'Ammonite qui défend les Juifs devant Holopherne "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jdt 5, 5",
+            "bookId": "jdt",
+            "chapter": 5,
+            "verseStart": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": ", est envoyé dans la ville pour y attendre son châtiment "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jdt 6, 10",
+            "bookId": "jdt",
+            "chapter": 6,
+            "verseStart": 10
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Les Pères la tiennent pour un personnage historique, et Clément de Rome la cite déjà. Saint Jérôme lui-même, qui exclut le livre du canon, la reconnaît comme telle, malgré les difficultés que posent les noms et la chronologie du récit."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Book of Judith »",
+        "url": "https://www.newadvent.org/cathen/08554a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -22207,7 +25849,62 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "De famille sacerdotale, de la lignée de Sadoq, il se dit « fils de Seraya » "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Esd 7, 1-5",
+            "bookId": "esd",
+            "chapter": 7,
+            "verseStart": 1,
+            "verseEnd": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": ", mais il reste connu avant tout comme scribe. Effaré de voir que beaucoup ont épousé des femmes étrangères, il prie, et le peuple s'engage à les renvoyer "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Esd 9, 1-15",
+            "bookId": "esd",
+            "chapter": 9,
+            "verseStart": 1,
+            "verseEnd": 15
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Esd 10, 1-5",
+            "bookId": "esd",
+            "chapter": 10,
+            "verseStart": 1,
+            "verseEnd": 5
+          }
+        },
+        {
+          "type": "text",
+          "text": ". La date de sa mission reste discutée, entre 458 et 397 av. J.-C. Ni la date ni le lieu de sa mort ne sont connus, et les traditions juives lui prêtent d'avoir restauré de mémoire les livres saints perdus durant l'exil."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Esdras (Ezra) »",
+        "url": "https://www.newadvent.org/cathen/05535a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -22542,7 +26239,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "On ne sait de lui que le contenu de sa prédication et l'époque approximative de son ministère, sous l'administration perse. Il est longtemps tenu pour le dernier des prophètes canoniques. Les écoles juives l'ont identifié assez tôt au scribe Esdras, identification sans valeur historique."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Malachias »",
+        "url": "https://www.newadvent.org/cathen/09562b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -22759,7 +26469,47 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Désigné par son père mourant, il mène d'abord une guerre de partisans, surprenant et brûlant les villes restées aux mains de l'ennemi "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2M 8, 1-7",
+            "bookId": "2m",
+            "chapter": 8,
+            "verseStart": 1,
+            "verseEnd": 7
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Il envoie ensuite une ambassade à Rome "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "1M 8, 17",
+            "bookId": "1m",
+            "chapter": 8,
+            "verseStart": 17
+          }
+        },
+        {
+          "type": "text",
+          "text": ", mais il semble être tué avant que le résultat de cette démarche soit connu en Orient."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Judas Machabeus »",
+        "url": "https://www.newadvent.org/cathen/08541a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -22951,7 +26701,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "La Bible ne dit rien de plus de lui ; ce qui suit vient surtout de l'historien Flavius Josèphe. Fils de l'Iduméen Antipater, d'un peuple converti de force au judaïsme, il est d'abord gouverneur de Galilée. Grâce à l'appui d'Octave et d'Antoine, le sénat romain lui donne la couronne de Judée. En 38 av. J.-C., il épouse Mariamne, de la famille des Hasmonéens, mais fait exécuter son grand-père Hyrcan, son frère Aristobule, puis Mariamne elle-même et sa mère. Il met aussi à mort ses propres fils, Aristobule et Alexandre, puis Antipater, accusé d'avoir voulu l'empoisonner."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Herod »",
+        "url": "https://www.newadvent.org/cathen/07289c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -23106,7 +26869,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom a été associé à des légendes sans valeur, qui font de lui un rabbin, fils de Hillel et père de Gamaliel. L'apocryphe Évangile de Nicodème lui attribue aussi deux fils, Carinus et Leucius."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Holy Simeon »",
+        "url": "https://www.newadvent.org/cathen/13794c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -23284,7 +27060,60 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son surnom signifie sans doute « homme de Qeriyoth », ville de Juda, ce qui ferait de lui le seul apôtre non galiléen. Jean le dit fils de Simon "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jn 6, 71",
+            "bookId": "jn",
+            "chapter": 6,
+            "verseStart": 71
+          }
+        },
+        {
+          "type": "text",
+          "text": " et évoque l'action du diable dans sa trahison "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Jn 13, 2",
+            "bookId": "jn",
+            "chapter": 13,
+            "verseStart": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Les Actes rapportent différemment sa mort, autour du champ d'Hakeldama "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 1, 18-19",
+            "bookId": "ac",
+            "chapter": 1,
+            "verseStart": 18,
+            "verseEnd": 19
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Dès l'Antiquité, sa figure a suscité des interprétations : Irénée et Tertullien signalent des hérétiques qui l'estimaient éclairé, et Origène l'imagine se pendant pour aller demander pardon au Christ dans l'autre monde."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Judas Iscariot »",
+        "url": "https://www.newadvent.org/cathen/08539a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -23469,7 +27298,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Selon Flavius Josèphe, il est nommé par le procurateur Valère Gratus vers l'an 18, et déposé par Vitellius après la fin du gouvernement de Pilate. Anne conserve à ses côtés une large influence, ce qui explique que Luc nomme les deux grands prêtres ensemble "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Lc 3, 2",
+            "bookId": "lc",
+            "chapter": 3,
+            "verseStart": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Une tradition situe sa maison sur la colline au sud de Jérusalem appelée « colline du Mauvais Conseil »."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Joseph Caiphas »",
+        "url": "https://www.newadvent.org/cathen/03143b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -23663,7 +27518,33 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "D'après Flavius Josèphe, il est le cinquième gouverneur de Judée, succède à Valère Gratus en 26 et reste exceptionnellement longtemps en poste, jusqu'en 36. Après une répression contre les Samaritains, il est rappelé à Rome, où Tibère meurt avant son arrivée. Sa femme, que la tradition appelle Claudia Procula, le met en garde à propos de Jésus "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Mt 27, 19",
+            "bookId": "mt",
+            "chapter": 27,
+            "verseStart": 19
+          }
+        },
+        {
+          "type": "text",
+          "text": " : Origène la dit chrétienne, et l'Église grecque la fête le 27 octobre. L'Église d'Éthiopie vénère Pilate et sa femme le 25 juin. Eusèbe rapporte qu'il se suicide sous Caligula, et des légendes situent sa tombe à Vienne ou sur le mont Pilate, près de Lucerne."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Pontius Pilate »",
+        "url": "https://www.newadvent.org/cathen/12083c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -24137,7 +28018,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Arimathie est sans doute Rama, la ville de Samuel, et il a pu devenir disciple dès la première prédication de Jésus en Judée. Il est probablement absent de la séance où le Sanhédrin condamne Jésus. L'Église grecque le fête le 31 juillet, l'Église romaine le 17 mars. La légende de sa venue en Gaule est tenue pour fabuleuse."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Joseph of Arimathea »",
+        "url": "https://www.newadvent.org/cathen/08520a.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -24580,7 +28474,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Son nom signifie « récompense de Dieu ». On l'identifie à l'illustre docteur juif, petit-fils de Hillel, mort dix-huit ans avant la destruction de Jérusalem, le premier à porter le titre de Rabban, « notre maître ». Les sources juives le font mourir pharisien, mais une tradition chrétienne ancienne, attestée dans les Reconnaissances clémentines et chez Photius, veut qu'il ait embrassé la foi chrétienne et soit resté au Sanhédrin pour aider ses frères."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Gamaliel »",
+        "url": "https://www.newadvent.org/cathen/06374b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -24717,7 +28624,34 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Il fait partie de ces païens qui adorent le Dieu unique et observent certains préceptes de la Loi, sans être circoncis. Sa cohorte est sans doute la Cohors II Italica, attestée en Syrie par une inscription. Pierre doit justifier sa démarche à Jérusalem "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 11, 1-18",
+            "bookId": "ac",
+            "chapter": 11,
+            "verseStart": 1,
+            "verseEnd": 18
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Selon une tradition, Corneille devient évêque de Césarée ; selon une autre, évêque de Scepsis en Mysie."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Cornelius »",
+        "url": "https://www.newadvent.org/cathen/04375b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -24909,7 +28843,33 @@
           "type": "text",
           "text": " ; la tradition, depuis Papias, fait de lui l'interprète de Pierre et l'auteur du deuxième évangile."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Sa mère tient à Jérusalem une maison importante, avec portail et servante "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Ac 12, 13",
+            "bookId": "ac",
+            "chapter": 12,
+            "verseStart": 13
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Une tradition répandue, attestée par Eusèbe, Jérôme et Épiphane, fait de lui le fondateur de l'Église d'Alexandrie, où Anianus lui succède. Sa mort est datée diversement ; ses Actes le disent traîné à mort dans les rues d'Alexandrie, mais son martyre n'est pas attesté avant le IVe siècle. Latins et Grecs le fêtent le 25 avril, les Grecs célébrant aussi Jean-Marc le 27 septembre."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Saint Mark »",
+        "url": "https://www.newadvent.org/cathen/09672c.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -25094,7 +29054,46 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Paul s'inquiète de ne pas le trouver à Troas "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2Co 2, 13",
+            "bookId": "2co",
+            "chapter": 2,
+            "verseStart": 13
+          }
+        },
+        {
+          "type": "text",
+          "text": " et, plus tard, écrit qu'il est parti pour la Dalmatie "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "2Tm 4, 10",
+            "bookId": "2tm",
+            "chapter": 4,
+            "verseStart": 10
+          }
+        },
+        {
+          "type": "text",
+          "text": ". Selon une tradition ancienne, il reste à la tête de l'Église de Crète après la mort de Paul et y meurt à plus de quatre-vingt-dix ans."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Epistles to Timothy and Titus »",
+        "url": "https://www.newadvent.org/cathen/14727b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -25256,7 +29255,46 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "Sans doute aisé, il a probablement été converti par Paul durant son long séjour à Éphèse, car l'apôtre n'est jamais allé à Colosses "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Col 2, 1",
+            "bookId": "col",
+            "chapter": 2,
+            "verseStart": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": ". On pense généralement qu'Appia est sa femme et Archippe son fils "
+        },
+        {
+          "type": "ref",
+          "ref": {
+            "display": "Phm 2",
+            "bookId": "phm",
+            "chapter": 1,
+            "verseStart": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": ". La tradition le dit évêque de Colosses, et les Ménées grecs le font mourir martyr avec eux sous Néron."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Philemon »",
+        "url": "https://www.newadvent.org/cathen/11797b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {
@@ -25378,7 +29416,20 @@
           "type": "text",
           "text": "."
         }
+      ],
+      [
+        {
+          "type": "text",
+          "text": "La tradition ecclésiastique, qui le présente plus tard comme évêque de Bérée, laisse supposer que Philémon a accédé à la demande de Paul."
+        }
       ]
+    ],
+    "sources": [
+      {
+        "title": "Catholic Encyclopedia (New Advent), « Philemon »",
+        "url": "https://www.newadvent.org/cathen/11797b.htm",
+        "note": "Compléments historiques et traditions, reformulés"
+      }
     ],
     "timeline": [
       {

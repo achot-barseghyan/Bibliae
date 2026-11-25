@@ -931,3 +931,12 @@ html[data-reading-theme='nuit'] .lec-bar-next {
   font-size: 14px;
   color: var(--encre-60);
 }
+
+/* Syllabe accentuée des psaumes (soulignée par l'AELF) */
+.lec-accent {
+  text-decoration: underline;
+  text-decoration-color: var(--color-oxblood);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  text-decoration-skip-ink: none;
+}

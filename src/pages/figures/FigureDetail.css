@@ -638,6 +638,45 @@
   text-wrap: pretty;
 }
 
+.ff-life-sources {
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 0.5px solid rgba(107, 30, 35, 0.25);
+  font-family: var(--font-inter);
+  font-size: calc(11.5px * var(--a11y-scale));
+  line-height: 1.5;
+  color: var(--encre-50);
+}
+
+.ff-life-sources-title {
+  margin: 0 0 6px;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+}
+
+.ff-life-sources-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ff-life-sources-list a {
+  color: var(--color-oxblood);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  overflow-wrap: anywhere;
+}
+
+.ff-life-sources-note {
+  color: var(--encre-50);
+}
+
 .ff-drop-cap {
   float: left;
   margin: 7px 10px 0 0;

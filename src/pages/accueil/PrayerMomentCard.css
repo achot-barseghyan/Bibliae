@@ -1,0 +1,116 @@
+/* Carte « Prière du matin / du soir » de l'Accueil — même gabarit que la
+   carte du jour liturgique ; passe au ciel de nuit pendant la plage du soir. */
+
+.priere-card {
+  --pc-bg: var(--accueil-carte);
+  --pc-ink: var(--color-encre);
+  --pc-sub: var(--encre-72);
+  --pc-eyebrow: var(--color-oxblood);
+  --pc-accent: var(--color-or);
+  --pc-track: rgba(35, 32, 26, 0.12);
+  --pc-ring: var(--filet-barres);
+
+  width: 100%;
+  padding: 18px 18px 20px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--pc-bg);
+  box-shadow: inset 0 0 0 0.5px var(--pc-ring);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 54px;
+  gap: 14px;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+}
+
+.liturgie-card + .priere-card {
+  margin-top: 10px;
+}
+
+.priere-card.is-before-night {
+  --pc-accent: #24406B;
+}
+
+.priere-card.is-night {
+  --pc-bg: linear-gradient(135deg, #0F1526 0%, #1B2640 70%, #2A2238 100%);
+  --pc-ink: #F4EDDC;
+  --pc-sub: rgba(244, 237, 220, 0.72);
+  --pc-eyebrow: #D9B66A;
+  --pc-accent: #D9B66A;
+  --pc-track: rgba(244, 237, 220, 0.15);
+}
+
+.priere-card:active {
+  transform: scale(0.985);
+}
+
+.priere-card-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.priere-card-eyebrow {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pc-eyebrow);
+}
+
+.priere-card-title {
+  margin-top: 10px;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: calc(25px * var(--a11y-scale));
+  line-height: 1.1;
+  color: var(--pc-ink);
+}
+
+.priere-card-sub {
+  margin-top: 6px;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: calc(15px * var(--a11y-scale));
+  line-height: 1.36;
+  color: var(--pc-sub);
+  text-wrap: pretty;
+}
+
+.priere-card-dial {
+  width: 54px;
+  height: 54px;
+}
+
+.priere-card-dial-track {
+  fill: none;
+  stroke: var(--pc-track);
+  stroke-width: 3;
+}
+
+.priere-card-dial-arc {
+  fill: none;
+  stroke: var(--pc-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.priere-card.is-between .priere-card-dial-arc {
+  opacity: 0.45;
+}
+
+.priere-card-dial-hand {
+  stroke: var(--pc-ink);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+.priere-card-dial-hand.is-hour {
+  stroke-width: 2.2;
+}
+
+.priere-card-dial-pin {
+  fill: var(--pc-accent);
+}

@@ -35,6 +35,23 @@ export function decodeEntities(text: string): string {
   return el.value;
 }
 
+/** Syllabe accentuée des psaumes et cantiques : l'AELF la souligne (`<u>`)
+ * pour guider la psalmodie. On la garde sous forme de deux caractères repères
+ * (zone d'usage privé, jamais présents dans les textes) jusqu'à l'affichage. */
+export const ACCENT_OPEN = '';
+export const ACCENT_CLOSE = '';
+const ACCENT_MARKS = /[]/g;
+const ACCENT_PATTERN = /([^]*)/;
+
+/** Retire les repères d'accent, pour comparer ou afficher un texte brut. */
+export function stripAccentMarks(text: string): string {
+  return text.replace(ACCENT_MARKS, '');
+}
+
+function markAccents(html: string): string {
+  return html.replace(/<u>/gi, ACCENT_OPEN).replace(/<\/u>/gi, ACCENT_CLOSE);
+}
+
 /** Aplati tout en une seule ligne (espaces au lieu des retours) : pour les
  * aperçus courts dans les listes, où un retour à la ligne serait gênant. */
 export function stripHtml(html: string): string {
@@ -55,8 +72,9 @@ export function stripHtml(html: string): string {
  * (mise en forme du JSON, pas du contenu) juste après chaque `<br>` — il
  * faut les aplatir en espaces AVANT d'insérer les nôtres, sinon chaque
  * `<br>` produit deux retours à la ligne (un blanc) au lieu d'un seul. */
-export function htmlToLines(html: string): string {
-  const withRealBreaks = html.replace(/\s+/g, ' ').replace(/<br\s*\/?>\s*/gi, '\n');
+export function htmlToLines(html: string, keepAccents = false): string {
+  const source = keepAccents ? markAccents(html) : html;
+  const withRealBreaks = source.replace(/\s+/g, ' ').replace(/<br\s*\/?>\s*/gi, '\n');
   return decodeEntities(
     withRealBreaks
       .replace(/<[^>]+>/g, '')
@@ -65,10 +83,10 @@ export function htmlToLines(html: string): string {
   );
 }
 
-export function htmlParagraphs(html: string): string[] {
+export function htmlParagraphs(html: string, keepAccents = false): string[] {
   return html
     .split(/<\/p>/gi)
-    .map((p) => htmlToLines(p))
+    .map((p) => htmlToLines(p, keepAccents))
     .filter(Boolean);
 }
 
@@ -79,9 +97,23 @@ export function htmlParagraphs(html: string): string[] {
  * liraient sinon « astérisque » à chaque vers. */
 const RUBRIC_PATTERN = /(V\/\s?|R\/\s?|℣\.?\s?|℟\.?\s?|[+*])/;
 
+/** Syllabes accentuées soulignées, comme sur le site de l'AELF. */
+function renderAccents(text: string, keyPrefix: string): ReactNode {
+  if (!text.includes(ACCENT_OPEN)) return stripAccentMarks(text);
+  return text.split(ACCENT_PATTERN).map((part, i) =>
+    i % 2 === 0 ? (
+      stripAccentMarks(part)
+    ) : (
+      <span key={`${keyPrefix}-u${i}`} className="lec-accent">
+        {part}
+      </span>
+    )
+  );
+}
+
 export function renderRubrics(text: string, keyPrefix: string): ReactNode[] {
   return text.split(RUBRIC_PATTERN).map((part, i) => {
-    if (i % 2 === 0) return part;
+    if (i % 2 === 0) return <Fragment key={`${keyPrefix}-t${i}`}>{renderAccents(part, `${keyPrefix}-${i}`)}</Fragment>;
     // « ℣. » / « ℟. » (calendrier traditionnel) : le point suit le signe.
     const symbol = part.trim().replace(/\.$/, '');
     if (symbol === 'V/' || symbol === '℣' || symbol === 'R/' || symbol === '℟') {

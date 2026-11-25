@@ -1,0 +1,566 @@
+/* Prière du matin (papier) et du soir (ciel de nuit). Les deux écrans
+   partagent la même structure ; seules les variables changent. */
+
+.priere-jour {
+  --pj-bg: #F6F0E1;
+  --pj-ink: var(--color-encre);
+  --pj-muted: rgba(35, 32, 26, 0.55);
+  --pj-soft: rgba(35, 32, 26, 0.8);
+  --pj-gold: var(--color-or);
+  --pj-accent: var(--color-oxblood);
+  --pj-rule: rgba(35, 32, 26, 0.2);
+  --pj-ring: rgba(107, 30, 35, 0.55);
+  --pj-tab-ring: rgba(35, 32, 26, 0.16);
+  --pj-tab-on-bg: var(--color-oxblood);
+  --pj-tab-on-fg: #F6F0E1;
+  --pj-card: var(--color-papier);
+  --pj-card-ring: rgba(35, 32, 26, 0.25);
+  --pj-step-rule: rgba(35, 32, 26, 0.18);
+  --pj-field: #FBF7EC;
+  --pj-field-ring: rgba(35, 32, 26, 0.2);
+  --pj-block-ring: rgba(35, 32, 26, 0.14);
+  --pj-save-bg: var(--color-oxblood);
+  --pj-save-fg: #F6F0E1;
+  --pj-editor-bg: #F6F0E1;
+
+  background: var(--pj-bg);
+  color: var(--pj-ink);
+}
+
+.priere-jour.is-soir {
+  --pj-bg: linear-gradient(180deg, #0F1526 0%, #1B2640 60%, #2A2238 100%);
+  --pj-ink: #F4EDDC;
+  --pj-muted: rgba(244, 237, 220, 0.6);
+  --pj-soft: rgba(244, 237, 220, 0.8);
+  --pj-gold: #D9B66A;
+  --pj-accent: #D9B66A;
+  --pj-rule: rgba(244, 237, 220, 0.18);
+  --pj-ring: rgba(217, 182, 106, 0.6);
+  --pj-tab-ring: rgba(244, 237, 220, 0.2);
+  --pj-tab-on-bg: #D9B66A;
+  --pj-tab-on-fg: #0F1526;
+  --pj-card: rgba(244, 237, 220, 0.06);
+  --pj-card-ring: rgba(217, 182, 106, 0.4);
+  --pj-step-rule: rgba(244, 237, 220, 0.15);
+  --pj-field: rgba(244, 237, 220, 0.06);
+  --pj-field-ring: rgba(217, 182, 106, 0.45);
+  --pj-block-ring: rgba(217, 182, 106, 0.3);
+  --pj-save-bg: #D9B66A;
+  --pj-save-fg: #0F1526;
+  --pj-editor-bg: #0F1526;
+}
+
+.priere-content {
+  --background: transparent;
+  --color: var(--pj-ink);
+  border-top: 0.5px solid var(--pj-rule);
+}
+
+/* --- En-tête et onglets --- */
+
+.priere-head {
+  flex: none;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 18px 12px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.priere-eyebrow {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pj-gold);
+}
+
+.priere-close {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--pj-ring);
+  color: var(--pj-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.priere-close.is-soft {
+  box-shadow: inset 0 0 0 1px var(--pj-field-ring);
+}
+
+.priere-tabs {
+  flex: none;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 0 18px 14px;
+  scrollbar-width: none;
+}
+
+.priere-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.priere-tab {
+  flex: none;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--pj-tab-ring);
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 16px;
+  white-space: nowrap;
+  color: var(--pj-ink);
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.priere-tab.is-active {
+  background: var(--pj-tab-on-bg);
+  color: var(--pj-tab-on-fg);
+  box-shadow: none;
+}
+
+.priere-tab.is-new {
+  color: var(--pj-accent);
+  box-shadow: none;
+  outline: 1px dashed var(--pj-ring);
+  outline-offset: -1px;
+}
+
+.priere-jour.is-soir .priere-tab.is-new {
+  outline-style: solid;
+}
+
+/* --- Texte --- */
+
+.priere-body {
+  padding: 26px 24px calc(env(safe-area-inset-bottom, 0px) + 60px);
+}
+
+.priere-meta {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pj-muted);
+}
+
+.priere-title {
+  margin: 6px 0 0;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: var(--taille-chapitre);
+  line-height: 1.12;
+  text-wrap: balance;
+  color: var(--pj-ink);
+}
+
+.priere-edit {
+  margin-top: 10px;
+  min-height: 34px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 17px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--pj-ring);
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--pj-accent);
+  cursor: pointer;
+}
+
+.priere-rubric {
+  margin: 26px 0 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pj-gold);
+}
+
+.priere-rubric.is-first {
+  margin-top: 28px;
+}
+
+.priere-rubric--row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.priere-times {
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.priere-prose,
+.priere-stanza {
+  margin: 8px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-size: var(--taille-prose);
+  line-height: calc(1.55 * var(--a11y-leading));
+  text-wrap: pretty;
+  white-space: pre-line;
+  color: var(--pj-ink);
+}
+
+.priere-prose.is-tight {
+  margin-top: 10px;
+}
+
+.priere-stanza {
+  margin-top: 14px;
+  line-height: calc(1.5 * var(--a11y-leading));
+}
+
+.priere-response {
+  font-style: italic;
+  color: var(--pj-accent);
+}
+
+.priere-fleuron {
+  margin: 32px 0 0;
+  text-align: center;
+  font-family: var(--font-cormorant);
+  font-size: 14px;
+  color: var(--pj-gold);
+}
+
+/* --- Étapes de la prière --- */
+
+.priere-steps {
+  margin-top: 24px;
+  padding: 18px 18px 6px;
+  border-radius: 16px;
+  background: var(--pj-card);
+  box-shadow: inset 0 0 0 0.5px var(--pj-card-ring);
+}
+
+.priere-steps-title {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pj-accent);
+}
+
+.priere-jour.is-soir .priere-steps-title {
+  color: var(--pj-gold);
+}
+
+.priere-steps-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.priere-step {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 8px;
+  padding: 14px 0;
+  border-bottom: 0.5px solid var(--pj-step-rule);
+}
+
+.priere-step:last-child {
+  border-bottom: 0;
+}
+
+.priere-step-n {
+  font-family: var(--font-cormorant);
+  font-size: 22px;
+  line-height: 1.1;
+  color: var(--pj-gold);
+}
+
+.priere-step-t {
+  margin: 0;
+  font-family: var(--font-cormorant);
+  font-weight: 600;
+  font-style: italic;
+  font-size: calc(20px * var(--a11y-scale));
+  line-height: 1.15;
+  color: var(--pj-ink);
+}
+
+.priere-step-a {
+  margin: 4px 0 0;
+  font-family: var(--font-eb-garamond);
+  font-size: calc(16px * var(--a11y-scale));
+  line-height: calc(1.5 * var(--a11y-leading));
+  color: var(--pj-soft);
+  text-wrap: pretty;
+}
+
+.priere-step-em {
+  font-style: normal;
+  color: var(--pj-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --- Éditeur de prière personnelle --- */
+
+.priere-editor {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: var(--pj-editor-bg);
+  color: var(--pj-ink);
+  display: flex;
+  flex-direction: column;
+}
+
+.priere-editor-head {
+  flex: none;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 18px 12px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.5px solid var(--pj-field-ring);
+}
+
+.priere-jour.is-matin .priere-editor-head {
+  border-bottom-color: var(--pj-rule);
+}
+
+.priere-editor-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 22px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.priere-editor-intro {
+  margin: 0;
+  font-family: var(--font-eb-garamond);
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--pj-muted);
+}
+
+.priere-editor-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.priere-editor-field .priere-rubric {
+  margin: 0;
+}
+
+.priere-editor-input,
+.priere-editor-textarea {
+  border: 0;
+  border-radius: 14px;
+  background: var(--pj-field);
+  box-shadow: inset 0 0 0 1px var(--pj-field-ring);
+  color: var(--pj-ink);
+  outline: none;
+}
+
+.priere-editor-input {
+  min-height: 50px;
+  padding: 0 16px;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.priere-editor-textarea {
+  height: 170px;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  font-family: var(--font-eb-garamond);
+  font-size: 19px;
+  line-height: 1.55;
+  resize: none;
+}
+
+.priere-editor-input::placeholder,
+.priere-editor-textarea::placeholder {
+  color: var(--pj-muted);
+}
+
+.priere-editor-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.priere-editor-block {
+  position: relative;
+  z-index: 1;
+  height: 56px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px 0 2px;
+  border-radius: 14px;
+  background: var(--pj-field);
+  box-shadow: inset 0 0 0 1px var(--pj-block-ring);
+  transition: box-shadow 200ms, transform 200ms;
+}
+
+.priere-editor-block.is-dragging {
+  z-index: 2;
+  transform: scale(1.02);
+  box-shadow:
+    0 12px 24px -10px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px var(--pj-accent);
+}
+
+.priere-editor-grip {
+  flex: none;
+  width: 36px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+  cursor: grab;
+  fill: var(--pj-muted);
+}
+
+.priere-editor-block-label {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.priere-editor-block.is-mine .priere-editor-block-label {
+  font-weight: 600;
+}
+
+.priere-editor-count {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.priere-editor-count > span {
+  width: 34px;
+  text-align: center;
+  font-family: var(--font-cormorant);
+  font-size: 19px;
+}
+
+.priere-editor-count button {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--pj-field-ring);
+  font: 400 17px var(--font-inter);
+  color: var(--pj-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.priere-editor-remove {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pj-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.priere-editor-chips {
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.priere-editor-chip {
+  min-height: 36px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 18px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--pj-field-ring);
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--pj-accent);
+  cursor: pointer;
+}
+
+.priere-editor-foot {
+  flex: none;
+  padding: 16px 22px calc(env(safe-area-inset-bottom, 0px) + 26px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.priere-editor-save {
+  min-height: 50px;
+  border: 0;
+  border-radius: 25px;
+  background: var(--pj-save-bg);
+  color: var(--pj-save-fg);
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.priere-editor-save:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.priere-editor-delete {
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--pj-accent);
+  font-family: var(--font-cormorant);
+  font-weight: 500;
+  font-size: 17px;
+  cursor: pointer;
+}

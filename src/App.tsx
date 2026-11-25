@@ -9,6 +9,7 @@ import CompendiumTabs from './navigation/CompendiumTabs';
 import Bible from './pages/Bible';
 import Rosaire from './pages/Rosaire';
 import Prier from './pages/Prier';
+import PriereDuJour from './pages/PriereDuJour';
 import FigureDetail from './pages/figures/FigureDetail';
 import Abbayes from './pages/eglise/Abbayes';
 import Ordres from './pages/eglise/Ordres';
@@ -16,6 +17,7 @@ import Parcours from './pages/eglise/Parcours';
 import Paroisses from './pages/eglise/Paroisses';
 import ParoisseDetail from './pages/eglise/ParoisseDetail';
 import PourquoiCroire from './pages/eglise/PourquoiCroire';
+import Rubrique from './pages/eglise/Rubrique';
 import Saints from './pages/eglise/Saints';
 import CouncilText from './pages/CouncilText';
 import Reglages from './pages/Reglages';
@@ -78,8 +80,11 @@ const App: React.FC = () => {
                 <Route path="/bible/*" element={<Bible />} />
                 <Route path="/rosaire" element={<Rosaire />} />
                 <Route path="/prier/*" element={<Prier />} />
+                <Route path="/priere/:moment" element={<PriereDuJour />} />
                 <Route path="/figures/:figureId" element={<FigureDetail />} />
                 <Route path="/evenements/:eventId" element={<EvenementDetail />} />
+                <Route path="/eglise/:rubrique" element={<Rubrique />} />
+                <Route path="/eglise/:rubrique/:partie" element={<Rubrique />} />
                 <Route path="/parcours" element={<Parcours />} />
                 <Route path="/paroisses" element={<Paroisses />} />
                 <Route path="/paroisses/:parishId" element={<ParoisseDetail />} />
