@@ -13,6 +13,7 @@ import { LatinCrossIcon, SearchIcon } from '../components/nav/icons';
 import { tapHaptic } from '../utils/haptics';
 import { useOpenSearch } from './accueil/searchContext';
 import PrayerMomentCard from './accueil/PrayerMomentCard';
+import QuizCard from './accueil/QuizCard';
 import { SEARCH_SCOPES as SCOPES } from './accueil/searchIndex';
 import './Accueil.css';
 
@@ -644,6 +645,7 @@ const Accueil: React.FC = () => {
               </button>
             )}
             <PrayerMomentCard onOpen={(moment) => go(`/priere/${moment}`)} />
+            <QuizCard onOpen={() => go('/quiz')} />
           </section>
 
           {/* --- Figures en vedette --- */}

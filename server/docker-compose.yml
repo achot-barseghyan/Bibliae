@@ -1,0 +1,49 @@
+# Quiz du jour : PostgreSQL + API. Lancer depuis ce dossier :
+#   cp .env.example .env   (puis remplir JWT_SECRET et POSTGRES_PASSWORD)
+#   docker compose up -d --build
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bibliae
+      POSTGRES_USER: bibliae
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # Exposé seulement en local, pour psql ou un client graphique.
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bibliae -d bibliae"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://bibliae:${POSTGRES_PASSWORD}@db:5432/bibliae
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET manquant dans .env}
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+      # Par défaut, les e-mails partent dans Mailpit (développement).
+      SMTP_URL: ${SMTP_URL:-smtp://mailpit:1025}
+      MAIL_FROM: ${MAIL_FROM:-Bibliae <no-reply@bibliae.app>}
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
+  # Boîte de réception de développement : http://localhost:8025
+  # (inutile en production, où SMTP_URL pointe vers le vrai fournisseur).
+  mailpit:
+    image: axllent/mailpit:v1.27
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8025:8025"
+
+volumes:
+  pgdata:

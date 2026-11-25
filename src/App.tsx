@@ -10,6 +10,7 @@ import Bible from './pages/Bible';
 import Rosaire from './pages/Rosaire';
 import Prier from './pages/Prier';
 import PriereDuJour from './pages/PriereDuJour';
+import Quiz from './pages/Quiz';
 import FigureDetail from './pages/figures/FigureDetail';
 import Abbayes from './pages/eglise/Abbayes';
 import Ordres from './pages/eglise/Ordres';
@@ -81,6 +82,7 @@ const App: React.FC = () => {
                 <Route path="/rosaire" element={<Rosaire />} />
                 <Route path="/prier/*" element={<Prier />} />
                 <Route path="/priere/:moment" element={<PriereDuJour />} />
+                <Route path="/quiz" element={<Quiz />} />
                 <Route path="/figures/:figureId" element={<FigureDetail />} />
                 <Route path="/evenements/:eventId" element={<EvenementDetail />} />
                 <Route path="/eglise/:rubrique" element={<Rubrique />} />

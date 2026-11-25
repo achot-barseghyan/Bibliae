@@ -1,5 +1,6 @@
 import { resetAppData } from './appDataStore';
 import { clearLieuxNoticeFlags } from './lieuxNotice';
+import { logout as quizLogout } from './quizApi';
 
 /**
  * Efface toutes les données personnelles stockées sur l'appareil : favoris,
@@ -19,4 +20,6 @@ export async function eraseAllUserData(): Promise<void> {
   }
 
   await clearLieuxNoticeFlags();
+  // Déconnexion du quiz du jour (le compte, lui, reste sur le serveur).
+  await quizLogout();
 }

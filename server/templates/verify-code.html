@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Ton code Bibliae</title>
+<style>
+/* Animations : visibles dans Apple Mail et iOS, ignorées ailleurs sans rien casser */
+@keyframes tw{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 rgba(240,213,142,0)}50%{box-shadow:0 0 14px rgba(240,213,142,.55)}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.st{animation:tw 3s ease-in-out infinite}
+.st2{animation:tw 4.2s ease-in-out .8s infinite}
+.st3{animation:tw 2.6s ease-in-out 1.6s infinite}
+.medal{animation:glow 4s ease-in-out infinite}
+.d1{animation:rise .6s .1s both}.d2{animation:rise .6s .2s both}.d3{animation:rise .6s .3s both}
+.d4{animation:rise .6s .4s both}.d5{animation:rise .6s .5s both}.d6{animation:rise .6s .6s both}
+@media (max-width:480px){
+  .pad{padding-left:24px!important;padding-right:24px!important}
+  .tile{width:40px!important;height:58px!important;font-size:28px!important;line-height:58px!important}
+  .h1{font-size:30px!important;line-height:34px!important}
+}
+</style>
+</head>
+<body style="margin:0;padding:0;background:#EFE8DA;">
+<!-- Aperçu affiché à côté de l'objet -->
+<span style="display:none;max-height:0;overflow:hidden;opacity:0;color:#EFE8DA;">Ton code de confirmation : {{codeSpaced}}. Il est valable 15 minutes.</span>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#EFE8DA" style="background:#EFE8DA;">
+<tr><td align="center" style="padding:32px 12px;">
+<!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+
+<!-- ===== EN-TÊTE NUIT ÉTOILÉE ===== -->
+<tr><td bgcolor="#141C30" style="background:#141C30;background-image:radial-gradient(120% 90% at 50% 0%,#2A3C66 0%,#141C30 55%,#0E1424 100%);border-radius:18px 18px 0 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:18px 28px 0;font-family:Georgia,'Times New Roman',serif;font-size:10px;line-height:14px;color:#F0D58E;">
+<span class="st" style="opacity:.6;">✦</span><span style="display:inline-block;width:90px;"></span><span class="st2" style="opacity:.4;font-size:7px;">✦</span><span style="display:inline-block;width:150px;"></span><span class="st3" style="opacity:.7;font-size:8px;">✦</span><span style="display:inline-block;width:110px;"></span><span class="st" style="opacity:.5;">✦</span>
+</td></tr>
+<tr><td align="center" style="padding:10px 0 0;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+<td class="medal" width="64" height="64" align="center" valign="middle" bgcolor="#6B1E23" style="width:64px;height:64px;background:#6B1E23;border:2px solid #F0D58E;border-radius:34px;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:64px;mso-line-height-rule:exactly;color:#F0D58E;">✚</td>
+</tr></table>
+</td></tr>
+<tr><td align="center" style="padding:14px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:14px;font-weight:bold;letter-spacing:5px;color:#D9B66A;">BIBLIAE</td></tr>
+<tr><td align="center" class="pad" style="padding:14px 48px 6px;">
+<h1 class="h1" style="margin:0;font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-size:36px;line-height:40px;mso-line-height-rule:exactly;font-weight:normal;color:#F4EDDC;">Confirme ton <i style="color:#F0D58E;">adresse</i></h1>
+</td></tr>
+<tr><td style="padding:0 28px 22px;font-family:Georgia,'Times New Roman',serif;font-size:10px;line-height:14px;color:#F0D58E;" align="right">
+<span class="st2" style="opacity:.5;font-size:7px;">✦</span><span style="display:inline-block;width:130px;"></span><span class="st" style="opacity:.8;">✦</span><span style="display:inline-block;width:60px;"></span>
+</td></tr>
+</table>
+</td></tr>
+
+<!-- ===== BANDEAU VITRAIL ===== -->
+<tr><td style="font-size:0;line-height:0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+<td height="7" width="14%" bgcolor="#6B1E23" style="background:#6B1E23;">&nbsp;</td>
+<td height="7" width="14%" bgcolor="#24406B" style="background:#24406B;">&nbsp;</td>
+<td height="7" width="4%" bgcolor="#B5892E" style="background:#B5892E;">&nbsp;</td>
+<td height="7" width="14%" bgcolor="#2E5585" style="background:#2E5585;">&nbsp;</td>
+<td height="7" width="8%" bgcolor="#F0D58E" style="background:#F0D58E;">&nbsp;</td>
+<td height="7" width="14%" bgcolor="#7A2A2E" style="background:#7A2A2E;">&nbsp;</td>
+<td height="7" width="14%" bgcolor="#1B2640" style="background:#1B2640;">&nbsp;</td>
+<td height="7" width="4%" bgcolor="#B5892E" style="background:#B5892E;">&nbsp;</td>
+<td height="7" width="14%" bgcolor="#6B1E23" style="background:#6B1E23;">&nbsp;</td>
+</tr></table>
+</td></tr>
+
+<!-- ===== CORPS ===== -->
+<tr><td bgcolor="#FBF7EF" style="background:#FBF7EF;border:1px solid #E2D5B8;border-top:0;border-radius:0 0 18px 18px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+<tr><td class="pad" align="center" style="padding:34px 48px 0;font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:26px;mso-line-height-rule:exactly;color:#23201A;">
+Bonjour <b style="color:#6B1E23;font-weight:normal;">{{pseudo}}</b>, voici ton code pour entrer dans Bibliae.
+</td></tr>
+
+<!-- Code en six vitraux -->
+<tr><td align="center" style="padding:26px 12px 0;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+<td class="tile d1" width="48" height="66" align="center" valign="middle" bgcolor="#141C30" style="width:48px;height:66px;background:#141C30;background-image:linear-gradient(180deg,#24406B,#141C30);border:1px solid #B5892E;border-radius:24px 24px 6px 6px;font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:66px;mso-line-height-rule:exactly;color:#F0D58E;">{{d1}}</td>
+<td width="6" style="width:6px;font-size:0;">&nbsp;</td>
+<td class="tile d2" width="48" height="66" align="center" valign="middle" bgcolor="#4A1418" style="width:48px;height:66px;background:#4A1418;background-image:linear-gradient(180deg,#7A2A2E,#4A1418);border:1px solid #B5892E;border-radius:24px 24px 6px 6px;font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:66px;mso-line-height-rule:exactly;color:#F0D58E;">{{d2}}</td>
+<td width="6" style="width:6px;font-size:0;">&nbsp;</td>
+<td class="tile d3" width="48" height="66" align="center" valign="middle" bgcolor="#141C30" style="width:48px;height:66px;background:#141C30;background-image:linear-gradient(180deg,#24406B,#141C30);border:1px solid #B5892E;border-radius:24px 24px 6px 6px;font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:66px;mso-line-height-rule:exactly;color:#F0D58E;">{{d3}}</td>
+<td width="24" align="center" style="width:24px;font-family:Georgia,'Times New Roman',serif;font-size:12px;color:#B5892E;">✦</td>
+<td class="tile d4" width="48" height="66" align="center" valign="middle" bgcolor="#4A1418" style="width:48px;height:66px;background:#4A1418;background-image:linear-gradient(180deg,#7A2A2E,#4A1418);border:1px solid #B5892E;border-radius:24px 24px 6px 6px;font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:66px;mso-line-height-rule:exactly;color:#F0D58E;">{{d4}}</td>
+<td width="6" style="width:6px;font-size:0;">&nbsp;</td>
+<td class="tile d5" width="48" height="66" align="center" valign="middle" bgcolor="#141C30" style="width:48px;height:66px;background:#141C30;background-image:linear-gradient(180deg,#24406B,#141C30);border:1px solid #B5892E;border-radius:24px 24px 6px 6px;font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:66px;mso-line-height-rule:exactly;color:#F0D58E;">{{d5}}</td>
+<td width="6" style="width:6px;font-size:0;">&nbsp;</td>
+<td class="tile d6" width="48" height="66" align="center" valign="middle" bgcolor="#4A1418" style="width:48px;height:66px;background:#4A1418;background-image:linear-gradient(180deg,#7A2A2E,#4A1418);border:1px solid #B5892E;border-radius:24px 24px 6px 6px;font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:66px;mso-line-height-rule:exactly;color:#F0D58E;">{{d6}}</td>
+</tr></table>
+</td></tr>
+
+<!-- Code copiable en un bloc -->
+<tr><td align="center" style="padding:16px 12px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#7A705F;">
+À copier : <span style="font-family:'Courier New',Courier,monospace;font-size:15px;letter-spacing:3px;color:#23201A;background:#F3ECDD;padding:3px 8px;border-radius:6px;">{{code}}</span>
+</td></tr>
+
+<!-- Durée de validité -->
+<tr><td align="center" style="padding:20px 12px 0;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+<td bgcolor="#F3ECDD" style="background:#F3ECDD;border:1px solid #E2D5B8;border-radius:16px;padding:7px 16px;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:16px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:#6B1E23;">
+<span style="color:#B5892E;">●</span>&nbsp; Valable 15 minutes
+</td>
+</tr></table>
+</td></tr>
+
+<!-- Verset -->
+<tr><td class="pad" style="padding:32px 48px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+<td width="3" bgcolor="#6B1E23" style="width:3px;background:#6B1E23;border-radius:2px;font-size:0;">&nbsp;</td>
+<td style="padding:4px 0 4px 18px;font-family:Georgia,'Times New Roman',serif;">
+<p style="margin:0;font-size:19px;line-height:27px;mso-line-height-rule:exactly;font-style:italic;color:#23201A;">« Voici que je me tiens à la porte, et je frappe. »</p>
+<p style="margin:6px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:10px;line-height:14px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:#B5892E;">Apocalypse 3, 20</p>
+</td>
+</tr></table>
+</td></tr>
+
+<!-- Séparateur rosace -->
+<tr><td align="center" style="padding:30px 0 0;font-family:Georgia,'Times New Roman',serif;font-size:12px;line-height:12px;color:#B5892E;letter-spacing:8px;">· ✦ ·</td></tr>
+
+<!-- Sécurité -->
+<tr><td class="pad" align="center" style="padding:18px 56px 34px;font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:22px;mso-line-height-rule:exactly;color:#6E6555;">
+Tu n'as pas créé de compte Bibliae&nbsp;? Ignore ce message, rien ne sera fait sans ce code. Ne le transmets à personne&nbsp;: l'équipe Bibliae ne te le demandera jamais.
+</td></tr>
+
+</table>
+</td></tr>
+
+<!-- ===== PIED ===== -->
+<tr><td align="center" style="padding:24px 24px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#7A705F;">
+<span style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:14px;color:#23201A;">Paix et joie,</span><br>
+<span style="font-weight:bold;letter-spacing:2px;text-transform:uppercase;font-size:10px;color:#6B1E23;">L'équipe Bibliae</span><br><br>
+Message envoyé automatiquement après ton inscription.<br>
+<a href="mailto:contact@bibliae.app" style="color:#6B1E23;text-decoration:underline;">contact@bibliae.app</a>
+</td></tr>
+
+</table>
+<!--[if mso]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+</body>
+</html>

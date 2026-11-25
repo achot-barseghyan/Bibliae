@@ -55,5 +55,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/setupTests.ts',
+    // L'API du quiz (server/) a ses propres tests : npm test dans server/.
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
   }
 })
